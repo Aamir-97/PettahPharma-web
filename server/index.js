@@ -2,33 +2,84 @@ const express = require('express')
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
+const dotenv = require('dotenv');
 const path = require('path');
-const { name } = require('ejs');
-const bcrypt = require('bcrypt');
-const bodyParser =  require('body-parser')
-const saltRounds = 10;
+// const { name } = require('ejs');
+// const bcrypt = require('bcrypt');
+// const bodyParser =  require('body-parser')
+// const saltRounds = 10;
 //const fileUpload = require('express-fileupload');
-
+dotenv.config({path: './.env'})
 app.use(cors());
 app.use(express.json());
-app.set("view engine","ejs");
 
 const db = mysql.createConnection({
-    user : 'root',
-    host : 'localhost',
-    password: '',
-    database: 'pettahpharma',
+    user : process.env.DATABASE_USER,
+    host : process.env.DATABASE_HOST,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE,
 });
 
 db.connect((err)=>{
-    if(err) throw err;
+    if(err) 
+    {
+        console.log(err);
+    }
     else
     {
-        console.log('database connected...');
+        console.log('Database Connected...');
     }
 });
 
-app.post('/create',(req,res)=>{
+const publicDirectory = path.join(__dirname,'./public')
+console.log(__dirname);
+app.set("view engine","hbs");
+
+
+
+
+// app.get('/',(_req,res)=>{
+//             //res.send("<h1>Pettah Pharma - Web App</h1>");
+//             res.render("../../src/pages/Login")
+//         })
+
+
+app.post('/loginadmin',(req,res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+     
+    db.query("SELECT * FROM admin WHERE email=? AND password=?",
+        [email,password],(err,result)=>{
+            // if(err)
+            // { 
+            //     res.send({err:err})
+            // } 
+              if(result){
+                res.send(result);
+              } else{
+                res.send('wrong username or password');
+              }
+            });
+});
+
+app.post('/createadmin',(req,res)=>{
+    console.log(req.body)
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+    
+    db.query("INSERT INTO admin (name,email,password) VALUES (?,?,?)",
+    [name,email,password],(err,_results)=>{
+        if(err){
+            console.log(err);
+        } else{
+            res.send("admin created");
+        }  
+    });
+    
+});
+
+app.post('/createmanager',(req,res)=>{
     console.log(req.body)
     const manager_ID = req.body.manager_ID;
     const name = req.body.name;
@@ -43,7 +94,7 @@ app.post('/create',(req,res)=>{
         if(err){
             console.log(err);
         } else{
-            res.send("data inserted");
+            res.send("sales manager created");
         }
     
     });
@@ -71,10 +122,12 @@ app.get('/viewname',(_req,res)=>{
 });
 
 app.put("/update/:manager_ID",(req,res)=>{
-    const manager_ID = req.body.manager_ID;
+    const name = req.body.name;
+    const email = req.body.email;
+    const phone_no = req.body.phone_no;
     const area = req.body.area;
   
-    db.query('UPDATE salesmanager SET area=? WHERE manager_ID=?',[area,manager_ID],(err,result)=>{
+    db.query('UPDATE salesmanager SET (name,email,phone_no,area) WHERE manager_ID=?',[name,email,phone_no,area],(err,result)=>{
         if(!err){
             res.send(result);
         }else{
@@ -82,6 +135,19 @@ app.put("/update/:manager_ID",(req,res)=>{
         }
     });
 });
+
+// app.put("/update/:manager_ID",(req,res)=>{
+//     const manager_ID = req.body.manager_ID;
+//     const area = req.body.area;
+  
+//     db.query('UPDATE salesmanager SET area=? WHERE manager_ID=?',[area,manager_ID],(err,result)=>{
+//         if(!err){
+//             res.send(result);
+//         }else{
+//         console.log(err);
+//         }
+//     });
+// });
 
 app.listen(3001,()=>{
     console.log("Your server is running on port 3001");

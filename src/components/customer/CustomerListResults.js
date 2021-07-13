@@ -143,7 +143,7 @@ const CustomerListResults = ({ customers, ...rest }) => {
                     {customer.phone}
                   </TableCell>
                   <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
+                    {customer.price}
                   </TableCell>
                 </TableRow>
               ))}

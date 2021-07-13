@@ -4,8 +4,8 @@ export default [
   {
     id: uuid(),
     avatarUrl: '/static/images/avatars/avatar_3.png',
-    createdAt: 1555016400000,
-    email: 'ekaterina.tankova@devias.io',
+    price: 'Rs.425.00',
+    email: 'Cough syrup',
     name: 'Ekaterina Tankova',
     volume : "100ml",
     phone: '304-428-3097'
@@ -13,8 +13,8 @@ export default [
   {
     id: uuid(),
     avatarUrl: '/static/images/avatars/avatar_4.png',
-    createdAt: 1555016400000,
-    email: 'cao.yu@devias.io',
+    price: 'Rs.350.00',
+    email: 'dffusyfkhjbifj',
     name: 'Cao Yu',
     volume : "100ml",
     phone: '712-351-5711'
@@ -22,8 +22,8 @@ export default [
   {
     id: uuid(),
     avatarUrl: '/static/images/avatars/avatar_2.png',
-    createdAt: 1555016400000,
-    email: 'alexa.richardson@devias.io',
+    price: 'Rs.235.00',
+    email: 'dfshgjjhgk,yjhdfgsfaersgt',
     name: 'Alexa Richardson',
     volume : "100ml",
     phone: '770-635-2682'
@@ -31,8 +31,8 @@ export default [
   {
     id: uuid(),
     avatarUrl: '/static/images/avatars/avatar_5.png',
-    createdAt: 1554930000000,
-    email: 'anje.keizer@devias.io',
+    price: 'Rs.165.00',
+    email: 'retdyjyfukggjfhdghgsstrhy',
     name: 'Anje Keizer',
     volume : "100ml",
     phone: '908-691-3242'
@@ -40,8 +40,8 @@ export default [
   {
     id: uuid(),
     avatarUrl: '/static/images/avatars/avatar_6.png',
-    createdAt: 1554757200000,
-    email: 'clarke.gillebert@devias.io',
+    price: 'Rs.185.00',
+    email: 'rsertyjuyktfjdghsdfa',
     name: 'Clarke Gillebert',
     volume : "100ml",
     phone: '972-333-4106'
@@ -49,8 +49,8 @@ export default [
   {
   id: uuid(),
   avatarUrl: '/static/images/avatars/avatar_6.png',
-  createdAt: 1554757200000,
-  email: 'clarke.gillebert@devias.io',
+  price: 'Rs.565.00',
+  email: 'rsgthdfyukguigthdytjfyk',
   name: 'Clarke Gillebert',
   volume : "100ml",
   phone: '972-333-4106'

@@ -43,7 +43,7 @@ const Login = () => {
   return (
     <>
     <Helmet>
-      <title>Login | Material Kit</title>
+      <title>Login</title>
     </Helmet>
     <Box
       sx={{
@@ -54,7 +54,7 @@ const Login = () => {
         justifyContent: 'center'
       }}
     >
-      <Container maxWidth="sm">
+      <Container maxWidth="xs">
         <Formik
           initialValues={{
             email: 'admin@gmail.com',

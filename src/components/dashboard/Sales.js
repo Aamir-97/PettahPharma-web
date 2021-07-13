@@ -20,7 +20,7 @@ const Sales = (props) => {
   const data = {
     datasets: [
       {
-        backgroundColor: colors.green[500],
+        backgroundColor: "#0A6466",
         data: [18, 5, 19, 27, 29, 19, 20],
         label: 'This year'
       },
@@ -30,7 +30,7 @@ const Sales = (props) => {
         label: 'Last year'
       }
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
+    labels: ['January', 'February', 'March', 'April', 'May', 'June']
   };
 
   const options = {
@@ -97,7 +97,7 @@ const Sales = (props) => {
             size="small"
             variant="text"
           >
-            Last 7 days
+            Last 6 Months
           </Button>
         )}
         title="Latest Sales"

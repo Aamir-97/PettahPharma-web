@@ -21,6 +21,9 @@ import {
   UserPlus as UserPlusIcon,
   Users as UsersIcon
 } from 'react-feather';
+import ForumIcon from '@material-ui/icons/Forum';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import NavItem from './NavItem';
 
 const user = {
@@ -55,21 +58,21 @@ const items = [
     icon: SettingsIcon,
     title: 'Settings'
   },
-  // {
-  //   href: '/login',
-  //   icon: LockIcon,
-  //   title: 'Login'
-  // },
-  // {
-  //   href: '/register',
-  //   icon: UserPlusIcon,
-  //   title: 'Register'
-  // },
-  // {
-  //   href: '/404',
-  //   icon: AlertCircleIcon,
-  //   title: 'Error'
-  // }
+  {
+    href: '',
+    icon: ForumIcon,
+    title: 'Discussion Forum'
+  },
+  {
+    href: '',
+    icon: TrendingUpIcon,
+    title: 'Sales Summary'
+  },
+  {
+    href: '/login',
+    icon: ExitToAppIcon,
+    title: 'Logout'
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

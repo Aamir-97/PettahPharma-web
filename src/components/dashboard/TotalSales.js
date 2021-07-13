@@ -3,10 +3,12 @@ import {
   Card,
   CardContent,
   Grid,
+  Box,
   Typography
 } from '@material-ui/core';
-import { indigo } from '@material-ui/core/colors';
+import { indigo,red } from '@material-ui/core/colors';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 const TotalSales = (props) => (
   <Card {...props}>
@@ -43,6 +45,30 @@ const TotalSales = (props) => (
           </Avatar>
         </Grid>
       </Grid>
+      <Box
+        sx={{
+          pt: 2,
+          display: 'flex',
+          alignItems: 'center'
+        }}
+      >
+        <ArrowDownwardIcon sx={{ color: red[900] }} />
+        <Typography
+          sx={{
+            color: red[900],
+            mr: 1
+          }}
+          variant="body2"
+        >
+          12%
+        </Typography>
+        <Typography
+          color="textSecondary"
+          variant="caption"
+        >
+          Since last month
+        </Typography>
+      </Box>
     </CardContent>
   </Card>
 );

@@ -19,23 +19,14 @@ const CustomerListToolbar = (props) => (
         justifyContent: 'flex-end'
       }}
     >
-      <Button>
-        Import
+
+      <Button
+        color="primary"
+        variant="contained"
+      >
+        Add Employee
       </Button>
-      <Button sx={{ mx: 1 }}>
-        Export
-      </Button>
 
-      <Link to="/app/Aaa">
-
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Add customer
-        </Button>
-
-      </Link>
     </Box>
     <Box sx={{ mt: 3 }}>
       <Card>
@@ -55,7 +46,7 @@ const CustomerListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder="Search customer"
+              placeholder="Search Employee"
               variant="outlined"
             />
           </Box>

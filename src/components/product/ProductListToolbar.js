@@ -5,7 +5,8 @@ import {
   CardContent,
   TextField,
   InputAdornment,
-  SvgIcon
+  SvgIcon,
+  Typography
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
 
@@ -14,15 +15,26 @@ const ProductListToolbar = (props) => (
     <Box
       sx={{
         display: 'flex',
+        justifyContent: 'flex-start'
+      }}
+    >
+      <Typography style={{ fontWeight : "bold",
+    fontSize:  "24px" }}>
+        Product List
+      </Typography>
+    </Box>
+    <Box
+      sx={{
+        display: 'flex',
         justifyContent: 'flex-end'
       }}
     >
-      <Button>
+      {/* <Button>
         Import
       </Button>
       <Button sx={{ mx: 1 }}>
         Export
-      </Button>
+      </Button> */}
       <Button
         color="primary"
         variant="contained"

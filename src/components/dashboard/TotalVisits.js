@@ -4,13 +4,15 @@ import {
   Card,
   CardContent,
   Grid,
+  LinearProgress,
   Typography
 } from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import MoneyIcon from '@material-ui/icons/Money';
-import { red } from '@material-ui/core/colors';
+import { orange,green } from '@material-ui/core/colors';
+// import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import DescriptionIcon from '@material-ui/icons/Description';
 
-const Budget = (props) => (
+const TotalVisits = (props) => (
   <Card
     sx={{ height: '100%' }}
     {...props}
@@ -27,43 +29,45 @@ const Budget = (props) => (
             gutterBottom
             variant="h6"
           >
-            BUDGET
+            TOTAL VISITS
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            $24,000
+            156
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: red[600],
+              backgroundColor: orange[600],
               height: 56,
               width: 56
             }}
           >
-            <MoneyIcon />
+            <DescriptionIcon />
           </Avatar>
         </Grid>
       </Grid>
+
       <Box
         sx={{
-          pt: 2,
+          alignItems: 'center',
           display: 'flex',
-          alignItems: 'center'
+          pt: 2
         }}
       >
-        <ArrowDownwardIcon sx={{ color: red[900] }} />
+
+        <ArrowUpwardIcon sx={{ color: green[900] }} />
         <Typography
           sx={{
-            color: red[900],
+            color: green[900],
             mr: 1
           }}
           variant="body2"
         >
-          12%
+          16%
         </Typography>
         <Typography
           color="textSecondary"
@@ -72,8 +76,9 @@ const Budget = (props) => (
           Since last month
         </Typography>
       </Box>
+
     </CardContent>
   </Card>
 );
 
-export default Budget;
+export default TotalVisits;

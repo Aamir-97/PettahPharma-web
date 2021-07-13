@@ -13,6 +13,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from './Logo';
+// import { RouterOutlined } from '@material-ui/icons';
+// import { white } from '@material-ui/core/colors';
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
@@ -23,7 +25,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
       {...rest}
     >
       <Toolbar>
-        <RouterLink to="/">
+        <RouterLink to="./dashboard">
           <Logo />
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
@@ -37,9 +39,12 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          {/* <RouterLink to="/"> */}
           <IconButton color="inherit">
             <InputIcon />
           </IconButton>
+          {/* </RouterLink> */}
+
         </Hidden>
         <Hidden lgUp>
           <IconButton

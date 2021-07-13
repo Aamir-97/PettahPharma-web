@@ -11,6 +11,8 @@ import {
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+// import theme from '../../theme/index';
+
 
 const Sales = (props) => {
   const theme = useTheme();
@@ -18,7 +20,7 @@ const Sales = (props) => {
   const data = {
     datasets: [
       {
-        backgroundColor: colors.indigo[500],
+        backgroundColor: colors.green[500],
         data: [18, 5, 19, 27, 29, 19, 20],
         label: 'This year'
       },

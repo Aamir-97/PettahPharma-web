@@ -25,8 +25,8 @@ import NavItem from './NavItem';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
+  jobTitle: 'Admin',
+  name: 'Madhusha Mathivannan'
 };
 
 const items = [
@@ -38,38 +38,38 @@ const items = [
   {
     href: '/app/customers',
     icon: UsersIcon,
-    title: 'Customers'
+    title: 'Employees'
   },
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
     title: 'Products'
   },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Account'
-  },
+  // {
+  //   href: '/app/account',
+  //   icon: UserIcon,
+  //   title: 'Account'
+  // },
   {
     href: '/app/settings',
     icon: SettingsIcon,
     title: 'Settings'
   },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
-  }
+  // {
+  //   href: '/login',
+  //   icon: LockIcon,
+  //   title: 'Login'
+  // },
+  // {
+  //   href: '/register',
+  //   icon: UserPlusIcon,
+  //   title: 'Register'
+  // },
+  // {
+  //   href: '/404',
+  //   icon: AlertCircleIcon,
+  //   title: 'Error'
+  // }
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
@@ -134,43 +134,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         </List>
       </Box>
       <Box sx={{ flexGrow: 1 }} />
-      <Box
-        sx={{
-          backgroundColor: 'background.default',
-          m: 2,
-          p: 2
-        }}
-      >
-        <Typography
-          align="center"
-          gutterBottom
-          variant="h4"
-        >
-          Need more?
-        </Typography>
-        <Typography
-          align="center"
-          variant="body2"
-        >
-          Upgrade to PRO version and access 20 more screens
-        </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            pt: 2
-          }}
-        >
-          <Button
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            See PRO version
-          </Button>
-        </Box>
-      </Box>
+
     </Box>
   );
 

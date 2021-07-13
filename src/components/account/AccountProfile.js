@@ -12,11 +12,11 @@ import {
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
+  city: 'Colombo -07',
+  country: 'Sri lanka',
+  jobTitle: 'Admin',
+  name: 'Madhusha Mathivannan',
+  timezone: 'GTM+5.30'
 };
 
 const AccountProfile = (props) => (

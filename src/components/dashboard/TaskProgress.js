@@ -9,11 +9,12 @@ import {
   colors,
   useTheme
 } from '@material-ui/core';
-import LaptopMacIcon from '@material-ui/icons/LaptopMac';
+// import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import PhoneIcon from '@material-ui/icons/Phone';
 import TabletIcon from '@material-ui/icons/Tablet';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
-const TrafficByDevice = (props) => {
+const TaskProgress = (props) => {
   const theme = useTheme();
 
   const data = {
@@ -30,7 +31,7 @@ const TrafficByDevice = (props) => {
         hoverBorderColor: colors.common.white
       }
     ],
-    labels: ['Desktop', 'Tablet', 'Mobile']
+    labels: ['Completed', 'Ongoing', 'Panding']
   };
 
   const options = {
@@ -57,19 +58,19 @@ const TrafficByDevice = (props) => {
 
   const devices = [
     {
-      title: 'Desktop',
+      title: 'Completed',
       value: 63,
-      icon: LaptopMacIcon,
+      icon: CheckCircleOutlineIcon,
       color: colors.indigo[500]
     },
     {
-      title: 'Tablet',
+      title: 'Ongoing',
       value: 15,
       icon: TabletIcon,
       color: colors.red[600]
     },
     {
-      title: 'Mobile',
+      title: 'Panding',
       value: 23,
       icon: PhoneIcon,
       color: colors.orange[600]
@@ -78,7 +79,7 @@ const TrafficByDevice = (props) => {
 
   return (
     <Card {...props}>
-      <CardHeader title="Traffic by Device" />
+      <CardHeader title="Task Progress" />
       <Divider />
       <CardContent>
         <Box
@@ -134,4 +135,4 @@ const TrafficByDevice = (props) => {
   );
 };
 
-export default TrafficByDevice;
+export default TaskProgress;

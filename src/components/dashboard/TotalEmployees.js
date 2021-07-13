@@ -7,10 +7,10 @@ import {
   Typography
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+// import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 
-const TotalCustomers = (props) => (
+const TotalEmployees = (props) => (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -24,13 +24,13 @@ const TotalCustomers = (props) => (
             gutterBottom
             variant="h6"
           >
-            TOTAL CUSTOMERS
+            TOTAL EMPLOYEES
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            1,600
+            52
           </Typography>
         </Grid>
         <Grid item>
@@ -52,25 +52,26 @@ const TotalCustomers = (props) => (
           pt: 2
         }}
       >
-        <ArrowUpwardIcon sx={{ color: green[900] }} />
+
         <Typography
-          variant="body2"
           sx={{
             color: green[900],
             mr: 1
           }}
+          variant="body2"
         >
-          16%
+          3
         </Typography>
         <Typography
           color="textSecondary"
           variant="caption"
         >
-          Since last month
+          Sales Manager
         </Typography>
       </Box>
+
     </CardContent>
   </Card>
 );
 
-export default TotalCustomers;
+export default TotalEmployees;

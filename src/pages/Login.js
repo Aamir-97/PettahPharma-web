@@ -31,7 +31,7 @@ const Login = () => {
           justifyContent: 'center'
         }}
       >
-        <Container maxWidth="sm">
+        <Container maxWidth="xs">
           <Formik
             initialValues={{
               email: 'demo@devias.io',

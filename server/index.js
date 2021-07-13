@@ -8,16 +8,16 @@ const path = require('path');
 // const bcrypt = require('bcrypt');
 // const bodyParser =  require('body-parser')
 // const saltRounds = 10;
-//const fileUpload = require('express-fileupload');
-dotenv.config({path: './.env'})
+// const fileUpload = require('express-fileupload');
+// dotenv.config({path: './.env'});
 app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-    user : process.env.DATABASE_USER,
-    host : process.env.DATABASE_HOST,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE,
+    user : "root",
+    host : "localhost",
+    password: "",
+    database: "pettahpharma"
 });
 
 db.connect((err)=>{
@@ -35,29 +35,25 @@ const publicDirectory = path.join(__dirname,'./public')
 console.log(__dirname);
 app.set("view engine","hbs");
 
-
-
-
 // app.get('/',(_req,res)=>{
 //             //res.send("<h1>Pettah Pharma - Web App</h1>");
 //             res.render("../../src/pages/Login")
 //         })
 
 
-app.post('/loginadmin',(req,res)=>{
+app.post('/login',(req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
      
-    db.query("SELECT * FROM admin WHERE email=? AND password=?",
+    db.query("SELECT * FROM salesmanager WHERE email=? AND password=?",
         [email,password],(err,result)=>{
-            // if(err)
-            // { 
-            //     res.send({err:err})
-            // } 
-              if(result){
-                res.send(result);
+            if(err){
+                res.send({err:err})
+            }
+              if(result.length > 0){
+                res.send({message1 :"Login Successful" });
               } else{
-                res.send('wrong username or password');
+                res.send({message2 : " Wrong Username Or password "});
               }
             });
 });

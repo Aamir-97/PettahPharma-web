@@ -1,10 +1,9 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-// import clsx from 'clsx';
 import React, {useState} from "react";
 import axios from "axios";
 import { Helmet } from 'react-helmet';
-import * as Yup from 'yup';
-import { Formik } from 'formik';
+import logo from '../images/logo-gr.png'
+// import * as Yup from 'yup';
 import {
   Box,
   Button,
@@ -14,33 +13,38 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-// import FacebookIcon from 'src/icons/Facebook';
-// import GoogleIcon from 'src/icons/Google';
-
-// function Login() {
+import { height } from '@material-ui/system';
+import { AlignCenter } from 'react-feather';
 
 
+function Login() {
 
-const Login = () => {
-  const navigate = useNavigate();
-  
-  const [email,setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const navigate = useNavigate(""); 
+  const [email,setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
 
+  const Login = () => {
   axios.post("http://localhost:3001/login", {
     email: email,
     password: password,
   }).then((response)=>{
-    if (response.data.message){
-      setLoginStatus(response.data.message);
+    // console.log (response.data.message);
+    if (response.data.message1){
+      setLoginStatus(response.data.message1);
+      navigate('/app/dashboard', { replace: true });
+      // console.log ("Wrong password");
     } else {
-      setLoginStatus(response.data[0].email);
+      // setLoginStatus(response.data[0].email);
+      setLoginStatus(response.data.message2);
+
     };
   });
+};
 
 
   return (
+
     <>
     <Helmet>
       <title>Login</title>
@@ -54,30 +58,14 @@ const Login = () => {
         justifyContent: 'center'
       }}
     >
+                <img style={{
+                  width : "86px",
+                  height : "86px",
+                  alignSelf : "center"
+                }} src={logo} alt="Logo" /> 
+                {/* Logo of company */}
+
       <Container maxWidth="xs">
-        <Formik
-          initialValues={{
-            email: 'admin@gmail.com',
-            password: 'admin'
-          }}
-          validationSchema={Yup.object().shape({
-            email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-            password: Yup.string().max(255).required('Password is required')
-          })}
-          onSubmit={() => {
-           navigate('/app/dashboard', { replace: true });
-          }}
-        >
-          {({
-            errors,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-            isSubmitting,
-            touched,
-            values
-          }) => (
-            <form onSubmit={handleSubmit}>
               <Box sx={{ mb: 3 }}>
                 <Typography
                   color="textPrimary"
@@ -104,31 +92,12 @@ const Login = () => {
                   xs={12}
                   md={6}
                 >
-                  {/* <Button
-                    color="primary"
-                    fullWidth
-                    startIcon={<FacebookIcon />}
-                    onClick={handleSubmit}
-                    size="large"
-                    variant="contained"
-                  >
-                    Login with Facebook
-                  </Button> */}
                 </Grid>
                 <Grid
                   item
                   xs={12}
                   md={6}
                 >
-                  {/* <Button
-                    fullWidth
-                    startIcon={<GoogleIcon />}
-                    onClick={handleSubmit}
-                    size="large"
-                    variant="contained"
-                  >
-                    Login with Google
-                  </Button> */}
                 </Grid>
               </Grid>
               <Box
@@ -137,73 +106,50 @@ const Login = () => {
                   pt: 3
                 }}
               >
-                {/* <Typography
-                  align="center"
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  or login with email address
-                </Typography> */}
               </Box>
               <TextField
-                error={Boolean(touched.email && errors.email)}
                 fullWidth
-                helperText={touched.email && errors.email}
                 label="Email Address"
                 margin="normal"
                 name="email"
-                onBlur={handleBlur}
-                onChange={handleChange}
                 type="email"
-                value={values.email}
+                // value={values.email}
                 variant="outlined"
+                onChange={(e) => {
+                    setEmail(e.target.value);
+                    }}
               />
               <TextField
-                error={Boolean(touched.password && errors.password)}
                 fullWidth
-                helperText={touched.password && errors.password}
                 label="Password"
                 margin="normal"
                 name="password"
-                onBlur={handleBlur}
-                onChange={handleChange}
                 type="password"
-                value={values.password}
                 variant="outlined"
+                onChange = {(e) => {
+                  setPassword(e.target.value);
+                }}
               />
               <Box sx={{ py: 2 }}>
                 <Button
                   color="primary"
-                  disabled={isSubmitting}
                   fullWidth
                   size="large"
                   type="submit"
                   variant="contained"
+                  onClick={Login}
                 >
                   Sign in now
                 </Button>
               </Box>
-              {/* <Typography
-                color="textSecondary"
-                variant="body1"
-              >
-                Don&apos;t have an account?
-                {' '}
-                <Link
-                  component={RouterLink}
-                  to="/register"
-                  variant="h6"
-                >
-                  Sign up
-                </Link>
-              </Typography> */}
-            </form>
-          )}
-        </Formik>
+              <Typography
+                color="red"
+                textAlign="center"
+              >{loginStatus}</Typography>
       </Container>
     </Box>
   </>
   );
- }
+ };
 
 export default Login;

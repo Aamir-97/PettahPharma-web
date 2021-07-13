@@ -11,7 +11,7 @@ import ProductList from 'src/pages/ProductList';
 import Register from 'src/pages/Register';
 import Settings from 'src/pages/Settings';
 import Popup from 'src/pages/Popup';
-import CustomerAdd from 'src/pages/customeradd';
+// import CustomerAdd from 'src/pages/customeradd';
 
 const routes = [
   {

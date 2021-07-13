@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-function Aaa() {
+function Add_Employee() {
 
   const mystyle = {
     formstep: {
@@ -56,10 +56,11 @@ function Aaa() {
     },
     submitBtn: {
       marginTop: '20px',
-      width: '150px',
-      height: '50px',
+      width: '145px',
+      height: '40px',
       fontSize: '18px',
-      backgroundColor: 'green',
+      backgroundColor: '#172b4d',
+      cursor: 'pointer',
       border: 'none',
       borderRadius: '5px',
       color: 'white',
@@ -67,13 +68,15 @@ function Aaa() {
     },
     closeBtn: {
       marginTop: '20px',
-      width: '150px',
-      height: '50px',
+      width: '145px',
+      height: '40px',
       fontSize: '18px',
-      backgroundColor: 'red',
+      backgroundColor: '#172b4d',
+      transition: '1s background ease',
+      cursor: 'pointer',
       border: 'none',
       borderRadius: '5px',
-      color: 'white',
+      color: 'red',
       marginRight: '150px'
     }
 
@@ -163,4 +166,4 @@ function Aaa() {
   )
 }
 
-export default Aaa;
+export default Add_Employee;

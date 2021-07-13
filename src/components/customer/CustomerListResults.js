@@ -136,7 +136,8 @@ const CustomerListResults = ({ customers, ...rest }) => {
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {/* {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`} */}
+                    {`${customer.address.city}`}
                   </TableCell>
                   <TableCell>
                     {customer.phone}

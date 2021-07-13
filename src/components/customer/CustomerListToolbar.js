@@ -8,6 +8,8 @@ import {
   SvgIcon
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
+import { Link } from 'react-router-dom';
+
 
 const CustomerListToolbar = (props) => (
   <Box {...props}>
@@ -17,18 +19,14 @@ const CustomerListToolbar = (props) => (
         justifyContent: 'flex-end'
       }}
     >
-      {/* <Button>
-        Import
-      </Button>
-      <Button sx={{ mx: 1 }}>
-        Export
-      </Button> */}
+
       <Button
         color="primary"
         variant="contained"
       >
         Add Employee
       </Button>
+
     </Box>
     <Box sx={{ mt: 3 }}>
       <Card>

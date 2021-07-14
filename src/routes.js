@@ -4,13 +4,14 @@ import MainLayout from 'src/components/MainLayout';
 import Account from 'src/pages/Account';
 import CustomerList from 'src/pages/CustomerList';
 import Dashboard from 'src/pages/Dashboard';
-import Aaa from 'src/pages/Aaa';
+import Add_Employee from 'src/pages/Add_Employee';
+import Add_product from 'src/pages/Add_product';
 import Login from 'src/pages/Login';
 import NotFound from 'src/pages/NotFound';
 import ProductList from 'src/pages/ProductList';
 import Register from 'src/pages/Register';
 import Settings from 'src/pages/Settings';
-import Popup from 'src/pages/Popup';
+// import Popup from 'src/pages/Popup';
 // import CustomerAdd from 'src/pages/customeradd';
 
 const routes = [
@@ -21,7 +22,8 @@ const routes = [
       { path: 'account', element: <Account /> },
       { path: 'customers', element: <CustomerList /> },
       { path: 'dashboard', element: <Dashboard /> },
-      { path: 'Aaa', element: <Aaa /> },
+      { path: 'Add_Employee', element: <Add_Employee /> },
+      { path: 'Add_product', element: <Add_product /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },
       { path: '*', element: <Navigate to="/404" /> }

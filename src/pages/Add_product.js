@@ -8,27 +8,15 @@ function Add_product() {
       textalign: 'center',
       color: '#23750a',
     },
-
-    forminput: {
-
-      width: '75 %',
-      padding: '10px 10px',
-      margin: '8px 0',
-      display: 'inline - block',
-      border: '1px solid #ccc',
-      borderradius: '4px',
-      boxsizing: 'border - box',
-    },
-
-
-
     formbox: {
-      backgroundColor: '#f4f0ec',
-
-      width: '1000px',
+      width: '60%',
       textalign: 'center',
       marginTop: '10px',
-      height: '600px'
+      height: 'full',
+      boxShadow: "2px 2px 5px  2px #9E9E9E",
+      padding : "2vh",
+      borderRadius : "5px",
+      background: "white"
     },
     popupbox: {
       position: 'fixed',
@@ -40,15 +28,13 @@ function Add_product() {
     },
     forminput: {
 
-      width: '700px',
+      width: '70%',
       padding: '10px 10px',
       margin: '8px 0',
       display: 'inline - block',
-      border: '1px solid #ccc',
       borderRadius: '5px',
       height: '40px',
-      border: '1px solid black'
-
+      border: '1px solid #C0C0C0',
     },
     formhead: {
       paddingTop: '50px',
@@ -59,7 +45,7 @@ function Add_product() {
       width: '145px',
       height: '40px',
       fontSize: '18px',
-      backgroundColor: '#172b4d',
+      backgroundColor: '#0A6466',
       cursor: 'pointer',
       border: 'none',
       borderRadius: '5px',
@@ -71,12 +57,12 @@ function Add_product() {
       width: '145px',
       height: '40px',
       fontSize: '18px',
-      backgroundColor: '#172b4d',
+      backgroundColor: 'red',
       transition: '1s background ease',
       cursor: 'pointer',
       border: 'none',
       borderRadius: '5px',
-      color: 'red',
+      color: 'White',
       marginRight: '150px'
     }
 

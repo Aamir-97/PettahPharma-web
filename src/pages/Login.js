@@ -37,7 +37,7 @@ function Login() {
     } else {
       // setLoginStatus(response.data[0].email);
       setLoginStatus(response.data.message2);
-
+      navigate('/appp/dashboardsale', { replace: true });
     };
   });
 };

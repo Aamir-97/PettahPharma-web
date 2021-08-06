@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
+import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
+import { IconButton } from '@material-ui/core';
 import {
   Avatar,
   Box,
@@ -13,17 +15,20 @@ import {
 } from '@material-ui/core';
 import {
   AlertCircle as AlertCircleIcon,
-  BarChart as BarChartIcon,
+  // BarChart as BarChartIcon,
   Lock as LockIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  // Users as UsersIcon
 } from 'react-feather';
-import ForumIcon from '@material-ui/icons/Forum';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ForumIcon from '@material-ui/icons/ForumOutlined';
+import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacyOutlined';
+import GroupIcon from '@material-ui/icons/GroupOutlined';
+import DashboardIcon from '@material-ui/icons/DashboardOutlined';
+import HelpIcon from '@material-ui/icons/HelpOutlineOutlined';
+import ExitToAppIcon from '@material-ui/icons/ExitToAppOutlined';
 import NavItem from './NavItem';
 
 const user = {
@@ -32,20 +37,21 @@ const user = {
   name: 'Madhusha Mathivannan'
 };
 
+  
 const items = [
   {
     href: '/app/dashboard',
-    icon: BarChartIcon,
+    icon: DashboardIcon,
     title: 'Dashboard'
   },
   {
-    href: '/app/customers',
-    icon: UsersIcon,
+    href: '/app/Employee',
+    icon: GroupIcon,
     title: 'Employees'
   },
   {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
+    href: '/app/Product',
+    icon: LocalPharmacyIcon,
     title: 'Products'
   },
   // {
@@ -59,14 +65,14 @@ const items = [
     title: 'Settings'
   },
   {
-    href: '',
+    href: '/app/Forum',
     icon: ForumIcon,
     title: 'Discussion Forum'
   },
   {
-    href: '',
-    icon: TrendingUpIcon,
-    title: 'Sales Summary'
+    href: '/app/Help',
+    icon: HelpIcon,
+    title: 'Help'
   },
   {
     href: '/login',

@@ -107,6 +107,25 @@ app.get('/view',(_req,res)=>{
     });
 });
 
+app.get("/view/:manager_ID",(req,res)=>{
+    db.query( "SELECT *FROM salesmanager WHERE manager_ID=?",[req.params.id],(err,rows,fields)=>
+   {
+        if(!err)
+        res.send(rows);
+        else
+        console.log(err);
+   })
+});
+
+app.delete("/delete/:manager_ID",(req,res)=>{
+    const id = req.params.id;
+    const sqlDelete="DELETE FROM salesmanager WHERE manager_ID=?";
+
+    db.query(sqlDelete,id,(err,result)=>{
+      if(err) console.log(err);
+    });
+});
+
 app.get('/viewname',(_req,res)=>{
     db.query('SELECT name FROM salesmanager ',(err,result,_fields)=>{
         if(!err){
@@ -131,6 +150,74 @@ app.put("/update/:manager_ID",(req,res)=>{
         }
     });
 });
+
+app.post('/createproduct',(req,res)=>{
+    console.log(req.body)
+    const product_ID = req.body.product_ID;
+    const name = req.body.name;
+    const quantity = req.body.quantity;
+    const price = req.body.price;
+    const description = req.body.description;
+    
+    db.query("INSERT INTO product (product_ID,name,quantity,price,description) VALUES (?,?,?,?,?)",
+    [product_ID,name,quantity,price,description],(err,_results)=>{
+        if(err){
+            console.log(err);
+        } else{
+            res.send("product created");
+        }
+    
+    });
+    
+});
+
+app.post('/createmedicalrep',(req,res)=>{
+    console.log(req.body)
+    const rep_ID = req.body.rep_ID;
+    const name = req.body.name;
+    const email = req.body.email;
+    const phone_no = req.body.phone_no;
+    const area = req.body.area;
+    const level = req.body.level;
+    const password = req.body.password;
+    const manager_ID = req.body.manager_ID;
+
+    
+    db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,area,level,password,manager_ID) VALUES (?,?,?,?,?,?,?,?)",
+    [rep_ID,name,email,phone_no,area,level,password,manager_ID],(err,_results)=>{
+        if(err){
+            console.log(err);
+        } else{
+            res.send("medical rep created");
+        }
+    
+    });
+    
+});
+
+app.post('/createleavetype',(req,res)=>{
+    console.log(req.body)
+    const name = req.body.name;
+    const status = req.body.status;
+    const quota = req.body.quota;
+    const frequency = req.body.frequency;
+
+    db.query("INSERT INTO leavetype (name,status,quota,frequency) VALUES (?,?,?,?)",
+    [name,status,quota,frequency],(err,_results)=>{
+        if(err){
+            console.log(err);
+        } else{
+            res.send("leave type created");
+        }
+    
+    });
+    
+});
+
+
+
+
+
 
 // app.put("/update/:manager_ID",(req,res)=>{
 //     const manager_ID = req.body.manager_ID;

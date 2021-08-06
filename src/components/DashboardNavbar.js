@@ -39,11 +39,11 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          {/* <RouterLink to="/"> */}
-          <IconButton color="inherit">
+          <RouterLink to="/">
+          <IconButton color="secondary">
             <InputIcon />
           </IconButton>
-          {/* </RouterLink> */}
+          </RouterLink>
 
         </Hidden>
         <Hidden lgUp>

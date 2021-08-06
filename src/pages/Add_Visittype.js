@@ -3,22 +3,20 @@ import { Link } from 'react-router-dom';
 import shadows from 'src/theme/shadows';
 import axios from "axios";
 
-function Add_Product() {
+function Add_Visittype() {
 
-  const [product_ID,setProductID] = useState("");
   const [name,setName] = useState("");
-  const [quantity,setQuantity] = useState("");
-  const [price,setPrice] = useState("")
-  const [description,setDescription] = useState("");
+  // const [status,setStatus] = useState("");
+  // const [quota,setQuota] = useState("");
+  // const [frequency,setFrequency] = useState("");
 
-  const add_Product = ()=>{
-    console.log(product_ID);
-    axios.post('http://localhost:3001/createproduct',{
-    product_ID:product_ID,
+  const add_Visittype = ()=>{
+    console.log(name);
+    axios.post('http://localhost:3001/createvisittype',{
     name:name,
-    quantity:quantity,
-    price:price,
-    description:description,     
+    // status:status,
+    // quota:quota,
+    // frequency:frequency,     
 
     }).then(()=>{
        console.log("success");
@@ -97,24 +95,22 @@ function Add_Product() {
   return (
     <div align='center'>
       <div style={mystyle.formbox}>
-        <h1 style={mystyle.formhead}> CREATE PRODUCT </h1>
+        <h1 style={mystyle.formhead}> CREATE VISIT TYPE </h1>
         <form >
           <div >
-
-            <input type="text" style={mystyle.forminput} name="product_ID" onChange={(event)=>{setProductID(event.target.value);}} required placeholder="Product ID"/><br />
-            <input type="text" style={mystyle.forminput} name="name" onChange={(event)=>{setName(event.target.value);}} required placeholder="Product Name"/><br />
-            <input type="text" style={mystyle.forminput} name="quantity" onChange={(event)=>{setQuantity(event.target.value);}} required placeholder="Quantity"/><br />
-            <input type="text" style={mystyle.forminput} name="price" onChange={(event)=>{setPrice(event.target.value);}} required placeholder="Price"/><br />
-            <input type="text" style={mystyle.forminput} name="description" onChange={(event)=>{setDescription(event.target.value);}} required placeholder="Description"/><br />
+            <input type="text" style={mystyle.forminput} name="name" onChange={(event)=>{setName(event.target.value);}} required placeholder="Visit Name"/><br />
+            {/* <input type="text" style={mystyle.forminput} name="status" onChange={(event)=>{setStatus(event.target.value);}} required placeholder="Paid / Unpaid"/><br />
+            <input type="text" style={mystyle.forminput} name="quota" onChange={(event)=>{setQuota(event.target.value);}} required placeholder="Leave Quota"/><br />
+            <input type="text" style={mystyle.forminput} name="frequency" onChange={(event)=>{setFrequency(event.target.value);}} required placeholder="Quota Frequency"/><br /> */}
           </div>
 
           <div display='flex' align='right'>
 
-            <Link to='/app/Product'>
-              <button type="submit" onClick={add_Product} id="submitBtn" style={mystyle.submitBtn}> Create</button>
+            <Link to='/app/settings'>
+              <button type="submit" onClick={add_Visittype} id="submitBtn" style={mystyle.submitBtn}> Create</button>
             </Link>
 
-            <Link to='/app/Product'>
+            <Link to='/app/settings'>
               <button type="submit" id="submitBtn" style={mystyle.closeBtn}> Close</button>
             </Link>
           </div>
@@ -128,4 +124,4 @@ function Add_Product() {
   )
 }
 
-export default Add_Product;
+export default Add_Visittype;

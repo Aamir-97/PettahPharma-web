@@ -3,25 +3,28 @@ import { Link } from 'react-router-dom';
 import shadows from 'src/theme/shadows';
 import axios from "axios";
 
-function Add_Employee() {
+function Add_Medicalrep() {
 
-  const [manager_ID,setManagerID] = useState("");
+  const [rep_ID,setRepID] = useState("");
   const [name,setName] = useState("");
   const [email,setEmail] = useState("");
-  const [phone_no,setPhoneNo] = useState("");
+  const [phone_no,setPhoneNo] = useState("")
   const [area,setArea] = useState("");
+  const [level,setLevel] = useState("");
   const [password,setPassword] = useState("");
+  const [manager_ID,setManagerID] = useState("");
 
-  const add_Employee = ()=>{
+  const add_Medicalrep = ()=>{
     console.log(manager_ID);
-    axios.post('http://localhost:3001/createmanager',{
-    manager_ID:manager_ID,
+    axios.post('http://localhost:3001/createmedicalrep',{
+    rep_ID:rep_ID,
     name:name,
     email:email,
     phone_no:phone_no,
     area:area,
+    level:level,
     password:password,
-     
+    manager_ID:manager_ID,
 
     }).then(()=>{
        console.log("success");
@@ -100,25 +103,27 @@ function Add_Employee() {
   return (
     <div align='center'>
       <div style={mystyle.formbox}>
-        <h1 style={mystyle.formhead}> CREATE SALES MANAGER </h1>
+        <h1 style={mystyle.formhead}> CREATE MEDICAL REPRESENTATIVE </h1>
         <form >
           <div >
 
-            <input type="text" style={mystyle.forminput} name="manager_ID" onChange={(event)=>{setManagerID(event.target.value);}} required placeholder="ID"/><br />
+            <input type="text" style={mystyle.forminput} name="rep_ID" onChange={(event)=>{setRepID(event.target.value);}} required placeholder="Medical Rep ID"/><br />
             <input type="text" style={mystyle.forminput} name="name" onChange={(event)=>{setName(event.target.value);}} required placeholder="Name"/><br />
             <input type="email" style={mystyle.forminput} name="email" onChange={(event)=>{setEmail(event.target.value);}} required placeholder="Email"/><br />
             <input type="text" style={mystyle.forminput} name="phone_no" onChange={(event)=>{setPhoneNo(event.target.value);}} required placeholder="Phone Number"/><br />
             <input type="text" style={mystyle.forminput} name="area" onChange={(event)=>{setArea(event.target.value);}} required placeholder="Area"/><br />
+            <input type="text" style={mystyle.forminput} name="level" onChange={(event)=>{setLevel(event.target.value);}} required placeholder="Level"/><br />
             <input type="text" style={mystyle.forminput} name="password" onChange={(event)=>{setPassword(event.target.value);}} required placeholder="Password"/><br />
+            <input type="text" style={mystyle.forminput} name="manager_ID" onChange={(event)=>{setManagerID(event.target.value);}} required placeholder="Manager ID"/><br />
           </div>
 
           <div display='flex' align='right'>
 
-            <Link to='/app/Employee'>
-              <button type="submit" onClick={add_Employee} id="submitBtn" style={mystyle.submitBtn}> Create</button>
+            <Link to='/app/Medicalrep'>
+              <button type="submit" onClick={add_Medicalrep} id="submitBtn" style={mystyle.submitBtn}> Create</button>
             </Link>
 
-            <Link to='/app/Employee'>
+            <Link to='/app/Medicalrep'>
               <button type="submit" id="submitBtn" style={mystyle.closeBtn}> Close</button>
             </Link>
           </div>
@@ -132,4 +137,4 @@ function Add_Employee() {
   )
 }
 
-export default Add_Employee;
+export default Add_Medicalrep;

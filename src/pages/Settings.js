@@ -1,7 +1,9 @@
 import { Helmet } from 'react-helmet';
 import { Box, Container } from '@material-ui/core';
-import SettingsNotifications from 'src/components/settings/SettingsNotifications';
 import SettingsPassword from 'src/components/settings/SettingsPassword';
+import Leavetypes from 'src/components/settings/Leavetypes';
+import Expensetypes from 'src/components/settings/Expensetypes';
+import Visittypes from 'src/components/settings/Visittypes';
 
 const SettingsView = () => (
   <>
@@ -16,7 +18,15 @@ const SettingsView = () => (
       }}
     >
       <Container maxWidth="lg">
-        <SettingsNotifications />
+        <Box sx={{ pt: 3 }}>
+          <Leavetypes />
+        </Box>
+        <Box sx={{ pt: 3 }}>
+          <Expensetypes />
+        </Box>
+        <Box sx={{ pt: 3 }}>
+          <Visittypes />
+         </Box>
         <Box sx={{ pt: 3 }}>
           <SettingsPassword />
         </Box>

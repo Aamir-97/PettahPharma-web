@@ -11,6 +11,7 @@ import Product from 'src/pages/Product';
 import DataPlanList from 'src/pages/DataPlanList';
 import SummaryReportList from 'src/pages/SummaryReportList';
 import LeaveList from 'src/pages/LeaveList';
+import AllownsList from 'src/pages/AllownsList';
 import Dashboard from 'src/pages/Dashboard';
 import Dashboardsale from 'src/pages/Dashboardsale';
 import Add_Salesmanager from 'src/pages/Add_Salesmanager';
@@ -61,6 +62,7 @@ const routes = [
       { path: 'SummaryReport', element: <SummaryReportList /> },
       { path: 'Leave', element: <LeaveList /> },
       // { path: 'dashboard', element: <Dashboard /> },
+      { path: 'Allowns', element: <AllownsList />},
       { path: 'dashboardsale', element: <Dashboardsale /> },
       { path: 'AsignTask', element: <AsignTask /> },
       { path: 'ViewSummary', element: <ViewSummary /> },

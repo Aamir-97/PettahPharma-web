@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import shadows from 'src/theme/shadows';
 import axios from "axios";
 
-function Add_Medicalrep() {
+function Edit_Medicalrep() {
 
   const [rep_ID,setRepID] = useState("");
   const [name,setName] = useState("");
@@ -14,9 +14,9 @@ function Add_Medicalrep() {
   const [password,setPassword] = useState("");
   const [manager_ID,setManagerID] = useState("");
 
-  const add_Medicalrep = ()=>{
+  const edit_Medicalrep = ()=>{
     console.log(manager_ID);
-    axios.post('http://localhost:3001/createmedicalrep',{
+    axios.post('http://localhost:3001/editmedicalrep',{
     rep_ID:rep_ID,
     name:name,
     email:email,
@@ -103,7 +103,7 @@ function Add_Medicalrep() {
   return (
     <div align='center'>
       <div style={mystyle.formbox}>
-        <h1 style={mystyle.formhead}> CREATE MEDICAL REPRESENTATIVE </h1>
+        <h1 style={mystyle.formhead}> EDIT MEDICAL REPRESENTATIVE </h1>
         <form >
           <div >
 
@@ -120,7 +120,7 @@ function Add_Medicalrep() {
           <div display='flex' align='right'>
 
             <Link to='/app/Medicalrep'>
-              <button type="submit" onClick={add_Medicalrep} id="submitBtn" style={mystyle.submitBtn}> Create</button>
+              <button type="submit" onClick={edit_Medicalrep} id="submitBtn" style={mystyle.submitBtn}> Create</button>
             </Link>
 
             <Link to='/app/Medicalrep'>
@@ -137,4 +137,4 @@ function Add_Medicalrep() {
   )
 }
 
-export default Add_Medicalrep;
+export default Edit_Medicalrep;

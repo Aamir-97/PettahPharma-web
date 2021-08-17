@@ -3,20 +3,25 @@ import { Link } from 'react-router-dom';
 import shadows from 'src/theme/shadows';
 import axios from "axios";
 
-function Add_Expensetype() {
+function Edit_Salesmanager() {
 
+  const [manager_ID,setManagerID] = useState("");
   const [name,setName] = useState("");
-  // const [status,setStatus] = useState("");
-  // const [quota,setQuota] = useState("");
-  // const [frequency,setFrequency] = useState("");
+  const [email,setEmail] = useState("");
+  const [phone_no,setPhoneNo] = useState("");
+  const [area,setArea] = useState("");
+  const [password,setPassword] = useState("");
 
-  const add_Expensetype = ()=>{
-    console.log(name);
-    axios.post('http://localhost:3001/createexpensetype',{
+  const edit_Salesmanager = ()=>{
+    console.log(manager_ID);
+    axios.post('http://localhost:3001/editmanager',{
+    manager_ID:manager_ID,
     name:name,
-    // status:status,
-    // quota:quota,
-    // frequency:frequency,     
+    email:email,
+    phone_no:phone_no,
+    area:area,
+    password:password,
+     
 
     }).then(()=>{
        console.log("success");
@@ -95,22 +100,25 @@ function Add_Expensetype() {
   return (
     <div align='center'>
       <div style={mystyle.formbox}>
-        <h1 style={mystyle.formhead}> CREATE EXPENSE TYPE </h1>
+        <h1 style={mystyle.formhead}> EDIT SALES MANAGER </h1>
         <form >
           <div >
-            <input type="text" style={mystyle.forminput} name="name" onChange={(event)=>{setName(event.target.value);}} required placeholder="Expense Name"/><br />
-            {/* <input type="text" style={mystyle.forminput} name="status" onChange={(event)=>{setStatus(event.target.value);}} required placeholder="Paid / Unpaid"/><br />
-            <input type="text" style={mystyle.forminput} name="quota" onChange={(event)=>{setQuota(event.target.value);}} required placeholder="Leave Quota"/><br />
-            <input type="text" style={mystyle.forminput} name="frequency" onChange={(event)=>{setFrequency(event.target.value);}} required placeholder="Quota Frequency"/><br /> */}
+
+            <input type="text" style={mystyle.forminput} name="manager_ID" onChange={(event)=>{setManagerID(event.target.value);}} required placeholder="ID"/><br />
+            <input type="text" style={mystyle.forminput} name="name" onChange={(event)=>{setName(event.target.value);}} required placeholder="Name"/><br />
+            <input type="email" style={mystyle.forminput} name="email" onChange={(event)=>{setEmail(event.target.value);}} required placeholder="Email"/><br />
+            <input type="text" style={mystyle.forminput} name="phone_no" onChange={(event)=>{setPhoneNo(event.target.value);}} required placeholder="Phone Number"/><br />
+            <input type="text" style={mystyle.forminput} name="area" onChange={(event)=>{setArea(event.target.value);}} required placeholder="Area"/><br />
+            <input type="text" style={mystyle.forminput} name="password" onChange={(event)=>{setPassword(event.target.value);}} required placeholder="Password"/><br />
           </div>
 
           <div display='flex' align='right'>
 
-            <Link to='/app/settings'>
-              <button type="submit" onClick={add_Expensetype} id="submitBtn" style={mystyle.submitBtn}> Create</button>
+            <Link to='/app/Salesmanager'>
+              <button type="submit" onClick={edit_Salesmanager} id="submitBtn" style={mystyle.submitBtn}> Create</button>
             </Link>
 
-            <Link to='/app/settings'>
+            <Link to='/app/Salesmanager'>
               <button type="submit" id="submitBtn" style={mystyle.closeBtn}> Close</button>
             </Link>
           </div>
@@ -124,4 +132,4 @@ function Add_Expensetype() {
   )
 }
 
-export default Add_Expensetype;
+export default Edit_Salesmanager;

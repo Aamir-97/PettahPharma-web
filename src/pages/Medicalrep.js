@@ -27,25 +27,23 @@ const useStyles = makeStyles({
   
 });
 
-function createData(rep_ID, name, email, phone_no, area, level, manager_ID ) {
-  return { rep_ID, name, email, phone_no, area, level, manager_ID };
-}
-
-const rows = [
-  createData('1', 'Dhiga', 'dhiga@gmail.com', '0771236547', 'Dehiwala', 'A', '2'),
-  createData('1', 'Dhiga', 'dhiga@gmail.com', '0771236547', 'Dehiwala', 'A', '2'),
-  createData('1', 'Dhiga', 'dhiga@gmail.com', '0771236547', 'Dehiwala', 'A', '2'),
-
-];
-
-<br></br>
 function Medicalrep() {
   
  const classes = useStyles();
+ const [searchTerm,setSearchTerm]=useState("");
+    const [repList,setRepList]=useState([])
+    useEffect(()=>{
+      axios.get("http://localhost:3001/viewrep").then((response)=>{
+        setRepList(response.data)
+      })
+    },[])
 
   return (
-    
-    <div >
+      <div >
+      <div className="searchbar">
+          <input type="text"  placeholder="Search" onChange={(e)=>{setSearchTerm(e.target.value);}} />
+          <SearchIcon  className='searchicon'/>
+      </div>
    <Box 
       display="flex"
       justifyContent="flex-end"
@@ -56,7 +54,7 @@ function Medicalrep() {
         color="primary"
         variant="contained"
       >
-        Add Employee
+        Add Medicalrep
       </Button>
       </Link>
 
@@ -79,32 +77,40 @@ function Medicalrep() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="center"><b>Medical Rep ID</b></TableCell>
+            {/* <TableCell align="center"><b>Medical Rep ID</b></TableCell> */}
             <TableCell align="center"><b>Medical Rep Name</b></TableCell>
             <TableCell align="center"><b>Email</b></TableCell>
             <TableCell align="center"><b>Phone No</b></TableCell>
             <TableCell align="center"><b>Area</b></TableCell>
-            <TableCell align="center"><b>Level</b></TableCell>
+            <TableCell align="center"><b>Rating</b></TableCell>
             <TableCell align="center"><b>Sales Manager ID</b></TableCell>
             <TableCell colSpan={2} align="center"><b>Action</b></TableCell>
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.rep_ID}>
-              <TableCell align="center">{row.rep_ID}</TableCell>
-              <TableCell align="center">{row.name}</TableCell>
-              <TableCell align="center">{row.email}</TableCell>
-              <TableCell align="center">{row.phone_no}</TableCell>
-              <TableCell align="center">{row.area}</TableCell>
-              <TableCell align="center">{row.level}</TableCell>
-              <TableCell align="center">{row.manager_ID}</TableCell>
-              <TableCell align="center"><IconButton aria-label="edit"><EditIcon /></IconButton></TableCell>
+        {repList.filter(val=>{if(searchTerm===""){
+                       return val;
+                     }else if(
+                       val.name.toLowerCase().includes(searchTerm.toLowerCase())) 
+                     {
+                       return val
+                     }
+                    }).map((record)=>{
+                       return(
+            <TableRow key={record.rep_ID}>
+              {/* <TableCell align="center">{record.rep_ID}</TableCell> */}
+              <TableCell align="center">{record.name}</TableCell>
+              <TableCell align="center">{record.email}</TableCell>
+              <TableCell align="center">{record.phone_no}</TableCell>
+              <TableCell align="center">{record.area}</TableCell>
+              <TableCell align="center">{record.rating}</TableCell>
+              <TableCell align="center">{record.manager_ID}</TableCell>
+              <TableCell align="center"><Link to={'/app/Edit_Medicalrep'}><IconButton aria-label="edit"><EditIcon /></IconButton></Link></TableCell>
               <TableCell align="center"><IconButton color='Secondary'aria-label="delete"><DeleteIcon /></IconButton></TableCell>
             </TableRow>
-            
-          ))}
+                       )})
+                      }
         </TableBody>
       </Table>
     </TableContainer>

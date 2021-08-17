@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import {
   Avatar,
   Box,
@@ -8,10 +10,22 @@ import {
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 // import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
 
-const TotalEmployees = (props) => (
-  <Card {...props}>
+
+
+
+function TotalEmployees() {
+
+  const [managercount,setManagercount]=useState([])
+  useEffect(()=>{
+  axios.get("http://localhost:3001/managerCount").then((response)=>{
+  setManagercount(response.data)
+  })
+},[])
+return (
+<div>
+    <Card>
     <CardContent>
       <Grid
         container
@@ -30,7 +44,11 @@ const TotalEmployees = (props) => (
             color="textPrimary"
             variant="h3"
           >
-            52
+            {managercount.map((record)=>{
+              return(
+              <p style={{fontSize:'30px'}}>{record.count}</p>
+              )
+            })}
           </Typography>
         </Grid>
         <Grid item>
@@ -41,7 +59,7 @@ const TotalEmployees = (props) => (
               width: 56
             }}
           >
-            <PeopleIcon />
+            <SupervisorAccountOutlinedIcon />
           </Avatar>
         </Grid>
       </Grid>
@@ -53,7 +71,7 @@ const TotalEmployees = (props) => (
         }}
       >
 
-        <Typography
+        {/* <Typography
           sx={{
             color: green[900],
             mr: 1
@@ -67,11 +85,11 @@ const TotalEmployees = (props) => (
           variant="caption"
         >
           Sales Manager
-        </Typography>
+        </Typography> */}
       </Box>
-
     </CardContent>
-  </Card>
-);
-
+    </Card>
+  </div>
+   );
+}
 export default TotalEmployees;

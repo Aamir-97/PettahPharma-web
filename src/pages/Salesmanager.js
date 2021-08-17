@@ -17,6 +17,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
 import SearchIcon from '@material-ui/icons/Search';
+import SearchBar from "material-ui-search-bar";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { CenterFocusStrong } from '@material-ui/icons';
@@ -26,43 +27,43 @@ import { CenterFocusStrong } from '@material-ui/icons';
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
-  },
-  
+  }, 
 });
 
-function createData(manager_ID, name, email, phone_no, area ) {
-  return { manager_ID, name, email, phone_no, area };
-}
-
-const rows = [
-  createData('1', 'Aamir', 'aamir@gmail.com', '0771236547', 'Maruthamunai'),
-  createData('1', 'Aamir', 'aamir@gmail.com', '0771236547', 'Maruthamunai'),
-  createData('1', 'Aamir', 'aamir@gmail.com', '0771236547', 'Maruthamunai'),
-
-];
-
-<br></br>
-function Employee() {
+function Salesmanager() {
   <Helmet>
-  <title>Employee</title>
+  <title>Salesmanager</title>
 </Helmet>
   
  const classes = useStyles();
 
-  return (
+ const [searchTerm,setSearchTerm]=useState("");
+ const [managerList,setManagerList]=useState([])
+ useEffect(()=>{
+   axios.get("http://localhost:3001/viewmanager").then((response)=>{
+     setManagerList(response.data)
+   })
+ },[])
 
+return (
+ 
+ <div >
+   <div >
+       <input type="text"  placeholder="Search" onChange={(e)=>{setSearchTerm(e.target.value);}} />
+       <SearchIcon  className={classes.searchicon}/>
+   </div>
     <div >
    <Box 
       display="flex"
       justifyContent="flex-end"
       p={2}
     >
-     <Link to={'/app/Add_Employee'}>
+     <Link to={'/app/Add_Salesmanager'}>
       <Button
         color="primary"
         variant="contained"
       >
-      Add Employee
+      Add Salesmanager
       </Button>
       </Link>
 
@@ -85,7 +86,7 @@ function Employee() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="center"><b>Manager ID</b></TableCell>
+            {/* <TableCell align="center"><b>Manager ID</b></TableCell> */}
             <TableCell align="center"><b>Manager Name</b></TableCell>
             <TableCell align="center"><b>Email</b></TableCell>
             <TableCell align="center"><b>Phone No</b></TableCell>
@@ -95,24 +96,33 @@ function Employee() {
         </TableHead>
 
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.manager_ID}>
-              <TableCell align="center">{row.manager_ID}</TableCell>
-              <TableCell align="center">{row.name}</TableCell>
-              <TableCell align="center">{row.email}</TableCell>
-              <TableCell align="center">{row.phone_no}</TableCell>
-              <TableCell align="center">{row.area}</TableCell>
-              <TableCell align="center"><IconButton aria-label="edit"><EditIcon /></IconButton></TableCell>
+          {managerList.filter(val=>{if(searchTerm===""){
+                       return val;
+                     }else if(
+                       val.name.toLowerCase().includes(searchTerm.toLowerCase())) 
+                     {
+                       return val
+                     }
+                    }).map((record)=>{
+                       return(
+            <TableRow key={record.manager_ID}>
+              {/* <TableCell align="center">{record.manager_ID}</TableCell> */}
+              <TableCell align="center">{record.name}</TableCell>
+              <TableCell align="center">{record.email}</TableCell>
+              <TableCell align="center">{record.phone_no}</TableCell>
+              <TableCell align="center">{record.area}</TableCell>
+              <TableCell align="center"><Link to={'/app/Edit_SalesManager'}><IconButton aria-label="edit"><EditIcon /></IconButton></Link></TableCell>
               <TableCell align="center"><IconButton color='Secondary'aria-label="delete"><DeleteIcon /></IconButton></TableCell>
             </TableRow>
-            
-          ))}
+               )})
+              }
         </TableBody>
       </Table>
     </TableContainer>
     </Box>
 </div>
+</div>
   );
 }
 
-export default Employee;
+export default Salesmanager;

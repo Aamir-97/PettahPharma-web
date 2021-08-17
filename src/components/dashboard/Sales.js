@@ -100,7 +100,7 @@ const Sales = (props) => {
             Last 6 Months
           </Button>
         )}
-        title="Latest Sales"
+        title="Latest Expenses"
       />
       <Divider />
       <CardContent>

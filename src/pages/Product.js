@@ -17,6 +17,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SearchIcon from '@material-ui/icons/Search';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import { useParams } from 'react-router-dom';
 
 // import { Search as SearchIcon } from 'react-feather';
 
@@ -27,25 +28,23 @@ const useStyles = makeStyles({
   
 });
 
-function createData(product_ID, name, quantity, price, description ) {
-  return { product_ID, name, quantity, price, description };
-}
-
-const rows = [
-  createData('1', 'Panadol', '150', '10', 'Used for fever, headache'),
-  createData('1', 'Panadol', '150', '10', 'Used for fever, headache'),
-  createData('1', 'Panadol', '150', '10', 'Used for fever, headache'),
-
-];
-
-<br></br>
 function Product() {
   
  const classes = useStyles();
-
+ const [searchTerm,setSearchTerm]=useState("");
+    const [productList,setProductList]=useState([])
+    useEffect(()=>{
+      axios.get("http://localhost:3001/viewproduct").then((response)=>{
+        setProductList(response.data)
+      })
+    },[])
   return (
     
     <div >
+      <div className="searchbar">
+          <input type="text"  placeholder="Search" onChange={(e)=>{setSearchTerm(e.target.value);}} />
+          <SearchIcon  className='searchicon'/>
+      </div>
    <Box 
       display="flex"
       justifyContent="flex-end"
@@ -79,9 +78,10 @@ function Product() {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="center"><b>Product ID</b></TableCell>
+            {/* <TableCell align="center"><b>Product ID</b></TableCell> */}
+            {/* <TableCell align="center"><b>Product Image</b></TableCell> */}
             <TableCell align="center"><b>Product Name</b></TableCell>
-            <TableCell align="center"><b>Quantity</b></TableCell>
+            <TableCell align="center"><b>Volume</b></TableCell>
             <TableCell align="center"><b>Price</b></TableCell>
             <TableCell align="center"><b>Description</b></TableCell>
             <TableCell colSpan={2} align="center"><b>Action</b></TableCell>
@@ -89,18 +89,27 @@ function Product() {
         </TableHead>
 
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.product_ID}>
-              <TableCell align="center">{row.product_ID}</TableCell>
-              <TableCell align="center">{row.name}</TableCell>
-              <TableCell align="center">{row.quantity}</TableCell>
-              <TableCell align="center">{row.price}</TableCell>
-              <TableCell align="center">{row.description}</TableCell>
-              <TableCell align="center"><IconButton aria-label="edit"><EditIcon /></IconButton></TableCell>
+        {productList.filter(val=>{if(searchTerm===""){
+                       return val;
+                     }else if(
+                       val.name.toLowerCase().includes(searchTerm.toLowerCase())) 
+                     {
+                       return val
+                     }
+                    }).map((record)=>{
+                       return(
+            <TableRow key={record.product_ID}>
+              {/* <TableCell align="center">{record.product_ID}</TableCell> */}
+              {/* <TableCell align="center"><img src={record.display_photo} className='image'/></TableCell> */}
+              <TableCell align="center">{record.name}</TableCell>
+              <TableCell align="center">{record.volume}</TableCell>
+              <TableCell align="center">{record.price}</TableCell>
+              <TableCell align="center">{record.description}</TableCell>
+              <TableCell align="center"><Link to={'/app/Edit_Product'}><IconButton aria-label="edit"><EditIcon /></IconButton></Link></TableCell>
               <TableCell align="center"><IconButton color='Secondary'aria-label="delete"><DeleteIcon /></IconButton></TableCell>
             </TableRow>
-            
-          ))}
+                       )})
+        }
         </TableBody>
       </Table>
     </TableContainer>

@@ -25,10 +25,12 @@ import {
 } from 'react-feather';
 import ForumIcon from '@material-ui/icons/ForumOutlined';
 import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacyOutlined';
-import GroupIcon from '@material-ui/icons/GroupOutlined';
+import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
 import DashboardIcon from '@material-ui/icons/DashboardOutlined';
 import HelpIcon from '@material-ui/icons/HelpOutlineOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToAppOutlined';
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
+import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
 import NavItem from './NavItem';
 
 const user = {
@@ -45,9 +47,14 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/app/Employee',
-    icon: GroupIcon,
-    title: 'Employees'
+    href: '/app/Salesmanager',
+    icon: SupervisorAccountOutlinedIcon,
+    title: 'Salesmanager'
+  },
+  {
+    href: '/app/Medicalrep',
+    icon: GroupOutlinedIcon,
+    title: 'Medicalrep'
   },
   {
     href: '/app/Product',
@@ -60,20 +67,20 @@ const items = [
   //   title: 'Account'
   // },
   {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Settings'
+    href: '/app/ReportGeneration',
+    icon: DescriptionOutlinedIcon,
+    title: 'Reports'
   },
   {
     href: '/app/Forum',
     icon: ForumIcon,
     title: 'Discussion Forum'
   },
-  {
-    href: '/app/Help',
-    icon: HelpIcon,
-    title: 'Help'
-  },
+  // {
+  //   href: '/app/Help',
+  //   icon: HelpIcon,
+  //   title: 'Help'
+  // },
   {
     href: '/login',
     icon: ExitToAppIcon,

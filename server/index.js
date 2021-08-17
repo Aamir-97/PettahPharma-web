@@ -45,35 +45,35 @@ app.post('/login',(req,res)=>{
     const email = req.body.email;
     const password = req.body.password;
      
-    db.query("SELECT * FROM salesmanager WHERE email=? AND password=?",
+    db.query("SELECT * FROM admin WHERE email=? AND password=?",
         [email,password],(err,result)=>{
             if(err){
                 res.send({err:err})
             }
               if(result.length > 0){
-                res.send({message1 :"Login Successful" });
+                res.send({message1 : "Login Successful" });
               } else{
-                res.send({message2 : " Wrong Username Or password "});
-              }
-            });
+                res.send({message2 : "Wrong Username Or password"});
+            }
+    });
 });
 
-app.post('/createadmin',(req,res)=>{
-    console.log(req.body)
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
+// app.post('/createadmin',(req,res)=>{
+//     console.log(req.body)
+//     const name = req.body.name;
+//     const email = req.body.email;
+//     const password = req.body.password;
     
-    db.query("INSERT INTO admin (name,email,password) VALUES (?,?,?)",
-    [name,email,password],(err,_results)=>{
-        if(err){
-            console.log(err);
-        } else{
-            res.send("admin created");
-        }  
-    });
+//     db.query("INSERT INTO admin (name,email,password) VALUES (?,?,?)",
+//     [name,email,password],(err,_results)=>{
+//         if(err){
+//             console.log(err);
+//         } else{
+//             res.send("admin created");
+//         }  
+//     });
     
-});
+// });
 
 app.post('/createmanager',(req,res)=>{
     console.log(req.body)
@@ -84,20 +84,17 @@ app.post('/createmanager',(req,res)=>{
     const area = req.body.area;
     const password = req.body.password;
    
-   
     db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password) VALUES (?,?,?,?,?,?)",
     [manager_ID,name,email,phone_no,area,password],(err,_results)=>{
         if(err){
             console.log(err);
         } else{
             res.send("sales manager created");
-        }
-    
+        }   
     });
-    
 });
 
-app.get('/view',(_req,res)=>{
+app.get('/viewmanager',(_req,res)=>{
     db.query('SELECT * FROM salesmanager ',(err,result,_fields)=>{
         if(!err){
             res.send(result);
@@ -114,7 +111,7 @@ app.get("/view/:manager_ID",(req,res)=>{
         res.send(rows);
         else
         console.log(err);
-   })
+   });
 });
 
 app.delete("/delete/:manager_ID",(req,res)=>{
@@ -126,8 +123,18 @@ app.delete("/delete/:manager_ID",(req,res)=>{
     });
 });
 
-app.get('/viewname',(_req,res)=>{
+app.get('/viewmanager',(_req,res)=>{
     db.query('SELECT name FROM salesmanager ',(err,result,_fields)=>{
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/viewrep',(_req,res)=>{
+    db.query('SELECT * FROM medicalrep ',(err,result,_fields)=>{
         if(!err){
             res.send(result);
         }else{
@@ -154,21 +161,50 @@ app.put("/update/:manager_ID",(req,res)=>{
 app.post('/createproduct',(req,res)=>{
     console.log(req.body)
     const product_ID = req.body.product_ID;
+    const display_photo= req.body.image;
     const name = req.body.name;
-    const quantity = req.body.quantity;
+    const volume = req.body.volume;
     const price = req.body.price;
     const description = req.body.description;
     
-    db.query("INSERT INTO product (product_ID,name,quantity,price,description) VALUES (?,?,?,?,?)",
-    [product_ID,name,quantity,price,description],(err,_results)=>{
+    db.query("INSERT INTO product (product_ID,display_photo,productname,volume,price,description) VALUES (?,?,?,?,?,?)",
+    [product_ID,display_photo,name,volume,price,description],(err,_results)=>{
         if(err){
             console.log(err);
         } else{
             res.send("product created");
         }
-    
     });
-    
+});
+
+app.put('/editProduct', (req,res) => {
+    console.log(req.body)
+    const product_ID = req.body.product_ID;
+    const display_photo= req.body.image;
+    const name = req.body.name;
+    const volume = req.body.volume;
+    const price = req.body.price;
+    const description = req.body.description;
+
+    db.query("UPDATE products SET display_photo=?,name = ?,volume=?,,price=?,description=? WHERE product_ID = ?", 
+    [display_photo,name,price,volume,price,description], 
+    (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+app.get('/viewproduct',(_req,res)=>{
+    db.query('SELECT * FROM product ',(err,result,_fields)=>{
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
 });
 
 app.post('/createmedicalrep',(req,res)=>{
@@ -178,46 +214,69 @@ app.post('/createmedicalrep',(req,res)=>{
     const email = req.body.email;
     const phone_no = req.body.phone_no;
     const area = req.body.area;
-    const level = req.body.level;
+    const rating = req.body.rating;
     const password = req.body.password;
     const manager_ID = req.body.manager_ID;
 
-    
-    db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,area,level,password,manager_ID) VALUES (?,?,?,?,?,?,?,?)",
-    [rep_ID,name,email,phone_no,area,level,password,manager_ID],(err,_results)=>{
+    db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,area,rating,password,manager_ID) VALUES (?,?,?,?,?,?,?,?)",
+    [rep_ID,name,email,phone_no,area,rating,password,manager_ID],(err,_results)=>{
         if(err){
             console.log(err);
         } else{
             res.send("medical rep created");
         }
-    
-    });
-    
+    });  
 });
 
-app.post('/createleavetype',(req,res)=>{
-    console.log(req.body)
-    const name = req.body.name;
-    const status = req.body.status;
-    const quota = req.body.quota;
-    const frequency = req.body.frequency;
-
-    db.query("INSERT INTO leavetype (name,status,quota,frequency) VALUES (?,?,?,?)",
-    [name,status,quota,frequency],(err,_results)=>{
-        if(err){
-            console.log(err);
-        } else{
-            res.send("leave type created");
+app.get('/viewmedicalrep',(_req,res)=>{
+    db.query('SELECT * FROM medicalrep ',(err,result,_fields)=>{
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
         }
-    
     });
-    
 });
 
+app.get('/managerCount',(req,res) => {
+    console.log(req.body)
+    const manager_ID = req.body.manager_ID;
 
+    db.query('SELECT COUNT(manager_ID) AS count FROM salesmanager',[manager_ID], (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
 
+app.get('/employeeCount',(req,res) => {
+    console.log(req.body)
+    const manager_ID = req.body.manager_ID;
+    const rep_ID = req.body.rep_ID;
 
+    db.query('SELECT SUM(tbl.count) FROM (SELECT COUNT(manager_ID) AS count FROM salesmanager UNION ALL SELECT COUNT(rep_ID) AS count FROM medicalrep)tbl)',[manager_ID,rep_ID],(err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
 
+app.get('/productCount',(req,res) => {
+    console.log(req.body)
+    const product_ID = req.body.product_ID;
+
+    db.query('SELECT COUNT(product_ID) AS count FROM product',[product_ID], (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
 
 // app.put("/update/:manager_ID",(req,res)=>{
 //     const manager_ID = req.body.manager_ID;

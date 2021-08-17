@@ -59,8 +59,8 @@ const TotalVisits = (props) => (
         }}
       >
 
-        <ArrowUpwardIcon sx={{ color: green[900] }} />
-        <Typography
+        {/* <ArrowUpwardIcon sx={{ color: green[900] }} /> */}
+        {/* <Typography
           sx={{
             color: green[900],
             mr: 1
@@ -74,7 +74,7 @@ const TotalVisits = (props) => (
           variant="caption"
         >
           Since last month
-        </Typography>
+        </Typography> */}
       </Box>
 
     </CardContent>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import shadows from 'src/theme/shadows';
 import axios from "axios";
 
-function Add_Employee() {
+function Add_Salesmanager() {
 
   const [manager_ID,setManagerID] = useState("");
   const [name,setName] = useState("");
@@ -12,7 +12,7 @@ function Add_Employee() {
   const [area,setArea] = useState("");
   const [password,setPassword] = useState("");
 
-  const add_Employee = ()=>{
+  const add_Salesmanager = ()=>{
     console.log(manager_ID);
     axios.post('http://localhost:3001/createmanager',{
     manager_ID:manager_ID,
@@ -114,11 +114,11 @@ function Add_Employee() {
 
           <div display='flex' align='right'>
 
-            <Link to='/app/Employee'>
-              <button type="submit" onClick={add_Employee} id="submitBtn" style={mystyle.submitBtn}> Create</button>
+            <Link to='/app/Salesmanager'>
+              <button type="submit" onClick={add_Salesmanager} id="submitBtn" style={mystyle.submitBtn}> Create</button>
             </Link>
 
-            <Link to='/app/Employee'>
+            <Link to='/app/Salesmanager'>
               <button type="submit" id="submitBtn" style={mystyle.closeBtn}> Close</button>
             </Link>
           </div>
@@ -132,4 +132,4 @@ function Add_Employee() {
   )
 }
 
-export default Add_Employee;
+export default Add_Salesmanager;

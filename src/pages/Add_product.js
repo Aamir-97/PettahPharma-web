@@ -7,7 +7,7 @@ function Add_Product() {
 
   const [product_ID,setProductID] = useState("");
   const [name,setName] = useState("");
-  const [quantity,setQuantity] = useState("");
+  const [volume,setVolume] = useState("");
   const [price,setPrice] = useState("")
   const [description,setDescription] = useState("");
 
@@ -16,7 +16,7 @@ function Add_Product() {
     axios.post('http://localhost:3001/createproduct',{
     product_ID:product_ID,
     name:name,
-    quantity:quantity,
+    volume:volume,
     price:price,
     description:description,     
 
@@ -103,7 +103,7 @@ function Add_Product() {
 
             <input type="text" style={mystyle.forminput} name="product_ID" onChange={(event)=>{setProductID(event.target.value);}} required placeholder="Product ID"/><br />
             <input type="text" style={mystyle.forminput} name="name" onChange={(event)=>{setName(event.target.value);}} required placeholder="Product Name"/><br />
-            <input type="text" style={mystyle.forminput} name="quantity" onChange={(event)=>{setQuantity(event.target.value);}} required placeholder="Quantity"/><br />
+            <input type="text" style={mystyle.forminput} name="volume" onChange={(event)=>{setVolume(event.target.value);}} required placeholder="Volume"/><br />
             <input type="text" style={mystyle.forminput} name="price" onChange={(event)=>{setPrice(event.target.value);}} required placeholder="Price"/><br />
             <input type="text" style={mystyle.forminput} name="description" onChange={(event)=>{setDescription(event.target.value);}} required placeholder="Description"/><br />
           </div>

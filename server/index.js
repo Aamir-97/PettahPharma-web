@@ -4,6 +4,8 @@ const mysql = require('mysql');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+// const cookieParser = require('cookie-parser');
+// const session = require('express-session');
 // const { name } = require('ejs');
 // const bcrypt = require('bcrypt');
 // const bodyParser =  require('body-parser')
@@ -12,6 +14,9 @@ const path = require('path');
 // dotenv.config({path: './.env'});
 app.use(cors());
 app.use(express.json());
+// app.use(cookieParser());
+// app.use(session());
+
 
 const db = mysql.createConnection({
     user : "root",
@@ -167,7 +172,8 @@ app.post('/createproduct',(req,res)=>{
     const price = req.body.price;
     const description = req.body.description;
     
-    db.query("INSERT INTO product (product_ID,display_photo,productname,volume,price,description) VALUES (?,?,?,?,?,?)",
+    const display_photo= req.body.image;
+    db.query("INSERT INTO product (product_ID,display_photo,name,volume,price,description) VALUES (?,?,?,?,?)",
     [product_ID,display_photo,name,volume,price,description],(err,_results)=>{
         if(err){
             console.log(err);
@@ -211,6 +217,7 @@ app.post('/createmedicalrep',(req,res)=>{
     console.log(req.body)
     const rep_ID = req.body.rep_ID;
     const name = req.body.name;
+    const display_photo=rep.body.image;
     const email = req.body.email;
     const phone_no = req.body.phone_no;
     const area = req.body.area;
@@ -218,7 +225,7 @@ app.post('/createmedicalrep',(req,res)=>{
     const password = req.body.password;
     const manager_ID = req.body.manager_ID;
 
-    db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,area,rating,password,manager_ID) VALUES (?,?,?,?,?,?,?,?)",
+    db.query("INSERT INTO medicalrep (rep_ID,name,display_photo,email,phone_no,area,rating,password,manager_ID) VALUES (?,?,?,?,?,?,?,?)",
     [rep_ID,name,email,phone_no,area,rating,password,manager_ID],(err,_results)=>{
         if(err){
             console.log(err);

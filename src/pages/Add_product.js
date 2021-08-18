@@ -6,6 +6,7 @@ import axios from "axios";
 function Add_Product() {
 
   const [product_ID,setProductID] = useState("");
+  const [display_photo,setImage] = useState("");
   const [name,setName] = useState("");
   const [volume,setVolume] = useState("");
   const [price,setPrice] = useState("")
@@ -15,6 +16,7 @@ function Add_Product() {
     console.log(product_ID);
     axios.post('http://localhost:3001/createproduct',{
     product_ID:product_ID,
+    display_photo:display_photo,
     name:name,
     volume:volume,
     price:price,
@@ -102,6 +104,7 @@ function Add_Product() {
           <div >
 
             <input type="text" style={mystyle.forminput} name="product_ID" onChange={(event)=>{setProductID(event.target.value);}} required placeholder="Product ID"/><br />
+            <input type="file" accept="image/png, image/jpeg" style={mystyle.forminput} name="display_photo" onChange={(event)=>{setImage(event.target.value);}} placeholder="Product Image"/><br />
             <input type="text" style={mystyle.forminput} name="name" onChange={(event)=>{setName(event.target.value);}} required placeholder="Product Name"/><br />
             <input type="text" style={mystyle.forminput} name="volume" onChange={(event)=>{setVolume(event.target.value);}} required placeholder="Volume"/><br />
             <input type="text" style={mystyle.forminput} name="price" onChange={(event)=>{setPrice(event.target.value);}} required placeholder="Price"/><br />
@@ -113,7 +116,6 @@ function Add_Product() {
             <Link to='/app/Product'>
               <button type="submit" onClick={add_Product} id="submitBtn" style={mystyle.submitBtn}> Create</button>
             </Link>
-
             <Link to='/app/Product'>
               <button type="submit" id="submitBtn" style={mystyle.closeBtn}> Close</button>
             </Link>

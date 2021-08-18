@@ -79,7 +79,7 @@ function Product() {
         <TableHead>
           <TableRow>
             {/* <TableCell align="center"><b>Product ID</b></TableCell> */}
-            {/* <TableCell align="center"><b>Product Image</b></TableCell> */}
+            <TableCell align="center"><b>Product Image</b></TableCell>
             <TableCell align="center"><b>Product Name</b></TableCell>
             <TableCell align="center"><b>Volume</b></TableCell>
             <TableCell align="center"><b>Price</b></TableCell>
@@ -100,7 +100,7 @@ function Product() {
                        return(
             <TableRow key={record.product_ID}>
               {/* <TableCell align="center">{record.product_ID}</TableCell> */}
-              {/* <TableCell align="center"><img src={record.display_photo} className='image'/></TableCell> */}
+              <TableCell align="center"><img src={record.display_photo} className='image'/></TableCell>
               <TableCell align="center">{record.name}</TableCell>
               <TableCell align="center">{record.volume}</TableCell>
               <TableCell align="center">{record.price}</TableCell>

@@ -37,6 +37,7 @@ function Salesmanager() {
   
  const classes = useStyles();
 
+ const [manager_ID,setManagerID] = useState("");
  const [searchTerm,setSearchTerm]=useState("");
  const [managerList,setManagerList]=useState([])
  useEffect(()=>{
@@ -44,6 +45,14 @@ function Salesmanager() {
      setManagerList(response.data)
    })
  },[])
+
+ const delete_Salesmanager = ()=>{
+  axios.post('http://localhost:3001/deletemanager',{
+  manager_ID:manager_ID,
+  }).then(()=>{
+     console.log("deleted");
+   });
+};
 
 return (
  
@@ -112,7 +121,8 @@ return (
               <TableCell align="center">{record.phone_no}</TableCell>
               <TableCell align="center">{record.area}</TableCell>
               <TableCell align="center"><Link to={'/app/Edit_SalesManager'}><IconButton aria-label="edit"><EditIcon /></IconButton></Link></TableCell>
-              <TableCell align="center"><IconButton color='Secondary'aria-label="delete"><DeleteIcon /></IconButton></TableCell>
+              <TableCell align="center"><IconButton color='Secondary'aria-label="delete" onClick={() => {delete_Salesmanager(manager_ID)}}><DeleteIcon /></IconButton></TableCell>
+              {/* <TableCell align="center"><button type="submit" id="submitBtn" color='Secondary'aria-label="delete" onclick={delete_Salesmanager}> </button></TableCell> */}
             </TableRow>
                )})
               }

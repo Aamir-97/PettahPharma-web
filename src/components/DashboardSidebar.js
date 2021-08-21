@@ -77,7 +77,7 @@ const items = [
     title: 'Discussion Forum'
   },
   // {
-  //   href: '/app/Help',
+  //   href: '/app/Edit',
   //   icon: HelpIcon,
   //   title: 'Help'
   // },

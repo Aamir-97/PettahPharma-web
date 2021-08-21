@@ -10,16 +10,22 @@ import {
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 // import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
-
-
-
+import GroupIcon from '@material-ui/icons/Group';
 
 function TotalEmployees() {
 
-  const [managercount,setManagercount]=useState([])
+  const [employeecount,setEmployeecount]=useState([])
+  useEffect(()=>{
+  axios.get("http://localhost:3001/employeeCount").then((response)=>{
+  console.log(response.data)
+  setEmployeecount(response.data)
+  })
+},[])
+
+const [managercount,setManagercount]=useState([])
   useEffect(()=>{
   axios.get("http://localhost:3001/managerCount").then((response)=>{
+  console.log(response.data)
   setManagercount(response.data)
   })
 },[])
@@ -44,9 +50,9 @@ return (
             color="textPrimary"
             variant="h3"
           >
-            {managercount.map((record)=>{
+            {employeecount.map((record)=>{
               return(
-              <p style={{fontSize:'30px'}}>{record.count}</p>
+              <p style={{fontSize:'30px'}}>{record.totalcount}</p>
               )
             })}
           </Typography>
@@ -59,7 +65,7 @@ return (
               width: 56
             }}
           >
-            <SupervisorAccountOutlinedIcon />
+            <GroupIcon />
           </Avatar>
         </Grid>
       </Grid>
@@ -70,21 +76,19 @@ return (
           pt: 2
         }}
       >
-
         {/* <Typography
           sx={{
             color: green[900],
             mr: 1
           }}
           variant="body2"
-        >
-          3
-        </Typography>
+        > */}
+        {/* </Typography>
         <Typography
           color="textSecondary"
           variant="caption"
         >
-          Sales Manager
+          Sales Managers
         </Typography> */}
       </Box>
     </CardContent>

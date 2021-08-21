@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import {
   Avatar,
   Box,
@@ -8,14 +10,19 @@ import {
   Typography
 } from '@material-ui/core';
 import { orange,green } from '@material-ui/core/colors';
-// import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import DescriptionIcon from '@material-ui/icons/Description';
 
-const TotalVisits = (props) => (
+function TotalVisits() {
+
+  const [visitcount,setVisitcount]=useState([])
+  useEffect(()=>{
+  axios.get("http://localhost:3001/visitCount").then((response)=>{
+  console.log(response.data)
+  setVisitcount(response.data)
+  })
+},[])
+return (
   <Card
-    sx={{ height: '100%' }}
-    {...props}
   >
     <CardContent>
       <Grid
@@ -35,7 +42,11 @@ const TotalVisits = (props) => (
             color="textPrimary"
             variant="h3"
           >
-            156
+            {visitcount.map((record)=>{
+              return(
+              <p style={{fontSize:'30px'}}>{record.count}</p>
+              )
+            })}
           </Typography>
         </Grid>
         <Grid item>
@@ -80,5 +91,5 @@ const TotalVisits = (props) => (
     </CardContent>
   </Card>
 );
-
+}
 export default TotalVisits;

@@ -4,10 +4,12 @@ const mysql = require('mysql');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+const fileUpload = require('express-fileupload');
+// const multer = require('multer');
 // const cookieParser = require('cookie-parser');
 // const session = require('express-session');
 // const { name } = require('ejs');
-// const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt'); 
 // const bodyParser =  require('body-parser')
 // const saltRounds = 10;
 // const fileUpload = require('express-fileupload');
@@ -16,14 +18,22 @@ app.use(cors());
 app.use(express.json());
 // app.use(cookieParser());
 // app.use(session());
-
+app.use(
+    fileUpload({
+      useTempFiles: true,
+      safeFileNames: true,
+      preserveExtension: true,
+      tempFileDir: `${__dirname}/public/files/temp`
+    })
+  );
 
 const db = mysql.createConnection({
     user : "root",
     host : "localhost",
     password: "",
-    database: "pettahpharma"
-});
+    database: "pettahpharma",
+    multipleStatements:true
+}); 
 
 db.connect((err)=>{
     if(err) 
@@ -110,7 +120,7 @@ app.get('/viewmanager',(_req,res)=>{
 });
 
 app.get("/view/:manager_ID",(req,res)=>{
-    db.query( "SELECT *FROM salesmanager WHERE manager_ID=?",[req.params.id],(err,rows,fields)=>
+    db.query( "SELECT * FROM salesmanager WHERE manager_ID=?",[req.params.id],(err,rows,fields)=>
    {
         if(!err)
         res.send(rows);
@@ -120,13 +130,38 @@ app.get("/view/:manager_ID",(req,res)=>{
 });
 
 app.delete("/delete/:manager_ID",(req,res)=>{
-    const id = req.params.id;
-    const sqlDelete="DELETE FROM salesmanager WHERE manager_ID=?";
+    const manager_ID = req.params.manager_ID;
 
-    db.query(sqlDelete,id,(err,result)=>{
-      if(err) console.log(err);
-    });
+    db.query("DELETE FROM salesmanager WHERE manager_ID=?",[manager_ID],(err,rows)=>{
+            if(!err)
+            res.send(rows);
+            else
+            console.log(err);
+       });
 });
+
+app.delete('/deletemanager', (req,res) => {
+    manager_ID = req.params.manager_ID;
+    
+    db.query("DELETE FROM salesmanager WHERE manager_ID=?",[req.query.manager_ID], (err, result) => {
+        if(!err)
+        res.send(result);
+        else
+        console.log(err);
+   });
+});
+ 
+// app.delete("/deletemanager",(req,res)=>{
+//     console.log(req.body)
+//     const manager_ID = req.body.manager_ID;
+
+//     db.query("DELETE FROM salesmanager WHERE manager_ID=?",[manager_ID],(err,rows)=>{
+//             if(!err)
+//             res.send(rows);
+//             else
+//             console.log(err);
+//        });
+// });
 
 app.get('/viewmanager',(_req,res)=>{
     db.query('SELECT name FROM salesmanager ',(err,result,_fields)=>{
@@ -148,15 +183,16 @@ app.get('/viewrep',(_req,res)=>{
     });
 });
 
-app.put("/update/:manager_ID",(req,res)=>{
-    const name = req.body.name;
-    const email = req.body.email;
-    const phone_no = req.body.phone_no;
-    const area = req.body.area;
+app.put("/edit/:manager_ID",(req,res)=>{
+    const manager_ID = req.params.manager_ID;
+    // const name = req.body.name;
+    // const email = req.body.email;
+    // const phone_no = req.body.phone_no;
+    // const area = req.body.area;
   
-    db.query('UPDATE salesmanager SET (name,email,phone_no,area) WHERE manager_ID=?',[name,email,phone_no,area],(err,result)=>{
+    db.query('UPDATE salesmanager SET (name,email,phone_no,area) WHERE manager_ID=?',[manager_ID],(err,result)=>{
         if(!err){
-            res.send(result);
+            res.send("updated");
         }else{
         console.log(err);
         }
@@ -171,8 +207,7 @@ app.post('/createproduct',(req,res)=>{
     const volume = req.body.volume;
     const price = req.body.price;
     const description = req.body.description;
-    
-    const display_photo= req.body.image;
+     
     db.query("INSERT INTO product (product_ID,display_photo,name,volume,price,description) VALUES (?,?,?,?,?)",
     [product_ID,display_photo,name,volume,price,description],(err,_results)=>{
         if(err){
@@ -182,7 +217,7 @@ app.post('/createproduct',(req,res)=>{
         }
     });
 });
-
+ 
 app.put('/editProduct', (req,res) => {
     console.log(req.body)
     const product_ID = req.body.product_ID;
@@ -192,9 +227,8 @@ app.put('/editProduct', (req,res) => {
     const price = req.body.price;
     const description = req.body.description;
 
-    db.query("UPDATE products SET display_photo=?,name = ?,volume=?,,price=?,description=? WHERE product_ID = ?", 
-    [display_photo,name,price,volume,price,description], 
-    (err, result) => {
+    db.query("UPDATE products SET display_photo=?,name=?,volume=?,price=?,description=? WHERE product_ID = ?", 
+    [product_ID,display_photo,name,volume,price,description], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -226,7 +260,7 @@ app.post('/createmedicalrep',(req,res)=>{
     const manager_ID = req.body.manager_ID;
 
     db.query("INSERT INTO medicalrep (rep_ID,name,display_photo,email,phone_no,area,rating,password,manager_ID) VALUES (?,?,?,?,?,?,?,?)",
-    [rep_ID,name,email,phone_no,area,rating,password,manager_ID],(err,_results)=>{
+    [rep_ID,name,display_photo,email,phone_no,area,rating,password,manager_ID],(err,_results)=>{
         if(err){
             console.log(err);
         } else{
@@ -247,9 +281,8 @@ app.get('/viewmedicalrep',(_req,res)=>{
 
 app.get('/managerCount',(req,res) => {
     console.log(req.body)
-    const manager_ID = req.body.manager_ID;
 
-    db.query('SELECT COUNT(manager_ID) AS count FROM salesmanager',[manager_ID], (err, result) => {
+    db.query('SELECT COUNT(manager_ID) AS count FROM salesmanager', (err, result) => {
         if(!err){
             res.send(result);
         }else{
@@ -260,10 +293,8 @@ app.get('/managerCount',(req,res) => {
 
 app.get('/employeeCount',(req,res) => {
     console.log(req.body)
-    const manager_ID = req.body.manager_ID;
-    const rep_ID = req.body.rep_ID;
 
-    db.query('SELECT SUM(tbl.count) FROM (SELECT COUNT(manager_ID) AS count FROM salesmanager UNION ALL SELECT COUNT(rep_ID) AS count FROM medicalrep)tbl)',[manager_ID,rep_ID],(err, result) => {
+    db.query('SELECT SUM(tbl.count) AS totalcount FROM (SELECT COUNT(manager_ID) AS count FROM salesmanager UNION ALL SELECT COUNT(rep_ID) AS count FROM medicalrep)tbl',(err, result) => {
         if(!err){
             res.send(result);
         }else{
@@ -272,11 +303,11 @@ app.get('/employeeCount',(req,res) => {
     });
 });
 
+ 
 app.get('/productCount',(req,res) => {
     console.log(req.body)
-    const product_ID = req.body.product_ID;
 
-    db.query('SELECT COUNT(product_ID) AS count FROM product',[product_ID], (err, result) => {
+    db.query('SELECT COUNT(product_ID) AS count FROM product', (err, result) => {
         if(!err){
             res.send(result);
         }else{
@@ -285,6 +316,62 @@ app.get('/productCount',(req,res) => {
     });
 });
 
+app.get('/expenseCount',(req,res) => {
+    console.log(req.body)
+
+    db.query('SELECT COUNT(expense_ID) AS count FROM expenses', (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/totalExpenses',(req,res) => {
+    console.log(req.body)
+
+    db.query('SELECT SUM(amount) AS totalexpense FROM expenses',(err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/visitCount',(req,res) => {
+    console.log(req.body)
+
+    db.query('SELECT COUNT(report_ID) AS count FROM visit_summary_report', (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.post('/upload', function(req, res) {
+    let sampleFile;
+    let uploadPath;
+  
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send('No files were uploaded.');
+    }
+  
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    sampleFile = req.files.sampleFile;
+    uploadPath = __dirname + '/somewhere/on/your/server/' + sampleFile.name;
+  
+    // Use the mv() method to place the file somewhere on your server
+    sampleFile.mv(uploadPath, function(err) {
+      if (err)
+        return res.status(500).send(err);
+  
+      res.send('File uploaded!');
+    });
+  });
 // app.put("/update/:manager_ID",(req,res)=>{
 //     const manager_ID = req.body.manager_ID;
 //     const area = req.body.area;

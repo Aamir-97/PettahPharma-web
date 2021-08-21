@@ -9,9 +9,7 @@ import {
     Typography
   } from '@material-ui/core';
   import { indigo,red } from '@material-ui/core/colors';
-  import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-  import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacyOutlined';
-  import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+  import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy';
   
   function TotalProducts() {
 

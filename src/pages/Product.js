@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 function Product() {
   
  const classes = useStyles();
- const [searchTerm,setSearchTerm]=useState("");
+ const [Value,setValue]=useState("");
     const [productList,setProductList]=useState([])
     useEffect(()=>{
       axios.get("http://localhost:3001/viewproduct").then((response)=>{
@@ -42,7 +42,7 @@ function Product() {
     
     <div >
       <div className="searchbar">
-          <input type="text"  placeholder="Search" onChange={(e)=>{setSearchTerm(e.target.value);}} />
+          <input type="text"  placeholder="Search" onChange={(e)=>{setValue(e.target.value);}} />
           <SearchIcon  className='searchicon'/>
       </div>
    <Box 
@@ -89,10 +89,10 @@ function Product() {
         </TableHead>
 
         <TableBody>
-        {productList.filter(val=>{if(searchTerm===""){
+        {productList.filter(val=>{if(Value===""){
                        return val;
                      }else if(
-                       val.name.toLowerCase().includes(searchTerm.toLowerCase())) 
+                       val.name.toLowerCase().includes(Value.toLowerCase())) 
                      {
                        return val
                      }
@@ -100,7 +100,7 @@ function Product() {
                        return(
             <TableRow key={record.product_ID}>
               {/* <TableCell align="center">{record.product_ID}</TableCell> */}
-              <TableCell align="center"><img src={record.display_photo} className='image'/></TableCell>
+              <TableCell align="center"><img src={record.display_photo}/></TableCell>
               <TableCell align="center">{record.name}</TableCell>
               <TableCell align="center">{record.volume}</TableCell>
               <TableCell align="center">{record.price}</TableCell>

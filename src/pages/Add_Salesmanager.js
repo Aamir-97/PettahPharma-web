@@ -26,7 +26,7 @@ function Add_Salesmanager() {
     }).then(()=>{
        console.log("success");
      });
-};
+  };
 
   const mystyle = {
     formstep: {

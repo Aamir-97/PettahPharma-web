@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import {
   Avatar,
   Box,
@@ -6,15 +8,20 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import MoneyIcon from '@material-ui/icons/Money';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { red } from '@material-ui/core/colors';
 
-const Expenses = (props) => (
-  <Card
-    sx={{ height: '100%' }}
-    {...props}
-  >
+function Expenses() {
+
+  const [expensecount,setExpensecount]=useState([])
+  useEffect(()=>{
+  axios.get("http://localhost:3001/totalexpenses").then((response)=>{
+  console.log(response.data)
+  setExpensecount(response.data)
+  })
+},[])
+return (
+  <Card>
     <CardContent>
       <Grid
         container
@@ -33,7 +40,11 @@ const Expenses = (props) => (
             color="textPrimary"
             variant="h3"
           >
-            Rs. 24,000
+          {expensecount.map((record)=>{
+              return(
+              <p style={{fontSize:'30px'}}>{record.totalexpense}</p>
+              )
+            })}
           </Typography>
         </Grid>
 
@@ -45,7 +56,7 @@ const Expenses = (props) => (
               width: 56
             }}
           >
-            <MoneyIcon />
+            <MonetizationOnIcon />
           </Avatar>
         </Grid>
       </Grid>
@@ -76,5 +87,5 @@ const Expenses = (props) => (
     </CardContent>
   </Card>
 );
-
+}
 export default Expenses;

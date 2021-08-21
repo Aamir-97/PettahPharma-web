@@ -10,7 +10,7 @@ function Add_Medicalrep() {
   const [email,setEmail] = useState("");
   const [phone_no,setPhoneNo] = useState("")
   const [area,setArea] = useState("");
-  const [level,setLevel] = useState("");
+  const [rating,setRating] = useState("");
   const [password,setPassword] = useState("");
   const [manager_ID,setManagerID] = useState("");
 
@@ -22,7 +22,7 @@ function Add_Medicalrep() {
     email:email,
     phone_no:phone_no,
     area:area,
-    level:level,
+    rating:rating,
     password:password,
     manager_ID:manager_ID,
 
@@ -112,7 +112,7 @@ function Add_Medicalrep() {
             <input type="email" style={mystyle.forminput} name="email" onChange={(event)=>{setEmail(event.target.value);}} required placeholder="Email"/><br />
             <input type="text" style={mystyle.forminput} name="phone_no" onChange={(event)=>{setPhoneNo(event.target.value);}} required placeholder="Phone Number"/><br />
             <input type="text" style={mystyle.forminput} name="area" onChange={(event)=>{setArea(event.target.value);}} required placeholder="Area"/><br />
-            <input type="text" style={mystyle.forminput} name="level" onChange={(event)=>{setLevel(event.target.value);}} required placeholder="Level"/><br />
+            <input type="text" style={mystyle.forminput} name="rating" onChange={(event)=>{setRating(event.target.value);}} required placeholder="Rating"/><br />
             <input type="text" style={mystyle.forminput} name="password" onChange={(event)=>{setPassword(event.target.value);}} required placeholder="Password"/><br />
             <input type="text" style={mystyle.forminput} name="manager_ID" onChange={(event)=>{setManagerID(event.target.value);}} required placeholder="Manager ID"/><br />
           </div>

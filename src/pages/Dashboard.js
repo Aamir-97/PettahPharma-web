@@ -10,7 +10,7 @@ import LatestProducts from 'src/components/dashboard//LatestProducts';
 import Sales from 'src/components/dashboard//Sales';
 import TotalVisits from 'src/components/dashboard/TotalVisits';
 import TotalEmployees from 'src/components/dashboard/TotalEmployees';
-import TotalSales from 'src/components/dashboard/TotalSales';
+import TotalProducts from 'src/components/dashboard/TotalProducts';
 import TaskProgress from 'src/components/dashboard/TaskProgress';
 
 const Dashboard = () => (
@@ -64,7 +64,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TotalSales sx={{ height: '100%' }} />
+            <TotalProducts sx={{ height: '100%' }} />
           </Grid>
           <Grid
             item

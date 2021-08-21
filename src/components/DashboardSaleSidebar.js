@@ -82,7 +82,7 @@ const items = [
     title: 'Leave Approval'
   },
   {
-    href: '/appp/Leave',
+    href: '/appp/Allowns',
     icon: ForumIcon,
     title: 'Allowns'
   },

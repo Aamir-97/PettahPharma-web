@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core';
 import AccountProfile from 'src/components/account/AccountProfile';
 import AccountProfileDetails from 'src/components/account/AccountProfileDetails';
+import SettingsPassword from 'src/components/settings/SettingsPassword';
 
 const Account = () => (
   <>
@@ -42,6 +43,20 @@ const Account = () => (
           </Grid>
         </Grid>
       </Container>
+
+      <Box
+      sx={{
+        backgroundColor: 'background.default',
+        minHeight: '100%',
+        py: 3
+      }}
+    >
+      <Container maxWidth="lg">
+        <Box sx={{ pt: 3 }}>
+          <SettingsPassword />
+        </Box>
+      </Container>
+    </Box>
     </Box>
   </>
 );

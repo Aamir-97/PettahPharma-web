@@ -11,28 +11,12 @@ import {
 } from '@material-ui/core';
 
 const states = [
-  {
-    value: 'Colombo',
-    label: 'Colombo'
-  },
-  {
-    value: 'nothern-pro',
-    label: 'Nothern Province'
-  },
-  {
-    value: 'galle-matara',
-    label: 'Galle-Matara'
-  }
 ];
 
 const AccountProfileDetails = (props) => {
   const [values, setValues] = useState({
-    firstName: 'Madhusha',
-    lastName: 'Mathivannan',
-    email: 'pettahpharmaadmin@gmail.com',
-    phone: '',
-    state: 'Colombo',
-    country: 'Sri Lanka'
+    name: 'Madhusha Mathivannan',
+    email: 'madhusha@gmail.com',
   });
 
   const handleChange = (event) => {
@@ -50,10 +34,9 @@ const AccountProfileDetails = (props) => {
     >
       <Card>
         <CardHeader
-          subheader="The information can be edited"
+          // subheader="The information can be edited"
           title="Profile"
         />
-        <Divider />
         <CardContent>
           <Grid
             container
@@ -66,16 +49,15 @@ const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
-                name="firstName"
+                label="Name"
+                name="Name"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={values.name}
                 variant="outlined"
               />
             </Grid>
-            <Grid
+            {/* <Grid
               item
               md={6}
               xs={12}
@@ -89,7 +71,7 @@ const AccountProfileDetails = (props) => {
                 value={values.lastName}
                 variant="outlined"
               />
-            </Grid>
+            </Grid> */}
             <Grid
               item
               md={6}
@@ -105,22 +87,7 @@ const AccountProfileDetails = (props) => {
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Phone Number"
-                name="phone"
-                onChange={handleChange}
-                type="number"
-                value={values.phone}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
+            {/* <Grid
               item
               md={6}
               xs={12}
@@ -134,8 +101,8 @@ const AccountProfileDetails = (props) => {
                 value={values.country}
                 variant="outlined"
               />
-            </Grid>
-            <Grid
+            </Grid> */}
+            {/* <Grid
               item
               md={6}
               xs={12}
@@ -160,7 +127,7 @@ const AccountProfileDetails = (props) => {
                   </option>
                 ))}
               </TextField>
-            </Grid>
+            </Grid> */}
           </Grid>
         </CardContent>
         <Divider />

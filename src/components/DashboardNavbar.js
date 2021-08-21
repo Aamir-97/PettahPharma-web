@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from './Logo';
 // import { RouterOutlined } from '@material-ui/icons';
@@ -41,14 +42,14 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
           </IconButton>
           <RouterLink to="/">
           <IconButton color="secondary">
-            <InputIcon />
+            <ExitToAppOutlinedIcon />
           </IconButton>
           </RouterLink>
 
         </Hidden>
         <Hidden lgUp>
           <IconButton
-            color="inherit"
+            color="primary"
             onClick={onMobileNavOpen}
           >
             <MenuIcon />

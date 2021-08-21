@@ -4,42 +4,35 @@ import DashboardSaleLayout from 'src/components/DashboardSaleLayout';
 //import MainLayout from 'src/components/MainLayout';
 import Account from 'src/pages/Account';
 // import CustomerList from 'src/pages/CustomerList';
-import Employee from 'src/pages/Employee';
+import Salesmanager from 'src/pages/Salesmanager';
 import Medicalrep from 'src/pages/Medicalrep';
 import Forum from 'src/pages/Forum';
 import Product from 'src/pages/Product';
-import Leavetypes from './components/settings/Leavetypes';
-import Visittypes from './components/settings/Visittypes';
-import Expensetypes from './components/settings/Expensetypes';
-//import CustomerList from 'src/pages/CustomerList';
 import DataPlanList from 'src/pages/DataPlanList';
 import SummaryReportList from 'src/pages/SummaryReportList';
 import LeaveList from 'src/pages/LeaveList';
+import AllownsList from 'src/pages/AllownsList';
 import Dashboard from 'src/pages/Dashboard';
 import Dashboardsale from 'src/pages/Dashboardsale';
-import Add_Employee from 'src/pages/Add_Employee';
-import Add_product from 'src/pages/Add_product';
+import Add_Salesmanager from 'src/pages/Add_Salesmanager';
+import Add_Product from 'src/pages/Add_Product';
+import Edit_Product from 'src/pages/Edit_Product';
+import Edit_Salesmanager from 'src/pages/Edit_Salesmanager';
+import Edit_Medicalrep from 'src/pages/Edit_Medicalrep';
 import AsignTask from 'src/pages/AsignTask';
 import ViewSummary from 'src/pages/ViewSummary';
-// import Add_product from 'src/pages/Add_product';
 import Login from 'src/pages/Login';
 import NotFound from 'src/pages/NotFound';
-// import ProductList from 'src/pages/ProductList';
-// import Register from 'src/pages/Register';
 import TaskInfo from 'src/pages/TaskInfo';
 import UpdateTask from 'src/pages/UpdateTask';
 import SummaryInfo from 'src/pages/SummaryInfo';
 import SummaryComment from 'src/pages/SummaryComment';
 import LeaveInfo from 'src/pages/LeaveInfo';
 import LeaveComment from 'src/pages/LeaveComment';
-import Settings from 'src/pages/Settings';
 import Help from 'src/pages/Help';
+import ReportGeneration from 'src/pages/ReportGeneration'
 import Add_Medicalrep from 'src/pages/Add_Medicalrep';
-import Add_Leavetype from 'src/pages/Add_Leavetype';
-import Add_Expensetype from './pages/Add_Expensetype';
-import Add_Visittype from './pages/Add_Visittype';
-// import Popup from 'src/pages/Popup';
-// import CustomerAdd from 'src/pages/customeradd';
+
 
 const routes = [
   {
@@ -47,22 +40,20 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: 'account', element: <Account /> },
-      { path: 'Employee', element: <Employee /> },
+      { path: 'Salesmanager', element: <Salesmanager /> },
       { path: 'Help', element: <Help /> },
       { path: 'dashboard', element: <Dashboard /> },
       // { path: 'dashboardsale', element: <Dashboardsale /> },
-      { path: 'Add_Employee', element: <Add_Employee /> },
-      { path: 'Add_Product', element: <Add_product /> },
+      { path: 'Add_Salesmanager', element: <Add_Salesmanager /> },
+      { path: 'Add_Product', element: <Add_Product /> },
+      { path: 'Edit_Product', element: <Edit_Product /> },
+      { path: 'Edit_Salesmanager', element: <Edit_Salesmanager /> },
+      { path: 'Edit_Medicalrep', element: <Edit_Medicalrep /> },
       { path: 'Add_Medicalrep', element: <Add_Medicalrep /> },
+      { path: 'ReportGeneration', element: <ReportGeneration /> },
       { path: 'Product', element: <Product /> },
-      { path: 'Add_Leavetype', element: <Add_Leavetype /> },
-      { path: 'Add_Expensetype', element: <Add_Expensetype /> },
-      { path: 'Add_Visittype', element: <Add_Visittype /> },
-      { path: 'Leavetypes', element: <Leavetypes /> },
       { path: 'Medicalrep', element: <Medicalrep /> },
-      { path: 'Visittypes', element: <Visittypes /> },
-      { path: 'Expensetypes', element: <Expensetypes /> },
-      { path: 'settings', element: <Settings /> },
+      // { path: 'settings', element: <Settings /> },
       { path: 'Forum', element: <Forum /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
@@ -76,6 +67,7 @@ const routes = [
       { path: 'SummaryReport', element: <SummaryReportList /> },
       { path: 'Leave', element: <LeaveList /> },
       // { path: 'dashboard', element: <Dashboard /> },
+      { path: 'Allowns', element: <AllownsList />},
       { path: 'dashboardsale', element: <Dashboardsale /> },
       { path: 'AsignTask', element: <AsignTask /> },
       { path: 'ViewSummary', element: <ViewSummary /> },
@@ -87,7 +79,7 @@ const routes = [
       { path: 'LeaveComment/:leave_ID', element: <LeaveComment /> },
       // { path: 'Add_product', element: <Add_product /> },
       // { path: 'products', element: <ProductList /> },
-      { path: 'settings', element: <Settings /> },
+      // { path: 'settings', element: <Settings /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

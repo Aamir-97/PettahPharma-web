@@ -27,7 +27,7 @@ const Expenses = (props) => (
             gutterBottom
             variant="h6"
           >
-            Expenses
+            TOTAL EXPENSES
           </Typography>
           <Typography
             color="textPrimary"
@@ -56,7 +56,7 @@ const Expenses = (props) => (
           alignItems: 'center'
         }}
       >
-        <ArrowDownwardIcon sx={{ color: red[900] }} />
+        {/* <ArrowDownwardIcon sx={{ color: red[900] }} />
         <Typography
           sx={{
             color: red[900],
@@ -71,7 +71,7 @@ const Expenses = (props) => (
           variant="caption"
         >
           Since last month
-        </Typography>
+        </Typography> */}
       </Box>
     </CardContent>
   </Card>

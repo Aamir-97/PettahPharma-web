@@ -12,11 +12,9 @@ import {
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Colombo -07',
-  country: 'Sri lanka',
   jobTitle: 'Admin',
+  email: 'madhusha@gmail.com',
   name: 'Madhusha Mathivannan',
-  timezone: 'GTM+5.30'
 };
 
 const AccountProfile = (props) => (
@@ -47,13 +45,13 @@ const AccountProfile = (props) => (
           color="textSecondary"
           variant="body1"
         >
-          {`${user.city} ${user.country}`}
+          {`${user.jobTitle}`}
         </Typography>
         <Typography
           color="textSecondary"
           variant="body1"
         >
-          {`${moment().format('hh:mm A')} ${user.timezone}`}
+          {`${user.email}`}
         </Typography>
       </Box>
     </CardContent>

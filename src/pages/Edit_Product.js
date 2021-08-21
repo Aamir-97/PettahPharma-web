@@ -3,20 +3,24 @@ import { Link } from 'react-router-dom';
 import shadows from 'src/theme/shadows';
 import axios from "axios";
 
-function Add_Leavetype() {
+function Edit_Product() {
 
+  const [product_ID,setProductID] = useState("");
+//   const [display_photo,setImage] = useState("");
   const [name,setName] = useState("");
-  const [status,setStatus] = useState("");
-  const [quota,setQuota] = useState("");
-  const [frequency,setFrequency] = useState("");
+  const [volume,setVolume] = useState("");
+  const [price,setPrice] = useState("")
+  const [description,setDescription] = useState("");
 
-  const add_Leavetype = ()=>{
-    console.log(name);
-    axios.post('http://localhost:3001/createleavetype',{
+  const edit_Product = ()=>{
+    console.log(product_ID);
+    axios.post('http://localhost:3001//editProduct',{
+    product_ID:product_ID,
+    // display_photo:display_photo,
     name:name,
-    status:status,
-    quota:quota,
-    frequency:frequency,     
+    volume:volume,
+    price:price,
+    description:description,     
 
     }).then(()=>{
        console.log("success");
@@ -95,22 +99,25 @@ function Add_Leavetype() {
   return (
     <div align='center'>
       <div style={mystyle.formbox}>
-        <h1 style={mystyle.formhead}> CREATE LEAVE TYPE </h1>
+        <h1 style={mystyle.formhead}> EDIT PRODUCT </h1>
         <form >
           <div >
-            <input type="text" style={mystyle.forminput} name="name" onChange={(event)=>{setName(event.target.value);}} required placeholder="Leave Name"/><br />
-            <input type="text" style={mystyle.forminput} name="status" onChange={(event)=>{setStatus(event.target.value);}} required placeholder="Paid / Unpaid"/><br />
-            <input type="text" style={mystyle.forminput} name="quota" onChange={(event)=>{setQuota(event.target.value);}} required placeholder="Leave Quota"/><br />
-            <input type="text" style={mystyle.forminput} name="frequency" onChange={(event)=>{setFrequency(event.target.value);}} required placeholder="Quota Frequency"/><br />
+
+            <input type="text" style={mystyle.forminput} name="product_ID" onChange={(event)=>{setProductID(event.target.value);}} required placeholder="Product ID"/><br />
+            {/* <input type="text" style={mystyle.forminput} name="display_photo" onChange={(event)=>{setImage(event.target.value);}} required placeholder="Product Image"/><br /> */}
+            <input type="text" style={mystyle.forminput} name="name" onChange={(event)=>{setName(event.target.value);}} required placeholder="Product Name"/><br />
+            <input type="text" style={mystyle.forminput} name="volume" onChange={(event)=>{setVolume(event.target.value);}} required placeholder="Volume"/><br />
+            <input type="text" style={mystyle.forminput} name="price" onChange={(event)=>{setPrice(event.target.value);}} required placeholder="Price"/><br />
+            <input type="text" style={mystyle.forminput} name="description" onChange={(event)=>{setDescription(event.target.value);}} required placeholder="Description"/><br />
           </div>
 
           <div display='flex' align='right'>
 
-            <Link to='/app/settings'>
-              <button type="submit" onClick={add_Leavetype} id="submitBtn" style={mystyle.submitBtn}> Create</button>
+            <Link to='/app/Product'>
+              <button type="submit" onClick={edit_Product} id="submitBtn" style={mystyle.submitBtn}> Save</button>
             </Link>
 
-            <Link to='/app/settings'>
+            <Link to='/app/Product'>
               <button type="submit" id="submitBtn" style={mystyle.closeBtn}> Close</button>
             </Link>
           </div>
@@ -124,4 +131,4 @@ function Add_Leavetype() {
   )
 }
 
-export default Add_Leavetype;
+export default Edit_Product;

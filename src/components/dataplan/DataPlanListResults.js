@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import axios from "axios";
 import {
   Avatar,
   Box,
   Card,
   Checkbox,
   Table,
+  Button,
   TableBody,
   TableCell,
   TableHead,
@@ -16,28 +18,44 @@ import {
   Typography
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
+import { Link, Route } from 'react-router-dom';
 
 const DataPlanListResults = ({ DataPlan, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+  const [selectedCustomerIds, setSelectedCustomerIds] = useState([])
+
+  let manager_ID = localStorage.getItem('managerid');
+  manager_ID = JSON.parse(manager_ID)
+  console.log(manager_ID);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get('http://localhost:3001/gettask', {
+        params: {
+          manager_ID: manager_ID,
+        }
+      });
+      setSelectedCustomerIds(response.data);
+      console.log(response.data);
+    };
+    fetchData();
+  }, [manager_ID]);
+
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
   const handleSelectAll = (event) => {
     let newSelectedCustomerIds;
-
     if (event.target.checked) {
       newSelectedCustomerIds = DataPlan.map((customer) => customer.id);
     } else {
       newSelectedCustomerIds = [];
     }
-
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
   const handleSelectOne = (event, id) => {
     const selectedIndex = selectedCustomerIds.indexOf(id);
     let newSelectedCustomerIds = [];
-
     if (selectedIndex === -1) {
       newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
     } else if (selectedIndex === 0) {
@@ -50,7 +68,6 @@ const DataPlanListResults = ({ DataPlan, ...rest }) => {
         selectedCustomerIds.slice(selectedIndex + 1)
       );
     }
-
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
@@ -62,6 +79,16 @@ const DataPlanListResults = ({ DataPlan, ...rest }) => {
     setPage(newPage);
   };
 
+  const deleteEmployee = (task_id) => {
+    axios.get("http://localhost:3001/delete", {
+      params: {
+        task_id: task_id,
+      }
+    }).then((response) => {
+      window.location.reload();
+    })
+  };
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -69,48 +96,20 @@ const DataPlanListResults = ({ DataPlan, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                {/* <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === DataPlan.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < DataPlan.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell> */}
-                <TableCell>
-                Employee Name
-                </TableCell>
-                <TableCell>
-                  Task Headline
-                </TableCell>
-                {/* <TableCell>
-                  Location
-                </TableCell>
-                <TableCell>
-                  Phone
-                </TableCell> */}
-                <TableCell>
-                  Date
-                </TableCell>
+                <TableCell> Medical Rep Name</TableCell>
+                <TableCell>Task Title</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Session</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell align="center">Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {DataPlan.slice(0, limit).map((customer) => (
+              {selectedCustomerIds.slice(0, limit).map((customer) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={customer.task_id}
                 >
-                  {/* <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell> */}
                   <TableCell>
                     <Box
                       sx={{
@@ -118,36 +117,42 @@ const DataPlanListResults = ({ DataPlan, ...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      {/* <Avatar
-                        src={customer.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(customer.name)}
-                      </Avatar> */}
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
                         {customer.name}
+
                       </Typography>
                     </Box>
                   </TableCell>
-                  <TableCell>
-                    {customer.task}
+                  <TableCell>{customer.title}</TableCell>
+                  <TableCell>{customer.type}</TableCell>
+                  <TableCell>{customer.session}</TableCell>
+                  <TableCell>{customer.date}</TableCell>
+                  <TableCell align="center">
+                    <Link to={`/appp/TaskInfo/${customer.task_id}`}  >
+                      <Button
+                        color="primary"
+                        variant="contained">
+                        View
+                      </Button>
+                    </Link>
+                    {'   '}
+                    <Link to={`/appp/UpdateTask/${customer.task_id}`}  >
+                      <Button
+                        color="primary"
+                        variant="contained">
+                        Edit
+                      </Button>
+                    </Link>
+                    {' '}
+                    <Button onClick={() => { deleteEmployee(customer.task_id) }} color="primary"
+                      variant="contained">
+                      Delete
+                    </Button>
+
                   </TableCell>
-                  <TableCell>
-                    {customer.date}
-                  </TableCell>
-                  {/* <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
-                    {`${customer.address.city}`}
-                  </TableCell>
-                  <TableCell>
-                    {customer.phone}
-                  </TableCell>
-                  <TableCell>
-                    {customer.price}
-                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
@@ -171,4 +176,4 @@ DataPlanListResults.propTypes = {
   DataPlan: PropTypes.array.isRequired
 };
 
-export default DataPlanListResults;
+export default DataPlanListResults

@@ -23,11 +23,16 @@ import AsignTask from 'src/pages/AsignTask';
 import ViewSummary from 'src/pages/ViewSummary';
 import Login from 'src/pages/Login';
 import NotFound from 'src/pages/NotFound';
-// import Settings from 'src/pages/Settings';
+import TaskInfo from 'src/pages/TaskInfo';
+import UpdateTask from 'src/pages/UpdateTask';
+import SummaryInfo from 'src/pages/SummaryInfo';
+import SummaryComment from 'src/pages/SummaryComment';
+import LeaveInfo from 'src/pages/LeaveInfo';
+import LeaveComment from 'src/pages/LeaveComment';
 import Help from 'src/pages/Help';
 import ReportGeneration from 'src/pages/ReportGeneration'
 import Add_Medicalrep from 'src/pages/Add_Medicalrep';
-// import Popup from 'src/pages/Popup';
+
 
 const routes = [
   {
@@ -66,6 +71,12 @@ const routes = [
       { path: 'dashboardsale', element: <Dashboardsale /> },
       { path: 'AsignTask', element: <AsignTask /> },
       { path: 'ViewSummary', element: <ViewSummary /> },
+      { path: 'TaskInfo/:tasK_id', element: <TaskInfo /> },
+      { path: 'UpdateTask/:tasK_id', element: <UpdateTask /> },
+      { path: 'SummaryInfo/:report_id', element: <SummaryInfo /> },
+      { path: 'SummaryComment/:report_id', element: <SummaryComment /> },
+      { path: 'LeaveInfo/:leave_ID', element: <LeaveInfo /> },
+      { path: 'LeaveComment/:leave_ID', element: <LeaveComment /> },
       // { path: 'Add_product', element: <Add_product /> },
       // { path: 'products', element: <ProductList /> },
       // { path: 'settings', element: <Settings /> },

@@ -12,8 +12,44 @@ import TotalVisits from 'src/components/dashboard/TotalVisits';
 import TotalEmployees from 'src/components/dashboard/TotalEmployees';
 import TotalSales from 'src/components/dashboard/TotalSales';
 import TaskProgress from 'src/components/dashboard/TaskProgress';
+import axios from "axios";
+import React, {useState , useEffect} from "react";
 
-const Dashboardsale = () => (
+const Dashboardsale = () => {
+
+  
+
+  let email=localStorage.getItem('email')
+  let password=localStorage.getItem('password')
+  // console.log(data);
+
+  
+  useEffect(() => {
+    const fetchData = async () => {
+        const response = await axios.get('http://localhost:3001/getid', {
+            params: {
+              email: email,
+              password: password,
+            }
+        }).then((response)=>{
+          if(response)
+          {
+            setID(response.data[0].manager_ID);
+        console.log(response.data[0].manager_ID);
+          }
+        
+      });
+        
+
+    };
+    fetchData();
+  }, []);
+
+  const [Dt, setID] = useState([]);
+  console.log(Dt);
+
+  localStorage.setItem('managerid' ,JSON.stringify(Dt));
+  return (
   <>
     <Helmet>
       <title>Dashboard</title>
@@ -107,5 +143,5 @@ const Dashboardsale = () => (
     </Box>
   </>
 );
-
+        };
 export default Dashboardsale;

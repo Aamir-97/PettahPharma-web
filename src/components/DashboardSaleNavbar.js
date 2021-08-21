@@ -19,6 +19,10 @@ import Logo from './Logo';
 const DashboardSaleNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
 
+  function abc (){
+    localStorage.clear();
+  }
+
   return (
     <AppBar
       elevation={0}
@@ -47,8 +51,8 @@ const DashboardSaleNavbar = ({ onMobileNavOpen, ...rest }) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <RouterLink to="/">
-          <IconButton color="inherit">
+          <RouterLink to="/login">
+          <IconButton color="inherit" >
             <InputIcon />
           </IconButton>
           </RouterLink>

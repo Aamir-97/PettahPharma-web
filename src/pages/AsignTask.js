@@ -1,7 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import shadows from 'src/theme/shadows';
+import axios from "axios";
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
 function AsignTask() {
+
+    let manager_ID = localStorage.getItem('managerid');
+    manager_ID = JSON.parse(manager_ID)
+
+    const [GetRep, setGetRep] = useState([])
+    const [rep_ID, setRepID] = useState("");
+    const [title, setTitle] = useState("");
+    const [type, setType] = useState("");
+    const [location, setLocation] = useState("")
+    const [description, setDescription] = useState("");
+    const [session, setSession] = useState("");
+    const [date, setDate] = useState("")
+
+
+    const asign_task = () => {
+        axios.post('http://localhost:3001/assigntask', {
+            rep_ID: rep_ID,
+            title: title,
+            type: type,
+            location: location,
+            description: description,
+            session: session,
+            date: date,
+            manager_ID: manager_ID,
+
+        }).then(() => {
+            console.log("success");
+            //    window.location.reload();
+        });
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get('http://localhost:3001/getrep', {
+                params: {
+                    manager_ID: manager_ID,
+                }
+            });
+            setGetRep(response.data);
+        };
+        fetchData();
+    }, []);
 
     const mystyle = {
         formstep: {
@@ -9,9 +58,8 @@ function AsignTask() {
             textalign: 'center',
             color: '#23750a',
         },
-
         formbox: {
-            backgroundColor: 'white',
+            backgroundColor: 'gray',
             width: '60%',
             textalign: 'center',
             marginTop: '10px',
@@ -75,11 +123,33 @@ function AsignTask() {
             border: 'none',
             borderRadius: '5px',
             color: 'white',
-            marginRight: '150px'
-        }
-
-
+            marginRight: '200px'
+        },
+        formControl: {
+            // margin: theme.spacing(1),
+            minWidth: '320px',
+          },
+          selectEmpty: {
+            // marginTop: theme.spacing(2),
+          },
+          aaa: {
+              width: '500px',
+            },
     };
+    
+    // const useStyles = makeStyles((theme) => ({
+    //     formControl: {
+    //       margin: theme.spacing(1),
+    //       minWidth: '320px',
+    //     },
+    //     selectEmpty: {
+    //       marginTop: theme.spacing(2),
+    //     },
+    //     aaa: {
+    //         width: '500px',
+    //       },
+    //   }));
+    //   const classes = useStyles();
 
     return (
         <div align='center'>
@@ -87,56 +157,57 @@ function AsignTask() {
                 <h1 style={mystyle.formhead}> ASIGN TASK </h1>
                 <form >
                     <div >
+                        <FormControl style={mystyle.formControl} >
+                            <InputLabel id="demo-customized-select-label">Medical Rep Name</InputLabel>
+                            <Select
+                                native
+                                onChange={(event) => { setRepID(event.target.value); }}
+                                style={mystyle.aaa}
+                            >                    
+                                <option aria-label="None" value="" />
+                                {GetRep.map((customer) => (
+                                    <option Value={customer.rep_ID}>{customer.name}-{customer.rep_ID}</option>
+                                ))}
+                            </Select>
 
-
+                        </FormControl><br />
                         <input
                             type="text"
                             style={mystyle.forminput}
-                            // className="forminput"
-                            name="Name"
-                            placeholder="Name of Task"
+                            placeholder="Task Title"
+                            onChange={(event) => { setTitle(event.target.value); }}
                         /><br />
-
                         <input
-                            type="email"
+                            type="text"
                             style={mystyle.forminput}
-                            name="EmployeeName"
-                            placeholder="Name of Employee of Task"
+                            placeholder="Type"
+                            onChange={(event) => { setType(event.target.value); }}
                         /><br />
-
-                        <textarea 
+                        <input
+                            type="text"
+                            style={mystyle.forminput}
+                            placeholder="Location"
+                            onChange={(event) => { setLocation(event.target.value); }}
+                        /><br />
+                        <textarea
                             type="text"
                             style={mystyle.formtextarea}
-                            name="details"
-                            placeholder="Details of Task"
-
-                        ></textarea><br />
-
-
-                        {/* <input
-              type="tel"
-              style={mystyle.forminput}
-              name=""
-              placeholder="Phone 000-0000000"
-            /><br /> */}
+                            placeholder="Description"
+                            onChange={(event) => { setDescription(event.target.value); }}
+                        >
+                        </textarea><br />
+                        <input
+                            type="text"
+                            style={mystyle.forminput}
+                            placeholder="Session"
+                            onChange={(event) => { setSession(event.target.value); }}
+                        /><br />
                         <input
                             type="date"
                             style={mystyle.forminput}
-                            name="deadline"
-                            placeholder="Deadline"
+                            placeholder="Date"
+                            onChange={(event) => { setDate(event.target.value); }}
                         /><br />
-
-
-                        <input
-                            type="time"
-                            style={mystyle.forminput}
-                            name="timeline"
-                            placeholder="Timeline"
-                        /><br />
-
-
-
-
                     </div>
 
                     <div display='flex' align='right'>
@@ -146,21 +217,17 @@ function AsignTask() {
                                 type="submit"
                                 id="submitBtn"
                                 style={mystyle.submitBtn}
-                            //className="nextBtn"
+                                onClick={asign_task}
                             > Create</button>
                         </Link>
-
                         <Link to='/appp/dataplan'>
                             <button
                                 type="submit"
                                 id="submitBtn"
-                                style={mystyle.closeBtn}
-                            //className="nextBtn"
+                                style={mystyle.closeBtn}                      
                             > Close</button>
                         </Link>
                     </div>
-
-
                 </form>
 
             </div>

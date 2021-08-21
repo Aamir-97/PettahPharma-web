@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -25,20 +25,26 @@ import ForumIcon from '@material-ui/icons/Forum';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import NavItem from './NavItem';
+import axios from "axios";
+
+
+
+
+    
 
 const user = {
   avatar: '/static/images/avatars/avatar_3.png',
   jobTitle: 'Sales Manager',
-  name: 'M.Thulasithasan'
+  
 };
 
 const items = [
-  
+
   {
     href: '/appp/dashboardsale',
     icon: BarChartIcon,
     title: 'Dashboard'
-    
+
   },
   // {
   //   href: '/app/customers',
@@ -113,6 +119,28 @@ const items = [
 ];
 
 const DashboardSaleSidebar = ({ onMobileClose, openMobile }) => {
+
+  let manager_ID=localStorage.getItem('managerid');
+  manager_ID =JSON.parse(manager_ID)
+  console.log(manager_ID);
+
+useEffect(() => {
+      const fetchData = async () => {
+          const response = await axios.get('http://localhost:3001/getmanagername', {
+              params: {
+                  
+                  manager_ID: manager_ID,
+              }
+          });
+
+          setDt(response.data[0]);
+          // console.log(response.data[0]);
+      };
+      fetchData();
+  }, []);
+
+  const [Dt, setDt] = useState([]);
+
   const location = useLocation();
 
   useEffect(() => {
@@ -151,7 +179,7 @@ const DashboardSaleSidebar = ({ onMobileClose, openMobile }) => {
           color="textPrimary"
           variant="h5"
         >
-          {user.name}
+          {/* {Dt.name} */}
         </Typography>
         <Typography
           color="textSecondary"
@@ -172,6 +200,7 @@ const DashboardSaleSidebar = ({ onMobileClose, openMobile }) => {
             />
           ))}
         </List>
+
       </Box>
       <Box sx={{ flexGrow: 1 }} />
 

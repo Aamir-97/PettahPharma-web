@@ -1,5 +1,5 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import React, {useState} from "react";
+import React, {useState , useEffect} from "react";
 import axios from "axios";
 import { Helmet } from 'react-helmet';
 import logo from '../images/logo-gr.png'
@@ -23,6 +23,10 @@ function Login() {
   const [email,setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
+//  
+//   localStorage.removeItem("email");
+// localStorage.removeItem("password")
+
 
   const Login = () => {
   axios.post("http://localhost:3001/login", {
@@ -30,17 +34,59 @@ function Login() {
     password: password,
   }).then((response)=>{
     // console.log (response.data.message);
-    if (response.data.message1){
-      setLoginStatus(response.data.message1);
+    
+    if (response.data.message2 == "Login admin"){
+      // setLoginStatus(response.data.message1);
       navigate('/app/dashboard', { replace: true });
       // console.log ("Wrong password");
-    } else {
+      
+    } 
+    else if (response.data.message1 == "Login salesmanager") {
       // setLoginStatus(response.data[0].email);
-      setLoginStatus(response.data.message2);
+      // setLoginStatus(response.data.message1);
+      localStorage.setItem('email' , email);
+      localStorage.setItem('password' , password);
       navigate('/appp/dashboardsale', { replace: true });
+      window.location.reload();
+      
     };
   });
 };
+
+
+// const Login = () => {
+// useEffect(() => {
+//   const fetchData = async () => {
+//       const response = await axios.get('http://localhost:3001/login', {
+//           params: {
+//             email: email,
+//             password: password,
+//           }
+//       }).then((response)=>{
+//             // console.log (response.data.message);
+//             // setDt(response.data[0]);
+//       console.log(response.data[0]);
+//             if (response.data.message2 == "Login admin"){
+//               // setLoginStatus(response.data.message1);
+//               navigate('/app/dashboard', { replace: true });
+//               // console.log ("Wrong password");
+              
+//             } 
+//             else if (response.data.message1 == "Login salesmanager") {
+//               // setLoginStatus(response.data[0].email);
+//               // setLoginStatus(response.data.message1);
+//               navigate('/appp/dashboardsale', { replace: true });
+//               localStorage.setItem('email' , email);
+//               localStorage.setItem('password' , password)
+//             };
+//           });
+
+      
+//   };
+//   fetchData();
+// }, []);
+// };
+
 
 
   return (

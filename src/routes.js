@@ -18,7 +18,7 @@ import LeaveList from 'src/pages/LeaveList';
 import Dashboard from 'src/pages/Dashboard';
 import Dashboardsale from 'src/pages/Dashboardsale';
 import Add_Employee from 'src/pages/Add_Employee';
-import Add_Product from 'src/pages/Add_Product';
+import Add_product from 'src/pages/Add_product';
 import AsignTask from 'src/pages/AsignTask';
 import ViewSummary from 'src/pages/ViewSummary';
 // import Add_product from 'src/pages/Add_product';
@@ -26,6 +26,12 @@ import Login from 'src/pages/Login';
 import NotFound from 'src/pages/NotFound';
 // import ProductList from 'src/pages/ProductList';
 // import Register from 'src/pages/Register';
+import TaskInfo from 'src/pages/TaskInfo';
+import UpdateTask from 'src/pages/UpdateTask';
+import SummaryInfo from 'src/pages/SummaryInfo';
+import SummaryComment from 'src/pages/SummaryComment';
+import LeaveInfo from 'src/pages/LeaveInfo';
+import LeaveComment from 'src/pages/LeaveComment';
 import Settings from 'src/pages/Settings';
 import Help from 'src/pages/Help';
 import Add_Medicalrep from 'src/pages/Add_Medicalrep';
@@ -46,7 +52,7 @@ const routes = [
       { path: 'dashboard', element: <Dashboard /> },
       // { path: 'dashboardsale', element: <Dashboardsale /> },
       { path: 'Add_Employee', element: <Add_Employee /> },
-      { path: 'Add_Product', element: <Add_Product /> },
+      { path: 'Add_Product', element: <Add_product /> },
       { path: 'Add_Medicalrep', element: <Add_Medicalrep /> },
       { path: 'Product', element: <Product /> },
       { path: 'Add_Leavetype', element: <Add_Leavetype /> },
@@ -73,6 +79,12 @@ const routes = [
       { path: 'dashboardsale', element: <Dashboardsale /> },
       { path: 'AsignTask', element: <AsignTask /> },
       { path: 'ViewSummary', element: <ViewSummary /> },
+      { path: 'TaskInfo/:tasK_id', element: <TaskInfo /> },
+      { path: 'UpdateTask/:tasK_id', element: <UpdateTask /> },
+      { path: 'SummaryInfo/:report_id', element: <SummaryInfo /> },
+      { path: 'SummaryComment/:report_id', element: <SummaryComment /> },
+      { path: 'LeaveInfo/:leave_ID', element: <LeaveInfo /> },
+      { path: 'LeaveComment/:leave_ID', element: <LeaveComment /> },
       // { path: 'Add_product', element: <Add_product /> },
       // { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },

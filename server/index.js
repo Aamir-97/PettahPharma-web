@@ -345,7 +345,7 @@ app.get('/viewmedicalrep',(_req,res)=>{
 
 
 app.get('/gettask', (req, res) => {
-    db.query('SELECT medicalrep.name,task.type,task.title,task.date,task.session,task.task_id FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ?', [req.query.manager_ID], (err, result, fields) => {
+    db.query('SELECT medicalrep.name,task.type,task.title,task.date,task.session,task.task_id FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? ORDER BY date DESC', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
             console.log(result);
@@ -546,7 +546,7 @@ app.get("/delete", (req, res) => {
 });
 
 app.get('/getsummary',(req,res)=>{
-    db.query('SELECT visit_summary_report.report_id,visit_summary_report.visit_type,visit_summary_report.date,visit_summary_report.avg_duration,doctor_details.name AS doctorname,medicalrep.name FROM visit_summary_report INNER JOIN doctor_details ON visit_summary_report.doctor_id = doctor_details.doctor_id INNER JOIN medicalrep ON visit_summary_report.rep_ID = medicalrep.rep_ID WHERE visit_summary_report.manager_ID = ?', [req.query.manager_ID],(err,result,fields)=>{
+    db.query('SELECT visit_summary_report.report_id,visit_summary_report.visit_type,visit_summary_report.date,visit_summary_report.avg_duration,doctor_details.name AS doctorname,medicalrep.name FROM visit_summary_report INNER JOIN doctor_details ON visit_summary_report.doctor_id = doctor_details.doctor_id INNER JOIN medicalrep ON visit_summary_report.rep_ID = medicalrep.rep_ID WHERE visit_summary_report.manager_ID = ? ORDER BY visit_summary_report.date DESC', [req.query.manager_ID],(err,result,fields)=>{
         if(!err){
             res.send(result);
             console.log(result);

@@ -9,6 +9,7 @@ import Medicalrep from 'src/pages/Medicalrep';
 import Forum from 'src/pages/Forum';
 import Product from 'src/pages/Product';
 import DataPlanList from 'src/pages/DataPlanList';
+import ManagerList from 'src/pages/ManagerList';
 import SummaryReportList from 'src/pages/SummaryReportList';
 import LeaveList from 'src/pages/LeaveList';
 import AllownsList from 'src/pages/AllownsList';
@@ -43,6 +44,7 @@ const routes = [
       { path: 'Salesmanager', element: <Salesmanager /> },
       { path: 'Help', element: <Help /> },
       { path: 'dashboard', element: <Dashboard /> },
+      { path: 'ManagerList', element: <ManagerList /> },
       // { path: 'dashboardsale', element: <Dashboardsale /> },
       { path: 'Add_Salesmanager', element: <Add_Salesmanager /> },
       { path: 'Add_Product', element: <Add_Product /> },

@@ -198,28 +198,31 @@ app.delete("/delete/:manager_ID",(req,res)=>{
        });
 });
 
-app.delete('/deletemanager', (req,res) => {
-    manager_ID = req.params.manager_ID;
+// app.delete('/deletemanager', (req,res) => {
+//     manager_ID = req.params.manager_ID;
     
-    db.query("DELETE FROM salesmanager WHERE manager_ID=?",[req.query.manager_ID], (err, result) => {
-        if(!err)
-        res.send(result);
-        else
-        console.log(err);
-   });
-});
- 
-// app.delete("/deletemanager",(req,res)=>{
-//     console.log(req.body)
-//     const manager_ID = req.body.manager_ID;
-
-//     db.query("DELETE FROM salesmanager WHERE manager_ID=?",[manager_ID],(err,rows)=>{
-//             if(!err)
-//             res.send(rows);
-//             else
-//             console.log(err);
-//        });
+//     db.query("DELETE FROM salesmanager WHERE manager_ID=?",[req.query.manager_ID], (err, result) => {
+//         if(!err)
+//         res.send(result);
+//         else
+//         console.log(err);
+//    });
 // });
+ 
+app.get("/deletemanager", (req, res) => {
+    const manager_ID = req.query.manager_ID;
+    db.query("DELETE FROM salesmanager WHERE manager_ID=?",
+        [manager_ID],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        }
+
+    );
+});
 
 app.get('/viewmanager',(_req,res)=>{
     db.query('SELECT name FROM salesmanager ',(err,result,_fields)=>{
@@ -304,7 +307,7 @@ app.get('/viewproduct',(_req,res)=>{
         }
     });
 });
-
+ 
 app.post('/createmedicalrep', (req, res) => {
     console.log(req.body)
     const rep_ID = req.body.rep_ID;

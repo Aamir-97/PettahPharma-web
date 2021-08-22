@@ -47,7 +47,7 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/app/Salesmanager',
+    href: '/app/ManagerList',
     icon: SupervisorAccountOutlinedIcon,
     title: 'Salesmanager'
   },

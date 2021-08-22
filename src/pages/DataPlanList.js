@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 import { Box, Container } from '@material-ui/core';
 import DataPlanListResults from 'src/components/dataplan/DataPlanListResults';
-import DataPlanListToolbar from 'src/components/dataplan/DataPlanListToolbar';
+// import DataPlanListToolbar from 'src/components/dataplan/DataPlanListToolbar';
 import DataPlan from 'src/__mocks__/DataPlan';
 
 const DataPlanList = () => (
@@ -17,10 +17,10 @@ const DataPlanList = () => (
       }}
     >
       <Container maxWidth={false}>
-        <DataPlanListToolbar />
-        <Box sx={{ pt: 3 }}>
+        {/* <DataPlanListToolbar /> */}
+        {/* <Box sx={{ pt: 3 }}> */}
           <DataPlanListResults DataPlan={DataPlan} />
-        </Box>
+        {/* </Box> */}
       </Container>
     </Box>
   </>

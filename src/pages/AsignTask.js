@@ -13,7 +13,7 @@ function AsignTask() {
     let manager_ID = localStorage.getItem('managerid');
     manager_ID = JSON.parse(manager_ID)
 
-    const [GetRep, setGetRep] = useState([])
+    const [GetRep, setGetRep] = useState([]);
     const [rep_ID, setRepID] = useState("");
     const [title, setTitle] = useState("");
     const [type, setType] = useState("");
@@ -51,6 +51,7 @@ function AsignTask() {
         };
         fetchData();
     }, []);
+    console.log(GetRep);
 
     const mystyle = {
         formstep: {
@@ -160,7 +161,7 @@ function AsignTask() {
                         <FormControl style={mystyle.formControl} >
                             <InputLabel id="demo-customized-select-label">Medical Rep Name</InputLabel>
                             <Select
-                                native
+                                 native
                                 onChange={(event) => { setRepID(event.target.value); }}
                                 style={mystyle.aaa}
                             >                    

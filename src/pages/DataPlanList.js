@@ -30,7 +30,7 @@ import { Link, Route } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
 
-const DataPlanList = ({ rest,props} ) => {
+const DataPlanList = ({ rest, props }) => {
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -71,9 +71,16 @@ const DataPlanList = ({ rest,props} ) => {
       padding: "2vh",
       borderRadius: "5px",
     },
+    backgroud:{
+      // backgroundColor: '#5eb6b8',
+    },
+    link:{
+      // backgroundColor: '#5eb6b8',
+      color: '#FFF',
+    },
   }));
-
-
+  
+  // #35dade,#27bec2,#186263
   const classes = useStyles();
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([])
@@ -118,170 +125,188 @@ const DataPlanList = ({ rest,props} ) => {
     })
   };
 
+ 
   const [searchTerm, setSearchTerm] = useState("");
-  
 
+  console.log(manager_ID);
   return (
     <>
-    <Helmet>
-      <title>Data</title>
-    </Helmet>
-    <Box
-      sx={{
-        backgroundColor: 'background.default',
-        minHeight: '100%',
-        py: 3
-      }}
-    >
-      <Container maxWidth={false}>
-    <>
-      <Box {...props}>
-        <Box
-          sx={{
-            display: 'flex',
-            // justifyContent: 'flex-end',
-            mt: 3,
-            flex: 3
-          }}
-        >
-          <h1 style={{flex:3, flexWrap: 'wrap'}} >TASK</h1>
-          <Link to={'/appp/AsignTask'}>
-            <Button
-              color="primary"
-              variant="contained"
-            >
-              Asign Task
-            </Button>
-          </Link>
+      <Helmet>
+        <title>Data</title>
+      </Helmet>
+      <Box
+        sx={{
+          // backgroundColor: 'background.default',
+          minHeight: '100%',
+          py: 3
+        }}
+        className={classes.backgroud}
+      >
+        <Container maxWidth={false}>
+          <>
+            <Box {...props}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  // justifyContent: 'flex-end',
+                  mt: 3,
+                  flex: 3,
+                  marginTop: '0px',
+                }}
+              >
+                <h1 style={{ flex: 3, flexWrap: 'wrap' }} >TASK</h1>
+                <Link to={'/appp/AsignTask'}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                  >
+                    Asign Task
+                  </Button>
+                </Link>
 
-        </Box>
-        <Box sx={{ mt: 3 }}
-        >
-          <Card>
-            <CardContent>
-              <Box sx={{ maxWidth: 500 }}>
-                <TextField
-                  // fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SvgIcon
-                          fontSize="small"
-                          color="action"
-                        >
-                          <SearchIcon />
-                        </SvgIcon>
-                      </InputAdornment>
-                    )
-                  }}
-                  placeholder="Search Employee"
-                  variant="outlined"
-                  onChange={(e) => { setSearchTerm(e.target.value); }}
-                  // alignItems="center"
-                  className={classes.textfield}
-                />
               </Box>
-            </CardContent>
-          </Card>
-        </Box>
-      </Box>
-      <br />
-      <Card {...rest}>
-        <PerfectScrollbar>
-          <Box sx={{ minWidth: 1050 }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell> Medical Rep Name</TableCell>
-                  <TableCell>Task Title</TableCell>
-                  <TableCell>Type</TableCell>
-                  <TableCell>Session</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell align="center">Action</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {/* {selectedCustomerIds.slice(0, limit).map((customer) => ( */}
-                {selectedCustomerIds.slice(0, limit).filter(val => {
-                  if (searchTerm === "") {
-                    return val;
-                  } else if (
-                    val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                    return val
-                  }
-                }).map((customer) => {
-                  return (
-                    <TableRow
-                      hover
-                      key={customer.task_id}
-                    >
-                      <TableCell>
-                        <Box
-                          sx={{
-                            alignItems: 'center',
-                            display: 'flex'
-                          }}
-                        >
-                          <Typography
-                            color="textPrimary"
-                            variant="body1"
+              <Box sx={{ mt: 3 }}
+              >
+                <Card>
+                  <CardContent>
+                    <Box sx={{ maxWidth: 500 }}>
+                      <TextField
+                        // fullWidth
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <SvgIcon
+                                fontSize="small"
+                                color="action"
+                              >
+                                <SearchIcon />
+                              </SvgIcon>
+                            </InputAdornment>
+                          )
+                        }}
+                        placeholder="Search Employee"
+                        variant="outlined"
+                        onChange={(e) => { setSearchTerm(e.target.value); }}
+                        // alignItems="center"
+                        className={classes.textfield}
+                      />
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Box>
+            </Box>
+            <br />
+            <Card {...rest}>
+              <PerfectScrollbar>
+                <Box sx={{ minWidth: 1050 }}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell> Medical Rep Name</TableCell>
+                        <TableCell>Task Title</TableCell>
+                        <TableCell>Location</TableCell>                        
+                        <TableCell>Date</TableCell>
+                        <TableCell>Status</TableCell>
+                        <TableCell align="center">Action</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {/* {selectedCustomerIds.slice(0, limit).map((customer) => ( */}
+                      {selectedCustomerIds.slice(0, limit).filter(val => {
+                        if (searchTerm === "") {
+                          return val;
+                        } else if (
+                          val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                          return val
+                        }
+                      }).map((customer) => {
+                        const dt = new Date(customer.date);
+                      const year = dt.getFullYear() + '/';
+                      const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
+                      const day = ('0' + dt.getDate()).slice(-2);
+                        return (
+                          <TableRow
+                            hover
+                            key={customer.task_id}
                           >
-                            {customer.name}
+                            <TableCell>
+                              <Box
+                                sx={{
+                                  alignItems: 'center',
+                                  display: 'flex'
+                                }}
+                              >
+                                <Typography
+                                  color="textPrimary"
+                                  variant="body1"
+                                >
+                                  {customer.name}
 
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell>{customer.title}</TableCell>
-                      <TableCell>{customer.type}</TableCell>
-                      <TableCell>{customer.session}</TableCell>
-                      <TableCell>{customer.date}</TableCell>
-                      <TableCell align="center">
-                        <Link to={`/appp/TaskInfo/${customer.task_id}`}  >
-                          <Button
-                            color="primary"
-                            variant="contained">
-                            View
-                          </Button>
-                        </Link>
-                        {'   '}
-                        <Link to={`/appp/UpdateTask/${customer.task_id}`}  >
-                          <Button
-                            color="primary"
-                            variant="contained">
-                            Edit
-                          </Button>
-                        </Link>
-                        {' '}
-                        <Button onClick={() => { deleteEmployee(customer.task_id) }} color="primary"
-                          variant="contained">
-                          Delete
-                        </Button>
+                                </Typography>
+                              </Box>
+                            </TableCell>
+                            <TableCell>{customer.title}</TableCell>
+                            <TableCell>{customer.location}</TableCell>
+                            <TableCell>{year + month + day}</TableCell>
+                            <TableCell>{customer.status}</TableCell>
+                            <TableCell align="center">
+                              
+                                <Button
+                                  color="primary"
+                                  variant="contained">
+                                    <Link to={`/appp/TaskInfo/${customer.task_id}`} className={classes.link} >
+                                  View
+                                  </Link>
+                                </Button>
+                              
+                              {'   '}
+                              
+                                <Button
+                                  color="primary"
+                                  variant="contained"
+                                  disabled={customer.status =="Complete"}>
+                                    <Link to={`/appp/UpdateTask/${customer.task_id}`} className={classes.link} >
+                                  Edit
+                                  </Link>
+                                </Button>
+                             
+                              {' '}
+                              <Button onClick={() => { deleteEmployee(customer.task_id) }} color="primary"
+                                variant="contained"
+                                disabled={customer.status =="Complete"}
+                                // disabled={true}
+                                
+                                >
+                                  <Link to={`/appp/dataplan`} className={classes.link} >
+                                Delete
+                                </Link>
+                              </Button>
 
-                      </TableCell>
-                    </TableRow>
-                    // ))}
-                  )
-                })
-                }
-              </TableBody>
-            </Table>
-          </Box>
-        </PerfectScrollbar>
-        <TablePagination
-          component="div"
-          count= "5"
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-          page={page}
-          rowsPerPage={limit}
-          rowsPerPageOptions={[5,10,20 ]}
-        />
-      </Card>
+                            </TableCell>
+                          </TableRow>
+                          // ))}
+                        )
+                      })
+                      }
+                    </TableBody>
+                  </Table>
+                </Box>
+              </PerfectScrollbar>
+              <TablePagination
+                component="div"
+                count="6"
+                onPageChange={handlePageChange}
+                onRowsPerPageChange={handleLimitChange}
+                page={page}
+                rowsPerPage={limit}
+                rowsPerPageOptions={[5, 10, 20]}
+              />
+            </Card>
+          </>
+        </Container>
+      </Box>
     </>
-    </Container>
-    </Box>
-  </>
-  ); 
+  );
 };
 
 export default DataPlanList;

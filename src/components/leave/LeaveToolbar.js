@@ -19,6 +19,7 @@ import {
           justifyContent: 'flex-end'
         }}
       >
+        <h1 style={{ flex: 3, flexWrap: 'wrap' }} >LEAVE APPROVAL</h1>
        {/* <Link to={'/appp/AsignTask'}>
         <Button
           color="primary"

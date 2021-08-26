@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
     },
     formbox: {
-        backgroundColor: 'gray',
+        backgroundColor: 'lightgray',
         width: '60%',
-        marginTop: '0px',
-        marginLeft: '0px',
+        marginTop: '20px',
+        marginLeft: '200px',
         height: 'full',
         boxShadow: "2px 2px 5px  2px #9E9E9E",
         padding: "2vh",
@@ -113,17 +113,17 @@ export default function UpdateTask() {
             )
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await axios.get('http://localhost:3001/getrep', {
-                params: {
-                    manager_ID: manager_ID,
-                }
-            });
-            setGetRep(response.data);
-        };
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const response = await axios.get('http://localhost:3001/getrep', {
+    //             params: {
+    //                 manager_ID: manager_ID,
+    //             }
+    //         });
+    //         setGetRep(response.data);
+    //     };
+    //     fetchData();
+    // }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -146,12 +146,34 @@ export default function UpdateTask() {
         fetchData();
     }, []);
 
+    let fullday='Full-Day';
+    // let type='task';
+    // let status='Reject'
+
+    const fetchData = async () => {
+        const response = await axios.get('http://localhost:3001/getrep', {
+            params: {
+                manager_ID: manager_ID,
+                date: date,
+                session: session,
+                fullday: fullday,
+            }
+        });
+        setGetRep(response.data);
+    };
+
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
 
+    const dtt = new Date(Dt.date);
+    const year = dtt.getFullYear() + '-';
+    const month = ('0' + (dtt.getMonth() + 1)).slice(-2) + '-';
+    const day = ('0' + dtt.getDate()).slice(-2);
+    const mydate= (year +month + day) 
+    // const mydate="2021/06/25"
     return (
         <div className={classes.formbox}>
             <div className={classes.root}>
@@ -160,12 +182,55 @@ export default function UpdateTask() {
                 </Grid>
 
                 <div className={classes.root}>
+
+                <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
+                        <AccordionSummary>
+                            <Typography className={classes.heading}>Date</Typography>
+                            <Typography className={classes.secondaryHeading}>
+                                <input
+                                    type="date"
+                                    // value={ month + day + year}
+                                    value={mydate}
+                                    onChange={(event) => { setDate(event.target.value); }}
+                                    style={mystyle.forminput}
+                                />
+                                
+                            </Typography>
+                        </AccordionSummary>
+                    </Accordion><br />
+
+                    <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
+                        <AccordionSummary>
+                            <Typography className={classes.heading}>Time Period</Typography>
+                            <Typography className={classes.secondaryHeading}>
+                                {/* <input
+                                    type="text"
+                                    defaultValue={Dt.session}
+                                    onChange={(event) => { setSession(event.target.value); }}
+                                    style={mystyle.forminput}
+                                /> */}
+                                <Select
+                                        native
+                                        onChange={(event) => { setSession(event.target.value); }}
+                                        // style={mystyle.formselect}
+                                        style={mystyle.forminput}
+                                    >
+                                        <option aria-label="None" Value={Dt.session}>{Dt.session}</option>
+                                        <option Value ="Morning">Morning</option>
+                                        <option Value = "Evening">Evening</option>
+                                        <option Value ="Full-Day" >Full-Day</option>
+                                    </Select>
+                            </Typography>
+                        </AccordionSummary>
+                    </Accordion><br />
+
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Medical Rep Name</Typography>
                             <Typography className={classes.secondaryHeading}>
                                 <FormControl className={classes.formControl}>
                                     <Select
+                                    onClick={()=>{fetchData()}}
                                         native
                                         onChange={(event) => { setRepID(event.target.value); }}
                                         style={mystyle.forminput}
@@ -194,7 +259,7 @@ export default function UpdateTask() {
                         </AccordionSummary>
                     </Accordion><br />
 
-                    <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                    {/* <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Type</Typography>
                             <Typography className={classes.secondaryHeading}>
@@ -206,7 +271,7 @@ export default function UpdateTask() {
                                 />
                             </Typography>
                         </AccordionSummary>
-                    </Accordion><br />
+                    </Accordion><br /> */}
 
                     <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
                         <AccordionSummary>
@@ -240,33 +305,9 @@ export default function UpdateTask() {
                         </AccordionDetails>
                     </Accordion><br />
 
-                    <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
-                        <AccordionSummary>
-                            <Typography className={classes.heading}>Session</Typography>
-                            <Typography className={classes.secondaryHeading}>
-                                <input
-                                    type="text"
-                                    defaultValue={Dt.session}
-                                    onChange={(event) => { setSession(event.target.value); }}
-                                    style={mystyle.forminput}
-                                />
-                            </Typography>
-                        </AccordionSummary>
-                    </Accordion><br />
+                    
 
-                    <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
-                        <AccordionSummary>
-                            <Typography className={classes.heading}>Date</Typography>
-                            <Typography className={classes.secondaryHeading}>
-                                <input
-                                    type="text"
-                                    defaultValue={Dt.date}
-                                    onChange={(event) => { setDate(event.target.value); }}
-                                    style={mystyle.forminput}
-                                />
-                            </Typography>
-                        </AccordionSummary>
-                    </Accordion><br />
+                    
                 </div>
 
                 <Link to='/appp/dataplan' style={mystyle.button}>

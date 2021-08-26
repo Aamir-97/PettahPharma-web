@@ -11,77 +11,85 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-    },
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        flexBasis: '33.33%',
-        flexShrink: 0,
-    },
-    secondaryHeading: {
-        fontSize: theme.typography.pxToRem(15),
-        color: 'black',
-    },
-    formbox: {
-        backgroundColor: 'gray',
-        width: '60%',
-        marginTop: '40px',
-        marginLeft: '200px',
-        height: 'full',
-        boxShadow: "2px 2px 5px  2px #9E9E9E",
-        padding: "2vh",
-        borderRadius: "5px",
-        align: 'center',
-    },
-}));
 
-const mystyle = {
-    closeBtn: {
-        // marginTop: '0px',
-        width: '145px',
-        height: '40px',
-        fontSize: '18px',
-        backgroundColor: 'red',
-        transition: '1s background ease',
-        cursor: 'pointer',
-        border: 'none',
-        borderRadius: '5px',
-        color: 'white',
-        // marginRight: '0px',
-        marginLeft:'10px'
-    },
-    submitBtn: {
-        // marginTop: '5px',
-        width: '145px',
-        height: '40px',
-        fontSize: '18px',
-        backgroundColor: '#0A6466',
-        cursor: 'pointer',
-        border: 'none',
-        borderRadius: '5px',
-        color: 'white',
-        // /marginRight: '30px'
-         marginLeft:'410px'
-    },
-    forminput: {
+const TaskInfo = () => {
 
-        width: '70%',
-        padding: '10px 10px',
-        margin: '8px 0',
-        display: 'inline - block',
-        border: '1px solid #C0C0C0',
-        borderRadius: '5px',
-        height: '40px'
-    },
-};
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            width: '100%',
+        },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+        },
+        heading: {
+            fontSize: theme.typography.pxToRem(15),
+            flexBasis: '33.33%',
+            flexShrink: 0,
+        },
+        secondaryHeading: {
+            fontSize: theme.typography.pxToRem(15),
+            color: 'black',
+        },
+        formbox: {
+            backgroundColor: 'lightgray',
+            width: '60%',
+            marginTop: '40px',
+            marginLeft: '200px',
+            height: 'full',
+            boxShadow: "2px 2px 5px  2px #9E9E9E",
+            padding: "2vh",
+            borderRadius: "5px",
+            align: 'center',
+        },
+        link:{
+            // backgroundColor: '#5eb6b8',
+            color: '#FFF',
+          },
+    }));
 
-export default function TaskInfo() {
+    const mystyle = {
+        closeBtn: {
+            // marginTop: '0px',
+            width: '145px',
+            height: '40px',
+            fontSize: '18px',
+            backgroundColor: 'red',
+            transition: '1s background ease',
+            cursor: 'pointer',
+            border: 'none',
+            borderRadius: '5px',
+            color: 'white',
+            // marginRight: '0px',
+            marginLeft: '10px'
+        },
+        submitBtn: {
+            // marginTop: '5px',
+            width: '145px',
+            height: '40px',
+            fontSize: '18px',
+            // backgroundColor: '#0A6466',
+            cursor: 'pointer',
+            border: 'none',
+            borderRadius: '5px',
+            color: 'white',
+            // /marginRight: '30px'
+            marginLeft: '410px'
+        },
+        forminput: {
+
+            width: '70%',
+            padding: '10px 10px',
+            margin: '8px 0',
+            display: 'inline - block',
+            border: '1px solid #C0C0C0',
+            borderRadius: '5px',
+            height: '40px'
+        },
+    };
+
+
+
     const task_id = window.location.pathname.substring(15, 17);
     const [Dt, setDt] = useState([]);
 
@@ -110,6 +118,11 @@ export default function TaskInfo() {
         setExpanded(isExpanded ? panel : false);
     };
 
+    const dtt = new Date(Dt.date);
+    const year = dtt.getFullYear() + '/';
+    const month = ('0' + (dtt.getMonth() + 1)).slice(-2) + '/';
+    const day = ('0' + dtt.getDate()).slice(-2);
+
     return (
         <div className={classes.formbox}>
             <div className={classes.root}>
@@ -132,12 +145,12 @@ export default function TaskInfo() {
                         </AccordionSummary>
                     </Accordion><br />
 
-                    <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                    {/* <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Type</Typography>
                             <Typography className={classes.secondaryHeading}>{Dt.type}</Typography>
                         </AccordionSummary>
-                    </Accordion><br />
+                    </Accordion><br /> */}
 
                     <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
                         <AccordionSummary>
@@ -178,7 +191,7 @@ export default function TaskInfo() {
 
                     <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
                         <AccordionSummary>
-                            <Typography className={classes.heading}>Session</Typography>
+                            <Typography className={classes.heading}>Time Period</Typography>
                             <Typography className={classes.secondaryHeading}>{Dt.session}</Typography>
                         </AccordionSummary>
                     </Accordion><br />
@@ -186,30 +199,41 @@ export default function TaskInfo() {
                     <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Date</Typography>
-                            <Typography className={classes.secondaryHeading}>{Dt.date}</Typography>
+                            <Typography className={classes.secondaryHeading}>{year + month + day}</Typography>
                         </AccordionSummary>
                     </Accordion><br />
-
-                </div>
-
-                <Link to={`/appp/UpdateTask/${Dt.task_id}`}  >
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        style={mystyle.submitBtn}
-                    >
-                        Edit
-                    </Button>
-                </Link>
-                <Link to='/appp/dataplan'>
+                    <div>
+                        
+                            <Button
+                                color="primary"
+                                variant="contained"
+                                style={mystyle.submitBtn}
+                                // disabled={true}
+                                disabled={Dt.status == "Complete"}
+                            >
+                                <Link to={`/appp/UpdateTask/${Dt.task_id}`}  className={classes.link}>
+                                Edit
+                                </Link>
+                            </Button>
+                        
+                        
                             <Button
                                 type="submit"
                                 id="submitBtn"
-                                style={mystyle.closeBtn}                      
-                            > Exit</Button>
-                        </Link>
+                                style={mystyle.closeBtn}
+                            >
+                                <Link to='/appp/dataplan'className={classes.link} >
+                                 Exit
+                                 </Link>
+                                 </Button>
+                    </div>
+                </div>
+
+
 
             </div>
         </div>
     );
 }
+export default TaskInfo;
+

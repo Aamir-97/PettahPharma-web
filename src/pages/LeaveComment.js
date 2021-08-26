@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
     },
     formbox: {
-        backgroundColor: 'gray',
+        backgroundColor: 'lightgray',
         width: '60%',
         marginTop: '40px',
         marginLeft: '200px',
@@ -80,7 +80,35 @@ const mystyle = {
         borderRadius: '5px',
         color: 'white',
         // /marginRight: '30px'
-        marginLeft: '380px'
+        marginLeft: '50px'
+    },
+    acceptBtn: {
+        // marginTop: '0px',
+        width: '145px',
+        height: '40px',
+        fontSize: '18px',
+        // backgroundColor: '#0A6466',
+        transition: '1s background ease',
+        cursor: 'pointer',
+        border: 'none',
+        borderRadius: '5px',
+        color: 'white',
+        // marginRight: '0px',
+        marginLeft:'10px'
+    },
+    rejectBtn: {
+        // marginTop: '0px',
+        width: '145px',
+        height: '40px',
+        fontSize: '18px',
+        // backgroundColor: '#0A6466',
+        transition: '1s background ease',
+        cursor: 'pointer',
+        border: 'none',
+        borderRadius: '5px',
+        color: 'white',
+        // marginRight: '0px',
+        marginLeft:'10px'
     },
 };
 
@@ -123,11 +151,32 @@ export default function LeaveComment() {
         setExpanded(isExpanded ? panel : false);
     };
 
+    const dtt = new Date(Dt.start_Date);
+    const year = dtt.getFullYear() + '/';
+    const month = ('0' + (dtt.getMonth() + 1)).slice(-2) + '/';
+    const day = ('0' + dtt.getDate()).slice(-2);
+
+    const dttt = new Date(Dt.end_Date);
+    const y = dttt.getFullYear() + '/';
+    const m = ('0' + (dttt.getMonth() + 1)).slice(-2) + '/';
+    const d = ('0' + dttt.getDate()).slice(-2);
+
+    const addstatus = (status, leave_ID) => {
+        console.log(status);
+        axios.put("http://localhost:3001/addstatus",
+          { status: status, leave_ID: leave_ID }).then(
+            (response) => {
+              window.location.reload();
+              // this.setState({});
+             }
+          )
+      };
+
     return (
         <div className={classes.formbox}>
             <div className={classes.root}>
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}><h1>SUMMARY INFORMATION</h1>  </Paper><br />
+                    <Paper className={classes.paper}><h1>ADD COMMENT</h1>  </Paper><br />
                 </Grid>
 
                 <div className={classes.root}>
@@ -151,11 +200,11 @@ export default function LeaveComment() {
                         </AccordionSummary>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Start Date</Typography>
-                            <Typography className={classes.secondaryHeading}>{Dt.start_Date}</Typography>
+                            <Typography className={classes.secondaryHeading}>{year + month + day}</Typography>
                         </AccordionSummary>
                         <AccordionSummary>
                             <Typography className={classes.heading}>End Date</Typography>
-                            <Typography className={classes.secondaryHeading}>{Dt.end_Date}</Typography>
+                            <Typography className={classes.secondaryHeading}>{y + m + d}</Typography>
                         </AccordionSummary>
 
                         <AccordionDetails>
@@ -189,6 +238,24 @@ export default function LeaveComment() {
                         Add Comment
                     </Button>
                 </Link>
+                <Button
+                        color="primary"
+                        variant="contained"
+                        // onClick={addstatus("Accept", customer.leave_ID)}
+                        onClick={()=>{addstatus("1", Dt.leave_ID)}} 
+                        disabled={Dt.status =="1"}
+                        style={mystyle.acceptBtn}>
+                        Accept
+                      </Button>
+        
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={()=>{addstatus("0", Dt.leave_ID)}} 
+                        disabled={Dt.status =="0"} 
+                        style={mystyle.rejectBtn}>
+                        Reject 
+                      </Button>
                 <Link to='/appp/Leave'>
                     <Button
                         type="submit"

@@ -305,7 +305,7 @@
 //   //   const handleRoute = () =>{ 
 //   //     history.push("/appp/AsignTask");
 //   //   }
-  
+
 
 //     return (
 //       <Card {...rest}>
@@ -326,7 +326,7 @@
 //                       }
 //                       onChange={handleSelectAll}
 //                     /> */}
-                    
+
 //                   {/* </TableCell> */}
 //                   <TableCell>
 //                     Employee Name
@@ -480,38 +480,22 @@ const LeaveResults = ({ Leave, ...rest }) => {
     fetchData();
   }, [manager_ID]);
 
-  
+
+  const addstatus = (status, leave_ID) => {
+    console.log(status);
+    axios.put("http://localhost:3001/addstatus",
+      { status: status, leave_ID: leave_ID }).then(
+        (response) => {
+          window.location.reload();
+          // this.setState({});
+         }
+      )
+  };
+
 
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
-  const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
-    if (event.target.checked) {
-      newSelectedCustomerIds = Leave.map((customer) => customer.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -520,30 +504,9 @@ const LeaveResults = ({ Leave, ...rest }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
-
-  // const deleteEmployee = (task_id) => {
-  //   axios.get("http://localhost:3001/delete", {
-  //     params: {
-  //       task_id: task_id,
-  //     }
-  //   }).then((response) => {
-  //     window.location.reload();
-  //   })
+  // constructor = () => {
+  // this.state.Date().toLocaleString();
   // };
-
-  const deleteSummaryReport = (report_id) => {
-    axios.get("http://localhost:3001/deletesummary", {
-      params: {
-        report_id: report_id,
-      }
-    }).then((response) => {
-      window.location.reload();
-      console.log('kkkk');
-    })
-  };
-
-  console.log('kkkk');
-
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -560,56 +523,79 @@ const LeaveResults = ({ Leave, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {selectedCustomerIds.slice(0, limit).map((customer) => (
-                <TableRow
-                  hover
+              {selectedCustomerIds.slice(0, limit).map((customer) => {
+                const dt = new Date(customer.start_Date);
+                const year = dt.getFullYear() + '/';
+                const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
+                const day = ('0' + dt.getDate()).slice(-2);
+                const dtt = new Date(customer.end_Date);
+                const yearr = dtt.getFullYear() + '/';
+                const monthr = ('0' + (dtt.getMonth() + 1)).slice(-2) + '/';
+                const dayr = ('0' + dtt.getDate()).slice(-2);
+                return (
+                  <TableRow
+                    hover
                   // key={customer.task_id}
-                >
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
-                    >
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
+                  >
+                    <TableCell>
+                      <Box
+                        sx={{
+                          alignItems: 'center',
+                          display: 'flex'
+                        }}
                       >
-                        {customer.repname}
+                        <Typography
+                          color="textPrimary"
+                          variant="body1"
+                        >
+                          {customer.repname}
 
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>{customer.leave_Type}</TableCell>
-                  <TableCell>{customer.start_Date}</TableCell>
-                  <TableCell>{customer.end_Date}</TableCell>
-                  {/* <TableCell>{customer.date}</TableCell> */}
-                  <TableCell align="center">
-                    <Link to={`/appp/LeaveInfo/${customer.leave_ID}`}  >
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>{customer.leave_Type}</TableCell>
+                    <TableCell>{year + month + day}</TableCell>
+                    <TableCell>{yearr + monthr + dayr}</TableCell>
+                    {/* <TableCell>{customer.date}</TableCell> */}
+                    <TableCell align="center">
+                      <Link to={`/appp/LeaveInfo/${customer.leave_ID}`}  >
+                        <Button
+                          color="primary"
+                          variant="contained">
+                          View
+                        </Button>
+                      </Link>
+                      {'   '}
+                      <Link to={`/appp/LeaveComment/${customer.leave_ID}`}  >
+                        <Button
+                          color="primary"
+                          variant="contained">
+                          Add Comment
+                        </Button>
+                      </Link>
+                      {' '}
                       <Button
                         color="primary"
-                        variant="contained">
-                        View
+                        variant="contained"
+                        // onClick={addstatus("Accept", customer.leave_ID)}
+                        onClick={()=>{addstatus("1", customer.leave_ID)}} 
+                        disabled={customer.status =="1"}>
+                        Accept
                       </Button>
-                    </Link>
-                    {'   '}
-                    <Link to={`/appp/LeaveComment/${customer.leave_ID}`}  >
+                      {' '}
                       <Button
                         color="primary"
-                        variant="contained">
-                        Add Comment
+                        variant="contained"
+                        onClick={()=>{addstatus("0", customer.leave_ID)}} 
+                        disabled={customer.status =="0"} >
+                        Reject 
                       </Button>
-                    </Link>
-                    {' '}
-                    {/* <Button onClick={() => { deleteSummaryReport(customer.report_id) }} color="primary"
-                      variant="contained">
-                      Delete
-                    </Button> */}
+                      {' '}
 
-                  </TableCell>
-                </TableRow>
-              ))}
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
             </TableBody>
           </Table>
         </Box>
@@ -628,7 +614,7 @@ const LeaveResults = ({ Leave, ...rest }) => {
 };
 
 LeaveResults.propTypes = {
-    Leave: PropTypes.array.isRequired
+  Leave: PropTypes.array.isRequired
 };
 
 export default LeaveResults;

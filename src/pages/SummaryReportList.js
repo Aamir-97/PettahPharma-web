@@ -180,6 +180,10 @@ return(
                     return val
                   }
                 }).map((customer) => {
+                  const dt = new Date(customer.date);
+                      const year = dt.getFullYear() + '/';
+                      const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
+                      const day = ('0' + dt.getDate()).slice(-2);
                   return (
                 <TableRow
                   hover
@@ -201,10 +205,10 @@ return(
                       </Typography>
                     </Box>
                   </TableCell>
-                  <TableCell>{customer.doctorname}</TableCell>
+                  <TableCell>{customer.doctor_name}</TableCell>
                   <TableCell>{customer.visit_type}</TableCell>
-                  <TableCell>{customer.avg_duration}</TableCell>
-                  <TableCell>{customer.date}</TableCell>
+                  <TableCell>{customer.avg_duration} Hours</TableCell>
+                  <TableCell>{year + month + day}</TableCell>
                   <TableCell align="center">
                     <Link to={`/appp/SummaryInfo/${customer.report_id}`}  >
                       <Button

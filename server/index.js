@@ -650,6 +650,58 @@ app.put('/addstatus', (req, res) => {
         });
 });
 
+app.get('/getexpense',(req,res)=>{
+    db.query('SELECT expenses.expense_ID,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,medicalrep.name AS repname FROM medicalrep INNER JOIN expenses ON medicalrep.rep_ID = expenses.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID],(err,result,fields)=>{
+        if(!err){
+            res.send(result);
+            console.log(result);
+        }
+        else
+        console.log(err);
+    })
+})
+
+app.get('/viewexpense',(req,res)=>{
+    db.query('SELECT expenses.bills,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,expenses.description,expenses.salesmanager_comment,medicalrep.name AS repname FROM expenses INNER JOIN medicalrep ON expenses.rep_ID = medicalrep.rep_ID WHERE expenses.expense_ID = ?', [req.query.expense_ID],(err,result,fields)=>{
+        if(!err){
+            res.send(result);
+            console.log(result);
+        }
+        else
+        console.log(err);
+    })
+});
+
+app.put('/addexpensecomment', (req, res) => {
+    const expense_ID = req.body.expense_ID;
+    const salesmanager_comment = req.body.salesmanager_comment;
+
+    db.query("UPDATE expenses SET salesmanager_comment = ? WHERE  expense_ID=?",
+        [salesmanager_comment,expense_ID],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+app.put('/addexpensestatus', (req, res) => {
+    const status = req.body.status;
+    const expense_ID = req.body.expense_ID;
+
+    db.query("UPDATE expenses SET status = ? WHERE  expense_ID=?",
+        [status,expense_ID],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        });
+});
+
 app.listen(3001, () => {
     console.log("Your server is running on port 3001");
 });

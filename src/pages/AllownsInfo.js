@@ -148,7 +148,7 @@ export default function AllownsInfo() {
         <div className={classes.formbox}>
             <div className={classes.root}>
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}><h1>LEAVE INFORMATION</h1>  </Paper><br />
+                    <Paper className={classes.paper}><h1>EXPENSE INFORMATION</h1>  </Paper><br />
                 </Grid>
 
                 <div className={classes.root}>

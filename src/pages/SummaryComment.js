@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
     },
     formbox: {
-        backgroundColor: 'gray',
+        backgroundColor: 'lightgray',
         width: '60%',
         marginTop: '40px',
         marginLeft: '200px',
@@ -124,6 +124,11 @@ export default function SummaryComment() {
         setExpanded(isExpanded ? panel : false);
     };
 
+    const dtt = new Date(Dt.date);
+    const year = dtt.getFullYear() + '/';
+    const month = ('0' + (dtt.getMonth() + 1)).slice(-2) + '/';
+    const day = ('0' + dtt.getDate()).slice(-2);
+
     return (
         <div className={classes.formbox}>
             <div className={classes.root}>
@@ -148,7 +153,7 @@ export default function SummaryComment() {
                         </AccordionSummary>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Doctor Name</Typography>
-                            <Typography className={classes.secondaryHeading}>{Dt.doctorname}</Typography>
+                            <Typography className={classes.secondaryHeading}>{Dt.doctor_name}</Typography>
                         </AccordionSummary>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Visit Type</Typography>
@@ -156,7 +161,7 @@ export default function SummaryComment() {
                         </AccordionSummary>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Product Name</Typography>
-                            <Typography className={classes.secondaryHeading}>{Dt.proname}</Typography>
+                            <Typography className={classes.secondaryHeading}>{Dt.product_name}</Typography>
                         </AccordionSummary>
                         <AccordionSummary>
                             <Typography className={classes.heading}>No of Sample</Typography>
@@ -164,11 +169,11 @@ export default function SummaryComment() {
                         </AccordionSummary>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Average Duration</Typography>
-                            <Typography className={classes.secondaryHeading}>{Dt.avg_duration}</Typography>
+                            <Typography className={classes.secondaryHeading}>{Dt.avg_duration} Hours</Typography>
                         </AccordionSummary>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Date</Typography>
-                            <Typography className={classes.secondaryHeading}>{Dt.date}</Typography>
+                            <Typography className={classes.secondaryHeading}>{year + month + day}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                         <Typography className={classes.heading}>Discription</Typography>

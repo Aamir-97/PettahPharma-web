@@ -1,4 +1,4 @@
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -11,6 +11,7 @@ import {
   List,
   Typography
 } from '@material-ui/core';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import {
   AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
@@ -22,6 +23,10 @@ import {
   Users as UsersIcon
 } from 'react-feather';
 import ForumIcon from '@material-ui/icons/Forum';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import DashboardIcon from '@material-ui/icons/DashboardOutlined';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import NavItem from './NavItem';
@@ -30,19 +35,19 @@ import axios from "axios";
 
 
 
-    
+
 
 const user = {
   avatar: '/static/images/avatars/avatar_3.png',
   jobTitle: 'Sales Manager',
-  
+
 };
 
 const items = [
 
   {
     href: '/appp/dashboardsale',
-    icon: BarChartIcon,
+    icon: DashboardIcon,
     title: 'Dashboard'
 
   },
@@ -63,12 +68,12 @@ const items = [
   // },
   {
     href: '/appp/dataplan',
-    icon: ForumIcon,
+    icon: AssignmentIcon,
     title: 'Task'
   },
   {
     href: '/appp/SummaryReport',
-    icon: ForumIcon,
+    icon: ListAltIcon,
     title: 'Summary Report'
   },
   {
@@ -78,29 +83,29 @@ const items = [
   },
   {
     href: '/appp/Leave',
-    icon: ForumIcon,
+    icon: AssignmentIndIcon,
     title: 'Leave Approval'
   },
   {
     href: '/appp/Allowns',
-    icon: ForumIcon,
-    title: 'Allowns'
+    icon: ReceiptIcon,
+    title: 'Expenses'
   },
   {
     href: '',
     icon: ForumIcon,
     title: 'KPI'
   },
-  {
-    href: '/appp/settings',
-    icon: SettingsIcon,
-    title: 'Settings'
-  },
-  {
-    href: '',
-    icon: TrendingUpIcon,
-    title: 'Help'
-  },
+  // {
+  //   href: '/appp/settings',
+  //   icon: SettingsIcon,
+  //   title: 'Settings'
+  // },
+  // {
+  //   href: '',
+  //   icon: TrendingUpIcon,
+  //   title: 'Help'
+  // },
   // {
   //   href: '',
   //   icon: ForumIcon,
@@ -120,23 +125,23 @@ const items = [
 
 const DashboardSaleSidebar = ({ onMobileClose, openMobile }) => {
 
-  let manager_ID=localStorage.getItem('managerid');
-  manager_ID =JSON.parse(manager_ID)
+  let manager_ID = localStorage.getItem('managerid');
+  manager_ID = JSON.parse(manager_ID)
   console.log(manager_ID);
 
-useEffect(() => {
-      const fetchData = async () => {
-          const response = await axios.get('http://localhost:3001/getmanagername', {
-              params: {
-                  
-                  manager_ID: manager_ID,
-              }
-          });
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get('http://localhost:3001/getmanagername', {
+        params: {
 
-          setDt(response.data[0]);
-          // console.log(response.data[0]);
-      };
-      fetchData();
+          manager_ID: manager_ID,
+        }
+      });
+
+      setDt(response.data[0]);
+      // console.log(response.data[0]);
+    };
+    fetchData();
   }, []);
 
   const [Dt, setDt] = useState([]);
@@ -208,7 +213,7 @@ useEffect(() => {
   );
 
   return (
-    <>
+    < >
       <Hidden lgUp>
         <Drawer
           anchor="left"

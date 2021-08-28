@@ -112,8 +112,8 @@ const mystyle = {
     },
 };
 
-export default function LeaveComment() {
-    const leave_ID = window.location.pathname.substring(19, 22);
+export default function AllownsComment() {
+    const expense_ID = window.location.pathname.substring(21, 27);
     const [Dt, setDt] = useState([]);
 
     const [salesmanager_comment, setManagerCom] = useState("");
@@ -125,9 +125,9 @@ export default function LeaveComment() {
     // console.log(report_id);
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://localhost:3001/viewLeave', {
+            const response = await axios.get('http://localhost:3001/viewexpense', {
                 params: {
-                    leave_ID: leave_ID,
+                    expense_ID: expense_ID,
                 }
             });
             setDt(response.data[0]);
@@ -138,9 +138,9 @@ export default function LeaveComment() {
     }, []);
 
 
-    const addcomment = (leave_ID) => {
-        axios.put("http://localhost:3001/addleavecomment",
-            { salesmanager_comment: salesmanager_comment, leave_ID: leave_ID }).then(
+    const addcomment = (expense_ID) => {
+        axios.put("http://localhost:3001/addexpensecomment",
+            { salesmanager_comment: salesmanager_comment, expense_ID: expense_ID }).then(
                 (response) => { }
             )
     };
@@ -151,20 +151,20 @@ export default function LeaveComment() {
         setExpanded(isExpanded ? panel : false);
     };
 
-    const dtt = new Date(Dt.start_Date);
+    const dtt = new Date(Dt.date);
     const year = dtt.getFullYear() + '/';
     const month = ('0' + (dtt.getMonth() + 1)).slice(-2) + '/';
     const day = ('0' + dtt.getDate()).slice(-2);
 
-    const dttt = new Date(Dt.end_Date);
-    const y = dttt.getFullYear() + '/';
-    const m = ('0' + (dttt.getMonth() + 1)).slice(-2) + '/';
-    const d = ('0' + dttt.getDate()).slice(-2);
+    // const dttt = new Date(Dt.end_Date);
+    // const y = dttt.getFullYear() + '/';
+    // const m = ('0' + (dttt.getMonth() + 1)).slice(-2) + '/';
+    // const d = ('0' + dttt.getDate()).slice(-2);
 
-    const addstatus = (status, leave_ID) => {
+    const addstatus = (status, expense_ID) => {
         console.log(status);
-        axios.put("http://localhost:3001/addstatus",
-          { status: status, leave_ID: leave_ID }).then(
+        axios.put("http://localhost:3001/addexpensestatus",
+          { status: status, expense_ID: expense_ID }).then(
             (response) => {
               window.location.reload();
               // this.setState({});
@@ -187,7 +187,7 @@ export default function LeaveComment() {
                             aria-controls="panel1bh-content"
                             id="panel1bh-header"
                         >
-                            <Typography className={classes.heading}>Leave Infomation</Typography>
+                            <Typography className={classes.heading}>Expense Infomation</Typography>
                             <Typography className={classes.secondaryHeading}>click full details</Typography>
                         </AccordionSummary>
                         <AccordionSummary>
@@ -195,16 +195,25 @@ export default function LeaveComment() {
                             <Typography className={classes.secondaryHeading}>{Dt.repname}</Typography>
                         </AccordionSummary>
                         <AccordionSummary>
-                            <Typography className={classes.heading}>Leave Type</Typography>
-                            <Typography className={classes.secondaryHeading}>{Dt.leave_Type}</Typography>
+                            <Typography className={classes.heading}>Expense Type</Typography>
+                            <Typography className={classes.secondaryHeading}>{Dt.expense_type}</Typography>
                         </AccordionSummary>
                         <AccordionSummary>
-                            <Typography className={classes.heading}>Start Date</Typography>
+                            <Typography className={classes.heading}>Location</Typography>
+                            <Typography className={classes.secondaryHeading}>{Dt.location}</Typography>
+                        </AccordionSummary>
+                        <AccordionSummary>
+                            <Typography className={classes.heading}>Bill</Typography>
+                            <Typography className={classes.secondaryHeading}>{Dt.bills}</Typography>
+                        </AccordionSummary>
+                        <AccordionSummary>
+                            <Typography className={classes.heading}>Amount</Typography>
+                            <Typography className={classes.secondaryHeading}>{Dt.amount}</Typography>
+                        </AccordionSummary>
+
+                        <AccordionSummary>
+                            <Typography className={classes.heading}>Date</Typography>
                             <Typography className={classes.secondaryHeading}>{year + month + day}</Typography>
-                        </AccordionSummary>
-                        <AccordionSummary>
-                            <Typography className={classes.heading}>End Date</Typography>
-                            <Typography className={classes.secondaryHeading}>{y + m + d}</Typography>
                         </AccordionSummary>
 
                         <AccordionDetails>
@@ -228,12 +237,12 @@ export default function LeaveComment() {
 
                 </div>
 
-                <Link to={`/appp/Leave`}  >
+                <Link to={`/appp/Allowns`}  >
                     <Button
                         color="primary"
                         variant="contained"
                         style={mystyle.submitBtn}
-                        onClick={() => { addcomment(leave_ID) }}
+                        onClick={() => { addcomment(expense_ID) }}
                     >
                         Add Comment
                     </Button>
@@ -241,8 +250,8 @@ export default function LeaveComment() {
                 <Button
                         color="primary"
                         variant="contained"
-                        // onClick={addstatus("Accept", customer.leave_ID)}
-                        onClick={()=>{addstatus("1", Dt.leave_ID)}} 
+                        // onClick={addstatus("Accept", customer.expense_ID)}
+                        onClick={()=>{addstatus("1", Dt.expense_ID)}} 
                         disabled={Dt.status =="1"}
                         style={mystyle.acceptBtn}>
                         Accept
@@ -251,12 +260,12 @@ export default function LeaveComment() {
                       <Button
                         color="primary"
                         variant="contained"
-                        onClick={()=>{addstatus("0", Dt.leave_ID)}} 
+                        onClick={()=>{addstatus("0", Dt.expense_ID)}} 
                         disabled={Dt.status =="0"} 
                         style={mystyle.rejectBtn}>
                         Reject 
                       </Button>
-                <Link to='/appp/Leave'>
+                <Link to='/appp/Allowns'>
                     <Button
                         type="submit"
                         id="submitBtn"

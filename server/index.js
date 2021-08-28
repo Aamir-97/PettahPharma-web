@@ -414,7 +414,7 @@ app.put('/updatemedicalrep', (req, res) => {
 });
 
 app.get('/gettask', (req, res) => {
-    db.query('SELECT medicalrep.name,task.type,task.title,task.date,task.session,task.task_id FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? ORDER BY date DESC', [req.query.manager_ID], (err, result, fields) => {
+    db.query('SELECT medicalrep.name,task.location,task.title,task.date,task.task_id,task.status FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? ORDER BY date DESC', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
             console.log(result);
@@ -609,8 +609,10 @@ app.post('/upload', function(req, res) {
 
 
 app.get('/getrep', (req, res) => {
-    db.query('SELECT name,rep_ID FROM medicalrep WHERE  manager_ID=?', [req.query.manager_ID], (err, result) => {
+    console.log(req.query.date);
+    db.query('SELECT medicalrep.name, medicalrep.rep_ID  FROM medicalrep WHERE medicalrep.rep_ID NOT IN (SELECT leaves.rep_ID FROM leaves WHERE start_Date= ? ) AND medicalrep.manager_ID= ? AND medicalrep.rep_ID NOT IN (SELECT task.rep_ID FROM task WHERE task.date= ? AND (task.session= ? OR task.session= ? ))', [req.query.date,req.query.manager_ID,req.query.date,req.query.session,req.query.fullday], (err, result) => {
         res.send(result);
+        console.log('result');
         console.log(result);
 
     })
@@ -632,7 +634,8 @@ app.get("/delete", (req, res) => {
 });
 
 app.get('/getsummary',(req,res)=>{
-    db.query('SELECT visit_summary_report.report_id,visit_summary_report.visit_type,visit_summary_report.date,visit_summary_report.avg_duration,doctor_details.name AS doctorname,medicalrep.name FROM visit_summary_report INNER JOIN doctor_details ON visit_summary_report.doctor_id = doctor_details.doctor_id INNER JOIN medicalrep ON visit_summary_report.rep_ID = medicalrep.rep_ID WHERE visit_summary_report.manager_ID = ? ORDER BY visit_summary_report.date DESC', [req.query.manager_ID],(err,result,fields)=>{
+    console.log(req.query.manager_ID);
+    db.query('SELECT visit_summary_report.report_id,visit_summary_report.visit_type,visit_summary_report.date,visit_summary_report.avg_duration,visit_summary_report.doctor_name,medicalrep.name FROM visit_summary_report INNER JOIN medicalrep ON visit_summary_report.rep_ID = medicalrep.rep_ID WHERE visit_summary_report.manager_ID = ? ORDER BY visit_summary_report.date DESC', [req.query.manager_ID],(err,result,fields)=>{
         if(!err){
             res.send(result);
             console.log(result);
@@ -643,7 +646,7 @@ app.get('/getsummary',(req,res)=>{
 })
 
 app.get('/viewsummary', (req, res) => {
-    db.query('SELECT visit_summary_report.no_of_sample,visit_summary_report.description,visit_summary_report.manager_comment,visit_summary_report.report_id,visit_summary_report.visit_type,visit_summary_report.date,visit_summary_report.avg_duration,doctor_details.name AS doctorname,medicalrep.name AS repname,product.name AS proname FROM visit_summary_report INNER JOIN doctor_details ON visit_summary_report.doctor_id = doctor_details.doctor_id INNER JOIN medicalrep ON visit_summary_report.rep_ID = medicalrep.rep_ID INNER JOIN product ON visit_summary_report.product_id = product.product_id WHERE visit_summary_report.manager_ID = ? AND visit_summary_report.report_id = ?', [req.query.manager_ID, req.query.report_id], (err, result) => {
+    db.query('SELECT visit_summary_report.no_of_sample,visit_summary_report.description,visit_summary_report.manager_comment,visit_summary_report.report_id,visit_summary_report.visit_type,visit_summary_report.date,visit_summary_report.avg_duration,visit_summary_report.doctor_name,medicalrep.name AS repname,visit_summary_report.product_name FROM visit_summary_report INNER JOIN medicalrep ON visit_summary_report.rep_ID = medicalrep.rep_ID WHERE visit_summary_report.manager_ID = ? AND visit_summary_report.report_id = ?', [req.query.manager_ID, req.query.report_id], (err, result) => {
         res.send(result);
         console.log(result);
     })
@@ -682,7 +685,7 @@ app.put('/addcomment', (req, res) => {
 
 
 app.get('/getleave',(req,res)=>{
-    db.query('SELECT leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,medicalrep.name AS repname FROM medicalrep INNER JOIN leaves ON medicalrep.rep_ID = leaves.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID],(err,result,fields)=>{
+    db.query('SELECT leaves.status,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,medicalrep.name AS repname FROM medicalrep INNER JOIN leaves ON medicalrep.rep_ID = leaves.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID],(err,result,fields)=>{
         if(!err){
             res.send(result);
             console.log(result);
@@ -693,7 +696,7 @@ app.get('/getleave',(req,res)=>{
 })
 
 app.get('/viewLeave',(req,res)=>{
-    db.query('SELECT leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,leaves.description,leaves.salesmanager_comment,medicalrep.name AS repname FROM leaves INNER JOIN medicalrep ON leaves.rep_ID = medicalrep.rep_ID WHERE leaves.leave_ID = ?', [req.query.leave_ID],(err,result,fields)=>{
+    db.query('SELECT leaves.status,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,leaves.description,leaves.salesmanager_comment,medicalrep.name AS repname FROM leaves INNER JOIN medicalrep ON leaves.rep_ID = medicalrep.rep_ID WHERE leaves.leave_ID = ?', [req.query.leave_ID],(err,result,fields)=>{
         if(!err){
             res.send(result);
             console.log(result);
@@ -785,6 +788,72 @@ app.get('/TaskReport',(req,res) => {
         }
     });
   });
+app.put('/addstatus', (req, res) => {
+    const status = req.body.status;
+    const leave_ID = req.body.leave_ID;
+
+    db.query("UPDATE leaves SET status = ? WHERE  leave_ID=?",
+        [status,leave_ID],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+app.get('/getexpense',(req,res)=>{
+    db.query('SELECT expenses.expense_ID,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,medicalrep.name AS repname FROM medicalrep INNER JOIN expenses ON medicalrep.rep_ID = expenses.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID],(err,result,fields)=>{
+        if(!err){
+            res.send(result);
+            console.log(result);
+        }
+        else
+        console.log(err);
+    })
+})
+
+app.get('/viewexpense',(req,res)=>{
+    db.query('SELECT expenses.bills,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,expenses.description,expenses.salesmanager_comment,medicalrep.name AS repname FROM expenses INNER JOIN medicalrep ON expenses.rep_ID = medicalrep.rep_ID WHERE expenses.expense_ID = ?', [req.query.expense_ID],(err,result,fields)=>{
+        if(!err){
+            res.send(result);
+            console.log(result);
+        }
+        else
+        console.log(err);
+    })
+});
+
+app.put('/addexpensecomment', (req, res) => {
+    const expense_ID = req.body.expense_ID;
+    const salesmanager_comment = req.body.salesmanager_comment;
+
+    db.query("UPDATE expenses SET salesmanager_comment = ? WHERE  expense_ID=?",
+        [salesmanager_comment,expense_ID],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        });
+});
+
+app.put('/addexpensestatus', (req, res) => {
+    const status = req.body.status;
+    const expense_ID = req.body.expense_ID;
+
+    db.query("UPDATE expenses SET status = ? WHERE  expense_ID=?",
+        [status,expense_ID],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        });
+});
 
 app.listen(3001, () => {
     console.log("Your server is running on port 3001");

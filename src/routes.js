@@ -29,6 +29,8 @@ import SummaryInfo from 'src/pages/SummaryInfo';
 import SummaryComment from 'src/pages/SummaryComment';
 import LeaveInfo from 'src/pages/LeaveInfo';
 import LeaveComment from 'src/pages/LeaveComment';
+import AllownsInfo from 'src/pages/AllownsInfo';
+import AllownsComment from 'src/pages/AllownsComment';
 import Help from 'src/pages/Help';
 import ReportGeneration from 'src/pages/ReportGeneration';
 
@@ -75,6 +77,11 @@ const routes = [
       { path: 'SummaryComment/:report_id', element: <SummaryComment /> },
       { path: 'LeaveInfo/:leave_ID', element: <LeaveInfo /> },
       { path: 'LeaveComment/:leave_ID', element: <LeaveComment /> },
+      { path: 'AllownsInfo/:expense_ID', element: <AllownsInfo /> },
+      { path: 'AllownsComment/:expense_ID', element: <AllownsComment /> },
+      // { path: 'Add_product', element: <Add_product /> },
+      // { path: 'products', element: <ProductList /> },
+      // { path: 'settings', element: <Settings /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

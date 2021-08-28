@@ -1,33 +1,129 @@
-import React, { useState , useEffect} from 'react';
-import { Link } from 'react-router-dom';
-import shadows from 'src/theme/shadows';
+import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import axios from "axios";
+import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 
-function AsignTask() {
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+    },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        flexBasis: '33.33%',
+        flexShrink: 0,
+    },
+    secondaryHeading: {
+        fontSize: theme.typography.pxToRem(15),
+        color: 'black',
+    },
+    formbox: {
+        backgroundColor: 'lightgray',
+        width: '55%',
+        marginTop: '0px',
+        marginLeft: '200px',
+        height: 'full',
+        boxShadow: "2px 2px 5px  2px #9E9E9E",
+        padding: "2vh",
+        borderRadius: "5px",
+        align: 'center'
+    },
+    forminput: {
+
+        width: '430px',
+        padding: '10px 10px',
+        margin: '2px 0',
+        display: 'inline - block',
+        border: '1px solid #C0C0C0',
+        borderRadius: '5px',
+        height: '40px'
+    },
+    formselect: {
+
+        width: '430px',
+        padding: '10px 10px',
+        margin: '2px 0',
+        display: 'inline - block',
+        border: '1px solid #C0C0C0',
+        borderRadius: '5px',
+        height: '40px',
+        backgroundColor: 'white'
+    },
+
+}));
+
+
+const mystyle = {
+    closeBtn: {
+        // marginTop: '0px',
+        width: '145px',
+        height: '40px',
+        fontSize: '18px',
+        backgroundColor: 'red',
+        transition: '1s background ease',
+        cursor: 'pointer',
+        border: 'none',
+        borderRadius: '5px',
+        color: 'white',
+        // marginRight: '0px',
+        marginLeft:'10px'
+    },
+    submitBtn: {
+        // marginTop: '5px',
+        width: '145px',
+        height: '40px',
+        fontSize: '18px',
+        backgroundColor: '#0A6466',
+        cursor: 'pointer',
+        border: 'none',
+        borderRadius: '5px',
+        color: 'white',
+        // /marginRight: '30px'
+         marginLeft:'350px'
+    },
+    
+};
+
+
+export default function AsignTask() {
     let manager_ID = localStorage.getItem('managerid');
     manager_ID = JSON.parse(manager_ID)
 
     const [GetRep, setGetRep] = useState([]);
     const [rep_ID, setRepID] = useState("");
     const [title, setTitle] = useState("");
-    const [type, setType] = useState("");
+    // const [type, setType] = useState("");
     const [location, setLocation] = useState("")
     const [description, setDescription] = useState("");
     const [session, setSession] = useState("");
     const [date, setDate] = useState("")
+    
+    let fullday='Full-Day';
+    let type='task';
 
 
+    
     const asign_task = () => {
         axios.post('http://localhost:3001/assigntask', {
             rep_ID: rep_ID,
             title: title,
-            type: type,
+            type:type,
             location: location,
             description: description,
             session: session,
@@ -40,201 +136,186 @@ function AsignTask() {
         });
     };
 
-    useEffect(() => {
+
+
+    
         const fetchData = async () => {
             const response = await axios.get('http://localhost:3001/getrep', {
                 params: {
                     manager_ID: manager_ID,
+                    date: date,
+                    session: session,
+                    fullday: fullday,
                 }
             });
             setGetRep(response.data);
         };
-        fetchData();
-    }, []);
+        // fetchData();
+    
     console.log(GetRep);
 
-    const mystyle = {
-        formstep: {
-            fontsize: '35px',
-            textalign: 'center',
-            color: '#23750a',
-        },
-        formbox: {
-            backgroundColor: 'gray',
-            width: '60%',
-            textalign: 'center',
-            marginTop: '10px',
-            height: 'full',
-            boxShadow: "2px 2px 5px  2px #9E9E9E",
-            padding: "2vh",
-            borderRadius: "5px"
-        },
-        popupbox: {
-            position: 'fixed',
-            background: '#00000050',
-            width: '75vh',
-            height: '75vh',
-            top: '12vh',
-            left: '90vh',
-        },
-        forminput: {
-
-            width: '70%',
-            padding: '10px 10px',
-            margin: '8px 0',
-            display: 'inline - block',
-            border: '1px solid #C0C0C0',
-            borderRadius: '5px',
-            height: '40px'
-        },
-        formtextarea: {
-
-            width: '70%',
-            padding: '10px 10px',
-            margin: '8px 0',
-            display: 'inline - block',
-            border: '1px solid #C0C0C0',
-            borderRadius: '5px',
-            height: '80px'
-        },
-        formhead: {
-            paddingTop: '50px',
-            paddingBottom: '20px'
-        },
-        submitBtn: {
-            marginTop: '20px',
-            width: '145px',
-            height: '40px',
-            fontSize: '18px',
-            backgroundColor: '#0A6466',
-            cursor: 'pointer',
-            border: 'none',
-            borderRadius: '5px',
-            color: 'white',
-            marginRight: '30px'
-        },
-        closeBtn: {
-            marginTop: '20px',
-            width: '145px',
-            height: '40px',
-            fontSize: '18px',
-            backgroundColor: 'red',
-            transition: '1s background ease',
-            cursor: 'pointer',
-            border: 'none',
-            borderRadius: '5px',
-            color: 'white',
-            marginRight: '200px'
-        },
-        formControl: {
-            // margin: theme.spacing(1),
-            minWidth: '320px',
-          },
-          selectEmpty: {
-            // marginTop: theme.spacing(2),
-          },
-          aaa: {
-              width: '500px',
-            },
+    const classes = useStyles();
+    const [expanded, setExpanded] = React.useState(false);
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
     };
-    
-    // const useStyles = makeStyles((theme) => ({
-    //     formControl: {
-    //       margin: theme.spacing(1),
-    //       minWidth: '320px',
-    //     },
-    //     selectEmpty: {
-    //       marginTop: theme.spacing(2),
-    //     },
-    //     aaa: {
-    //         width: '500px',
-    //       },
-    //   }));
-    //   const classes = useStyles();
 
     return (
-        <div align='center'>
-            <div style={mystyle.formbox}>
-                <h1 style={mystyle.formhead}> ASIGN TASK </h1>
-                <form >
-                    <div >
-                        <FormControl style={mystyle.formControl} >
-                            <InputLabel id="demo-customized-select-label">Medical Rep Name</InputLabel>
-                            <Select
-                                 native
-                                onChange={(event) => { setRepID(event.target.value); }}
-                                style={mystyle.aaa}
-                            >                    
-                                <option aria-label="None" value="" />
+        <div className={classes.formbox}>
+            <div className={classes.root}>
+                <Grid item xs={12}>
+                    <Paper className={classes.paper}><h1>ASIGN TASK</h1>  </Paper><br />
+                </Grid>
+
+                <div className={classes.root}>
+
+                <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
+                        <AccordionSummary>
+                            <Typography className={classes.heading}>Date</Typography>
+                            <Typography className={classes.secondaryHeading}>
+                                <input
+                                    type="date"
+                                    
+                                    onChange={(event) => { setDate(event.target.value); }}
+                                    // style={mystyle.forminput}
+                                    className={classes.forminput}
+                                />
+                            </Typography>
+                        </AccordionSummary>
+                    </Accordion><br />
+
+                    <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
+                        <AccordionSummary>
+                            <Typography className={classes.heading}>Time Period</Typography>
+                            <Typography className={classes.secondaryHeading}>
+                                {/* <input
+                                    type="text"
+                                   
+                                    onChange={(event) => { setSession(event.target.value); }}
+                                    // style={mystyle.forminput}
+                                    className={classes.forminput}
+                                /> */}
+                                <Select
+                                        native
+                                        onChange={(event) => { setSession(event.target.value); }}
+                                        // style={mystyle.formselect}
+                                        className={classes.formselect}
+                                    >
+                                        <option aria-label="None" value="">Select Time Period</option>
+                                        <option Value ="Morning">Morning</option>
+                                        <option Value = "Evening">Evening</option>
+                                        <option Value ="Full-Day" >Full-Day</option>
+                                    </Select>
+                            </Typography>
+                        </AccordionSummary>
+                    </Accordion><br />
+
+                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                        <AccordionSummary>
+                            <Typography className={classes.heading}>Medical Rep Name</Typography>
+                            <Typography className={classes.secondaryHeading}>
+                                {/* <FormControl className={classes.formControl}> */}
+                                    <Select
+                                    onClick={()=>{fetchData()}}
+                                        native
+                                        onChange={(event) => { setRepID(event.target.value); }}
+                                        // style={mystyle.formselect}
+                                        className={classes.formselect}
+                                    >
+                                        <option aria-label="None" value="">Select Medical Rep Name</option>
                                 {GetRep.map((customer) => (
                                     <option Value={customer.rep_ID}>{customer.name}-{customer.rep_ID}</option>
                                 ))}
-                            </Select>
+                                    </Select>
+                                {/* </FormControl> */}
+                            </Typography>
+                        </AccordionSummary>
+                    </Accordion><br />
 
-                        </FormControl><br />
-                        <input
-                            type="text"
-                            style={mystyle.forminput}
-                            placeholder="Task Title"
-                            onChange={(event) => { setTitle(event.target.value); }}
-                        /><br />
-                        <input
-                            type="text"
-                            style={mystyle.forminput}
-                            placeholder="Type"
-                            onChange={(event) => { setType(event.target.value); }}
-                        /><br />
-                        <input
-                            type="text"
-                            style={mystyle.forminput}
-                            placeholder="Location"
-                            onChange={(event) => { setLocation(event.target.value); }}
-                        /><br />
-                        <textarea
-                            type="text"
-                            style={mystyle.formtextarea}
-                            placeholder="Description"
-                            onChange={(event) => { setDescription(event.target.value); }}
+                    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                        <AccordionSummary>
+                            <Typography className={classes.heading}>Title</Typography>
+                            <Typography className={classes.secondaryHeading}>
+                                <input
+                                    type="text"
+                                    
+                                    onChange={(event) => { setTitle(event.target.value); }}
+                                    // style={mystyle.forminput}
+                                    className={classes.forminput}
+                                />
+                            </Typography>
+                        </AccordionSummary>
+                    </Accordion><br />
+
+                    {/* <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                        <AccordionSummary>
+                            <Typography className={classes.heading}>Type</Typography>
+                            <Typography className={classes.secondaryHeading}>
+                                <input
+                                    type="text"
+                                    defaultValue={Dt.type}
+                                    onChange={(event) => { setType(event.target.value); }}
+                                    style={mystyle.forminput}
+                                />
+                            </Typography>
+                        </AccordionSummary>
+                    </Accordion><br /> */}
+
+                    <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+                        <AccordionSummary>
+                            <Typography className={classes.heading}>Location</Typography>
+                            <Typography className={classes.secondaryHeading}>
+                                <input
+                                    type="text"
+                                   
+                                    onChange={(event) => { setLocation(event.target.value); }}
+                                    // style={mystyle.forminput}
+                                    className={classes.forminput}
+                                />
+                            </Typography>
+                        </AccordionSummary>
+                    </Accordion><br />
+
+                    <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1bh-content"
+                            id="panel1bh-header"
                         >
-                        </textarea><br />
-                        <input
-                            type="text"
-                            style={mystyle.forminput}
-                            placeholder="Session"
-                            onChange={(event) => { setSession(event.target.value); }}
-                        /><br />
-                        <input
-                            type="date"
-                            style={mystyle.forminput}
-                            placeholder="Date"
-                            onChange={(event) => { setDate(event.target.value); }}
-                        /><br />
-                    </div>
+                            <Typography className={classes.heading}>Description</Typography>
+                            <Typography className={classes.secondaryHeading}>click full details</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                <textarea 
+                                    onChange={(event) => { setDescription(event.target.value); }}
+                                    rows="10" cols="80"   ></textarea>
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion><br />
 
-                    <div display='flex' align='right'>
+                    
 
-                        <Link to='/appp/dataplan'>
-                            <button
-                                type="submit"
-                                id="submitBtn"
-                                style={mystyle.submitBtn}
-                                onClick={asign_task}
-                            > Create</button>
-                        </Link>
-                        <Link to='/appp/dataplan'>
-                            <button
+                    
+                </div>
+
+                <Link to='/appp/dataplan' style={mystyle.button}>
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        style={mystyle.submitBtn}
+                        onClick={asign_task}
+                    > Create</Button>
+                </Link>
+                <Link to='/appp/dataplan'>
+                            <Button
                                 type="submit"
                                 id="submitBtn"
                                 style={mystyle.closeBtn}                      
-                            > Close</button>
+                            > Exit</Button>
                         </Link>
-                    </div>
-                </form>
 
             </div>
         </div>
-
-    )
+    );
 }
-
-export default AsignTask;

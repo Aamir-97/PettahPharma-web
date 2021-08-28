@@ -42,9 +42,11 @@ return (
           >
           {expensecount.map((record)=>{
               return(
-              <p style={{fontSize:'30px'}}>{record.totalexpense}</p>
+              <p style={{fontSize:'30px'}}>{record.totalexpense}.00</p>
               )
             })}
+          <p style={{fontSize:'13px',color:'#e53935'}}>Annual Total Expenses</p>
+          <p style={{fontSize:'13px',color:'#e53935'}}>Year - 2021</p>
           </Typography>
         </Grid>
 

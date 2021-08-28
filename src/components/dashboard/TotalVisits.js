@@ -47,6 +47,8 @@ return (
               <p style={{fontSize:'30px'}}>{record.count}</p>
               )
             })}
+          <p style={{fontSize:'13px',color:'#fb8c00'}}>Annual Total Visits</p>
+          <p style={{fontSize:'13px',color:'#fb8c00'}}>Year - 2021</p>
           </Typography>
         </Grid>
         <Grid item>

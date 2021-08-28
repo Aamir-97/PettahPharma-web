@@ -1,3 +1,4 @@
+import React, { useState,useEffect } from "react";
 import { Doughnut } from 'react-chartjs-2';
 import {
   Box,
@@ -9,29 +10,56 @@ import {
   colors,
   useTheme
 } from '@material-ui/core';
-// import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import PhoneIcon from '@material-ui/icons/Phone';
-import TabletIcon from '@material-ui/icons/Tablet';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
+import LoopIcon from '@material-ui/icons/Loop';
+import DoneIcon from '@material-ui/icons/Done';
+// import ReactApexChart from "react-apexcharts";
+import axios from 'axios'
+import { sum } from "lodash";
 
-const TaskProgress = (props) => {
-  const theme = useTheme();
+function TaskProgress() {
+
+  const [completetask,setCompletetask]=useState([])
+  useEffect(()=>{
+    axios.get("http://localhost:3001/completeTaskCount").then((response)=>{
+      setCompletetask(response.data)
+    })
+  },[])
+
+  const [pendingtask,setPendingtask]=useState([])
+  useEffect(()=>{
+    axios.get("http://localhost:3001/pendingTaskCount").then((response)=>{
+      setPendingtask(response.data)
+    })
+  },[])
+
+  const [rejecttask,setRejecttask]=useState([])
+  useEffect(()=>{
+    axios.get("http://localhost:3001/rejectTaskCount").then((response)=>{
+      setRejecttask(response.data)
+    })
+  },[])
+
+  const count1=completetask.map(record=>record.count);
+  const count2=pendingtask.map(record=>record.count);
+  const count3=rejecttask.map(record=>record.count);
 
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
+        data: [count1, count2, count3],
         backgroundColor: [
           colors.indigo[500],
-          colors.red[600],
-          colors.orange[600]
+          colors.orange[600],
+          colors.red[600]
         ],
         borderWidth: 8,
         borderColor: colors.common.white,
         hoverBorderColor: colors.common.white
       }
     ],
-    labels: ['Completed', 'Ongoing', 'Panding']
+    labels: ['Completed', 'Pending', 'Rejected']
   };
 
   const options = {
@@ -44,41 +72,52 @@ const TaskProgress = (props) => {
     maintainAspectRatio: false,
     responsive: true,
     tooltips: {
-      backgroundColor: theme.palette.background.paper,
-      bodyFontColor: theme.palette.text.secondary,
-      borderColor: theme.palette.divider,
+      // backgroundColor: theme.palette.background.paper,
+      // bodyFontColor: theme.palette.text.secondary,
+      // borderColor: theme.palette.divider,
       borderWidth: 1,
       enabled: true,
-      footerFontColor: theme.palette.text.secondary,
+      // footerFontColor: theme.palette.text.secondary,
       intersect: false,
       mode: 'index',
-      titleFontColor: theme.palette.text.primary
+      // titleFontColor: theme.palette.text.primary
     }
   };
 
   const devices = [
     {
       title: 'Completed',
-      value: 63,
+      value: count1,
       icon: CheckCircleOutlineIcon,
-      color: colors.indigo[500]
+      color: colors.indigo[600]
     },
     {
-      title: 'Ongoing',
-      value: 15,
-      icon: TabletIcon,
-      color: colors.red[600]
-    },
-    {
-      title: 'Panding',
-      value: 23,
-      icon: PhoneIcon,
+      title: 'Pending',
+      value: count2,
+      icon: LoopIcon,
       color: colors.orange[600]
+    },
+    {
+      title: 'Rejected',
+      value: count3,
+      icon: ThumbDownAltIcon,
+      color: colors.red[600]
     }
   ];
 
+  const total = parseInt(count1) + parseInt(count2) + parseInt(count3) ;
+  const c1 = parseInt(count1) ;
+  const c2 = parseInt(count2) ;
+  const c3 = parseInt(count3) ;
+  const count1percentage =  parseInt(count1) / total * 100 ;
+  const count2percentage =  parseInt(count2) / total * 100 ;
+  const count3percentage =  parseInt(count3) / total * 100 ;
+  // const c1p = parseInt(count1percentage) ;
+  // const c2p = parseInt(count2percentage) ;
+  // const c3p = parseInt(count3percentage) ;
+
   return (
-    <Card {...props}>
+    <Card>
       <CardHeader title="Task Progress" />
       <Divider />
       <CardContent>
@@ -113,7 +152,7 @@ const TaskProgress = (props) => {
                 textAlign: 'center'
               }}
             >
-              <Icon color="action" />
+              <Icon color="action" iconSize="large"/>
               <Typography
                 color="textPrimary"
                 variant="body1"
@@ -125,14 +164,19 @@ const TaskProgress = (props) => {
                 variant="h2"
               >
                 {value}
-                %
               </Typography>
-            </Box>
-          ))}
+            </Box> 
+           ))}
+           {/* <Typography
+                variant="h2"
+              >
+                {count1percentage}
+              </Typography> */}
         </Box>
       </CardContent>
     </Card>
   );
 };
+
 
 export default TaskProgress;

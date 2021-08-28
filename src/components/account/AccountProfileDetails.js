@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect,useState } from 'react';
 import {
   Box,
   Button,
@@ -9,15 +9,33 @@ import {
   Grid,
   TextField
 } from '@material-ui/core';
+import axios from 'axios';
 
 const states = [
 ];
 
 const AccountProfileDetails = (props) => {
   const [values, setValues] = useState({
-    name: 'Madhusha Mathivannan',
-    email: 'madhusha@gmail.com',
+    // name: setName,
+    // email: setEmail
   });
+
+  let admin_ID = localStorage.getItem('admin_ID');
+  admin_ID = JSON.parse(admin_ID)
+  console.log(admin_ID);
+
+useEffect(() => {
+  const fetchData = async () => {
+    const response = await axios.get('http://localhost:3001/adminprofile', {
+      params: {
+        admin_ID: admin_ID,
+      }
+    });
+    // setSelectedRowIds(response.data);
+    console.log(response.data);
+  };
+  fetchData();
+}, [admin_ID]);
 
   const handleChange = (event) => {
     setValues({

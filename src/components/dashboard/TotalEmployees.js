@@ -29,6 +29,15 @@ const [managercount,setManagercount]=useState([])
   setManagercount(response.data)
   })
 },[])
+
+const [repcount,setRepcount]=useState([])
+  useEffect(()=>{
+  axios.get("http://localhost:3001/repCount").then((response)=>{
+  console.log(response.data)
+  setRepcount(response.data)
+  })
+},[])
+
 return (
 <div>
     <Card>
@@ -55,12 +64,22 @@ return (
               <p style={{fontSize:'30px'}}>{record.totalcount}</p>
               )
             })}
+            {managercount.map((record)=>{
+              return(
+            <p style={{fontSize:'13px',color:'#388e3c'}}>{record.count} Sales Managers</p>
+            )
+          })}
+          {repcount.map((record)=>{
+              return(
+            <p style={{fontSize:'13px',color:'#388e3c'}}>{record.count} Medical Reps</p>
+            )
+          })}
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: green[600],
+              backgroundColor: green[700],
               height: 56,
               width: 56
             }}

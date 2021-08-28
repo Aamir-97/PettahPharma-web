@@ -125,26 +125,29 @@ const items = [
 
 const DashboardSaleSidebar = ({ onMobileClose, openMobile }) => {
 
-  let manager_ID = localStorage.getItem('managerid');
-  manager_ID = JSON.parse(manager_ID)
-  console.log(manager_ID);
+  // let manager_ID = localStorage.getItem('managerid');
+  // manager_ID = JSON.parse(manager_ID)
+  // console.log(manager_ID);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get('http://localhost:3001/getmanagername', {
-        params: {
+  let salname = localStorage.getItem('name');
+  // salname = JSON.parse(salname)
 
-          manager_ID: manager_ID,
-        }
-      });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await axios.get('http://localhost:3001/getmanagername', {
+  //       params: {
 
-      setDt(response.data[0]);
-      // console.log(response.data[0]);
-    };
-    fetchData();
-  }, []);
+  //         manager_ID: manager_ID,
+  //       }
+  //     });
 
-  const [Dt, setDt] = useState([]);
+  //     setDt(response.data[0]);
+  //     // console.log(response.data[0]);
+  //   };
+  //   fetchData();
+  // }, []);
+
+  // const [Dt, setDt] = useState([]);
 
   const location = useLocation();
 
@@ -184,7 +187,7 @@ const DashboardSaleSidebar = ({ onMobileClose, openMobile }) => {
           color="textPrimary"
           variant="h5"
         >
-          {/* {Dt.name} */}
+          {salname}
         </Typography>
         <Typography
           color="textSecondary"

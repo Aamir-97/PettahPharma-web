@@ -186,7 +186,7 @@ export default function AsignTask() {
 
                     <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
                         <AccordionSummary>
-                            <Typography className={classes.heading}>Time Period</Typography>
+                            <Typography className={classes.heading}>Time Slot</Typography>
                             <Typography className={classes.secondaryHeading}>
                                 {/* <input
                                     type="text"
@@ -201,7 +201,7 @@ export default function AsignTask() {
                                         // style={mystyle.formselect}
                                         className={classes.formselect}
                                     >
-                                        <option aria-label="None" value="">Select Time Period</option>
+                                        <option aria-label="None" value="">Select Time Slot</option>
                                         <option Value ="Morning">Morning</option>
                                         <option Value = "Evening">Evening</option>
                                         <option Value ="Full-Day" >Full-Day</option>

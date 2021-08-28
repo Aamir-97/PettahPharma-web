@@ -459,6 +459,13 @@ import {
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
 import { Link, Route } from 'react-router-dom';
+import EditIcon from '@material-ui/icons/Edit';
+                          import DeleteIcon from '@material-ui/icons/Delete';
+                          import VisibilityIcon from '@material-ui/icons/Visibility';
+                          import AddCommentIcon from '@material-ui/icons/AddComment';
+                          
+                  import CheckIcon from '@material-ui/icons/Check';
+                  import ClearIcon from '@material-ui/icons/Clear';
 
 const LeaveResults = ({ Leave, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([])
@@ -561,7 +568,8 @@ const LeaveResults = ({ Leave, ...rest }) => {
                       <Link to={`/appp/LeaveInfo/${customer.leave_ID}`}  >
                         <Button
                           color="primary"
-                          variant="contained">
+                          variant="contained"
+                          startIcon ={<VisibilityIcon />}>
                           View
                         </Button>
                       </Link>
@@ -569,7 +577,8 @@ const LeaveResults = ({ Leave, ...rest }) => {
                       <Link to={`/appp/LeaveComment/${customer.leave_ID}`}  >
                         <Button
                           color="primary"
-                          variant="contained">
+                          variant="contained"
+                          startIcon ={<AddCommentIcon />}>
                           Add Comment
                         </Button>
                       </Link>
@@ -579,7 +588,8 @@ const LeaveResults = ({ Leave, ...rest }) => {
                         variant="contained"
                         // onClick={addstatus("Accept", customer.leave_ID)}
                         onClick={()=>{addstatus("1", customer.leave_ID)}} 
-                        disabled={customer.status =="1"}>
+                        disabled={customer.status =="1"}
+                        startIcon ={<CheckIcon />}>
                         Accept
                       </Button>
                       {' '}
@@ -587,13 +597,15 @@ const LeaveResults = ({ Leave, ...rest }) => {
                         color="primary"
                         variant="contained"
                         onClick={()=>{addstatus("0", customer.leave_ID)}} 
-                        disabled={customer.status =="0"} >
+                        disabled={customer.status =="0"}
+                        startIcon ={<ClearIcon />} >
                         Reject 
                       </Button>
                       {' '}
 
                     </TableCell>
                   </TableRow>
+                  
                 )
               })}
             </TableBody>

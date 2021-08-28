@@ -90,6 +90,7 @@ const items = [
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
+  // let adminname = localStorage.getItem('name');
 
   useEffect(() => {
     if (openMobile && onMobileClose) {

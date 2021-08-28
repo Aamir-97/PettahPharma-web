@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     formbox: {
         backgroundColor: 'lightgray',
         width: '60%',
-        marginTop: '20px',
+        marginTop: '7px',
         marginLeft: '200px',
         height: 'full',
         boxShadow: "2px 2px 5px  2px #9E9E9E",
@@ -201,7 +201,7 @@ export default function UpdateTask() {
 
                     <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
                         <AccordionSummary>
-                            <Typography className={classes.heading}>Time Period</Typography>
+                            <Typography className={classes.heading}>Time Slot</Typography>
                             <Typography className={classes.secondaryHeading}>
                                 {/* <input
                                     type="text"

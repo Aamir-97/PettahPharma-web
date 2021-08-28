@@ -68,24 +68,54 @@ app.get('/getManagerid', (req, res) => {
     })
 })
 
-app.post('/login', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+// app.get("/delete", (req, res) => {
+//     const task_id = req.query.task_id;
+//     db.query("DELETE FROM task WHERE task_id=?",
+//         [task_id],
+//         (err, result) => {
+//             if (err) {
+//                 console.log(err);
+//             } else {
+//                 res.send(result);
+//             }
+//         }
 
+//     );
+// });
 
+app.get('/loginsal', (req, res) => {
+    const email = req.query.email;
+    const password = req.query.password;
     db.query("SELECT * FROM salesmanager WHERE email=? AND password=?",
         [email, password], (err, result) => {
             if (result.length > 0) {
-                res.send({ message1: "Login salesmanager" });
-
+                // res.send({ message1: "Login salesmanager" },{result});
+                // array=[...result]
+                res.send(result);
+            }
+            else
+            {
+                res.send({ message1: "user name or password is wrong" });
             }
         });
 
+});
+
+app.get('/loginadmin', (req, res) => {
+    const email = req.query.email;
+    const password = req.query.password;
 
     db.query("SELECT * FROM admin WHERE email=? AND password=?",
         [email, password], (err, result) => {
             if (result.length > 0) {
-                res.send({ message2: "Login admin" });
+                // res.send({ message2: "Login admin",result });
+                // res.send(result);
+                // array=[...result]
+                res.send(result);
+            }
+            else
+            {
+                res.send({ message2: "user name or password is wrong" });
             }
         });
 });
@@ -345,7 +375,7 @@ app.get('/viewmedicalrep',(_req,res)=>{
 
 
 app.get('/gettask', (req, res) => {
-    db.query('SELECT medicalrep.name,task.location,task.title,task.date,task.task_id,task.status FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? ORDER BY date DESC', [req.query.manager_ID], (err, result, fields) => {
+    db.query('SELECT medicalrep.name,task.location,task.title,task.date,task.task_id,task.status FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ?', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
             console.log(result);

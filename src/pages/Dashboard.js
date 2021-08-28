@@ -5,13 +5,15 @@ import {
   Grid
 } from '@material-ui/core';
 import Expenses from 'src/components/dashboard/Expenses';
-import LatestOrders from 'src/components/dashboard//LatestOrders';
+import LatestOrders from 'src/components/dashboard/LatestTasks';
 import LatestProducts from 'src/components/dashboard//LatestProducts';
-import Sales from 'src/components/dashboard//Sales';
+import Sales from 'src/components/dashboard/Sales';
 import TotalVisits from 'src/components/dashboard/TotalVisits';
 import TotalEmployees from 'src/components/dashboard/TotalEmployees';
 import TotalProducts from 'src/components/dashboard/TotalProducts';
 import TaskProgress from 'src/components/dashboard/TaskProgress';
+import TaskAnalysis from 'src/components/charts/TaskAnalysis';
+import VisitAnalysis from 'src/components/charts/VisitAnalysis';
 
 const Dashboard = () => (
   <>
@@ -64,7 +66,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TotalProducts sx={{ height: '100%' }} />
+            <TotalProducts />
           </Grid>
           <Grid
             item
@@ -73,7 +75,7 @@ const Dashboard = () => (
             xl={9}
             xs={12}
           >
-            <Sales />
+            <VisitAnalysis/>
           </Grid>
           <Grid
             item
@@ -82,7 +84,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TaskProgress sx={{ height: '100%' }} />
+            <TaskProgress/>
           </Grid>
           {/* <Grid
             item
@@ -91,9 +93,9 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <LatestProducts sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
+            <TaskAnalysis/>
+          </Grid> */}
+          {/* <Grid
             item
             lg={8}
             md={12}
@@ -101,7 +103,7 @@ const Dashboard = () => (
             xs={12}
           >
             <LatestOrders />
-          </Grid> */}
+          </Grid>  */}
         </Grid>
       </Container>
     </Box>

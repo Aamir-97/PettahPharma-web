@@ -1,6 +1,10 @@
+import { Helmet } from 'react-helmet';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from "axios";
 import {
@@ -9,6 +13,7 @@ import {
   Card,
   Checkbox,
   Table,
+  Container,
   Button,
   TableBody,
   TableCell,
@@ -26,7 +31,7 @@ import { Link, Route } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
 
-const ManagerListResults = ({ Manager, rest, props }) => {
+const ProductList = ({ rest,props} ) => {
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -66,74 +71,51 @@ const ManagerListResults = ({ Manager, rest, props }) => {
       // boxShadow: "2px 2px 5px  2px #9E9E9E",
       padding: "2vh",
       borderRadius: "5px",
-
-
     },
   }));
+
+
   const classes = useStyles();
 
-  const [selectedrowIds, setSelectedrowIds] = useState([])
+  const [selectedRowIds, setSelectedRowIds] = useState([])
 
-  let admin_ID = localStorage.getItem('admin_ID');
-  admin_ID = JSON.parse(admin_ID)
-  console.log(admin_ID);
+  // let admin_ID = localStorage.getItem('admin_ID');
+  // admin_ID = JSON.parse(admin_ID)
+  // console.log(admin_ID);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get('http://localhost:3001/viewmanager', {
-        params: {
-            admin_ID: admin_ID,
-        }
+      const response = await axios.get('http://localhost:3001/viewproductlist', {
+        // params: {
+        //   admin_ID: admin_ID,
+        // }
       });
-      setSelectedrowIds(response.data);
+      setSelectedRowIds(response.data);
       console.log(response.data);
     };
     fetchData();
-  }, [admin_ID]);
+  }, []);
 
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
 
-  const handleSelectAll = (event) => {
-    let newSelectedrowIds;
-    if (event.target.checked) {
-      newSelectedrowIds = Manager.map((row) => row.id);
-    } else {
-      newSelectedrowIds = [];
-    }
-    setSelectedrowIds(newSelectedrowIds);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedrowIds.indexOf(id);
-    let newSelectedrowIds = [];
-    if (selectedIndex === -1) {
-      newSelectedrowIds = newSelectedrowIds.concat(selectedrowIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedrowIds = newSelectedrowIds.concat(selectedrowIds.slice(1));
-    } else if (selectedIndex === selectedrowIds.length - 1) {
-      newSelectedrowIds = newSelectedrowIds.concat(selectedrowIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedrowIds = newSelectedrowIds.concat(
-        selectedrowIds.slice(0, selectedIndex),
-        selectedrowIds.slice(selectedIndex + 1)
-      );
-    }
-    setSelectedrowIds(newSelectedrowIds);
+  const handleChangeRowsPerPage = (event) => {
+    setLimit(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
 
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const deleteManager = (manager_ID) => {
-    axios.get("http://localhost:3001/deletemanager", {
+  const deleteProduct = (product_id) => {
+    axios.get("http://localhost:3001/deleteproduct", {
       params: {
-        manager_ID: manager_ID,
+        product_id: product_id,
       }
     }).then((response) => {
       window.location.reload();
@@ -141,8 +123,21 @@ const ManagerListResults = ({ Manager, rest, props }) => {
   };
 
   const [searchTerm, setSearchTerm] = useState("");
+  
 
   return (
+    <>
+    <Helmet>
+      <title>Products</title>
+    </Helmet>
+    <Box
+      sx={{
+        backgroundColor: 'background.default',
+        minHeight: '100%',
+        py: 3
+      }}
+    >
+      <Container maxWidth={false}>
     <>
       <Box {...props}>
         <Box
@@ -153,13 +148,14 @@ const ManagerListResults = ({ Manager, rest, props }) => {
             flex: 3
           }}
         >
-          <h1 style={{flex:3, flexWrap: 'wrap'}} >TASK</h1>
-          <Link to={'/app/Add_Salesmanager.js'}>
+          <h1 style={{flex:3, flexWrap: 'wrap'}} >Products</h1>
+          <Link to={'/app/Add_Product'}>
             <Button
               color="primary"
               variant="contained"
+              startIcon={<AddBoxIcon />}
             >
-              Add Salesmanager
+              Add Product
             </Button>
           </Link>
 
@@ -168,7 +164,7 @@ const ManagerListResults = ({ Manager, rest, props }) => {
         >
           <Card>
             <CardContent>
-              <Box sx={{ maxWidth: 500 }}>
+              <Box sx={{ maxWidth: 1050 }}>
                 <TextField
                   // fullWidth
                   InputProps={{
@@ -201,69 +197,52 @@ const ManagerListResults = ({ Manager, rest, props }) => {
             <Table>
               <TableHead>
                 <TableRow>
-                <TableCell align="center"><b>Manager Name</b></TableCell>
-                <TableCell align="center"><b>Email</b></TableCell>
-                <TableCell align="center"><b>Phone No</b></TableCell>
-                <TableCell align="center"><b>Area</b></TableCell>
-                <TableCell colSpan={3} align="center"><b>Action</b></TableCell>
+                <TableCell align="center"><b>ID</b></TableCell> 
+                <TableCell align="center"><b>Image</b></TableCell> 
+                <TableCell align="center"><b>Name</b></TableCell>
+                <TableCell align="center"><b>Volume</b></TableCell>
+                <TableCell align="center"><b>Price</b></TableCell>
+                <TableCell align="center"><b>Description</b></TableCell>
+                <TableCell colSpan={2} align="center"><b>Action</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/* {selectedrowIds.slice(0, limit).map((row) => ( */}
-                {selectedrowIds.slice(0, limit).filter(val => {
+                {/* {selectedRowIds.slice(0, limit).map((Row) => ( */}
+                {selectedRowIds.slice(0, limit).filter(val => {
                   if (searchTerm === "") {
                     return val;
                   } else if (
                     val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
                     return val
                   }
-                }).map((row) => {
+                }).map((Row) => {
                   return (
                     <TableRow
                       hover
-                      key={row.manager_ID}
+                      key={Row.product_ID}
                     >
-                      <TableCell>
-                        <Box
-                          sx={{
-                            alignItems: 'center',
-                            display: 'flex'
-                          }}
-                        >
-                          <Typography
-                            color="textPrimary"
-                            variant="body1"
-                          >
-                            {row.name}
-
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell>{row.name}</TableCell>
-                      <TableCell>{row.email}</TableCell>
-                      <TableCell>{row.phone_no}</TableCell>
-                      <TableCell>{row.area}</TableCell>
-                      <TableCell align="center">
-                        <Link to={`/app/ManagerInfo/${row.manager_ID}`}  >
+                      <TableCell align="center">{Row.product_id}</TableCell>
+                      <TableCell align="center">{Row.display_photo}</TableCell>
+                      <TableCell align="center">{Row.name}</TableCell>
+                      <TableCell align="center">{Row.volume}</TableCell>
+                      <TableCell align="center">{Row.price}</TableCell>
+                      <TableCell align="center">{Row.description}</TableCell>
+                       <TableCell align="center">
+                        <Link to={`/app/Edit_Product/${Row.product_id}`}  >
                           <Button
                             color="primary"
-                            variant="contained">
-                            View
-                          </Button>
-                        </Link>
-                       </TableCell>
-                       <TableCell>
-                        <Link to={`/app/UpdateManager/${row.manager_ID}`}  >
-                          <Button
-                            color="primary"
-                            variant="contained">
+                            variant="contained"
+                            startIcon={<EditIcon />}>
                             Edit
                           </Button>
                         </Link>
                         </TableCell>
-                        <TableCell>
-                        <Button onClick={() => { deleteManager(row.manager_ID) }} color="primary"
-                          variant="contained">
+                        <TableCell align="center">
+                        <Button onClick={() => { deleteProduct(Row.product_id) }} 
+                          color="exit"
+                          variant="contained"
+                          className={classes.button}
+                          startIcon={<DeleteIcon />}>
                           Delete
                         </Button>
                       </TableCell>
@@ -277,20 +256,20 @@ const ManagerListResults = ({ Manager, rest, props }) => {
         </PerfectScrollbar>
         <TablePagination
           component="div"
-        //   count={length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
+          count={10}
           page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleLimitChange}
           rowsPerPage={limit}
-          rowsPerPageOptions={[5,10,20 ]}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[5, 10, 25]}
         />
       </Card>
     </>
-  );
+    </Container>
+    </Box>
+  </>
+  ); 
 };
 
-ManagerListResults.propTypes = {
-  Manager: PropTypes.array.isRequired
-};
-
-export default ManagerListResults;
+export default ProductList;

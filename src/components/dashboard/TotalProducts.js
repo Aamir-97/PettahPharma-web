@@ -45,6 +45,8 @@ import {
               <p style={{fontSize:'30px'}}>{record.count}</p>
               )
             })}
+            <p style={{fontSize:'13px',color:'#3949ab'}}>Medicines</p>
+            <p style={{fontSize:'13px',color:'#3949ab'}}>Surgical Products</p>
             </Typography>
           </Grid>
           <Grid item>

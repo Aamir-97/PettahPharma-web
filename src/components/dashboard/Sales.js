@@ -91,15 +91,15 @@ const Sales = (props) => {
   return (
     <Card {...props}>
       <CardHeader
-        action={(
-          <Button
-            endIcon={<ArrowDropDownIcon />}
-            size="small"
-            variant="text"
-          >
-            Last 6 Months
-          </Button>
-        )}
+        // action={(
+        //   // <Button
+        //   //   endIcon={<ArrowDropDownIcon />}
+        //   //   size="small"
+        //   //   variant="text"
+        //   // >
+        //   //   Last 6 Months
+        //   // </Button>
+        // )}
         title="Latest Expenses"
       />
       <Divider />

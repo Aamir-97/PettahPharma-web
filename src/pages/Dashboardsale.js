@@ -5,7 +5,7 @@ import {
   Grid
 } from '@material-ui/core';
 import Expenses from 'src/components/dashboard/Expenses';
-import LatestOrders from 'src/components/dashboard//LatestOrders';
+// import LatestOrders from 'src/components/dashboard//LatestOrders';
 import LatestProducts from 'src/components/dashboard//LatestProducts';
 import Sales from 'src/components/dashboard//Sales';
 import TotalVisits from 'src/components/dashboard/TotalVisits';

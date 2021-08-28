@@ -1,183 +1,178 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { IconButton } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import axios from "axios";
 import {
-    Avatar,
-    Box,
-    Card,
-    Checkbox,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TablePagination,
-    TableRow,
-    Button,
-    Typography
+  Avatar,
+  Box,
+  Card,
+  Checkbox,
+  Table,
+  Button,
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Typography
 } from '@material-ui/core';
-
 import getInitials from 'src/utils/getInitials';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 const AllownsResults = ({ Allowns, ...rest }) => {
-    const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-    const [limit, setLimit] = useState(10);
-    const [page, setPage] = useState(0);
-    const handleLimitChange = (event) => {
-        setLimit(event.target.value);
+  const [selectedCustomerIds, setSelectedCustomerIds] = useState([])
+
+  let manager_ID = localStorage.getItem('managerid');
+  manager_ID = JSON.parse(manager_ID)
+  console.log(manager_ID);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get('http://localhost:3001/getexpense', {
+        params: {
+          manager_ID: manager_ID,
+        }
+      });
+      setSelectedCustomerIds(response.data);
+      console.log(response.data);
     };
-
-    const handlePageChange = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    // const handleRoute = () =>{ 
-    //   history.push("'/appp/AsignTask'}");
-    // }
-    // function Home() {
-    //   const history = useHistory();
-
-    //   const handleRoute = () =>{ 
-    //     history.push("/appp/AsignTask");
-    //   }
+    fetchData();
+  }, [manager_ID]);
 
 
-    return (
-        <Card {...rest}>
-            <PerfectScrollbar>
-                <Box sx={{ minWidth: 1050 }}>
-                    {/* <Link to={'/appp/ViewSummary'}> */}
-                        <Table>
-                            <TableHead>
-                                <TableRow onChange={handlePageChange}>
+  const addstatus = (status, expense_ID) => {
+    console.log(status);
+    axios.put("http://localhost:3001/addexpensestatus",
+      { status: status, expense_ID: expense_ID }).then(
+        (response) => {
+          window.location.reload();
+          // this.setState({});
+         }
+      )
+  };
 
-                                    {/* <TableCell padding="checkbox"> */}
-                                    {/* <Checkbox
-                      checked={selectedCustomerIds.length === SummaryReport.length}
-                      color="primary"
-                      indeterminate={
-                        selectedCustomerIds.length > 0
-                        && selectedCustomerIds.length < SummaryReport.length
-                      }
-                      onChange={handleSelectAll}
-                    /> */}
 
-                                    {/* </TableCell> */}
-                                    <TableCell>
-                                        Employee Name
-                                    </TableCell>
-                                    <TableCell>
-                                        Expense Types
-                                    </TableCell>
-                                    <TableCell>
-                                        Date
-                                    </TableCell>
-                                    {/* <TableCell>
-                  Phone
-                </TableCell> */}
-                                    <TableCell>
-                                    
-                                    </TableCell>
-                                    <TableCell>
-                                     
-                                    </TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell></TableCell>
-                                </TableRow>
-                            </TableHead>
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(0);
 
-                            <TableBody>
 
-                                {Allowns.slice(0, limit).map((customer) => (
+  const handleLimitChange = (event) => {
+    setLimit(event.target.value);
+  };
 
-                                    <TableRow
-                                        hover
-                                        key={customer.id}
-                                        selected={selectedCustomerIds.indexOf(customer.id) !== -1}
-                                    >
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
 
-                                        {/* <TableCell padding="checkbox"> */}
-                                        {/* <Checkbox
-                        checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                        onChange={(event) => handleSelectOne(event, customer.id)}
-                        value="true"
-                      /> */}
-                                        {/* <Link to={'/appp/AsignTask'}></Link> */}
-                                        {/* <Link to={'/appp/AsignTask'}></Link> */}
-                                        {/* </TableCell> */}
 
-                                        <TableCell>
 
-                                            <Box
-                                                sx={{
-                                                    alignItems: 'center',
-                                                    display: 'flex'
-                                                }}
-                                            >
-                                                {/* <Avatar
-                                                    src={customer.avatarUrl}
-                                                    sx={{ mr: 2 }}
-                                                >
-                                                    {getInitials(customer.doctor_name)}
-                                                </Avatar> */}
-                                                <Typography
-                                                    color="textPrimary"
-                                                    variant="body1"
-                                                >
-                                                    {customer.name}
-                                                </Typography>
-                                            </Box>
-                                        </TableCell>
-                                        <TableCell>
-                                            {customer.ExpenseTypes}
-                                        </TableCell>
-                                        <TableCell>
-                                            {customer.date}
-                                        </TableCell>
-                                        <TableCell>
-                                            
-                                        </TableCell>
-                                        <TableCell>
-                                            
-                                        </TableCell>
-                                        <TableCell align="center"><IconButton aria-label="edit"><EditIcon /></IconButton></TableCell>
-                                        <TableCell align="center"><IconButton color='Secondary'aria-label="delete"><DeleteIcon /></IconButton></TableCell>
-                                        {/* <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
-                    {`${customer.address.city}`}
-                  </TableCell>
-                  <TableCell>
-                    {customer.phone}
-                  </TableCell>
-                  <TableCell>
-                    {customer.price}
-                  </TableCell> */}
+  return (
+    <Card {...rest}>
+      <PerfectScrollbar>
+        <Box sx={{ minWidth: 1050 }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell> Medical Rep Name</TableCell>
+                <TableCell>Expense Type</TableCell>
+                {/* <TableCell>Location</TableCell> */}
+                <TableCell>Amount</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell align="center">Action</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {selectedCustomerIds.slice(0, limit).map((customer) => {
+                const dt = new Date(customer.date);
+                const year = dt.getFullYear() + '/';
+                const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
+                const day = ('0' + dt.getDate()).slice(-2);
+                // const dtt = new Date(customer.end_Date);
+                // const yearr = dtt.getFullYear() + '/';
+                // const monthr = ('0' + (dtt.getMonth() + 1)).slice(-2) + '/';
+                // const dayr = ('0' + dtt.getDate()).slice(-2);
+                return (
+                  <TableRow
+                    hover
+                  // key={customer.task_id}
+                  >
+                    <TableCell>
+                      <Box
+                        sx={{
+                          alignItems: 'center',
+                          display: 'flex'
+                        }}
+                      >
+                        <Typography
+                          color="textPrimary"
+                          variant="body1"
+                        >
+                          {customer.repname}
 
-                                    </TableRow>
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>{customer.expense_type}</TableCell>
+                    {/* <TableCell>{customer.location}</TableCell> */}
+                    <TableCell>{customer.amount}</TableCell>
+                    <TableCell>{year + month + day}</TableCell>
+                    {/* <TableCell>{yearr + monthr + dayr}</TableCell> */}
+                    {/* <TableCell>{customer.date}</TableCell> */}
+                    <TableCell align="center">
+                      <Link to={`/appp/AllownsInfo/${customer.expense_ID}`}  >
+                        <Button
+                          color="primary"
+                          variant="contained">
+                          View
+                        </Button>
+                      </Link>
+                      {'   '}
+                      <Link to={`/appp/AllownsComment/${customer.expense_ID}`}  >
+                        <Button
+                          color="primary"
+                          variant="contained">
+                          Add Comment
+                        </Button>
+                      </Link>
+                      {' '}
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        // onClick={addstatus("Accept", customer.leave_ID)}
+                        onClick={()=>{addstatus("1", customer.expense_ID)}} 
+                        disabled={customer.status =="1"}>
+                        Accept
+                      </Button>
+                      {' '}
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={()=>{addstatus("0", customer.expense_ID)}} 
+                        disabled={customer.status =="0"} >
+                        Reject 
+                      </Button>
+                      {' '}
 
-                                ))}
-
-                            </TableBody>
-
-                        </Table>
-                    {/* </Link> */}
-                </Box>
-            </PerfectScrollbar>
-            <TablePagination
-                component="div"
-                count={Allowns.length}
-                onPageChange={handlePageChange}
-                onRowsPerPageChange={handleLimitChange}
-                page={page}
-                rowsPerPage={limit}
-                rowsPerPageOptions={[5, 10, 25]}
-            />
-        </Card>
-    );
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        </Box>
+      </PerfectScrollbar>
+      <TablePagination
+        component="div"
+        count={Allowns.length}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleLimitChange}
+        page={page}
+        rowsPerPage={limit}
+        rowsPerPageOptions={[5, 10, 25]}
+      />
+    </Card>
+  );
 };
 
 AllownsResults.propTypes = {

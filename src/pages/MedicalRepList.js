@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from "axios";
@@ -32,7 +31,7 @@ import { Link, Route } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
 
-const ManagerList = ({ rest,props} ) => {
+const MedicalRepList = ({ rest,props} ) => {
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -73,13 +72,11 @@ const ManagerList = ({ rest,props} ) => {
       padding: "2vh",
       borderRadius: "5px",
     },
-    button: {
-      margin: theme.spacing(1),
-    },
   }));
 
 
   const classes = useStyles();
+
   const [selectedRowIds, setSelectedRowIds] = useState([])
 
   // let admin_ID = localStorage.getItem('admin_ID');
@@ -88,7 +85,7 @@ const ManagerList = ({ rest,props} ) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get('http://localhost:3001/viewmanagerlist', {
+      const response = await axios.get('http://localhost:3001/viewmedicalreplist', {
         // params: {
         //   admin_ID: admin_ID,
         // }
@@ -115,10 +112,10 @@ const ManagerList = ({ rest,props} ) => {
     setLimit(event.target.value);
   };
 
-  const deleteManager = (manager_ID) => {
-    axios.get("http://localhost:3001/deletemanager", {
+  const deleteMedicalrep = (rep_ID) => {
+    axios.get("http://localhost:3001/deletemedicalrep", {
       params: {
-        manager_ID: manager_ID,
+        rep_ID: rep_ID,
       }
     }).then((response) => {
       window.location.reload();
@@ -131,7 +128,7 @@ const ManagerList = ({ rest,props} ) => {
   return (
     <>
     <Helmet>
-      <title>Sales Managers</title>
+      <title>Medical Representatives</title>
     </Helmet>
     <Box
       sx={{
@@ -151,14 +148,14 @@ const ManagerList = ({ rest,props} ) => {
             flex: 3
           }}
         >
-          <h1 style={{flex:3, flexWrap: 'wrap'}} >Sales Managers</h1>
-          <Link to={'/app/Add_Salesmanager'}>
+          <h1 style={{flex:3, flexWrap: 'wrap'}} >Medical Representatives</h1>
+          <Link to={'/app/Add_Medicalrep'}>
             <Button
               color="primary"
               variant="contained"
               startIcon={<PersonAddIcon />}
             >
-              Add Salesmanager
+              Add Medical Rep
             </Button>
           </Link>
 
@@ -205,7 +202,9 @@ const ManagerList = ({ rest,props} ) => {
                 <TableCell align="center"><b>Name</b></TableCell>
                 <TableCell align="center"><b>Email</b></TableCell>
                 <TableCell align="center"><b>Phone No</b></TableCell>
-                <TableCell align="center"><b>Area</b></TableCell>
+                <TableCell align="center"><b>Working Area</b></TableCell>
+                <TableCell align="center"><b>Rating</b></TableCell>
+                <TableCell align="center"><b>Salesmanager ID</b></TableCell>
                 <TableCell colSpan={2} align="center"><b>Action</b></TableCell>
                 </TableRow>
               </TableHead>
@@ -222,33 +221,32 @@ const ManagerList = ({ rest,props} ) => {
                   return (
                     <TableRow
                       hover
-                      key={Row.manager_ID}
+                      key={Row.rep_ID}
                     >
-                      <TableCell align="center">{Row.manager_ID}</TableCell> 
-                      {/* <TableCell align="center">{Row.display_photo}</TableCell> */}
-                      <TableCell align="center">{Row.name}</TableCell>
-                      <TableCell align="center">{Row.email}</TableCell>
-                      <TableCell align="center">{Row.phone_no}</TableCell>
-                      <TableCell align="center">{Row.area}</TableCell>
+                    <TableCell align="center">{Row.rep_ID}</TableCell> 
+                    {/* <TableCell align="center">{Row.display_photo}</TableCell> */}
+                    <TableCell align="center">{Row.name}</TableCell>
+                    <TableCell align="center">{Row.email}</TableCell>
+                    <TableCell align="center">{Row.phone_no}</TableCell>
+                    <TableCell align="center">{Row.area}</TableCell>
+                    <TableCell align="center">{Row.rating}</TableCell>
+                    <TableCell align="center">{Row.manager_ID}</TableCell>
                        <TableCell align="center">
-                        <Link to={`/app/Edit_Salesmanager/${Row.manager_ID}`}  >
+                        <Link to={`/app/Edit_Medicalrep/${Row.rep_ID}`}  >
                           <Button
                             color="primary"
                             variant="contained"
-                            className={classes.button}
                             startIcon={<EditIcon />}>
                             Edit
                           </Button>
                         </Link>
                         </TableCell>
                         <TableCell align="center">
-                        <Button 
-                          onClick={() => { deleteManager(Row.manager_ID) }} 
+                        <Button onClick={() => { deleteMedicalrep(Row.rep_ID) }} 
                           color="exit"
                           variant="contained"
                           className={classes.button}
-                          startIcon={<DeleteIcon />}
-                          >
+                          startIcon={<DeleteIcon />}>
                           Delete
                         </Button>
                       </TableCell>
@@ -261,15 +259,15 @@ const ManagerList = ({ rest,props} ) => {
           </Box>
         </PerfectScrollbar>
         <TablePagination
-            component="div"
-            count={10}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleLimitChange}
-            rowsPerPage={limit}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            rowsPerPageOptions={[5, 10, 25]}
-      />
+          component="div"
+          count={10}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleLimitChange}
+          rowsPerPage={limit}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[5, 10, 25]}
+        />
       </Card>
     </>
     </Container>
@@ -278,4 +276,4 @@ const ManagerList = ({ rest,props} ) => {
   ); 
 };
 
-export default ManagerList;
+export default MedicalRepList;

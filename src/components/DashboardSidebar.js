@@ -49,15 +49,15 @@ const items = [
   {
     href: '/app/ManagerList',
     icon: SupervisorAccountOutlinedIcon,
-    title: 'Salesmanager'
+    title: 'Salesmanagers'
   },
   {
-    href: '/app/Medicalrep',
+    href: '/app/MedicalRepList',
     icon: GroupOutlinedIcon,
-    title: 'Medicalrep'
+    title: 'Medical Representatives'
   },
   {
-    href: '/app/Product',
+    href: '/app/ProductList',
     icon: LocalPharmacyIcon,
     title: 'Products'
   },
@@ -71,16 +71,16 @@ const items = [
     icon: DescriptionOutlinedIcon,
     title: 'Reports'
   },
+  // {
+  //   href: '/app/Forum2',
+  //   icon: ForumIcon,
+  //   title: 'Forum'
+  // },
   {
     href: '/app/Forum',
     icon: ForumIcon,
     title: 'Discussion Forum'
   },
-  // {
-  //   href: '/app/Edit',
-  //   icon: HelpIcon,
-  //   title: 'Help'
-  // },
   {
     href: '/login',
     icon: ExitToAppIcon,

@@ -5,6 +5,10 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import axios from "axios";
 import {
   Avatar,
@@ -159,7 +163,9 @@ const DataPlanList = ({ rest, props }) => {
                   <Button
                     color="primary"
                     variant="contained"
+                    startIcon ={<PersonAddIcon />}
                   >
+                  
                     Asign Task
                   </Button>
                 </Link>
@@ -215,14 +221,19 @@ const DataPlanList = ({ rest, props }) => {
                       {selectedCustomerIds.slice(0, limit).filter(val => {
                         if (searchTerm === "") {
                           return val;
-                        } else if (
+                        } 
+                        else if (
                           val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                          return val
+                        }
+                        else if (
+                          val.date.includes(searchTerm)) {
                           return val
                         }
                       }).map((customer) => {
                         const dt = new Date(customer.date);
-                      const year = dt.getFullYear() + '/';
-                      const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
+                      const year = dt.getFullYear() + '-';
+                      const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '-';
                       const day = ('0' + dt.getDate()).slice(-2);
                         return (
                           <TableRow
@@ -250,21 +261,24 @@ const DataPlanList = ({ rest, props }) => {
                             <TableCell>{year + month + day}</TableCell>
                             <TableCell>{customer.status}</TableCell>
                             <TableCell align="center">
-                              
+                            <Link to={`/appp/TaskInfo/${customer.task_id}`} className={classes.link}  >
                                 <Button
                                   color="primary"
-                                  variant="contained">
-                                    <Link to={`/appp/TaskInfo/${customer.task_id}`} className={classes.link} >
+                                  variant="contained"
+                                  startIcon ={<VisibilityIcon />}>
+                                    
                                   View
-                                  </Link>
+                                  
                                 </Button>
-                              
+                                </Link>
                               {'   '}
                               
                                 <Button
                                   color="primary"
                                   variant="contained"
-                                  disabled={customer.status =="Complete"}>
+                                  disabled={customer.status =="Complete"}
+                                  startIcon ={<EditIcon />}
+                                  >
                                     <Link to={`/appp/UpdateTask/${customer.task_id}`} className={classes.link} >
                                   Edit
                                   </Link>
@@ -275,7 +289,7 @@ const DataPlanList = ({ rest, props }) => {
                                 variant="contained"
                                 disabled={customer.status =="Complete"}
                                 // disabled={true}
-                                
+                                startIcon ={<DeleteIcon />}
                                 >
                                   <Link to={`/appp/dataplan`} className={classes.link} >
                                 Delete
@@ -284,6 +298,7 @@ const DataPlanList = ({ rest, props }) => {
 
                             </TableCell>
                           </TableRow>
+                          
                           // ))}
                         )
                       })

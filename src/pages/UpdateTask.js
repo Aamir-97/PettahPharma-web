@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     formbox: {
         backgroundColor: 'lightgray',
         width: '60%',
-        marginTop: '20px',
+        marginTop: '7px',
         marginLeft: '200px',
         height: 'full',
         boxShadow: "2px 2px 5px  2px #9E9E9E",
@@ -61,7 +61,7 @@ const mystyle = {
         borderRadius: '5px',
         color: 'white',
         // marginRight: '0px',
-        marginLeft:'10px'
+        marginLeft: '10px'
     },
     submitBtn: {
         // marginTop: '5px',
@@ -74,7 +74,7 @@ const mystyle = {
         borderRadius: '5px',
         color: 'white',
         // /marginRight: '30px'
-         marginLeft:'410px'
+        marginLeft: '410px'
     },
     forminput: {
 
@@ -106,24 +106,22 @@ export default function UpdateTask() {
     manager_ID = JSON.parse(manager_ID)
     console.log(manager_ID);
 
-    const update = (task_id, manager_ID) => {
-        axios.put("http://localhost:3001/update",
-            { rep_ID: rep_ID, type: type, title: title, location: location, date: date, session: session, description: description, task_id: task_id, manager_ID: manager_ID }).then(
-                (response) => { }
-            )
-    };
+    
+        const update = (task_id, manager_ID) => {
+            if (rep_ID && title && date && location && session) {
+            axios.put("http://localhost:3001/update",
+                { rep_ID: rep_ID, type: type, title: title, location: location, date: date, session: session, description: description, task_id: task_id, manager_ID: manager_ID }).then(
+                    (response) => { }
+                )
+                alert("The task was updated successfully.")
+            }
+            else {
+                alert("Date,Time slot,Medical rep name,title,location are required")
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const response = await axios.get('http://localhost:3001/getrep', {
-    //             params: {
-    //                 manager_ID: manager_ID,
-    //             }
-    //         });
-    //         setGetRep(response.data);
-    //     };
-    //     fetchData();
-    // }, []);
+            }
+        };
+    
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -146,9 +144,19 @@ export default function UpdateTask() {
         fetchData();
     }, []);
 
-    let fullday='Full-Day';
-    // let type='task';
-    // let status='Reject'
+    let fullday = 'Full-Day';
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    today = yyyy + '-' + mm + '-' + dd;
 
     const fetchData = async () => {
         const response = await axios.get('http://localhost:3001/getrep', {
@@ -172,36 +180,41 @@ export default function UpdateTask() {
     const year = dtt.getFullYear() + '-';
     const month = ('0' + (dtt.getMonth() + 1)).slice(-2) + '-';
     const day = ('0' + dtt.getDate()).slice(-2);
-    const mydate= (year +month + day) 
+    const mydate = (year + month + day)
     // const mydate="2021/06/25"
+    // var s ="(Requird)" 
     return (
         <div className={classes.formbox}>
             <div className={classes.root}>
                 <Grid item xs={12}>
                     <Paper className={classes.paper}><h1>EDIT TASK</h1>  </Paper><br />
+                   
                 </Grid>
-
+                
                 <div className={classes.root}>
 
-                <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
+                    <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
                         <AccordionSummary>
-                            <Typography className={classes.heading}>Date</Typography>
+                            <Typography className={classes.heading}>Date </Typography>
+                            
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="date"
-                                    // value={ month + day + year}
+                                    min={today}
                                     value={mydate}
                                     onChange={(event) => { setDate(event.target.value); }}
                                     style={mystyle.forminput}
+                                    required
                                 />
-                                
+  
                             </Typography>
                         </AccordionSummary>
                     </Accordion><br />
+                   
 
                     <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
                         <AccordionSummary>
-                            <Typography className={classes.heading}>Time Period</Typography>
+                            <Typography className={classes.heading}>Time Slot </Typography>
                             <Typography className={classes.secondaryHeading}>
                                 {/* <input
                                     type="text"
@@ -210,28 +223,30 @@ export default function UpdateTask() {
                                     style={mystyle.forminput}
                                 /> */}
                                 <Select
-                                        native
-                                        onChange={(event) => { setSession(event.target.value); }}
-                                        // style={mystyle.formselect}
-                                        style={mystyle.forminput}
-                                    >
-                                        <option aria-label="None" Value={Dt.session}>{Dt.session}</option>
-                                        <option Value ="Morning">Morning</option>
-                                        <option Value = "Evening">Evening</option>
-                                        <option Value ="Full-Day" >Full-Day</option>
-                                    </Select>
+                                    native
+                                    onChange={(event) => { setSession(event.target.value); }}
+                                    // style={mystyle.formselect}
+                                    required
+                                    style={mystyle.forminput}
+                                >
+                                    <option aria-label="None" Value={Dt.session}>{Dt.session}</option>
+                                    <option Value="Morning">Morning</option>
+                                    <option Value="Evening">Evening</option>
+                                    <option Value="Full-Day" >Full-Day</option>
+                                </Select>
                             </Typography>
                         </AccordionSummary>
                     </Accordion><br />
 
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                         <AccordionSummary>
-                            <Typography className={classes.heading}>Medical Rep Name</Typography>
+                            <Typography className={classes.heading}>Medical Rep Name </Typography>
                             <Typography className={classes.secondaryHeading}>
                                 <FormControl className={classes.formControl}>
                                     <Select
-                                    onClick={()=>{fetchData()}}
+                                        onClick={() => { fetchData() }}
                                         native
+                                        required
                                         onChange={(event) => { setRepID(event.target.value); }}
                                         style={mystyle.forminput}
                                     >
@@ -252,6 +267,7 @@ export default function UpdateTask() {
                                 <input
                                     type="text"
                                     defaultValue={Dt.title}
+                                    required
                                     onChange={(event) => { setTitle(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -279,6 +295,7 @@ export default function UpdateTask() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
+                                    required
                                     defaultValue={Dt.location}
                                     onChange={(event) => { setTitle(event.target.value); }}
                                     style={mystyle.forminput}
@@ -305,26 +322,26 @@ export default function UpdateTask() {
                         </AccordionDetails>
                     </Accordion><br />
 
-                    
 
-                    
+
+
                 </div>
 
-                <Link to='/appp/dataplan' style={mystyle.button}>
+                {/* <Link to='/appp/dataplan' style={mystyle.button}> */}
                     <Button
                         color="primary"
                         variant="contained"
                         style={mystyle.submitBtn}
                         onClick={() => { update(Dt.task_id, manager_ID) }}
                     > Update</Button>
-                </Link>
+                {/* </Link> */}
                 <Link to='/appp/dataplan'>
-                            <Button
-                                type="submit"
-                                id="submitBtn"
-                                style={mystyle.closeBtn}                      
-                            > Exit</Button>
-                        </Link>
+                    <Button
+                        type="submit"
+                        id="submitBtn"
+                        style={mystyle.closeBtn}
+                    > Exit</Button>
+                </Link>
 
             </div>
         </div>

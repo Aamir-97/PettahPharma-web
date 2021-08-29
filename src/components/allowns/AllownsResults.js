@@ -19,6 +19,11 @@ import {
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
 import { Link, Route } from 'react-router-dom';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import AddCommentIcon from '@material-ui/icons/AddComment';
+
+import CheckIcon from '@material-ui/icons/Check';
+import ClearIcon from '@material-ui/icons/Clear';
 
 const AllownsResults = ({ Allowns, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([])
@@ -115,7 +120,7 @@ const AllownsResults = ({ Allowns, ...rest }) => {
                     </TableCell>
                     <TableCell>{customer.expense_type}</TableCell>
                     {/* <TableCell>{customer.location}</TableCell> */}
-                    <TableCell>{customer.amount}</TableCell>
+                    <TableCell>{customer.amount} /=</TableCell>
                     <TableCell>{year + month + day}</TableCell>
                     {/* <TableCell>{yearr + monthr + dayr}</TableCell> */}
                     {/* <TableCell>{customer.date}</TableCell> */}
@@ -123,15 +128,17 @@ const AllownsResults = ({ Allowns, ...rest }) => {
                       <Link to={`/appp/AllownsInfo/${customer.expense_ID}`}  >
                         <Button
                           color="primary"
-                          variant="contained">
+                          variant="contained"
+                          startIcon={<VisibilityIcon />}>
                           View
                         </Button>
                       </Link>
                       {'   '}
                       <Link to={`/appp/AllownsComment/${customer.expense_ID}`}  >
                         <Button
-                          color="primary"
-                          variant="contained">
+                          color="edit"
+                          variant="contained"
+                          startIcon={<AddCommentIcon />}>
                           Add Comment
                         </Button>
                       </Link>
@@ -141,15 +148,17 @@ const AllownsResults = ({ Allowns, ...rest }) => {
                         variant="contained"
                         // onClick={addstatus("Accept", customer.leave_ID)}
                         onClick={()=>{addstatus("1", customer.expense_ID)}} 
-                        disabled={customer.status =="1"}>
+                        disabled={customer.status =="1"}
+                        startIcon={<CheckIcon />}>
                         Accept
                       </Button>
                       {' '}
                       <Button
-                        color="primary"
+                        color="exit"
                         variant="contained"
                         onClick={()=>{addstatus("0", customer.expense_ID)}} 
-                        disabled={customer.status =="0"} >
+                        disabled={customer.status =="0"} 
+                        startIcon={<ClearIcon />}>
                         Reject 
                       </Button>
                       {' '}

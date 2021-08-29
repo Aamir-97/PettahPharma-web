@@ -34,7 +34,7 @@ const TaskInfo = () => {
         formbox: {
             backgroundColor: 'lightgray',
             width: '60%',
-            marginTop: '40px',
+            marginTop: '7px',
             marginLeft: '200px',
             height: 'full',
             boxShadow: "2px 2px 5px  2px #9E9E9E",
@@ -191,7 +191,7 @@ const TaskInfo = () => {
 
                     <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
                         <AccordionSummary>
-                            <Typography className={classes.heading}>Time Period</Typography>
+                            <Typography className={classes.heading}>Time Slot</Typography>
                             <Typography className={classes.secondaryHeading}>{Dt.session}</Typography>
                         </AccordionSummary>
                     </Accordion><br />

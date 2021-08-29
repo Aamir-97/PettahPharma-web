@@ -3,6 +3,10 @@ import { Helmet } from 'react-helmet';
 // import SummaryReportResults from 'src/components/summaryreport/SummaryReportResults';
 // import SummaryReportToolbar from 'src/components/summaryreport/SummaryReportToolbar';
 // import SummaryReport from 'src/__mocks__/SummaryReport';
+import EditIcon from '@material-ui/icons/Edit';
+                          import DeleteIcon from '@material-ui/icons/Delete';
+                          import VisibilityIcon from '@material-ui/icons/Visibility';
+                          import AddCommentIcon from '@material-ui/icons/AddComment';
 
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -101,6 +105,7 @@ return(
         backgroundColor: 'background.default',
         minHeight: '100%',
         py: 3
+        
       }}
     >
       <Container maxWidth={false}>
@@ -113,7 +118,9 @@ return(
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'flex-end'
+          justifyContent: 'flex-end',
+          marginTop: '0px',
+                  marginLeft: '400px',
         }}
       >
         <h1 style={{flex:3, flexWrap: 'wrap'}} >SUMMARY REPORT</h1>
@@ -179,10 +186,14 @@ return(
                     val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
                     return val
                   }
+                  else if (
+                    val.date.includes(searchTerm)) {
+                    return val
+                  }
                 }).map((customer) => {
                   const dt = new Date(customer.date);
-                      const year = dt.getFullYear() + '/';
-                      const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
+                      const year = dt.getFullYear() + '-';
+                      const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '-';
                       const day = ('0' + dt.getDate()).slice(-2);
                   return (
                 <TableRow
@@ -213,15 +224,17 @@ return(
                     <Link to={`/appp/SummaryInfo/${customer.report_id}`}  >
                       <Button
                         color="primary"
-                        variant="contained">
+                        variant="contained"
+                        startIcon ={<VisibilityIcon />}>
                         View
                       </Button>
                     </Link>
                     {'   '}
                     <Link to={`/appp/SummaryComment/${customer.report_id}`}  >
                       <Button
-                        color="primary"
-                        variant="contained">
+                        color="edit"
+                        variant="contained"
+                        startIcon ={<AddCommentIcon />}>
                         Add Comment
                       </Button>
                     </Link>
@@ -230,6 +243,7 @@ return(
                       variant="contained">
                       Delete
                     </Button> */}
+                    
 
                   </TableCell>
                 </TableRow>

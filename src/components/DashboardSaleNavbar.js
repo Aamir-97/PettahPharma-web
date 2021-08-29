@@ -52,7 +52,7 @@ const DashboardSaleNavbar = ({ onMobileNavOpen, ...rest }) => {
             </Badge>
           </IconButton>
           <RouterLink to="/login">
-          <IconButton color="inherit" >
+          <IconButton color="secondary" >
             <InputIcon />
           </IconButton>
           </RouterLink>

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     formbox: {
         backgroundColor: 'lightgray',
         width: '60%',
-        marginTop: '40px',
+        marginTop: '6px',
         marginLeft: '200px',
         height: 'full',
         boxShadow: "2px 2px 5px  2px #9E9E9E",
@@ -143,6 +143,7 @@ export default function LeaveComment() {
             { salesmanager_comment: salesmanager_comment, leave_ID: leave_ID }).then(
                 (response) => { }
             )
+            alert("The comment was added successfully.")
     };
 
     const classes = useStyles();

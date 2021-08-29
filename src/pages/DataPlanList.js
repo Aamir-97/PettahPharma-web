@@ -5,7 +5,12 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import axios from "axios";
+import { confirmAlert } from 'react-confirm-alert';
 import {
   Avatar,
   Box,
@@ -71,9 +76,9 @@ const DataPlanList = ({ rest, props }) => {
       padding: "2vh",
       borderRadius: "5px",
     },
-    backgroud:{
-      // backgroundColor: '#5eb6b8',
-    },
+    // debutton:{
+    //   backgroundColor: 'red',
+    // },
     link:{
       // backgroundColor: '#5eb6b8',
       color: '#FFF',
@@ -116,6 +121,7 @@ const DataPlanList = ({ rest, props }) => {
   };
 
   const deleteEmployee = (task_id) => {
+    
     axios.get("http://localhost:3001/delete", {
       params: {
         task_id: task_id,
@@ -123,10 +129,23 @@ const DataPlanList = ({ rest, props }) => {
     }).then((response) => {
       window.location.reload();
     })
+    // window.confirmAlert('Are you sure you wish to delete this item?') ? confirmAlert("confirm") ;
   };
 
  
   const [searchTerm, setSearchTerm] = useState("");
+
+  var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    today = yyyy + '-' + mm + '-' + dd;
 
   console.log(manager_ID);
   return (
@@ -152,21 +171,23 @@ const DataPlanList = ({ rest, props }) => {
                   mt: 3,
                   flex: 3,
                   marginTop: '0px',
+                  marginLeft: '500px',
                 }}
               >
-                <h1 style={{ flex: 3, flexWrap: 'wrap' }} >TASK</h1>
+                <h1 style={{ flex: 3, flexWrap: 'wrap' }}  > TASK</h1>
                 <Link to={'/appp/AsignTask'}>
                   <Button
                     color="primary"
                     variant="contained"
+                    startIcon ={<PersonAddIcon />}
                   >
+                  
                     Asign Task
                   </Button>
                 </Link>
 
               </Box>
-              <Box sx={{ mt: 3 }}
-              >
+              <Box sx={{ mt: 3 }}>
                 <Card>
                   <CardContent>
                     <Box sx={{ maxWidth: 500 }}>
@@ -215,14 +236,19 @@ const DataPlanList = ({ rest, props }) => {
                       {selectedCustomerIds.slice(0, limit).filter(val => {
                         if (searchTerm === "") {
                           return val;
-                        } else if (
+                        } 
+                        else if (
                           val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                          return val
+                        }
+                        else if (
+                          val.date.includes(searchTerm)) {
                           return val
                         }
                       }).map((customer) => {
                         const dt = new Date(customer.date);
-                      const year = dt.getFullYear() + '/';
-                      const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
+                      const year = dt.getFullYear() + '-';
+                      const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '-';
                       const day = ('0' + dt.getDate()).slice(-2);
                         return (
                           <TableRow
@@ -250,32 +276,37 @@ const DataPlanList = ({ rest, props }) => {
                             <TableCell>{year + month + day}</TableCell>
                             <TableCell>{customer.status}</TableCell>
                             <TableCell align="center">
-                              
-                                <Button
-                                  color="primary"
-                                  variant="contained">
-                                    <Link to={`/appp/TaskInfo/${customer.task_id}`} className={classes.link} >
-                                  View
-                                  </Link>
-                                </Button>
-                              
-                              {'   '}
-                              
+                            <Link to={`/appp/TaskInfo/${customer.task_id}`} className={classes.link}  >
                                 <Button
                                   color="primary"
                                   variant="contained"
-                                  disabled={customer.status =="Complete"}>
+                                  startIcon ={<VisibilityIcon />}>
+                                    
+                                  View
+                                  
+                                </Button>
+                                </Link>
+                              {'   '}
+                              
+                                <Button
+                                  color="edit"
+                                  variant="contained"
+                                  disabled={customer.status =="Complete" }
+                                  startIcon ={<EditIcon />}
+                                  >
                                     <Link to={`/appp/UpdateTask/${customer.task_id}`} className={classes.link} >
                                   Edit
                                   </Link>
                                 </Button>
                              
                               {' '}
-                              <Button onClick={() => { deleteEmployee(customer.task_id) }} color="primary"
+                              <Button onClick={() => { deleteEmployee(customer.task_id) }} 
                                 variant="contained"
+                                color="exit"
                                 disabled={customer.status =="Complete"}
                                 // disabled={true}
-                                
+                                className={classes.debutton}
+                                startIcon ={<DeleteIcon />}
                                 >
                                   <Link to={`/appp/dataplan`} className={classes.link} >
                                 Delete
@@ -284,6 +315,7 @@ const DataPlanList = ({ rest, props }) => {
 
                             </TableCell>
                           </TableRow>
+                          
                           // ))}
                         )
                       })

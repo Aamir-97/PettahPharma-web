@@ -143,6 +143,7 @@ export default function AllownsComment() {
             { salesmanager_comment: salesmanager_comment, expense_ID: expense_ID }).then(
                 (response) => { }
             )
+            alert("The comment was added successfully.")
     };
 
     const classes = useStyles();

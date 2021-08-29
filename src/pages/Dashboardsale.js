@@ -19,36 +19,36 @@ const Dashboardsale = () => {
 
   
 
-  let email=localStorage.getItem('email')
-  let password=localStorage.getItem('password')
+  // let email=localStorage.getItem('email')
+  // let password=localStorage.getItem('password')
   // console.log(data);
 
   
-  useEffect(() => {
-    const fetchData = async () => {
-        const response = await axios.get('http://localhost:3001/getid', {
-            params: {
-              email: email,
-              password: password,
-            }
-        }).then((response)=>{
-          if(response)
-          {
-            setID(response.data[0].manager_ID);
-        console.log(response.data[0].manager_ID);
-          }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //       const response = await axios.get('http://localhost:3001/getid', {
+  //           params: {
+  //             email: email,
+  //             password: password,
+  //           }
+  //       }).then((response)=>{
+  //         if(response)
+  //         {
+  //           setID(response.data[0].manager_ID);
+  //       console.log(response.data[0].manager_ID);
+  //         }
         
-      });
+  //     });
         
 
-    };
-    fetchData();
-  }, []);
+  //   };
+  //   fetchData();
+  // }, []);
 
-  const [Dt, setID] = useState([]);
-  console.log(Dt);
+  // const [Dt, setID] = useState([]);
+  // console.log(Dt);
 
-  localStorage.setItem('managerid' ,JSON.stringify(Dt));
+  // localStorage.setItem('managerid' ,JSON.stringify(Dt));
   return (
   <>
     <Helmet>

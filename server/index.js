@@ -858,7 +858,7 @@ app.get('/viewexpense',(req,res)=>{
         console.log(err);
     })
 });
-
+ 
 app.put('/addexpensecomment', (req, res) => {
     const expense_ID = req.body.expense_ID;
     const salesmanager_comment = req.body.salesmanager_comment;

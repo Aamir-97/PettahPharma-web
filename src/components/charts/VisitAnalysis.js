@@ -97,7 +97,7 @@ const options = {
 
     <Card>
       <CardHeader
-        title="Monthly Total Visits"
+        title="Monthly Total Visits - 2021"
       />
       <Divider />
       <CardContent>

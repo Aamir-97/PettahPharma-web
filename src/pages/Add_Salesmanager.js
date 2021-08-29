@@ -23,6 +23,7 @@ function Add_Salesmanager() {
     const [password, setPassword] = useState("")
 
     const add_Salesmanager = () => {
+        if (manager_ID && name && email && area && password) {
         axios.post('http://localhost:3001/createmanager', {
             manager_ID: manager_ID,
             name: name,
@@ -34,9 +35,18 @@ function Add_Salesmanager() {
 
         }).then(() => {
             console.log("success");
-            window.location.reload();
+            //    window.location.reload();
+            alert("The new salesmanager was added successfully.")
+            document.getElementById("create-course-form").reset();
         });
-    };
+
+    }
+    else {
+        alert("Manager ID, Name, Email, Area, Password are required.")
+        // return (confirm('are you sure you want to delete??'));
+        // return confirm("You are about to permanently delete a product. Click OK to continue or CANCEL to quit.");
+    }
+};
 
     const mystyle = {
         formstep: {
@@ -146,6 +156,7 @@ function Add_Salesmanager() {
                             style={mystyle.forminput}
                             placeholder="Manager ID"
                             onChange={(event) => { setManager_ID(event.target.value); }}
+                            required
                         /><br />
                          {/* <input
                             type="file"
@@ -158,12 +169,14 @@ function Add_Salesmanager() {
                             style={mystyle.forminput}
                             placeholder="Name"
                             onChange={(event) => { setName(event.target.value); }}
+                            required
                         /><br />
                         <input
                             type="text"
                             style={mystyle.forminput}
                             placeholder="Email"
                             onChange={(event) => { setEmail(event.target.value); }}
+                            required
                         /><br />
                         <input
                             type="text"
@@ -176,25 +189,27 @@ function Add_Salesmanager() {
                             style={mystyle.forminput}
                             placeholder="Area"
                             onChange={(event) => { setArea(event.target.value); }}
+                            required
                         /><br />
                         <input
                             type="text"
                             style={mystyle.forminput}
                             placeholder="Password"
                             onChange={(event) => { setPassword(event.target.value); }}
+                            required
                         /><br />
                     </div>
-
+ 
                     <div display='flex' align='right'>
 
-                        <Link to='/app/ManagerList'>
+                        {/* <Link to='/app/ManagerList'> */}
                             <button
                                 type="submit"
                                 id="submitBtn"
                                 style={mystyle.submitBtn}
                                 onClick={add_Salesmanager}
                             > Create</button>
-                        </Link>
+                        {/* </Link> */}
                         <Link to='/app/ManagerList'>
                             <button
                                 type="submit"

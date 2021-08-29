@@ -1,105 +1,45 @@
-import { Helmet } from 'react-helmet';
-import React,{useEffect,useState} from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import {
-  Box,
-  Container,
-  Grid
-} from '@material-ui/core';
-// import clsx from 'clsx';
-// import {Table} from 'react-bootstrap';
-// import axios from 'axios';
-// import { useParams } from 'react-router-dom';
-// import TaskProgress from 'src/components/dashboard/TaskProgress';
-// import LatestTasks from 'src/components/dashboard/LatestTasks';
-// import LatestProducts from 'src/components/dashboard//LatestProducts';
-// import Sales from 'src/components/dashboard/Sales';
-import TaskAnalysis from 'src/components/charts/TaskAnalysis';
-import VisitAnalysis from 'src/components/charts/VisitAnalysis';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+// Date Fns is used to format the dates we receive
+// from our API call
+import { format } from "date-fns";
 
-const ReportGeneration=()=> {
-  
-  const dateOnly = (d) => {
-    const date = new Date(d);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${year} - ${month} - ${day}`;
-  };
+// define a generatePDF function that accepts a tickets argument
+const generatePDF = visits => {
+  // initialize jsPDF
+  const doc = new jsPDF();
 
-  const [open, setOpen] = React.useState(true);
-  const {todate}=useParams();
-  const {fromdate}=useParams();
-  
-  const [taskanalysis,setTaskanalysis]=useState([])
-  useEffect(()=>{
-    axios.get("http://localhost:3001/taskanalysis").then((response)=>{
-      setTaskanalysis(response.data)
-    })
-  },[])
+  // define the columns we want and their titles
+  const tableColumn = ["Report ID", "Visit Type", "Date"];
+  // define an empty array of rows
+  const tableRows = [];
 
-  const month=taskanalysis.map(record=>record.month);
-  const count=taskanalysis.map(record=>record.count);
-  
-    <Helmet>
-      <title>Reports</title>
-    </Helmet>
-  return (
-  
-     <Box
-     sx={{
-       backgroundColor: 'background.default',
-       minHeight: '100%',
-       py: 3
-     }}
-   >
-     <Container maxWidth={false}>
-     <Grid
-          container
-          spacing={3}
-        >
-              <Grid
-              item
-              lg={8}
-              md={6}
-              xl={3}
-              xs={12}
-            >
-              <TaskAnalysis/>
-            </Grid>
-            <Grid
-              item
-              lg={8}
-              md={6}
-              xl={3}
-              xs={12}
-            >
-              <VisitAnalysis />
-            </Grid>
-            {/* <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <LatestProducts sx={{ height: '100%' }} />
-          </Grid> */}
-          {/* <Grid
-            item
-            lg={10}
-            md={12}
-            xl={9}
-            xs={12}
-            my={5}
-          >
-            <Visits />
-          </Grid>  */}
-        </Grid>
-      </Container>
-    </Box>
-  )
+  // for each visit pass all its data into an array
+  visits.forEach(visit => {
+    const dt = new Date(visit.date);
+    const year = dt.getFullYear() + '/';
+    const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
+    const day = ('0' + dt.getDate()).slice(-2);
+    const visitData = [
+      visit.report_id,
+      visit.visit_type,
+      year+month+day,
+      // called date-fns to format the date on the visit
+      // format(new Date(visit.date), "yyyy-MM-dd","")
+    ];
+    // push each visit's info into a row
+    tableRows.push(visitData);
+  });
+
+  // startY is basically margin-top
+  doc.autoTable(tableColumn, tableRows, { startY: 20 });
+  const date = Date().split(" ");
+  // we use a date string to generate our filename.
+  const dateStr = date[0] + date[1] + date[2] + date[3] + date[4];
+  // title and margin-top + margin-left
+  doc.text("Summary Report", 14, 15);
+  // we define the name of our PDF file.
+  doc.save(`report_${dateStr}.pdf`);
 };
 
-export default ReportGeneration;
+export default generatePDF;

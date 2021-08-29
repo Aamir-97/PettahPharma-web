@@ -855,6 +855,82 @@ app.put('/addexpensestatus', (req, res) => {
         });
 });
 
+app.get('/fuelexpense',(req,res) => {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Fuel" GROUP BY month', (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+            // console.log(result);
+        }
+    });
+});
+
+app.get('/accommodationexpense',(req,res) => {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Accommodation" GROUP BY month', (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+            // console.log(result);
+        }
+    });
+});
+
+app.get('/dailyexpense',(req,res) => {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Daily batta" GROUP BY month', (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+            // console.log(result);
+        }
+    });
+});
+
+app.get('/promotionVisitCount',(req,res) => {
+    console.log(req.body)
+
+    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="Promotion"', (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/generalVisitCount',(req,res) => {
+    console.log(req.body)
+
+    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="General"', (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/feedbackVisitCount',(req,res) => {
+    console.log(req.body)
+
+    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="Feedback"', (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/viewvisitsummary', (req, res) => {
+    db.query('SELECT report_id,visit_type,date FROM visit_summary_report', [req.query.report_id], (err, result) => {
+        res.send(result);
+        console.log(result);
+    })
+})
+
 app.listen(3001, () => {
     console.log("Your server is running on port 3001");
 });

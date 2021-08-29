@@ -67,15 +67,15 @@ const items = [
   //   title: 'Account'
   // },
   {
-    href: '/app/ReportGeneration',
+    href: '/app/MonthlyVisitReport',
     icon: DescriptionOutlinedIcon,
     title: 'Reports'
   },
-  // {
-  //   href: '/app/Forum2',
-  //   icon: ForumIcon,
-  //   title: 'Forum'
-  // },
+  {
+    href: '/app/VisitTypesReport',
+    icon: ForumIcon,
+    title: 'Reports'
+  },
   {
     href: '/app/Forum',
     icon: ForumIcon,

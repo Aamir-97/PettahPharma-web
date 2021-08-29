@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react'
-
 import PropTypes from 'prop-types'
 import ReactPaginate from 'react-paginate'
-
 import Post from 'src/components/Post'
 import PostEditor from 'src/components/PostEditor'
-
+import {
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Box,
+  Typography
+} from '@material-ui/core';
 // import styles from './index.module.css'
 
 const DiscussionBoard = ({ onSubmit, posts }) => {
@@ -107,7 +112,14 @@ const DiscussionBoard = ({ onSubmit, posts }) => {
 
   const displayEditor = () => {
     return (
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+          >
       <React.Fragment>
+        <Box>
         <div className='row'>
           <div className='col'>
             <PostEditor text={text} setText={setText} />
@@ -115,23 +127,34 @@ const DiscussionBoard = ({ onSubmit, posts }) => {
         </div>
         <div className='row pt-2'>
           <div className='col'>
-            <button onClick={submitPost} className='btn btn-primary'>
+            <Button 
+            onClick={submitPost} 
+            variant="contained" 
+            color="primary"
+            >
               Submit
-            </button>
+            </Button>
           </div>
         </div>
+        </Box>
       </React.Fragment>
+    </Grid>
     )
   }
 
   return (
     <div className='container'>
+      <Box m={2} >
+      <Button
+      variant="contained" 
+      color="primary">
       <a
         onClick={clickNewPost}
         // className={`pl-3 text-decoration-none ${styles.newPost}`}
       >
         Add New Post
       </a>
+      </Button>
       {pagePosts.map((post, idx) => {
         const newDate = buildDate(post.date)
         const newTime = buildTime(post.date)
@@ -146,7 +169,7 @@ const DiscussionBoard = ({ onSubmit, posts }) => {
 
       {newPost ? displayEditor() : ''}
 
-      <div className='d-flex justify-content-center mt-5'>
+      {/* <div className='d-flex justify-content-center mt-5'>
         <ReactPaginate
           pageCount={pageCount}
           pageRangeDisplayed={5}
@@ -165,7 +188,8 @@ const DiscussionBoard = ({ onSubmit, posts }) => {
           previousLinkClassName='page-link'
           nextLinkClassName='page-link'
         />
-      </div>
+      </div> */}
+      </Box>
     </div>
   )
 }

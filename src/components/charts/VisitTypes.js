@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { Doughnut } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import {
   Box,
   Card,
@@ -10,37 +10,37 @@ import {
   colors,
   useTheme
 } from '@material-ui/core';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
-import CachedIcon from '@material-ui/icons/Cached';
+import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
+import CardMembershipIcon from '@material-ui/icons/CardMembership';
+import CardTravelIcon from '@material-ui/icons/CardTravel';
 import axios from 'axios'
 
-function TaskProgress() {
+function VisitTypes() {
 
-  const [completetask,setCompletetask]=useState([])
+  const [promotionVisit,setPromotionVisit]=useState([])
   useEffect(()=>{
-    axios.get("http://localhost:3001/completeTaskCount").then((response)=>{
-      setCompletetask(response.data)
+    axios.get("http://localhost:3001/promotionVisitCount").then((response)=>{
+        setPromotionVisit(response.data)
     })
   },[])
 
-  const [pendingtask,setPendingtask]=useState([])
+  const [generalVisit,setGeneralVisit]=useState([])
   useEffect(()=>{
-    axios.get("http://localhost:3001/pendingTaskCount").then((response)=>{
-      setPendingtask(response.data)
+    axios.get("http://localhost:3001/generalVisitCount").then((response)=>{
+        setGeneralVisit(response.data)
     })
   },[])
 
-  const [rejecttask,setRejecttask]=useState([])
+  const [feedbackVisit,setFeedbackVisit]=useState([])
   useEffect(()=>{
-    axios.get("http://localhost:3001/rejectTaskCount").then((response)=>{
-      setRejecttask(response.data)
+    axios.get("http://localhost:3001/feedbackVisitCount").then((response)=>{
+        setFeedbackVisit(response.data)
     })
   },[])
 
-  const count1=completetask.map(record=>record.count);
-  const count2=pendingtask.map(record=>record.count);
-  const count3=rejecttask.map(record=>record.count);
+  const count1=promotionVisit.map(record=>record.count);
+  const count2=generalVisit.map(record=>record.count);
+  const count3=feedbackVisit.map(record=>record.count);
 
   const total = parseInt(count1) + parseInt(count2) + parseInt(count3) ;
   const c1 = parseInt(count1) ;
@@ -54,25 +54,25 @@ function TaskProgress() {
   const c3p = parseInt(count3percentage) ;
 
   const data = {
-    datasets: [
-      {
-        data: [count1, count2, count3],
-        backgroundColor: [
-          colors.indigo[500],
-          colors.orange[600],
-          colors.red[600]
-        ],
-        borderWidth: 8,
-        borderColor: colors.common.white,
-        hoverBorderColor: colors.common.white
-      }
+    labels: [
+      'Promotion Visit',
+      'General Visit',
+      'Feedback Visit'
     ],
-    labels: ['Completed', 'Pending', 'Rejected']
+    datasets: [{
+      data: [count1, count2, count3],
+      backgroundColor: [
+        '#3f51b5',
+        '#ff9800',
+        '#f44336'
+      ],
+      hoverOffset: 4
+    }]
   };
 
   const options = {
     animation: false,
-    cutoutPercentage: 80,
+    cutoutPercentage: 0,
     layout: { padding: 0 },
     legend: {
       display: false
@@ -94,28 +94,28 @@ function TaskProgress() {
 
   const devices = [
     {
-      title: 'Completed',
+      title: 'Promotion',
       value: c1p,
-      icon: CheckCircleOutlineIcon,
+      icon: CardGiftcardIcon,
       color: colors.indigo[600]
     },
     {
-      title: 'Pending',
+      title: 'General',
       value: c2p,
-      icon: CachedIcon,
+      icon: CardTravelIcon,
       color: colors.orange[600]
     },
     {
-      title: 'Rejected',
+      title: 'Feedback',
       value: c3p,
-      icon: ThumbDownAltIcon,
+      icon: CardMembershipIcon,
       color: colors.red[600]
     }
   ];
 
   return (
     <Card>
-      <CardHeader title="Task Progress" />
+      <CardHeader title="Visit Types" />
       <Divider />
       <CardContent>
         <Box
@@ -124,7 +124,7 @@ function TaskProgress() {
             position: 'relative'
           }}
         >
-          <Doughnut
+          <Pie
             data={data}
             options={options}
           />
@@ -149,7 +149,7 @@ function TaskProgress() {
                 textAlign: 'center'
               }}
             >
-              <Icon 
+              <Icon  
               style={{ color }}
               iconSize="large"/>
               <Typography
@@ -173,4 +173,4 @@ function TaskProgress() {
 };
 
 
-export default TaskProgress;
+export default VisitTypes;

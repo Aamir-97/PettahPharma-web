@@ -71,11 +71,11 @@ const items = [
     icon: DescriptionOutlinedIcon,
     title: 'Reports'
   },
-  {
-    href: '/app/VisitTypesReport',
-    icon: ForumIcon,
-    title: 'Reports'
-  },
+  // {
+  //   href: '/app/VisitTypesReport',
+  //   icon: ForumIcon,
+  //   title: 'Reports'
+  // },
   {
     href: '/app/Forum',
     icon: ForumIcon,

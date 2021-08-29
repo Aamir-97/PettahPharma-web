@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { Volume2 } from 'react-feather';
 
 function Add_Product() {
 
@@ -22,6 +23,7 @@ function Add_Product() {
     const [description, setDescription] = useState("");
 
     const add_Product = () => {
+        if (product_id && name && volume) {
         axios.post('http://localhost:3001/createproduct', {
             product_id: product_id,
             display_photo: display_photo,
@@ -32,9 +34,18 @@ function Add_Product() {
 
         }).then(() => {
             console.log("success");
-            window.location.reload();
+            //    window.location.reload();
+            alert("The new product was added successfully.")
+            document.getElementById("create-course-form").reset();
         });
-    };
+
+    }
+    else {
+        alert("Product ID, Name, Volume are required.")
+        // return (confirm('are you sure you want to delete??'));
+        // return confirm("You are about to permanently delete a product. Click OK to continue or CANCEL to quit.");
+    }
+};
 
     const mystyle = {
         formstep: {
@@ -144,6 +155,7 @@ function Add_Product() {
                             style={mystyle.forminput}
                             placeholder="Product ID"
                             onChange={(event) => { setProduct_id(event.target.value); }}
+                            required
                         /><br />
                         <input
                             type="file"
@@ -156,12 +168,14 @@ function Add_Product() {
                             style={mystyle.forminput}
                             placeholder="Name"
                             onChange={(event) => { setName(event.target.value); }}
+                            required
                         /><br />
                         <input
                             type="text"
                             style={mystyle.forminput}
                             placeholder="Volume"
                             onChange={(event) => { setVolume(event.target.value); }}
+                            required
                         /><br />
                         <input
                             type="text"
@@ -180,14 +194,14 @@ function Add_Product() {
 
                     <div display='flex' align='right'>
 
-                        <Link to='/app/ProductList'>
+                        {/* <Link to='/app/ProductList'> */}
                             <button
                                 type="submit"
                                 id="submitBtn"
                                 style={mystyle.submitBtn}
                                 onClick={add_Product}
                             > Create</button>
-                        </Link>
+                        {/* </Link> */}
                         <Link to='/app/ProductList'>
                             <button
                                 type="submit"

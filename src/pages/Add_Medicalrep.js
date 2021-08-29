@@ -27,6 +27,7 @@ function Add_Medicalrep() {
 
 
     const add_Medicalrep= () => {
+        if (rep_ID && name && email && area && password && manager_ID) {
         axios.post('http://localhost:3001/createmedicalrep', {
             rep_ID: rep_ID,
             name: name,
@@ -40,9 +41,19 @@ function Add_Medicalrep() {
 
         }).then(() => {
             console.log("success");
-            window.location.reload();
+            //    window.location.reload();
+            alert("The new medical rep was added successfully.")
+            document.getElementById("create-course-form").reset();
         });
-    };
+
+    }
+    else {
+        alert("Rep ID, Name, Email, Area, Password, Manager ID are required.")
+        // return (confirm('are you sure you want to delete??'));
+        // return confirm("You are about to permanently delete a product. Click OK to continue or CANCEL to quit.");
+    }
+};
+
 
     useEffect(() => {
       const fetchData = async () => {
@@ -153,6 +164,7 @@ function Add_Medicalrep() {
                             style={mystyle.forminput}
                             placeholder="Rep ID"
                             onChange={(event) => { setRep_ID(event.target.value); }}
+                            required
                         /><br />
                         {/* <input
                             type="file"
@@ -165,12 +177,14 @@ function Add_Medicalrep() {
                             style={mystyle.forminput}
                             placeholder="Name"
                             onChange={(event) => { setName(event.target.value); }}
+                            required
                         /><br />
                         <input
                             type="text"
                             style={mystyle.forminput}
                             placeholder="Email"
                             onChange={(event) => { setEmail(event.target.value); }}
+                            required
                         /><br />
                         <input
                             type="text"
@@ -183,6 +197,7 @@ function Add_Medicalrep() {
                             style={mystyle.forminput}
                             placeholder="Working Area"
                             onChange={(event) => { setArea(event.target.value); }}
+                            required
                         /><br />
                         {/* <input
                             type="text"
@@ -195,12 +210,14 @@ function Add_Medicalrep() {
                             style={mystyle.forminput}
                             placeholder="Password"
                             onChange={(event) => { setPassword(event.target.value); }}
+                            required
                         /><br />
                         <input
                             type="text"
                             style={mystyle.forminput}
                             placeholder="ManagerID"
                             onChange={(event) => { setManager_ID(event.target.value); }}
+                            required
                         /><br />
                         {/* <FormControl style={mystyle.formControl} >
                             <InputLabel id="demo-customized-select-label">Salesmanager Name</InputLabel>
@@ -220,14 +237,14 @@ function Add_Medicalrep() {
 
                     <div display='flex' align='right'>
 
-                        <Link to='/app/MedicalRepList'>
+                        {/* <Link to='/app/MedicalRepList'> */}
                             <button
                                 type="submit"
                                 id="submitBtn"
                                 style={mystyle.submitBtn}
                                 onClick={add_Medicalrep}
                             > Create</button>
-                        </Link>
+                        {/* </Link> */}
                         <Link to='/app/MedicalRepList'>
                             <button
                                 type="submit"

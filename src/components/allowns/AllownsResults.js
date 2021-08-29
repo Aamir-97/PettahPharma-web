@@ -79,12 +79,12 @@ const AllownsResults = ({ Allowns, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell> Medical Rep Name</TableCell>
-                <TableCell>Expense Type</TableCell>
+                <TableCell> <b>Medical Rep Name</b></TableCell>
+                <TableCell><b>Expense Type</b></TableCell>
                 {/* <TableCell>Location</TableCell> */}
-                <TableCell>Amount</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell align="center">Action</TableCell>
+                <TableCell><b>Amount</b></TableCell>
+                <TableCell><b>Date</b></TableCell>
+                <TableCell align="center"><b>Action</b></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

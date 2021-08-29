@@ -105,6 +105,7 @@ return(
         backgroundColor: 'background.default',
         minHeight: '100%',
         py: 3
+        
       }}
     >
       <Container maxWidth={false}>
@@ -117,7 +118,9 @@ return(
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'flex-end'
+          justifyContent: 'flex-end',
+          marginTop: '0px',
+                  marginLeft: '400px',
         }}
       >
         <h1 style={{flex:3, flexWrap: 'wrap'}} >SUMMARY REPORT</h1>
@@ -229,7 +232,7 @@ return(
                     {'   '}
                     <Link to={`/appp/SummaryComment/${customer.report_id}`}  >
                       <Button
-                        color="primary"
+                        color="edit"
                         variant="contained"
                         startIcon ={<AddCommentIcon />}>
                         Add Comment

@@ -16,18 +16,12 @@ import {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'flex-end'
+          justifyContent: 'flex-end',
+          marginTop: '0px',
+                  marginLeft: '400px',
         }}
       >
         <h1 style={{ flex: 3, flexWrap: 'wrap' }} >LEAVE APPROVAL</h1>
-       {/* <Link to={'/appp/AsignTask'}>
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Asign Task
-        </Button>
-        </Link> */}
   
       </Box>
       <Box sx={{ mt: 3 }}>

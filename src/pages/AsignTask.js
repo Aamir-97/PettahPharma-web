@@ -82,7 +82,7 @@ const mystyle = {
         borderRadius: '5px',
         color: 'white',
         // marginRight: '0px',
-        marginLeft:'10px'
+        marginLeft: '10px'
     },
     submitBtn: {
         // marginTop: '5px',
@@ -95,9 +95,9 @@ const mystyle = {
         borderRadius: '5px',
         color: 'white',
         // /marginRight: '30px'
-         marginLeft:'350px'
+        marginLeft: '350px'
     },
-    
+
 };
 
 
@@ -113,45 +113,59 @@ export default function AsignTask() {
     const [description, setDescription] = useState("");
     const [session, setSession] = useState("");
     const [date, setDate] = useState("")
-    
-    let fullday='Full-Day';
-    let type='task';
 
+    let fullday = 'Full-Day';
+    let type = 'task';
 
-    
+    const items = [
+        {
+            href: '/appp/dataplan',
+        },
+    ]
+
     const asign_task = () => {
-        axios.post('http://localhost:3001/assigntask', {
-            rep_ID: rep_ID,
-            title: title,
-            type:type,
-            location: location,
-            description: description,
-            session: session,
-            date: date,
-            manager_ID: manager_ID,
+        if (rep_ID && title && date && location && session) {
+            axios.post('http://localhost:3001/assigntask', {
+                rep_ID: rep_ID,
+                title: title,
+                type: type,
+                location: location,
+                description: description,
+                session: session,
+                date: date,
+                manager_ID: manager_ID,
 
-        }).then(() => {
-            console.log("success");
-            //    window.location.reload();
-        });
+            }).then(() => {
+                console.log("success");
+                //    window.location.reload();
+                alert("The task was assigned successfully.")
+                document.getElementById("create-course-form").reset();
+            });
+
+        }
+        else {
+            alert("Date, Time slot, Medical rep name, title, location are required.")
+            // return (confirm('are you sure you want to delete??'));
+            // return confirm("You are about to permanently delete a product. Click OK to continue or CANCEL to quit.");
+        }
     };
 
 
 
-    
-        const fetchData = async () => {
-            const response = await axios.get('http://localhost:3001/getrep', {
-                params: {
-                    manager_ID: manager_ID,
-                    date: date,
-                    session: session,
-                    fullday: fullday,
-                }
-            });
-            setGetRep(response.data);
-        };
-        // fetchData();
-    
+
+    const fetchData = async () => {
+        const response = await axios.get('http://localhost:3001/getrep', {
+            params: {
+                manager_ID: manager_ID,
+                date: date,
+                session: session,
+                fullday: fullday,
+            }
+        });
+        setGetRep(response.data);
+    };
+    // fetchData();
+
     console.log(GetRep);
 
     const classes = useStyles();
@@ -159,6 +173,18 @@ export default function AsignTask() {
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    today = yyyy + '-' + mm + '-' + dd;
 
     return (
         <div className={classes.formbox}>
@@ -168,17 +194,18 @@ export default function AsignTask() {
                 </Grid>
 
                 <div className={classes.root}>
-
-                <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
+<form id="create-course-form">
+                    <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Date</Typography>
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="date"
-                                    
+                                    min={today}
                                     onChange={(event) => { setDate(event.target.value); }}
                                     // style={mystyle.forminput}
                                     className={classes.forminput}
+                                    required
                                 />
                             </Typography>
                         </AccordionSummary>
@@ -196,16 +223,17 @@ export default function AsignTask() {
                                     className={classes.forminput}
                                 /> */}
                                 <Select
-                                        native
-                                        onChange={(event) => { setSession(event.target.value); }}
-                                        // style={mystyle.formselect}
-                                        className={classes.formselect}
-                                    >
-                                        <option aria-label="None" value="">Select Time Slot</option>
-                                        <option Value ="Morning">Morning</option>
-                                        <option Value = "Evening">Evening</option>
-                                        <option Value ="Full-Day" >Full-Day</option>
-                                    </Select>
+                                    native
+                                    onChange={(event) => { setSession(event.target.value); }}
+                                    // style={mystyle.formselect}
+                                    className={classes.formselect}
+                                    required
+                                >
+                                    <option aria-label="None" value="">Select Time Slot</option>
+                                    <option Value="Morning">Morning</option>
+                                    <option Value="Evening">Evening</option>
+                                    <option Value="Full-Day" >Full-Day</option>
+                                </Select>
                             </Typography>
                         </AccordionSummary>
                     </Accordion><br />
@@ -215,18 +243,19 @@ export default function AsignTask() {
                             <Typography className={classes.heading}>Medical Rep Name</Typography>
                             <Typography className={classes.secondaryHeading}>
                                 {/* <FormControl className={classes.formControl}> */}
-                                    <Select
-                                    onClick={()=>{fetchData()}}
-                                        native
-                                        onChange={(event) => { setRepID(event.target.value); }}
-                                        // style={mystyle.formselect}
-                                        className={classes.formselect}
-                                    >
-                                        <option aria-label="None" value="">Select Medical Rep Name</option>
-                                {GetRep.map((customer) => (
-                                    <option Value={customer.rep_ID}>{customer.name}-{customer.rep_ID}</option>
-                                ))}
-                                    </Select>
+                                <Select
+                                    onClick={() => { fetchData() }}
+                                    native
+                                    onChange={(event) => { setRepID(event.target.value); }}
+                                    // style={mystyle.formselect}
+                                    className={classes.formselect}
+                                    required
+                                >
+                                    <option aria-label="None" value="">Select Medical Rep Name</option>
+                                    {GetRep.map((customer) => (
+                                        <option Value={customer.rep_ID}>{customer.name}-{customer.rep_ID}</option>
+                                    ))}
+                                </Select>
                                 {/* </FormControl> */}
                             </Typography>
                         </AccordionSummary>
@@ -238,10 +267,11 @@ export default function AsignTask() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    
+
                                     onChange={(event) => { setTitle(event.target.value); }}
                                     // style={mystyle.forminput}
                                     className={classes.forminput}
+                                    required
                                 />
                             </Typography>
                         </AccordionSummary>
@@ -267,7 +297,7 @@ export default function AsignTask() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                   
+
                                     onChange={(event) => { setLocation(event.target.value); }}
                                     // style={mystyle.forminput}
                                     className={classes.forminput}
@@ -287,33 +317,33 @@ export default function AsignTask() {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
-                                <textarea 
+                                <textarea
                                     onChange={(event) => { setDescription(event.target.value); }}
                                     rows="10" cols="80"   ></textarea>
                             </Typography>
                         </AccordionDetails>
                     </Accordion><br />
 
-                    
 
-                    
+                    </form>
+
                 </div>
 
-                <Link to='/appp/dataplan' style={mystyle.button}>
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        style={mystyle.submitBtn}
-                        onClick={asign_task}
-                    > Create</Button>
-                </Link>
+                {/* <Link to='/appp/dataplan' style={mystyle.button}> */}
+                <Button
+                    color="primary"
+                    variant="contained"
+                    style={mystyle.submitBtn}
+                    onClick={asign_task}
+                > Create</Button>
+                {/* </Link> */}
                 <Link to='/appp/dataplan'>
-                            <Button
-                                type="submit"
-                                id="submitBtn"
-                                style={mystyle.closeBtn}                      
-                            > Exit</Button>
-                        </Link>
+                    <Button
+                        type="submit"
+                        id="submitBtn"
+                        style={mystyle.closeBtn}
+                    > Exit</Button>
+                </Link>
 
             </div>
         </div>

@@ -143,6 +143,7 @@ export default function LeaveComment() {
             { salesmanager_comment: salesmanager_comment, leave_ID: leave_ID }).then(
                 (response) => { }
             )
+            alert("The comment was added successfully.")
     };
 
     const classes = useStyles();

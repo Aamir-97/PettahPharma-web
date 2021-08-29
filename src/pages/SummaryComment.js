@@ -116,6 +116,7 @@ export default function SummaryComment() {
             { manager_comment: manager_comment, report_id: report_id }).then(
                 (response) => { }
             )
+            alert("The comment was added successfully.")
     };
 
     const classes = useStyles();

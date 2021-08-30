@@ -35,14 +35,7 @@ const LeaveResults = ({ Leave, ...rest }) => {
   manager_ID = JSON.parse(manager_ID)
   console.log(manager_ID);
 
-  const useStyles = makeStyles(() => ({
-    link: {
-      // backgroundColor: '#5eb6b8',
-      color: '#FFF',
-    },
-  }));
-
-  const classes = useStyles();
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,6 +77,19 @@ const LeaveResults = ({ Leave, ...rest }) => {
   // constructor = () => {
   // this.state.Date().toLocaleString();
   // };
+  const useStyles = makeStyles(() => ({
+    link: {
+      // backgroundColor: '#5eb6b8',
+      color: '#FFF',
+    },
+    h1:{
+      // backgroundColor: '#5eb6b8',
+      // color: '#FFF',
+      fontFamily: "Sans-serif", 
+    },
+  }));
+
+  const classes = useStyles();
 
   var today = new Date();
   var dd = today.getDate();
@@ -103,12 +109,12 @@ const LeaveResults = ({ Leave, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell> Medical Rep Name</TableCell>
-                <TableCell>Leave Type</TableCell>
-                <TableCell>Start Date</TableCell>
-                <TableCell>End Date</TableCell>
+                <TableCell><b> Medical Rep Name</b></TableCell>
+                <TableCell><b>Leave Type</b></TableCell>
+                <TableCell><b>Start Date</b></TableCell>
+                <TableCell><b>End Date</b></TableCell>
                 {/* <TableCell>Date</TableCell> */}
-                <TableCell align="center">Action</TableCell>
+                <TableCell align="center"><b>Action</b></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

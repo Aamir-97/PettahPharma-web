@@ -4,52 +4,20 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import Expenses from 'src/components/dashboard/Expenses';
-// import LatestOrders from 'src/components/dashboard//LatestOrders';
-import LatestProducts from 'src/components/dashboard//LatestProducts';
-import Sales from 'src/components/dashboard//Sales';
-import TotalVisits from 'src/components/dashboard/TotalVisits';
-import TotalEmployees from 'src/components/dashboard/TotalEmployees';
-import TotalSales from 'src/components/dashboard/TotalSales';
-import TaskProgress from 'src/components/dashboard/TaskProgress';
-import axios from "axios";
-import React, {useState , useEffect} from "react";
+import Expenses from 'src/components/dashboardSal/Expenses';
+// import LatestOrders from 'src/components/dashboard/LatestTasks';
+// import LatestProducts from 'src/components/dashboard//LatestProducts';
+// import Sales from 'src/components/dashboard/Sales';
+import TotalVisits from 'src/components/dashboardSal/TotalVisits';
+import TotalEmployees from 'src/components/dashboardSal/TotalEmployees';
+import TotalProducts from 'src/components/dashboardSal/TotalProducts';
+import TaskProgress from 'src/components/dashboardSal/TaskProgress';
+// import TaskAnalysis from 'src/components/charts/TaskAnalysis'
+import ExpenseAnalysis from 'src/components/dashboardSal/ExpenseAnalysis'
+import VisitAnalysis from 'src/components/dashboardSal/VisitAnalysis';
+import VisitTypes from 'src/components/dashboardSal/VisitTypes';
 
-const Dashboardsale = () => {
-
-  
-
-  // let email=localStorage.getItem('email')
-  // let password=localStorage.getItem('password')
-  // console.log(data);
-
-  
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //       const response = await axios.get('http://localhost:3001/getid', {
-  //           params: {
-  //             email: email,
-  //             password: password,
-  //           }
-  //       }).then((response)=>{
-  //         if(response)
-  //         {
-  //           setID(response.data[0].manager_ID);
-  //       console.log(response.data[0].manager_ID);
-  //         }
-        
-  //     });
-        
-
-  //   };
-  //   fetchData();
-  // }, []);
-
-  // const [Dt, setID] = useState([]);
-  // console.log(Dt);
-
-  // localStorage.setItem('managerid' ,JSON.stringify(Dt));
-  return (
+const Dashboardsale = () => (
   <>
     <Helmet>
       <title>Dashboard</title>
@@ -100,7 +68,7 @@ const Dashboardsale = () => {
             xl={3}
             xs={12}
           >
-            <TotalSales sx={{ height: '100%' }} />
+            <TotalProducts />
           </Grid>
           <Grid
             item
@@ -109,7 +77,7 @@ const Dashboardsale = () => {
             xl={9}
             xs={12}
           >
-            <Sales />
+            <ExpenseAnalysis/>
           </Grid>
           <Grid
             item
@@ -118,30 +86,39 @@ const Dashboardsale = () => {
             xl={3}
             xs={12}
           >
-            <TaskProgress sx={{ height: '100%' }} />
+            <TaskProgress/>
+          </Grid>
+          <Grid
+            item
+            lg={8}
+            md={12}
+            xl={9}
+            xs={12}
+          >
+            <VisitAnalysis/>
+          </Grid>
+          <Grid
+            item
+            lg={4}
+            md={6}
+            xl={3}
+            xs={12}
+          >
+            <VisitTypes/>
           </Grid>
           {/* <Grid
             item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <LatestProducts sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
             lg={8}
             md={12}
             xl={9}
             xs={12}
-          >
+          > 
             <LatestOrders />
-          </Grid> */}
+          </Grid>  */}
         </Grid>
       </Container>
     </Box>
   </>
 );
-        };
+
 export default Dashboardsale;

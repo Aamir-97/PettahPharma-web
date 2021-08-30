@@ -35,7 +35,7 @@ import {
 import getInitials from 'src/utils/getInitials';
 import { Link, Route } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
-
+import { makeStyles } from '@material-ui/core/styles';
 
 const SummaryReportList = (rest,props) => {
 
@@ -81,6 +81,60 @@ const SummaryReportList = (rest,props) => {
   //   })
   // };
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+      flexBasis: '33.33%',
+      flexShrink: 0,
+    },
+    secondaryHeading: {
+      fontSize: theme.typography.pxToRem(15),
+      color: 'black',
+    },
+    formbox: {
+      backgroundColor: 'gray',
+      width: '60%',
+      marginTop: '40px',
+      marginLeft: '200px',
+      height: 'full',
+      boxShadow: "2px 2px 5px  2px #9E9E9E",
+      padding: "2vh",
+      borderRadius: "5px",
+      align: 'center',
+    },
+    textfield: {
+      backgroundColor: 'white',
+      width: '100%',
+      marginTop: '0px',
+      marginLeft: '100px',
+      height: '100%',
+      // boxShadow: "2px 2px 5px  2px #9E9E9E",
+      padding: "2vh",
+      borderRadius: "5px",
+    },
+    // debutton:{
+    //   backgroundColor: 'red',
+    // },
+    link:{
+      // backgroundColor: '#5eb6b8',
+      color: '#FFF',
+    },
+    h1:{
+      // backgroundColor: '#5eb6b8',
+      // color: '#FFF',
+      fontFamily: "Sans-serif", 
+    },
+  }));
+  const classes = useStyles();
+
   const deleteSummaryReport = (report_id) => {
     axios.get("http://localhost:3001/deletesummary", {
       params: {
@@ -123,7 +177,7 @@ return(
                   marginLeft: '400px',
         }}
       >
-        <h1 style={{flex:3, flexWrap: 'wrap'}} >SUMMARY REPORT</h1>
+        <h1 style={{flex:3, flexWrap: 'wrap'}} className={classes.h1}>SUMMARY REPORT</h1>
        {/* <Link to={'/appp/AsignTask'}>
         <Button
           color="primary"
@@ -168,12 +222,12 @@ return(
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell> Medical Rep Name</TableCell>
-                <TableCell>Doctor Name</TableCell>
-                <TableCell>Visit Type</TableCell>
-                <TableCell>Average Duration</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell align="center">Action</TableCell>
+                <TableCell><b> Medical Rep Name</b></TableCell>
+                <TableCell><b>Doctor Name</b></TableCell>
+                <TableCell><b>Visit Type</b></TableCell>
+                <TableCell><b>Average Duration</b></TableCell>
+                <TableCell><b>Date</b></TableCell>
+                <TableCell align="center"><b>Action</b></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

@@ -83,6 +83,11 @@ const DataPlanList = ({ rest, props }) => {
       // backgroundColor: '#5eb6b8',
       color: '#FFF',
     },
+    h1:{
+      // backgroundColor: '#5eb6b8',
+      // color: '#FFF',
+      fontFamily: "Sans-serif", 
+    },
   }));
   
   // #35dade,#27bec2,#186263
@@ -174,7 +179,7 @@ const DataPlanList = ({ rest, props }) => {
                   marginLeft: '500px',
                 }}
               >
-                <h1 style={{ flex: 3, flexWrap: 'wrap' }}  > TASK</h1>
+                <h1 style={{ flex: 3, flexWrap: 'wrap' }}  className={classes.h1}><b> TASK</b> </h1>
                 <Link to={'/appp/AsignTask'}>
                   <Button
                     color="primary"
@@ -223,12 +228,12 @@ const DataPlanList = ({ rest, props }) => {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell> Medical Rep Name</TableCell>
-                        <TableCell>Task Title</TableCell>
-                        <TableCell>Location</TableCell>                        
-                        <TableCell>Date</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell align="center">Action</TableCell>
+                        <TableCell><b> Medical Rep Name</b></TableCell>
+                        <TableCell><b>Task Title</b></TableCell>
+                        <TableCell><b>Location</b></TableCell>                        
+                        <TableCell><b>Date</b></TableCell>
+                        <TableCell><b>Status</b></TableCell>
+                        <TableCell align="center"><b>Action</b></TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>

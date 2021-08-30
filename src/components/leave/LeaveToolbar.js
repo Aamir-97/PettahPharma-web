@@ -21,7 +21,7 @@ import {
                   marginLeft: '400px',
         }}
       >
-        <h1 style={{ flex: 3, flexWrap: 'wrap' }} >LEAVE APPROVAL</h1>
+        <h1 style={{ flex: 3, flexWrap: 'wrap' }}  >LEAVE APPROVAL</h1>
   
       </Box>
       <Box sx={{ mt: 3 }}>

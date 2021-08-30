@@ -592,6 +592,7 @@ app.get('/totalExpenses',(req,res) => {
         }
     });
 });
+// SELECT SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS totalexpense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE expenses.status=1 AND medicalrep.manager_ID="2"
 
 app.get('/visitCount',(req,res) => {
     console.log(req.body)
@@ -974,6 +975,169 @@ app.get('/viewvisitsummary', (req, res) => {
         console.log(result);
     })
 })
+
+
+
+app.get('/totalRepExpenses',(req,res) => {
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS totalexpense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE expenses.status=1 AND medicalrep.manager_ID= ?',[manager_ID],(err, result) => {
+        if(!err){
+            res.send(result);
+            console.log(result)
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/MedicalRepCount',(req,res) => {
+    // console.log(req.body)
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT COUNT(rep_ID) AS count FROM medicalrep WHERE manager_ID =?',[manager_ID],(err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/repvisitCount',(req,res) => {
+    console.log(req.body)
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT COUNT(report_ID) AS count FROM visit_summary_report WHERE manager_ID =?',[manager_ID], (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/repfuelexpense',(req,res) => {
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE expenses.status=1  AND expenses.expense_Type="Fuel" AND medicalrep.manager_ID=? GROUP BY month',[manager_ID], (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+            // console.log(result);
+        }
+    });
+});
+// SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE expenses.status=1  AND expenses.expense_Type="Fuel" GROUP BY month
+
+app.get('/repaccommodationexpense',(req,res) => {
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE status=1  AND expense_Type="Accommodation" AND medicalrep.manager_ID=? GROUP BY month',[manager_ID], (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+            // console.log(result);
+        }
+    });
+});
+
+app.get('/repdailyexpense',(req,res) => {
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE status=1  AND expense_Type="Daily batta" AND medicalrep.manager_ID=? GROUP BY month',[manager_ID], (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+            // console.log(result);
+        }
+    });
+});
+
+app.get('/repcompleteTaskCount',(req,res) => {
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Complete" AND manager_id=?',[manager_ID], (err, result) => {
+        if(!err){
+            res.send(result);
+            console.log('result')
+            console.log(result)
+        }else{
+        console.log(err);
+        }
+    });
+});
+ 
+app.get('/reppendingTaskCount',(req,res) => {
+    const manager_ID = req.query.manager_ID;
+    console.log(manager_ID)
+    db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Pending" AND manager_id=?',[manager_ID], (err, result) => {
+        if(!err){
+            res.send(result);
+            console.log('result')
+            console.log(result)
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/reprejectTaskCount',(req,res) => {
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Reject" AND manager_id=?',[manager_ID], (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/repvisitanalysis',(req,res) => {
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(report_id) AS count FROM visit_summary_report WHERE manager_ID=? GROUP BY month',[manager_ID], (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+            // console.log(result);
+        }
+    });
+});
+
+app.get('/reppromotionVisitCount',(req,res) => {
+    console.log(req.body)
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="Promotion" AND manager_ID=?',[manager_ID], (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/repgeneralVisitCount',(req,res) => {
+    console.log(req.body)
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="General" AND manager_ID=?',[manager_ID], (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+app.get('/repfeedbackVisitCount',(req,res) => {
+    console.log(req.body)
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="Feedback" AND manager_ID=?',[manager_ID], (err, result) => {
+        if(!err){
+            res.send(result);
+        }else{
+        console.log(err);
+        }
+    });
+});
+
+
 
 app.listen(3001, () => {
     console.log("Your server is running on port 3001");

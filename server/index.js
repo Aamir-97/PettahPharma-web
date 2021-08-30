@@ -921,6 +921,17 @@ app.get('/dailyexpense',(req,res) => {
     });
 });
 
+app.get('/otherexpense',(req,res) => {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Other" GROUP BY month', (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+            // console.log(result);
+        }
+    });
+});
+ 
 app.get('/promotionVisitCount',(req,res) => {
     console.log(req.body)
 
@@ -958,7 +969,7 @@ app.get('/feedbackVisitCount',(req,res) => {
 });
 
 app.get('/viewvisitsummary', (req, res) => {
-    db.query('SELECT report_id,visit_type,date FROM visit_summary_report', [req.query.report_id], (err, result) => {
+    db.query('SELECT * FROM visit_summary_report', [req.query.report_id], (err, result) => {
         res.send(result);
         console.log(result);
     })

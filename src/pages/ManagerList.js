@@ -37,7 +37,6 @@ const ManagerList = ({ rest,props} ) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
-
     },
     paper: {
       padding: theme.spacing(2),
@@ -212,12 +211,17 @@ const ManagerList = ({ rest,props} ) => {
               <TableBody>
                 {/* {selectedRowIds.slice(0, limit).map((Row) => ( */}
                 {selectedRowIds.slice(0, limit).filter(val => {
-                  if (searchTerm === "") {
-                    return val;
-                  } else if (
-                    val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                    return val
-                  }
+                 if (searchTerm === "") {
+                  return val;
+                } 
+                else if (
+                  val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                  return val
+                }
+                // else if (
+                //   val.id.includes(searchTerm)) {
+                //   return val
+                // }
                 }).map((Row) => {
                   return (
                     <TableRow

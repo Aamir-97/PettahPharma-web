@@ -34,13 +34,21 @@ function ExpenseAnalysis() {
         setDailyexpense(response.data)
       })
     },[])
+
+    const [otherexpense,setOtherexpense]=useState([])
+    useEffect(()=>{
+      axios.get("http://localhost:3001/otherexpense").then((response)=>{
+        setOtherexpense(response.data)
+      })
+    },[])
   
   const expense1=fuelexpense.map(record=>record.expense);
   const expense2=accommodationexpense.map(record=>record.expense);
   const expense3=dailyexpense.map(record=>record.expense);
+  const expense4=otherexpense.map(record=>record.expense);
   
   const theme = useTheme();
-
+ 
   const data = {
     datasets: [
       {
@@ -48,15 +56,20 @@ function ExpenseAnalysis() {
         data: expense1,
         label: 'Fuel Expenses'
       },
-      {
-        backgroundColor: colors.teal[400],
+      { 
+        backgroundColor: colors.teal[500],
         data: expense2,
         label: 'Accommodation Expenses'
       },
       {
-        backgroundColor: colors.teal[100],
+        backgroundColor: colors.teal[300],
         data:   expense3,
-        label: 'Daily Expenses'
+        label: 'Daily Batta'
+      },
+      { 
+        backgroundColor: colors.teal[200],
+        data:   expense4,
+        label: 'Other Expenses'
       }
     ],
     labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]

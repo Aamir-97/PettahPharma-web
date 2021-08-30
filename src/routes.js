@@ -4,7 +4,7 @@ import DashboardSaleLayout from 'src/components/DashboardSaleLayout';
 import Account from 'src/pages/Account';
 import Forum from 'src/pages/Forum';
 import Forum2 from 'src/pages/Forum2';
-import VisitTypesReport from 'src/components/reports/VisitTypesReport';
+// import VisitTypesReport from 'src/components/reports/VisitTypesReport';
 import DataPlanList from 'src/pages/DataPlanList';
 import ManagerList from 'src/pages/ManagerList';
 import MedicalRepList from 'src/pages/MedicalRepList';
@@ -32,7 +32,7 @@ import LeaveInfo from 'src/pages/LeaveInfo';
 import LeaveComment from 'src/pages/LeaveComment';
 import AllownsInfo from 'src/pages/AllownsInfo';
 import AllownsComment from 'src/pages/AllownsComment';
-import Help from 'src/pages/Help';
+// import Help from 'src/pages/Help';
 // import ReportGeneration from 'src/pages/ReportGeneration';
 import MonthlyVisitReport from 'src/components/reports/MonthlyVisitReport';
 
@@ -43,7 +43,7 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: 'account', element: <Account /> },
-      { path: 'Help', element: <Help /> },
+      // { path: 'Help', element: <Help /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'ManagerList', element: <ManagerList /> },
       { path: 'MedicalRepList', element: <MedicalRepList /> },
@@ -58,7 +58,7 @@ const routes = [
       // { path: 'settings', element: <Settings /> },
       { path: 'Forum', element: <Forum /> },
       { path: 'Forum2', element: <Forum2 /> },
-      { path: 'VisitTypesReport', element: <VisitTypesReport /> },
+      // { path: 'VisitTypesReport', element: <VisitTypesReport /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

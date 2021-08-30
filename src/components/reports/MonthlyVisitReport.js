@@ -18,28 +18,14 @@ const Visits = () => {
 
   useEffect(() => {
     try {    
-      // Beck-end function
       axios.get("http://localhost:3001/viewvisitsummary",{
       }).then((response)=>{
         setVisits(response.data);
-        console.log("Hello");
           });
     } catch (e){
       console.log("error");
       console.log(e);
     }
-
-    // const getAllVisits = async () => {
-      // try {
-      //   const response = axios.get("http://localhost:3001/viewvisitsummary");
-      //   setVisits(response.data.visits);
-      //   console.log(visits);
-      //   console.log("Hello");
-      // } catch (err) {
-      //   console.log("error");
-      // }
-    // };
-    // getAllVisits();
   }, []);
 
 // const reportVisits = visits.filter(visit => visit.date === "");
@@ -60,7 +46,7 @@ const Visits = () => {
               color="primary"
               onClick={() => generatePDF(visits)}
             >
-              Generate monthly report
+              Generate Annual Visit report
             </Button>
         </div>
       </div>

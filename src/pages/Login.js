@@ -24,39 +24,11 @@ function Login() {
   const [loginpassword, setPassword] = useState("");
   const [loginStatusadmin, setLoginStatusadmin] = useState("");
   const [loginStatusmanager, setLoginStatusmanager] = useState("");
+  const [loginStatusadminexist, setLoginStatusadminexist] = useState("");
+  const [loginStatusmanagerexist, setLoginStatusmanagerexist] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
 
   
-  //  
-  //   localStorage.removeItem("email");
-  // localStorage.removeItem("password")
-
-
-  //   const Login = () => {
-  //   axios.post("http://localhost:3001/login", {
-  //     email: email,
-  //     password: password,
-  //   }).then((response)=>{
-  //     // console.log (response.data.message);
-
-  //     if (response.data.message2 == "Login admin"){
-  //       // setLoginStatus(response.data.message1);
-  //       navigate('/app/dashboard', { replace: true });
-  //       // console.log ("Wrong password");
-
-  //     } 
-  //     else if (response.data.message1 == "Login salesmanager") {
-  //       // setLoginStatus(response.data[0].email);
-  //       // setLoginStatus(response.data.message1);
-  //       console.log (response.data);
-  //       localStorage.setItem('email' , email);
-  //       localStorage.setItem('password' , password);
-  //       navigate('/appp/dashboardsale', { replace: true });
-  //       window.location.reload();
-
-  //     };
-  //   });
-  // };
   
 
   const Login = () => {
@@ -72,16 +44,10 @@ function Login() {
       console.log(response.data[0]);
 
       if (response.data.message1) {
-        // setLoginStatus(response.data[0].email);
-        // setLoginStatus(response.data.message1);
-        // localStorage.setItem('managerid', response.data[0].manager_ID);
-        // localStorage.setItem('name', response.data[0].name);
-        // localStorage.setItem('password' , password)
-        // localStorage.setItem('password' , password)
-        // navigate('/appp/dashboardsale', { replace: true });
         setLoginStatusmanager(response.data.message1);
-        // setLoginStatus(response.
-        // window.location.reload();
+      }
+      else if (response.data.message11) {
+        setLoginStatusmanagerexist(response.data.message11);
       }
       else {
        
@@ -105,6 +71,9 @@ function Login() {
       if (response.data.message2 ) {
         setLoginStatusadmin(response.data.message2);
       }
+      else if (response.data.message22) {
+        setLoginStatusadminexist(response.data.message22);
+      }
       else {
         localStorage.setItem('name', response.data[0].name);
         navigate('/app/dashboard', { replace: true });
@@ -114,9 +83,13 @@ function Login() {
 
   }
   
-  if(loginStatusadmin == "user name or password is wrong" && loginStatusmanager =="user name or password is wrong")
+  if(loginStatusadmin == "Wrong email/password combination!" && loginStatusmanager =="Wrong email/password combination!")
   {
-    var validation= "Incorrect email or password";
+    var validation= "Wrong email/password combination!";
+  }
+  else if(loginStatusadminexist == "User doesn't exist" && loginStatusmanagerexist =="User doesn't exist")
+  {
+    var validation= "User doesn't exist";
   }
 
 

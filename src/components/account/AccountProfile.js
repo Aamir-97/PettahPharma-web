@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { useEffect,useState } from 'react';
 import {
   Avatar,
   Box,
@@ -9,16 +10,34 @@ import {
   Divider,
   Typography
 } from '@material-ui/core';
-
+import axios from 'axios';
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Admin',
+  jobTitle: 'Sales Manager',
   email: 'madhusha@gmail.com',
   name: 'Madhusha Mathivannan',
 };
 
-const AccountProfile = (props) => (
-  <Card {...props}>
+
+
+const AccountProfile = (props) => {
+
+  let manager_ID = localStorage.getItem('managerid');
+  manager_ID = JSON.parse(manager_ID)
+  const [Row, setRow] = useState([]);
+useEffect(() => {
+  const fetchData = async () => {
+      const response = await axios.get('http://localhost:3001/viewmanager', {
+          params: {
+              manager_ID: manager_ID,
+          }
+      });
+      setRow(response.data[0]);
+  };
+  fetchData();
+}, []);
+  return (
+<Card {...props}>
     <CardContent>
       <Box
         sx={{
@@ -39,19 +58,19 @@ const AccountProfile = (props) => (
           gutterBottom
           variant="h3"
         >
-          {user.name}
+          {Row.name}
         </Typography>
         <Typography
-          color="textSecondary"
+          color="textPrimary"
           variant="body1"
         >
           {`${user.jobTitle}`}
         </Typography>
         <Typography
-          color="textSecondary"
+          color="textPrimary"
           variant="body1"
         >
-          {`${user.email}`}
+          {`${Row.email}`}
         </Typography>
       </Box>
     </CardContent>
@@ -66,6 +85,8 @@ const AccountProfile = (props) => (
       </Button>
     </CardActions>
   </Card>
-);
+  )
+  
+};
 
 export default AccountProfile;

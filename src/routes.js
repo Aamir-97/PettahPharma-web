@@ -4,7 +4,7 @@ import DashboardSaleLayout from 'src/components/DashboardSaleLayout';
 import Account from 'src/pages/Account';
 import Forum from 'src/pages/Forum';
 import Forum2 from 'src/pages/Forum2';
-import VisitTypesReport from 'src/components/reports/VisitTypesReport';
+// import VisitTypesReport from 'src/components/reports/VisitTypesReport';
 import DataPlanList from 'src/pages/DataPlanList';
 import ManagerList from 'src/pages/ManagerList';
 import MedicalRepList from 'src/pages/MedicalRepList';
@@ -58,7 +58,7 @@ const routes = [
       // { path: 'settings', element: <Settings /> },
       { path: 'Forum', element: <Forum /> },
       { path: 'Forum2', element: <Forum2 /> },
-      { path: 'VisitTypesReport', element: <VisitTypesReport /> },
+      // { path: 'VisitTypesReport', element: <VisitTypesReport /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

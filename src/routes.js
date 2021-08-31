@@ -32,7 +32,7 @@ import LeaveInfo from 'src/pages/LeaveInfo';
 import LeaveComment from 'src/pages/LeaveComment';
 import AllownsInfo from 'src/pages/AllownsInfo';
 import AllownsComment from 'src/pages/AllownsComment';
-import Help from 'src/pages/Help';
+// import Help from 'src/pages/Help';
 // import ReportGeneration from 'src/pages/ReportGeneration';
 import MonthlyVisitReport from 'src/components/reports/MonthlyVisitReport';
 
@@ -43,7 +43,7 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: 'account', element: <Account /> },
-      { path: 'Help', element: <Help /> },
+      // { path: 'Help', element: <Help /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'ManagerList', element: <ManagerList /> },
       { path: 'MedicalRepList', element: <MedicalRepList /> },

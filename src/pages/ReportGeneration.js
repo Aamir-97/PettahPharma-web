@@ -10,7 +10,8 @@ const generatePDF = visits => {
   const doc = new jsPDF();
 
   // define the columns we want and their titles
-  const tableColumn = ["Report ID", "Visit Type", "Date"];
+  const tableColumn = ["ID", "Visit Type", "Date", "Avg Duration", "No of Samples", "Description",
+    "Doctor", "Product", "Rep ID", "Manager ID"];
   // define an empty array of rows
   const tableRows = [];
 
@@ -24,6 +25,15 @@ const generatePDF = visits => {
       visit.report_id,
       visit.visit_type,
       year+month+day,
+      visit.avg_duration,
+      visit.no_of_sample,
+      visit.description,
+      visit.doctor_name,
+      visit.product_name,
+      visit.rep_ID,
+      visit.manager_ID,
+      // visit.manager_comment,
+
       // called date-fns to format the date on the visit
       // format(new Date(visit.date), "yyyy-MM-dd","")
     ];

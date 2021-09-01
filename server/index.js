@@ -170,6 +170,14 @@ app.get('/loginadmin', (req, res) => {
     db.query("SELECT * FROM admin WHERE email=? AND password=?",
         [email, password], (err, result) => {
             if (result.length > 0) {
+
+               
+                      res.send(result);
+                   
+            }
+            else
+            {
+
                 
                         res.send(result);
                    
@@ -177,6 +185,7 @@ app.get('/loginadmin', (req, res) => {
 
             }
             else {
+
                 res.send({ message2: "Wrong email/password combination!" });
             }
         });

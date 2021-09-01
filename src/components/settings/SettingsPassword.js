@@ -317,18 +317,22 @@ export default function SettingsPassword() {
 
   const [validation, setValidation] = useState(" ")
 
-  const addEmployee = (data) => {
+  const updatepassword = (data) => {
     console.log(data.confirm_password)
     console.log(data.oldpassword)
+
+    const fetchData1 = async () => {
     axios.get("http://localhost:3001/updatepassword",
       { params: { oldpassword: data.oldpassword, confirm_password: data.confirm_password, manager_ID: manager_ID } }).then(
-        (response) => {})
+        (response) => {} )
+        
+      }
 
-    
+    const fetchData2 = async () => {
     axios.get('http://localhost:3001/passwordvalidation', {
       params: {
         manager_ID: manager_ID,
-        confirm_password: data.confirm_password,
+        oldpassword: data.oldpassword,
       }
     }).then(
       (response) => {
@@ -341,7 +345,10 @@ export default function SettingsPassword() {
           document.getElementById("create-course-form").reset();
         }
       });
+    }
 
+    fetchData1();
+    fetchData2();
 
   };
 
@@ -370,7 +377,7 @@ export default function SettingsPassword() {
 
 
 
-        <Form id="create-course-form" onSubmit={handleSubmit(addEmployee)}>
+        <Form id="create-course-form" onSubmit={handleSubmit(updatepassword)}>
           <Card>
             <CardHeader
               subheader="Update password"

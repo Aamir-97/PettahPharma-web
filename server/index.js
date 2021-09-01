@@ -11,8 +11,9 @@ const hbs = require('nodemailer-express-handlebars');
 const sendMail = require('./mail');
 // const multer = require('multer');
 // const { name } = require('ejs');
-const bcrypt = require('bcrypt'); 
+const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const saltRounds1 = 10;
 // const bodyParser =  require('body-parser')
 // const saltRounds = 10;
 // const fileUpload = require('express-fileupload');
@@ -24,20 +25,20 @@ app.use(express.json());
 
 app.use(
     fileUpload({
-      useTempFiles: true,
-      safeFileNames: true,
-      preserveExtension: true,
-      tempFileDir: `${__dirname}/public/files/temp`
+        useTempFiles: true,
+        safeFileNames: true,
+        preserveExtension: true,
+        tempFileDir: `${__dirname}/public/files/temp`
     })
-  );
+);
 
 const db = mysql.createConnection({
     user: "root",
     host: "localhost",
     password: "",
     database: "pettahpharma",
-    multipleStatements:true
-}); 
+    multipleStatements: true
+});
 
 db.connect((err) => {
     if (err) {
@@ -78,9 +79,9 @@ let mailOptions = {
     template: 'main'
 };
 
-transporter.sendMail(mailOptions, function(err,data){
-    if (err){
-        console.log('Error Occurs',err);
+transporter.sendMail(mailOptions, function (err, data) {
+    if (err) {
+        console.log('Error Occurs', err);
     } else {
         console.log('Email Sent');
     }
@@ -90,7 +91,7 @@ app.post('/email', (req, res) => {
     const { subject, email, text } = req.body;
     log('Data: ', req.body);
 
-    sendMail(email, subject, text, function(err, data) {
+    sendMail(email, subject, text, function (err, data) {
         if (err) {
             log('ERROR: ', err);
             return res.status(500).json({ message: err.message || 'Internal Error' });
@@ -145,16 +146,15 @@ app.get('/loginsal', (req, res) => {
                 // res.send(result);
                 bcrypt.compare(password, result[0].password, (error, response) => {
                     if (response) {
-                    //   req.session.user = result;
-                    //   console.log(req.session.user);
-                      res.send(result);
+                        //   req.session.user = result;
+                        //   console.log(req.session.user);
+                        res.send(result);
                     } else {
-                      res.send({ message1: "Wrong email/password combination!" });
+                        res.send({ message1: "Wrong email/password combination!" });
                     }
-                  });
+                });
             }
-            else
-            {
+            else {
                 res.send({ message11: "User doesn't exist" });
             }
         });
@@ -170,12 +170,22 @@ app.get('/loginadmin', (req, res) => {
     db.query("SELECT * FROM admin WHERE email=? AND password=?",
         [email, password], (err, result) => {
             if (result.length > 0) {
+
                
                       res.send(result);
                    
             }
             else
             {
+
+                
+                        res.send(result);
+                   
+              
+
+            }
+            else {
+
                 res.send({ message2: "Wrong email/password combination!" });
             }
         });
@@ -198,12 +208,12 @@ app.post('/createadmin', (req, res) => {
     console.log(req.body)
     const display_photo = req.body.display_photo;
     const name = req.body.name;
-    const contact_no =req.body.contact_no;
+    const contact_no = req.body.contact_no;
     const email = req.body.email;
     const password = req.body.password;
 
     db.query("INSERT INTO admin (display_photo,name,contact_no,email,password) VALUES (?,?,?,?,?)",
-        [display_photo,name,contact_no,email, password], (err, _results) => {
+        [display_photo, name, contact_no, email, password], (err, _results) => {
             if (err) {
                 console.log(err);
             } else {
@@ -213,26 +223,26 @@ app.post('/createadmin', (req, res) => {
 
 });
 
-app.get('/adminprofile',(_req,res)=>{
-    db.query('SELECT * FROM admin ',(err,result,_fields)=>{
-        if(!err){
+app.get('/adminprofile', (_req, res) => {
+    db.query('SELECT * FROM admin ', (err, result, _fields) => {
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
-});  
-    // db.query("SELECT * FROM admin WHERE email=? AND password=?",
-    //     [email,password],(err,result)=>{
-    //         if(err){
-    //             res.send({err:err})
-    //         }
-    //           if(result.length > 0){
-    //             res.send({message1 : "Login Successful" });
-    //           } else{
-    //             res.send({message2 : "Wrong Username Or password"});
-    //         }
-    // });
+});
+// db.query("SELECT * FROM admin WHERE email=? AND password=?",
+//     [email,password],(err,result)=>{
+//         if(err){
+//             res.send({err:err})
+//         }
+//           if(result.length > 0){
+//             res.send({message1 : "Login Successful" });
+//           } else{
+//             res.send({message2 : "Wrong Username Or password"});
+//         }
+// });
 
 app.post('/createmanager', (req, res) => {
     console.log(req.body)
@@ -244,22 +254,22 @@ app.post('/createmanager', (req, res) => {
     const area = req.body.area;
     const password = req.body.password;
 
-bcrypt.hash(password, saltRounds, (err, hash) => {
-    db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password) VALUES (?,?,?,?,?,?)",
-        [manager_ID, name, email, phone_no, area, hash], (err, _results) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send("sales manager created");
-            }
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+        db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password) VALUES (?,?,?,?,?,?)",
+            [manager_ID, name, email, phone_no, area, hash], (err, _results) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.send("sales manager created");
+                }
 
-        });
+            });
     });
 });
-     
-app.get('/viewmanagerlist',(_req,res)=>{
-    db.query('SELECT * FROM salesmanager ',(err,result,_fields)=>{
-        if(!err){
+
+app.get('/viewmanagerlist', (_req, res) => {
+    db.query('SELECT * FROM salesmanager ', (err, result, _fields) => {
+        if (!err) {
             res.send(result);
         } else {
             console.log(err);
@@ -309,42 +319,42 @@ app.get('/viewmanager', (req, res) => {
         console.log(result);
     })
 })
- 
+
 app.post('/createproduct', (req, res) => {
     console.log(req.body)
     const product_id = req.body.product_id;
-    const display_photo= req.body.display_photo;
+    const display_photo = req.body.display_photo;
     const name = req.body.name;
     const volume = req.body.volume;
     const price = req.body.price;
     const description = req.body.description;
-     
+
     db.query("INSERT INTO product (product_id,display_photo,name,volume,price,description) VALUES (?,?,?,?,?,?)",
-    [product_id,display_photo,name,volume,price,description],(err,_results)=>{
-        if(err){
-            console.log(err);
-        } else{
-            res.send("product created");
-        }
-    });
+        [product_id, display_photo, name, volume, price, description], (err, _results) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send("product created");
+            }
+        });
 });
 
 app.put('/updateproduct', (req, res) => {
     const product_id = req.body.product_id;
-    const display_photo= req.body.image;
+    const display_photo = req.body.image;
     const name = req.body.name;
     const volume = req.body.volume;
     const price = req.body.price;
     const description = req.body.description;
 
-    db.query("UPDATE product SET display_photo=?,name=?,volume=?,price=?,description=? WHERE product_id = ?", 
-    [display_photo,name,volume,price,description,product_id], (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-    });
+    db.query("UPDATE product SET display_photo=?,name=?,volume=?,price=?,description=? WHERE product_id = ?",
+        [display_photo, name, volume, price, description, product_id], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        });
 });
 
 app.get('/viewproduct', (req, res) => {
@@ -354,16 +364,16 @@ app.get('/viewproduct', (req, res) => {
     })
 })
 
-app.get('/viewproductlist',(_req,res)=>{
-    db.query('SELECT * FROM product ',(err,result,_fields)=>{
-        if(!err){
+app.get('/viewproductlist', (_req, res) => {
+    db.query('SELECT * FROM product ', (err, result, _fields) => {
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
-  
+
 app.get("/deleteproduct", (req, res) => {
     const product_id = req.query.product_id;
     db.query("DELETE FROM product WHERE product_id=?",
@@ -378,7 +388,7 @@ app.get("/deleteproduct", (req, res) => {
 
     );
 });
- 
+
 app.post('/createmedicalrep', (req, res) => {
     console.log(req.body)
     const rep_ID = req.body.rep_ID;
@@ -393,21 +403,21 @@ app.post('/createmedicalrep', (req, res) => {
 
 
     db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,area,password,manager_ID) VALUES (?,?,?,?,?,?,?)",
-    [rep_ID,name,email,phone_no,area,password,manager_ID],(err,_results)=>{
-        if(err){
-            console.log(err);
-        } else{
-            res.send("medical rep created");
-        }
-    });  
+        [rep_ID, name, email, phone_no, area, password, manager_ID], (err, _results) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send("medical rep created");
+            }
+        });
 });
 
-app.get('/viewmedicalreplist',(_req,res)=>{
-    db.query('SELECT * FROM medicalrep ',(err,result,_fields)=>{
-        if(!err){
+app.get('/viewmedicalreplist', (_req, res) => {
+    db.query('SELECT * FROM medicalrep ', (err, result, _fields) => {
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
@@ -433,7 +443,7 @@ app.get("/deletemedicalrep", (req, res) => {
 
     );
 });
- 
+
 app.put('/updatemedicalrep', (req, res) => {
     const rep_ID = req.body.rep_ID;
     const name = req.body.name;
@@ -511,38 +521,38 @@ app.get('/getmanager', (req, res) => {
     })
 })
 
-app.get('/managerCount',(req,res) => {
+app.get('/managerCount', (req, res) => {
     console.log(req.body)
-    
+
     db.query('SELECT COUNT(manager_ID) AS count FROM salesmanager', (err, result) => {
-    if(!err){
-        res.send(result);
-    }else{
-        console.log(err);
-    }
-    });
-});
-
-app.get('/repCount',(req,res) => {
-    console.log(req.body)
-    
-    db.query('SELECT COUNT(rep_ID) AS count FROM medicalrep', (err, result) => {
-    if(!err){
-        res.send(result);
-    }else{
-        console.log(err);
-    }
-    });
-});
-
-app.get('/employeeCount',(req,res) => {
-    console.log(req.body)
-
-    db.query('SELECT SUM(tbl.count) AS totalcount FROM (SELECT COUNT(manager_ID) AS count FROM salesmanager UNION ALL SELECT COUNT(rep_ID) AS count FROM medicalrep)tbl',(err, result) => {
-        if(!err){
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+app.get('/repCount', (req, res) => {
+    console.log(req.body)
+
+    db.query('SELECT COUNT(rep_ID) AS count FROM medicalrep', (err, result) => {
+        if (!err) {
+            res.send(result);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+app.get('/employeeCount', (req, res) => {
+    console.log(req.body)
+
+    db.query('SELECT SUM(tbl.count) AS totalcount FROM (SELECT COUNT(manager_ID) AS count FROM salesmanager UNION ALL SELECT COUNT(rep_ID) AS count FROM medicalrep)tbl', (err, result) => {
+        if (!err) {
+            res.send(result);
+        } else {
+            console.log(err);
         }
     });
 });
@@ -564,83 +574,83 @@ app.post('/assigntask', (req, res) => {
             } else {
                 res.send("Assign task");
             }
-    });
+        });
 });
 
-app.get('/productCount',(req,res) => {
-        console.log(req.body)
-    
-        db.query('SELECT COUNT(product_id) AS count FROM product', (err, result) => {
-        if(!err){
+app.get('/productCount', (req, res) => {
+    console.log(req.body)
+
+    db.query('SELECT COUNT(product_id) AS count FROM product', (err, result) => {
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/expenseCount',(req,res) => {
+app.get('/expenseCount', (req, res) => {
     console.log(req.body)
 
     db.query('SELECT COUNT(expense_ID) AS count FROM expenses', (err, result) => {
-        if(!err){
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/totalExpenses',(req,res) => {
+app.get('/totalExpenses', (req, res) => {
     console.log(req.body)
 
-    db.query('SELECT SUM(CAST(amount AS DECIMAL(10,2))) AS totalexpense FROM expenses WHERE status=1',(err, result) => {
-        if(!err){
+    db.query('SELECT SUM(CAST(amount AS DECIMAL(10,2))) AS totalexpense FROM expenses WHERE status=1', (err, result) => {
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 // SELECT SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS totalexpense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE expenses.status=1 AND medicalrep.manager_ID="2"
 
-app.get('/visitCount',(req,res) => {
+app.get('/visitCount', (req, res) => {
     console.log(req.body)
 
     db.query('SELECT COUNT(report_ID) AS count FROM visit_summary_report', (err, result) => {
-        if(!err){
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.post('/upload', function(req, res) {
+app.post('/upload', function (req, res) {
     let sampleFile;
     let uploadPath;
-  
+
     if (!req.files || Object.keys(req.files).length === 0) {
-      return res.status(400).send('No files were uploaded.');
+        return res.status(400).send('No files were uploaded.');
     }
-  
+
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     sampleFile = req.files.sampleFile;
     uploadPath = __dirname + '/somewhere/on/your/server/' + sampleFile.name;
-  
+
     // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(uploadPath, function(err) {
-      if (err)
-        return res.status(500).send(err);
-  
-      res.send('File uploaded!');
+    sampleFile.mv(uploadPath, function (err) {
+        if (err)
+            return res.status(500).send(err);
+
+        res.send('File uploaded!');
     });
-  });
+});
 
 // app.put("/update/:manager_ID",(req,res)=>{
 //     const manager_ID = req.body.manager_ID;
 //     const area = req.body.area;
-  
+
 //     db.query('UPDATE salesmanager SET area=? WHERE manager_ID=?',[area,manager_ID],(err,result)=>{
 //         if(!err){
 //             res.send(result);
@@ -654,7 +664,7 @@ app.post('/upload', function(req, res) {
 
 app.get('/getrep', (req, res) => {
     console.log(req.query.date);
-    db.query('SELECT medicalrep.name, medicalrep.rep_ID  FROM medicalrep WHERE medicalrep.rep_ID NOT IN (SELECT leaves.rep_ID FROM leaves WHERE start_Date= ? ) AND medicalrep.manager_ID= ? AND medicalrep.rep_ID NOT IN (SELECT task.rep_ID FROM task WHERE task.date= ? AND (task.session= ? OR task.session= ? ))', [req.query.date,req.query.manager_ID,req.query.date,req.query.session,req.query.fullday], (err, result) => {
+    db.query('SELECT medicalrep.name, medicalrep.rep_ID  FROM medicalrep WHERE medicalrep.rep_ID NOT IN (SELECT leaves.rep_ID FROM leaves WHERE start_Date= ? ) AND medicalrep.manager_ID= ? AND medicalrep.rep_ID NOT IN (SELECT task.rep_ID FROM task WHERE task.date= ? AND (task.session= ? OR task.session= ? ))', [req.query.date, req.query.manager_ID, req.query.date, req.query.session, req.query.fullday], (err, result) => {
         res.send(result);
         console.log('result');
         console.log(result);
@@ -677,15 +687,15 @@ app.get("/delete", (req, res) => {
     );
 });
 
-app.get('/getsummary',(req,res)=>{
+app.get('/getsummary', (req, res) => {
     console.log(req.query.manager_ID);
-    db.query('SELECT visit_summary_report.report_id,visit_summary_report.visit_type,visit_summary_report.date,visit_summary_report.avg_duration,visit_summary_report.doctor_name,medicalrep.name FROM visit_summary_report INNER JOIN medicalrep ON visit_summary_report.rep_ID = medicalrep.rep_ID WHERE visit_summary_report.manager_ID = ? ORDER BY visit_summary_report.date DESC', [req.query.manager_ID],(err,result,fields)=>{
-        if(!err){
+    db.query('SELECT visit_summary_report.report_id,visit_summary_report.visit_type,visit_summary_report.date,visit_summary_report.avg_duration,visit_summary_report.doctor_name,medicalrep.name FROM visit_summary_report INNER JOIN medicalrep ON visit_summary_report.rep_ID = medicalrep.rep_ID WHERE visit_summary_report.manager_ID = ? ORDER BY visit_summary_report.date DESC', [req.query.manager_ID], (err, result, fields) => {
+        if (!err) {
             res.send(result);
             console.log(result);
         }
         else
-        console.log(err);
+            console.log(err);
     })
 })
 
@@ -716,7 +726,7 @@ app.put('/addcomment', (req, res) => {
     const manager_comment = req.body.manager_comment;
 
     db.query("UPDATE visit_summary_report SET manager_comment = ? WHERE  report_id=?",
-        [manager_comment,report_id],
+        [manager_comment, report_id],
         (err, result) => {
             if (err) {
                 console.log(err);
@@ -728,25 +738,25 @@ app.put('/addcomment', (req, res) => {
 });
 
 
-app.get('/getleave',(req,res)=>{
-    db.query('SELECT leaves.status,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,medicalrep.name AS repname FROM medicalrep INNER JOIN leaves ON medicalrep.rep_ID = leaves.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID],(err,result,fields)=>{
-        if(!err){
+app.get('/getleave', (req, res) => {
+    db.query('SELECT leaves.status,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,medicalrep.name AS repname FROM medicalrep INNER JOIN leaves ON medicalrep.rep_ID = leaves.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID], (err, result, fields) => {
+        if (!err) {
             res.send(result);
             console.log(result);
         }
         else
-        console.log(err);
+            console.log(err);
     })
 })
 
-app.get('/viewLeave',(req,res)=>{
-    db.query('SELECT leaves.status,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,leaves.description,leaves.salesmanager_comment,medicalrep.name AS repname FROM leaves INNER JOIN medicalrep ON leaves.rep_ID = medicalrep.rep_ID WHERE leaves.leave_ID = ?', [req.query.leave_ID],(err,result,fields)=>{
-        if(!err){
+app.get('/viewLeave', (req, res) => {
+    db.query('SELECT leaves.status,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,leaves.description,leaves.salesmanager_comment,medicalrep.name AS repname FROM leaves INNER JOIN medicalrep ON leaves.rep_ID = medicalrep.rep_ID WHERE leaves.leave_ID = ?', [req.query.leave_ID], (err, result, fields) => {
+        if (!err) {
             res.send(result);
             console.log(result);
         }
         else
-        console.log(err);
+            console.log(err);
     })
 });
 
@@ -755,7 +765,7 @@ app.put('/addleavecomment', (req, res) => {
     const salesmanager_comment = req.body.salesmanager_comment;
 
     db.query("UPDATE leaves SET salesmanager_comment = ? WHERE  leave_ID=?",
-        [salesmanager_comment,leave_ID],
+        [salesmanager_comment, leave_ID],
         (err, result) => {
             if (err) {
                 console.log(err);
@@ -765,79 +775,79 @@ app.put('/addleavecomment', (req, res) => {
         });
 });
 
-app.get('/taskanalysis',(req,res) => {
+app.get('/taskanalysis', (req, res) => {
     db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(task_id) AS count FROM task WHERE status="Complete" GROUP BY month', (err, result) => {
-        if(err) {
+        if (err) {
             console.log(err)
-        }else {
+        } else {
             res.send(result);
             // console.log(result);
         }
     });
 });
 
-app.get('/completeTaskCount',(req,res) => {
+app.get('/completeTaskCount', (req, res) => {
     console.log(req.body)
 
     db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Complete"', (err, result) => {
-        if(!err){
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
- 
-app.get('/pendingTaskCount',(req,res) => {
+
+app.get('/pendingTaskCount', (req, res) => {
     console.log(req.body)
 
     db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Pending"', (err, result) => {
-        if(!err){
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/rejectTaskCount',(req,res) => {
+app.get('/rejectTaskCount', (req, res) => {
     console.log(req.body)
 
     db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Reject"', (err, result) => {
-        if(!err){
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
- 
-app.get('/visitanalysis',(req,res) => {
+
+app.get('/visitanalysis', (req, res) => {
     db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(report_id) AS count FROM visit_summary_report GROUP BY month', (err, result) => {
-        if(err) {
+        if (err) {
             console.log(err)
-        }else {
+        } else {
             res.send(result);
             // console.log(result);
         }
     });
 });
 
-app.get('/TaskReport',(req,res) => {
+app.get('/TaskReport', (req, res) => {
     db.query('SELECT task_id, title,location,date,description,re_note,manager_ID,rep_ID FROM task WHERE EXTRACT(MONTH FROM o_date) = MONTH(CURRENT_TIMESTAMP) AND status="Complete"', (err, result) => {
-        if(err) {
+        if (err) {
             console.log(err)
-        }else {
-            res.send(result);   
+        } else {
+            res.send(result);
         }
     });
-  });
+});
 app.put('/addstatus', (req, res) => {
     const status = req.body.status;
     const leave_ID = req.body.leave_ID;
 
     db.query("UPDATE leaves SET status = ? WHERE  leave_ID=?",
-        [status,leave_ID],
+        [status, leave_ID],
         (err, result) => {
             if (err) {
                 console.log(err);
@@ -847,34 +857,34 @@ app.put('/addstatus', (req, res) => {
         });
 });
 
-app.get('/getexpense',(req,res)=>{
-    db.query('SELECT expenses.expense_ID,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,medicalrep.name AS repname FROM medicalrep INNER JOIN expenses ON medicalrep.rep_ID = expenses.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID],(err,result,fields)=>{
-        if(!err){
+app.get('/getexpense', (req, res) => {
+    db.query('SELECT expenses.expense_ID,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,medicalrep.name AS repname FROM medicalrep INNER JOIN expenses ON medicalrep.rep_ID = expenses.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID], (err, result, fields) => {
+        if (!err) {
             res.send(result);
             console.log(result);
         }
         else
-        console.log(err);
+            console.log(err);
     })
 })
 
-app.get('/viewexpense',(req,res)=>{
-    db.query('SELECT expenses.bills,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,expenses.description,expenses.salesmanager_comment,medicalrep.name AS repname FROM expenses INNER JOIN medicalrep ON expenses.rep_ID = medicalrep.rep_ID WHERE expenses.expense_ID = ?', [req.query.expense_ID],(err,result,fields)=>{
-        if(!err){
+app.get('/viewexpense', (req, res) => {
+    db.query('SELECT expenses.bills,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,expenses.description,expenses.salesmanager_comment,medicalrep.name AS repname FROM expenses INNER JOIN medicalrep ON expenses.rep_ID = medicalrep.rep_ID WHERE expenses.expense_ID = ?', [req.query.expense_ID], (err, result, fields) => {
+        if (!err) {
             res.send(result);
             console.log(result);
         }
         else
-        console.log(err);
+            console.log(err);
     })
 });
- 
+
 app.put('/addexpensecomment', (req, res) => {
     const expense_ID = req.body.expense_ID;
     const salesmanager_comment = req.body.salesmanager_comment;
 
     db.query("UPDATE expenses SET salesmanager_comment = ? WHERE  expense_ID=?",
-        [salesmanager_comment,expense_ID],
+        [salesmanager_comment, expense_ID],
         (err, result) => {
             if (err) {
                 console.log(err);
@@ -889,7 +899,7 @@ app.put('/addexpensestatus', (req, res) => {
     const expense_ID = req.body.expense_ID;
 
     db.query("UPDATE expenses SET status = ? WHERE  expense_ID=?",
-        [status,expense_ID],
+        [status, expense_ID],
         (err, result) => {
             if (err) {
                 console.log(err);
@@ -899,82 +909,82 @@ app.put('/addexpensestatus', (req, res) => {
         });
 });
 
-app.get('/fuelexpense',(req,res) => {
+app.get('/fuelexpense', (req, res) => {
     db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Fuel" GROUP BY month', (err, result) => {
-        if(err) {
+        if (err) {
             console.log(err)
-        }else {
+        } else {
             res.send(result);
             // console.log(result);
         }
     });
 });
 
-app.get('/accommodationexpense',(req,res) => {
+app.get('/accommodationexpense', (req, res) => {
     db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Accommodation" GROUP BY month', (err, result) => {
-        if(err) {
+        if (err) {
             console.log(err)
-        }else {
+        } else {
             res.send(result);
             // console.log(result);
         }
     });
 });
 
-app.get('/dailyexpense',(req,res) => {
+app.get('/dailyexpense', (req, res) => {
     db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Daily batta" GROUP BY month', (err, result) => {
-        if(err) {
+        if (err) {
             console.log(err)
-        }else {
+        } else {
             res.send(result);
             // console.log(result);
         }
     });
 });
 
-app.get('/otherexpense',(req,res) => {
+app.get('/otherexpense', (req, res) => {
     db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Other" GROUP BY month', (err, result) => {
-        if(err) {
+        if (err) {
             console.log(err)
-        }else {
+        } else {
             res.send(result);
             // console.log(result);
         }
     });
 });
- 
-app.get('/promotionVisitCount',(req,res) => {
+
+app.get('/promotionVisitCount', (req, res) => {
     console.log(req.body)
 
     db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="Promotion"', (err, result) => {
-        if(!err){
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/generalVisitCount',(req,res) => {
+app.get('/generalVisitCount', (req, res) => {
     console.log(req.body)
 
     db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="General"', (err, result) => {
-        if(!err){
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/feedbackVisitCount',(req,res) => {
+app.get('/feedbackVisitCount', (req, res) => {
     console.log(req.body)
 
     db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="Feedback"', (err, result) => {
-        if(!err){
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
@@ -988,48 +998,48 @@ app.get('/viewvisitsummary', (req, res) => {
 
 
 
-app.get('/totalRepExpenses',(req,res) => {
+app.get('/totalRepExpenses', (req, res) => {
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS totalexpense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE expenses.status=1 AND medicalrep.manager_ID= ?',[manager_ID],(err, result) => {
-        if(!err){
+    db.query('SELECT SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS totalexpense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE expenses.status=1 AND medicalrep.manager_ID= ?', [manager_ID], (err, result) => {
+        if (!err) {
             res.send(result);
             console.log(result)
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/MedicalRepCount',(req,res) => {
+app.get('/MedicalRepCount', (req, res) => {
     // console.log(req.body)
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT COUNT(rep_ID) AS count FROM medicalrep WHERE manager_ID =?',[manager_ID],(err, result) => {
-        if(!err){
+    db.query('SELECT COUNT(rep_ID) AS count FROM medicalrep WHERE manager_ID =?', [manager_ID], (err, result) => {
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/repvisitCount',(req,res) => {
+app.get('/repvisitCount', (req, res) => {
     console.log(req.body)
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT COUNT(report_ID) AS count FROM visit_summary_report WHERE manager_ID =?',[manager_ID], (err, result) => {
-        if(!err){
+    db.query('SELECT COUNT(report_ID) AS count FROM visit_summary_report WHERE manager_ID =?', [manager_ID], (err, result) => {
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/repfuelexpense',(req,res) => {
+app.get('/repfuelexpense', (req, res) => {
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE expenses.status=1  AND expenses.expense_Type="Fuel" AND medicalrep.manager_ID=? GROUP BY month',[manager_ID], (err, result) => {
-        if(err) {
+    db.query('SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE expenses.status=1  AND expenses.expense_Type="Fuel" AND medicalrep.manager_ID=? GROUP BY month', [manager_ID], (err, result) => {
+        if (err) {
             console.log(err)
-        }else {
+        } else {
             res.send(result);
             // console.log(result);
         }
@@ -1037,112 +1047,112 @@ app.get('/repfuelexpense',(req,res) => {
 });
 // SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE expenses.status=1  AND expenses.expense_Type="Fuel" GROUP BY month
 
-app.get('/repaccommodationexpense',(req,res) => {
+app.get('/repaccommodationexpense', (req, res) => {
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE status=1  AND expense_Type="Accommodation" AND medicalrep.manager_ID=? GROUP BY month',[manager_ID], (err, result) => {
-        if(err) {
+    db.query('SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE status=1  AND expense_Type="Accommodation" AND medicalrep.manager_ID=? GROUP BY month', [manager_ID], (err, result) => {
+        if (err) {
             console.log(err)
-        }else {
+        } else {
             res.send(result);
             // console.log(result);
         }
     });
 });
 
-app.get('/repdailyexpense',(req,res) => {
+app.get('/repdailyexpense', (req, res) => {
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE status=1  AND expense_Type="Daily batta" AND medicalrep.manager_ID=? GROUP BY month',[manager_ID], (err, result) => {
-        if(err) {
+    db.query('SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE status=1  AND expense_Type="Daily batta" AND medicalrep.manager_ID=? GROUP BY month', [manager_ID], (err, result) => {
+        if (err) {
             console.log(err)
-        }else {
+        } else {
             res.send(result);
             // console.log(result);
         }
     });
 });
 
-app.get('/repcompleteTaskCount',(req,res) => {
+app.get('/repcompleteTaskCount', (req, res) => {
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Complete" AND manager_id=?',[manager_ID], (err, result) => {
-        if(!err){
+    db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Complete" AND manager_id=?', [manager_ID], (err, result) => {
+        if (!err) {
             res.send(result);
             console.log('result')
             console.log(result)
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
- 
-app.get('/reppendingTaskCount',(req,res) => {
+
+app.get('/reppendingTaskCount', (req, res) => {
     const manager_ID = req.query.manager_ID;
     console.log(manager_ID)
-    db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Pending" AND manager_id=?',[manager_ID], (err, result) => {
-        if(!err){
+    db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Pending" AND manager_id=?', [manager_ID], (err, result) => {
+        if (!err) {
             res.send(result);
             console.log('result')
             console.log(result)
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/reprejectTaskCount',(req,res) => {
+app.get('/reprejectTaskCount', (req, res) => {
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Reject" AND manager_id=?',[manager_ID], (err, result) => {
-        if(!err){
+    db.query('SELECT COUNT(task_id) AS count FROM task WHERE status="Reject" AND manager_id=?', [manager_ID], (err, result) => {
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/repvisitanalysis',(req,res) => {
+app.get('/repvisitanalysis', (req, res) => {
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(report_id) AS count FROM visit_summary_report WHERE manager_ID=? GROUP BY month',[manager_ID], (err, result) => {
-        if(err) {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(report_id) AS count FROM visit_summary_report WHERE manager_ID=? GROUP BY month', [manager_ID], (err, result) => {
+        if (err) {
             console.log(err)
-        }else {
+        } else {
             res.send(result);
             // console.log(result);
         }
     });
 });
 
-app.get('/reppromotionVisitCount',(req,res) => {
+app.get('/reppromotionVisitCount', (req, res) => {
     console.log(req.body)
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="Promotion" AND manager_ID=?',[manager_ID], (err, result) => {
-        if(!err){
+    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="Promotion" AND manager_ID=?', [manager_ID], (err, result) => {
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/repgeneralVisitCount',(req,res) => {
+app.get('/repgeneralVisitCount', (req, res) => {
     console.log(req.body)
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="General" AND manager_ID=?',[manager_ID], (err, result) => {
-        if(!err){
+    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="General" AND manager_ID=?', [manager_ID], (err, result) => {
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
 
-app.get('/repfeedbackVisitCount',(req,res) => {
+app.get('/repfeedbackVisitCount', (req, res) => {
     console.log(req.body)
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="Feedback" AND manager_ID=?',[manager_ID], (err, result) => {
-        if(!err){
+    db.query('SELECT COUNT(report_id) AS count FROM visit_summary_report WHERE visit_type="Feedback" AND manager_ID=?', [manager_ID], (err, result) => {
+        if (!err) {
             res.send(result);
-        }else{
-        console.log(err);
+        } else {
+            console.log(err);
         }
     });
 });
@@ -1151,36 +1161,39 @@ app.get('/updatepassword', (req, res) => {
     const password = req.query.oldpassword;
     const confirm_password = req.query.confirm_password;
     const manager_ID = req.query.manager_ID;
-    // const hashpassword = bcrypt.hash(password, saltRounds);
-    // const hashconfirm_password = bcrypt.hash(confirm_password, saltRounds);
-    //  bcrypt.hash(password, saltRounds, (err, hashpassword) => {
-        bcrypt.hash(confirm_password, saltRounds, (err,hashconfirm_password) => {
-    db.query("UPDATE salesmanager SET password = ? WHERE manager_ID=?",
-        [hashconfirm_password, manager_ID],
-        (err, result) => {
-            
-        });
-    // });
-});
+
+    bcrypt.hash(confirm_password, saltRounds1, (err, hashconfirm_password) => {
+        db.query("UPDATE salesmanager SET password = ? WHERE manager_ID=?",
+            [hashconfirm_password, manager_ID],
+            (err, result) => {
+
+            });
+        // });
+    });
 });
 
 app.get('/passwordvalidation', (req, res) => {
-    const confirm_password = req.query.confirm_password;
+    const oldpassword = req.query.oldpassword;
     const manager_ID = req.query.manager_ID;
-
-    bcrypt.hash(confirm_password, saltRounds, (err, hash) => {
-    db.query("SELECT * FROM salesmanager  WHERE manager_ID=? AND password=?",
-        [manager_ID,hash],
-        (err, result) => {
-            if (result.length > 0) {
-                res.send({ message: "successfully password changed" });               
-            }
-            else
-            {              
-                res.send({ message: "The current password is wrong. " });
-            }
-        });
-    });
+    
+    // bcrypt.hash(oldpassword, saltRounds, (err, hasholdpassword) => {
+        db.query("SELECT * FROM salesmanager  WHERE manager_ID=? ",
+            [manager_ID],
+            (err, result) => {
+                if (result.length > 0) {
+                    bcrypt.compare(oldpassword, result[0].password, (error, response) => {
+                        if (response) {
+                            //   req.session.user = result;
+                            //   console.log(req.session.user);
+                            res.send({ message: "successfully password changed" });
+                        } else {
+                            res.send({ message: "The current password is wrong. " });
+                        }
+                    });
+                    
+                }
+            });
+    // });
 });
 
 // db.query("SELECT * FROM admin WHERE email=? AND password=?",

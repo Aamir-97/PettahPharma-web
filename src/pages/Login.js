@@ -87,10 +87,10 @@ function Login() {
   {
     var validation= "Wrong email/password combination!";
   }
-  else if(loginStatusadminexist == "User doesn't exist" && loginStatusmanagerexist =="User doesn't exist")
-  {
-    var validation= "User doesn't exist";
-  }
+  // else if(loginStatusadminexist == "User doesn't exist" && loginStatusmanagerexist =="User doesn't exist")
+  // {
+  //   var validation= "User doesn't exist";
+  // }
 
 
   return (

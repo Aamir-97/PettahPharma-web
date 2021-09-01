@@ -170,20 +170,13 @@ app.get('/loginadmin', (req, res) => {
     db.query("SELECT * FROM admin WHERE email=? AND password=?",
         [email, password], (err, result) => {
             if (result.length > 0) {
-                bcrypt.compare(password, result[0].password, (error, response) => {
-                    if (response) {
-                    //   req.session.user = result;
-                    //   console.log(req.session.user);
+               
                       res.send(result);
-                    } else {
-                      res.send({ message2: "Wrong email/password combination!" });
-                    }
-                  });
-                
+                   
             }
             else
             {
-                res.send({ message22: "User doesn't exist" });
+                res.send({ message2: "Wrong email/password combination!" });
             }
         });
 });

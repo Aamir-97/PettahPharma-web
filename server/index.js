@@ -138,24 +138,34 @@ app.get('/getManagerid', (req, res) => {
 app.get('/loginsal', (req, res) => {
     const email = req.query.email;
     const password = req.query.password;
-    db.query("SELECT * FROM salesmanager WHERE email=? ",
-        [email], (err, result) => {
+    db.query("SELECT * FROM salesmanager WHERE email=? AND password=? ",
+        [email,password], (err, result) => {
+            // if (result.length > 0) {
+            //     // res.send({ message1: "Login salesmanager" },{result});
+            //     // array=[...result]
+            //     // res.send(result);
+            //     bcrypt.compare(password, result[0].password, (error, response) => {
+            //         if (response) {
+            //             //   req.session.user = result;
+            //             //   console.log(req.session.user);
+            //             res.send(result);
+            //         } else {
+            //             res.send({ message1: "Wrong email/password combination!" });
+            //         }
+            //     });
+            // }
+            // else {
+            //     res.send({ message11: "User doesn't exist" });
+            // }
             if (result.length > 0) {
-                // res.send({ message1: "Login salesmanager" },{result});
-                // array=[...result]
-                // res.send(result);
-                bcrypt.compare(password, result[0].password, (error, response) => {
-                    if (response) {
-                        //   req.session.user = result;
-                        //   console.log(req.session.user);
-                        res.send(result);
-                    } else {
-                        res.send({ message1: "Wrong email/password combination!" });
-                    }
-                });
+
+
+                res.send(result);
+
             }
             else {
-                res.send({ message11: "User doesn't exist" });
+
+                res.send({ message1: "Wrong email/password combination!" });
             }
         });
 
@@ -171,9 +181,9 @@ app.get('/loginadmin', (req, res) => {
         [email, password], (err, result) => {
             if (result.length > 0) {
 
-               
-                      res.send(result);
-                   
+
+                res.send(result);
+
             }
             else {
 
@@ -245,17 +255,17 @@ app.post('/createmanager', (req, res) => {
     const area = req.body.area;
     const password = req.body.password;
 
-    bcrypt.hash(password, saltRounds, (err, hash) => {
-        db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password) VALUES (?,?,?,?,?,?)",
-            [manager_ID, name, email, phone_no, area, hash], (err, _results) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.send("sales manager created");
-                }
+    // bcrypt.hash(password, saltRounds, (err, hash) => {
+    db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password) VALUES (?,?,?,?,?,?)",
+        [manager_ID, name, email, phone_no, area, password], (err, _results) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send("sales manager created");
+            }
 
-            });
-    });
+        });
+    // });
 });
 
 app.get('/viewmanagerlist', (_req, res) => {
@@ -1153,53 +1163,44 @@ app.get('/updatepassword', (req, res) => {
     const confirm_password = req.query.confirm_password;
     const manager_ID = req.query.manager_ID;
 
-    bcrypt.hash(confirm_password, saltRounds1, (err, hashconfirm_password) => {
-        db.query("UPDATE salesmanager SET password = ? WHERE manager_ID=?",
-            [hashconfirm_password, manager_ID],
-            (err, result) => {
+    // bcrypt.hash(confirm_password, saltRounds1, (err, hashconfirm_password) => {
+    db.query("UPDATE salesmanager SET password = ? WHERE manager_ID=? AND password=?",
+        [confirm_password, manager_ID, password],
+        (err, result) => {
 
-            });
-        // });
-    });
-});
-
-app.get('/passwordvalidation', (req, res) => {
-    const oldpassword = req.query.oldpassword;
-    const manager_ID = req.query.manager_ID;
-    
-    // bcrypt.hash(oldpassword, saltRounds, (err, hasholdpassword) => {
-        db.query("SELECT * FROM salesmanager  WHERE manager_ID=? ",
-            [manager_ID],
-            (err, result) => {
-                if (result.length > 0) {
-                    bcrypt.compare(oldpassword, result[0].password, (error, response) => {
-                        if (response) {
-                            //   req.session.user = result;
-                            //   console.log(req.session.user);
-                            res.send({ message: "successfully password changed" });
-                        } else {
-                            res.send({ message: "The current password is wrong. " });
-                        }
-                    });
-                    
-                }
-            });
+        });
+    // });
     // });
 });
 
-// db.query("SELECT * FROM admin WHERE email=? AND password=?",
-//         [email, password], (err, result) => {
-//             if (result.length > 0) {
-//                 // res.send({ message2: "Login admin",result });
-//                 // res.send(result);
-//                 // array=[...result]
-//                 res.send(result);
-//             }
-//             else
-//             {
-//                 res.send({ message2: "user name or password is wrong" });
-//             }
-//         });
+app.get('/passwordvalidation', (req, res) => {
+    const confirm_password = req.query.confirm_password;
+    const manager_ID = req.query.manager_ID;
+
+    // bcrypt.hash(oldpassword, saltRounds, (err, hasholdpassword) => {
+    db.query("SELECT * FROM salesmanager  WHERE manager_ID=? AND password=? ",
+        [manager_ID,confirm_password],
+        (err, result) => {
+            if (result.length > 0) {
+                // bcrypt.compare(oldpassword, result[0].password, (error, response) => {
+                //     if (response) {
+                //         //   req.session.user = result;
+                //         //   console.log(req.session.user);
+                //         res.send({ message: "successfully password changed" });
+                //     } else {
+                //         res.send({ message: "The current password is wrong. " });
+                //     }
+                // });
+                res.send({ message: "successfully password changed" });
+            }
+            else {
+                res.send({ message: "The current password is wrong. " });
+            }
+        });
+    // });
+});
+
+
 
 
 app.listen(3001, () => {

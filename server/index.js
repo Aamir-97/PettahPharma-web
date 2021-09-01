@@ -175,15 +175,6 @@ app.get('/loginadmin', (req, res) => {
                       res.send(result);
                    
             }
-            else
-            {
-
-                
-                        res.send(result);
-                   
-              
-
-            }
             else {
 
                 res.send({ message2: "Wrong email/password combination!" });

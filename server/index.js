@@ -33,10 +33,15 @@ app.use(
 );
 
 const db = mysql.createConnection({
-    user: "root",
-    host: "localhost",
-    password: "",
+    // Instance Identifier- PettahPharma-DB
+    user : "admin",
+    host : "pettahpharma-db.cjrpsgnfuucd.us-east-2.rds.amazonaws.com",
+    password: "pharmadb2021",
     database: "pettahpharma",
+    // user: "root",
+    // host: "localhost",
+    // password: "",
+    // database: "pettahpharma",
     multipleStatements: true
 });
 
@@ -158,8 +163,6 @@ app.get('/loginsal', (req, res) => {
                 res.send({ message11: "User doesn't exist" });
             }
         });
-
-
 });
 
 app.get('/loginadmin', (req, res) => {
@@ -182,7 +185,6 @@ app.get('/loginadmin', (req, res) => {
         });
 });
 
-
 app.get('/getid', (req, res) => {
     console.log(req.query.email);
     console.log(req.query.password);
@@ -197,21 +199,20 @@ app.get('/getid', (req, res) => {
 
 app.post('/createadmin', (req, res) => {
     console.log(req.body)
-    const display_photo = req.body.display_photo;
+    // const display_photo = req.body.display_photo;
     const name = req.body.name;
-    const contact_no = req.body.contact_no;
+    // const contact_no = req.body.contact_no;
     const email = req.body.email;
     const password = req.body.password;
 
-    db.query("INSERT INTO admin (display_photo,name,contact_no,email,password) VALUES (?,?,?,?,?)",
-        [display_photo, name, contact_no, email, password], (err, _results) => {
+    db.query("INSERT INTO admin (name,email,password) VALUES (?,?,?)",
+        [name, email, password], (err, _results) => {
             if (err) {
                 console.log(err);
             } else {
                 res.send("admin created");
             }
         });
-
 });
 
 app.get('/adminprofile', (_req, res) => {
@@ -222,6 +223,23 @@ app.get('/adminprofile', (_req, res) => {
             console.log(err);
         }
     });
+});
+
+app.put('/updateadmin', (req, res) => {
+    const name = req.body.name;
+    const email = req.body.email;
+    const admin_ID = req.body.admin_ID;
+    
+    db.query("UPDATE admin SET name = ?, email = ? WHERE admin_ID=?",
+        [name, email, admin_ID],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(result);
+            }
+        }
+    );
 });
 // db.query("SELECT * FROM admin WHERE email=? AND password=?",
 //     [email,password],(err,result)=>{
@@ -244,16 +262,16 @@ app.post('/createmanager', (req, res) => {
     const phone_no = req.body.phone_no;
     const area = req.body.area;
     const password = req.body.password;
+    // const created_at = new Date(req.body.created_at)
 
     bcrypt.hash(password, saltRounds, (err, hash) => {
-        db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password) VALUES (?,?,?,?,?,?)",
+        db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password,created_by) VALUES (?,?,?,?,?,?)",
             [manager_ID, name, email, phone_no, area, hash], (err, _results) => {
                 if (err) {
                     console.log(err);
                 } else {
                     res.send("sales manager created");
                 }
-
             });
     });
 });
@@ -279,7 +297,6 @@ app.get("/deletemanager", (req, res) => {
                 res.send(result);
             }
         }
-
     );
 });
 
@@ -376,10 +393,9 @@ app.get("/deleteproduct", (req, res) => {
                 res.send(result);
             }
         }
-
     );
 });
-
+ 
 app.post('/createmedicalrep', (req, res) => {
     console.log(req.body)
     const rep_ID = req.body.rep_ID;
@@ -391,7 +407,7 @@ app.post('/createmedicalrep', (req, res) => {
     // const rating = req.body.rating;
     const password = req.body.password;
     const manager_ID = req.body.manager_ID;
-
+    // const created_at = req.body.created_at
 
     db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,area,password,manager_ID) VALUES (?,?,?,?,?,?,?)",
         [rep_ID, name, email, phone_no, area, password, manager_ID], (err, _results) => {
@@ -402,7 +418,7 @@ app.post('/createmedicalrep', (req, res) => {
             }
         });
 });
-
+ 
 app.get('/viewmedicalreplist', (_req, res) => {
     db.query('SELECT * FROM medicalrep ', (err, result, _fields) => {
         if (!err) {
@@ -412,14 +428,14 @@ app.get('/viewmedicalreplist', (_req, res) => {
         }
     });
 });
-
+ 
 app.get('/viewmedicalrep', (req, res) => {
     db.query("SELECT name,email,phone_no,area,rating FROM medicalrep WHERE rep_ID = ? ", [req.query.rep_ID], (err, result) => {
         res.send(result);
         console.log(result);
     })
 })
-
+ 
 app.get("/deletemedicalrep", (req, res) => {
     const rep_ID = req.query.rep_ID;
     db.query("DELETE FROM medicalrep WHERE rep_ID=?",
@@ -431,10 +447,9 @@ app.get("/deletemedicalrep", (req, res) => {
                 res.send(result);
             }
         }
-
     );
 });
-
+ 
 app.put('/updatemedicalrep', (req, res) => {
     const rep_ID = req.body.rep_ID;
     const name = req.body.name;
@@ -467,14 +482,14 @@ app.get('/gettask', (req, res) => {
             console.log(err);
     })
 })
-
+ 
 app.get('/viewtask', (req, res) => {
     db.query('SELECT medicalrep.name,task.type,task.title,task.location,task.date,task.session,task.description,task.rep_note,task.status,task.task_id,task.task_id,task.rep_ID FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? AND task.task_id=?', [req.query.manager_ID, req.query.task_id], (err, result) => {
         res.send(result);
         console.log(result);
     })
 })
-
+ 
 app.put('/update', (req, res) => {
     const rep_ID = req.body.rep_ID;
     const type = req.body.type;
@@ -511,7 +526,7 @@ app.get('/getmanager', (req, res) => {
         console.log(result);
     })
 })
-
+ 
 app.get('/managerCount', (req, res) => {
     console.log(req.body)
 
@@ -624,7 +639,6 @@ app.post('/upload', function (req, res) {
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
     }
-
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     sampleFile = req.files.sampleFile;
     uploadPath = __dirname + '/somewhere/on/your/server/' + sampleFile.name;
@@ -651,15 +665,12 @@ app.post('/upload', function (req, res) {
 //     });
 // });
 
-
-
 app.get('/getrep', (req, res) => {
     console.log(req.query.date);
     db.query('SELECT medicalrep.name, medicalrep.rep_ID  FROM medicalrep WHERE medicalrep.rep_ID NOT IN (SELECT leaves.rep_ID FROM leaves WHERE start_Date= ? ) AND medicalrep.manager_ID= ? AND medicalrep.rep_ID NOT IN (SELECT task.rep_ID FROM task WHERE task.date= ? AND (task.session= ? OR task.session= ? ))', [req.query.date, req.query.manager_ID, req.query.date, req.query.session, req.query.fullday], (err, result) => {
         res.send(result);
         console.log('result');
         console.log(result);
-
     })
 })
 
@@ -674,7 +685,6 @@ app.get("/delete", (req, res) => {
                 res.send(result);
             }
         }
-
     );
 });
 
@@ -708,7 +718,6 @@ app.get("/deletesummary", (req, res) => {
                 res.send(result);
             }
         }
-
     );
 });
 
@@ -727,7 +736,6 @@ app.put('/addcomment', (req, res) => {
         }
     );
 });
-
 
 app.get('/getleave', (req, res) => {
     db.query('SELECT leaves.status,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,medicalrep.name AS repname FROM medicalrep INNER JOIN leaves ON medicalrep.rep_ID = leaves.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID], (err, result, fields) => {
@@ -750,7 +758,7 @@ app.get('/viewLeave', (req, res) => {
             console.log(err);
     })
 });
-
+ 
 app.put('/addleavecomment', (req, res) => {
     const leave_ID = req.body.leave_ID;
     const salesmanager_comment = req.body.salesmanager_comment;
@@ -776,7 +784,7 @@ app.get('/taskanalysis', (req, res) => {
         }
     });
 });
-
+ 
 app.get('/completeTaskCount', (req, res) => {
     console.log(req.body)
 
@@ -788,7 +796,7 @@ app.get('/completeTaskCount', (req, res) => {
         }
     });
 });
-
+ 
 app.get('/pendingTaskCount', (req, res) => {
     console.log(req.body)
 
@@ -800,7 +808,7 @@ app.get('/pendingTaskCount', (req, res) => {
         }
     });
 });
-
+ 
 app.get('/rejectTaskCount', (req, res) => {
     console.log(req.body)
 
@@ -812,7 +820,7 @@ app.get('/rejectTaskCount', (req, res) => {
         }
     });
 });
-
+ 
 app.get('/visitanalysis', (req, res) => {
     db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(report_id) AS count FROM visit_summary_report GROUP BY month', (err, result) => {
         if (err) {
@@ -833,6 +841,7 @@ app.get('/TaskReport', (req, res) => {
         }
     });
 });
+ 
 app.put('/addstatus', (req, res) => {
     const status = req.body.status;
     const leave_ID = req.body.leave_ID;
@@ -847,7 +856,7 @@ app.put('/addstatus', (req, res) => {
             }
         });
 });
-
+ 
 app.get('/getexpense', (req, res) => {
     db.query('SELECT expenses.expense_ID,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,medicalrep.name AS repname FROM medicalrep INNER JOIN expenses ON medicalrep.rep_ID = expenses.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
@@ -910,7 +919,7 @@ app.get('/fuelexpense', (req, res) => {
         }
     });
 });
-
+ 
 app.get('/accommodationexpense', (req, res) => {
     db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Accommodation" GROUP BY month', (err, result) => {
         if (err) {
@@ -987,7 +996,19 @@ app.get('/viewvisitsummary', (req, res) => {
     })
 })
 
+app.get('/viewexpensesummary', (req, res) => {
+    db.query('SELECT * FROM expenses WHERE status="1"', [req.query.expense_ID], (err, result) => {
+        res.send(result);
+        console.log(result);
+    })
+})
 
+app.get('/viewtasksummary', (req, res) => {
+    db.query('SELECT * FROM task WHERE status="Complete"', [req.query.task_id], (err, result) => {
+        res.send(result);
+        console.log(result);
+    })
+})
 
 app.get('/totalRepExpenses', (req, res) => {
     const manager_ID = req.query.manager_ID;
@@ -1181,7 +1202,6 @@ app.get('/passwordvalidation', (req, res) => {
                             res.send({ message: "The current password is wrong. " });
                         }
                     });
-                    
                 }
             });
     // });

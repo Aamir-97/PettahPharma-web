@@ -100,7 +100,7 @@ function ExpenseAnalysis() {
       ],
       yAxes: [
         {
-          display: false,
+          display: true,
           ticks: {
             fontColor: theme.palette.text.secondary,
             beginAtZero: true,
@@ -134,7 +134,7 @@ function ExpenseAnalysis() {
   return (
     <Card>
       <CardHeader
-        title="Monthly Expenses - 2021"
+        title="Annual Expenses - 2021"
       />
       <Divider />
       <CardContent>

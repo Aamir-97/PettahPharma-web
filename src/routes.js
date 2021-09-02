@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout';
 import DashboardSaleLayout from 'src/components/DashboardSaleLayout';
 import Account from 'src/pages/Account';
+import AdminAccount from 'src/pages/AdminAccount';
 import Forum from 'src/pages/Forum';
 import Forum2 from 'src/pages/Forum2';
 // import VisitTypesReport from 'src/components/reports/VisitTypesReport';
@@ -32,9 +33,9 @@ import LeaveInfo from 'src/pages/LeaveInfo';
 import LeaveComment from 'src/pages/LeaveComment';
 import AllownsInfo from 'src/pages/AllownsInfo';
 import AllownsComment from 'src/pages/AllownsComment';
-// import Help from 'src/pages/Help';
+import Reports from 'src/pages/Reports';
 // import ReportGeneration from 'src/pages/ReportGeneration';
-import MonthlyVisitReport from 'src/components/reports/MonthlyVisitReport';
+import MonthlyVisitReport from 'src/components/reports/AnnualVisitReport';
 
 
 const routes = [
@@ -42,8 +43,8 @@ const routes = [
     path: 'app',
     element: <DashboardLayout />,
     children: [
-      { path: 'account', element: <Account /> },
-      // { path: 'Help', element: <Help /> },
+      { path: 'AdminAccount', element: <AdminAccount /> },
+      { path: 'Reports', element: <Reports /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'ManagerList', element: <ManagerList /> },
       { path: 'MedicalRepList', element: <MedicalRepList /> },

@@ -34,9 +34,9 @@ import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountO
 import NavItem from './NavItem';
 
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
+  avatar: '/static/images/avatars/admin.png',
   jobTitle: 'Admin',
-  name: 'Madhusha Mathivannan'
+  // name: 'Madhusha Mathivannan'
 };
 
   
@@ -66,16 +66,16 @@ const items = [
   //   icon: UserIcon,
   //   title: 'Account'
   // },
+  // {
+  //   href: '/app/MonthlyVisitReport',
+  //   icon: DescriptionOutlinedIcon,
+  //   title: 'Reports'
+  // },
   {
-    href: '/app/MonthlyVisitReport',
+    href: '/app/Reports',
     icon: DescriptionOutlinedIcon,
     title: 'Reports'
   },
-  // {
-  //   href: '/app/VisitTypesReport',
-  //   icon: ForumIcon,
-  //   title: 'Reports'
-  // },
   {
     href: '/app/Forum',
     icon: ForumIcon,
@@ -122,7 +122,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             width: 64,
             height: 64
           }}
-          to="/app/account"
+          to="/app/AdminAccount"
         />
         <Typography
           color="textPrimary"
@@ -134,7 +134,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           color="textSecondary"
           variant="body2"
         >
-          {user.jobTitle}
+          Admin
         </Typography>
       </Box>
       <Divider />

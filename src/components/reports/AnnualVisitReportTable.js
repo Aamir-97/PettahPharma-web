@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
   table: {
-    border: '1px solid #04AA6D',
+    border: '1px solid #009688',
     display: 'inline - block',
     padding: '10px 10px',
     margin: '2px 0',
@@ -25,16 +25,14 @@ const useStyles = makeStyles((theme) => ({
     padding: '8px',
   },
   thead: {
-    backgroundColor: '#04AA6D',
+    backgroundColor: '#80cbc4',
     textalign: 'left',
     padding: '8px',
   },
-  
-
 }));
 
 
-const MonthlyVisitReportTable = ({ visits }) => {
+const AnnualVisitReportTable = ({ visits }) => {
 
   const classes = useStyles();
 
@@ -46,22 +44,23 @@ const MonthlyVisitReportTable = ({ visits }) => {
       ) : (
         <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
-        <TableHead>
+        <TableHead className={classes.thead}>
           <TableRow>
               <TableCell scope="col">Report ID</TableCell>
               <TableCell scope="col">Visit Type</TableCell>
+              <TableCell scope="col">Location</TableCell>
               <TableCell scope="col">Date</TableCell>
               <TableCell scope="col">Avg Duration</TableCell>
               <TableCell scope="col">No of Samples</TableCell>
-              <TableCell scope="col">Description</TableCell>
-              <TableCell scope="col">Doctor Name</TableCell>
+              {/* <TableCell scope="col">Description</TableCell> */}
+              {/* <TableCell scope="col">Doctor Name</TableCell>
               <TableCell scope="col">Product Name</TableCell>
               <TableCell scope="col">Rep ID</TableCell>
-              <TableCell scope="col">Manager ID</TableCell>
-              {/* <th scope="col">Manager Comment</th> */}
+              <TableCell scope="col">Manager ID</TableCell> */}
+            {/* <TableCell scope="col">Manager Comment</TableCell> */} 
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className={classes.tbody}>
             {visits.map((visit) => {
               const dt = new Date(visit.date);
               const year = dt.getFullYear() + '/';
@@ -71,14 +70,15 @@ const MonthlyVisitReportTable = ({ visits }) => {
               <TableRow  key={visit.report_id}>
                 <TableCell>{visit.report_id}</TableCell>
                 <TableCell>{visit.visit_type}</TableCell>
+                <TableCell>{visit.location}</TableCell>
                 <TableCell>{year+month+day}</TableCell>
                 <TableCell>{visit.avg_duration}</TableCell>
                 <TableCell>{visit.no_of_sample}</TableCell>
-                <TableCell>{visit.description}</TableCell>
+                {/* <TableCell>{visit.description}</TableCell>
                 <TableCell>{visit.doctor_name}</TableCell>
                 <TableCell>{visit.product_name}</TableCell>
                 <TableCell>{visit.rep_ID}</TableCell>
-                <TableCell>{visit.manager_ID}</TableCell>
+                <TableCell>{visit.manager_ID}</TableCell> */}
                 {/* <td>{visit.manager_comment}</td> */}
               </TableRow >
                 )
@@ -94,4 +94,4 @@ const MonthlyVisitReportTable = ({ visits }) => {
   );
 };
 
-export default MonthlyVisitReportTable;
+export default AnnualVisitReportTable;

@@ -62,7 +62,7 @@ const options = {
     ],
     yAxes: [
       {
-        display: false,
+        display: true,
         ticks: {
           fontColor: theme.palette.text.secondary,
           beginAtZero: true,
@@ -97,7 +97,7 @@ const options = {
 
     <Card>
       <CardHeader
-        title="Monthly Total Visits - 2021"
+        title="Annual Total Visits - 2021"
       />
       <Divider />
       <CardContent>

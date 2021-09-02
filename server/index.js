@@ -234,13 +234,13 @@ app.get('/adminprofile', (_req, res) => {
 });
 
 app.put('/updateadmin', (req, res) => {
-    const admin_ID = req.body.admin_ID;
+    // const admin_ID = req.query.admin_ID;
     const name = req.body.name;
     const email = req.body.email;
 
 
-    db.query("UPDATE admin SET name = ?, email = ? WHERE admin_ID=?",
-        [name, email, admin_ID],
+    db.query("UPDATE admin SET name = ?, email = ? ",
+        [name, email],
         (err, result) => {
             if (err) {
                 console.log(err);

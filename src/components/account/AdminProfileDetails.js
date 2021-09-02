@@ -65,12 +65,12 @@ export default function AdminProfileDetails() {
     const [Row, setRow] = useState([]);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [admin_ID, setAdmin_ID] = useState("");
+    // const [admin_ID, setAdmin_ID] = useState("");
 
 
-    const edit_adminprofile = (admin_ID) => {
+    const edit_adminprofile = () => {
         axios.put("http://localhost:3001/updateadmin",
-            { name: name,  email: email, admin_ID: admin_ID }).then(
+            { name: name,  email: email }).then(
                 (response) => { 
                     window.location.reload();
                 }
@@ -80,17 +80,18 @@ export default function AdminProfileDetails() {
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get('http://localhost:3001/adminprofile', {
-                params: {
-                    admin_ID: admin_ID,
-                }
+                // params: {
+                //     admin_ID: admin_ID,
+                // }
             });
             setRow(response.data[0]);
             setName(response.data[0].name);
             setEmail(response.data[0].email);
+            // setAdmin_ID(response.data[0].email);
             console.log(response.data[0]);
         };
         fetchData();
-    }, [admin_ID]);
+    }, []);
   
 
   return (
@@ -232,7 +233,7 @@ export default function AdminProfileDetails() {
           <Button
             color="primary"
             variant="contained"
-            onClick={() => { edit_adminprofile(admin_ID) }}
+            onClick={() => { edit_adminprofile() }}
           >
             Save details
           </Button>

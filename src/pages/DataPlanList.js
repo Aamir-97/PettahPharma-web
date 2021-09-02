@@ -153,6 +153,8 @@ const DataPlanList = ({ rest, props }) => {
     today = yyyy + '-' + mm + '-' + dd;
 
   console.log(manager_ID);
+
+  // var today = new Date()
   return (
     <>
       <Helmet>
@@ -186,7 +188,7 @@ const DataPlanList = ({ rest, props }) => {
                     variant="contained"
                     startIcon ={<PersonAddIcon />}
                   >
-                  
+                  {/* {today} */}
                     Asign Task
                   </Button>
                 </Link>
@@ -336,7 +338,7 @@ const DataPlanList = ({ rest, props }) => {
                 onRowsPerPageChange={handleLimitChange}
                 page={page}
                 rowsPerPage={limit}
-                rowsPerPageOptions={[5, 10, 20]}
+                rowsPerPageOptions={[5, 10, 20,50]}
               />
             </Card>
           </>

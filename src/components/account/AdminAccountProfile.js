@@ -13,7 +13,7 @@ import {
 import axios from 'axios';
 
 
-const AccountProfile = (props) => {
+const AdminAccountProfile = (props) => {
 
   let admin_ID = localStorage.getItem('admin_ID');
   admin_ID = JSON.parse(admin_ID)
@@ -91,4 +91,4 @@ const user = {
   
 };
 
-export default AccountProfile;
+export default AdminAccountProfile;

@@ -184,9 +184,7 @@ app.get('/loginadmin', (req, res) => {
         [email, password], (err, result) => {
             if (result.length > 0) {
 
-
                 res.send(result);
-
             }
             else {
 
@@ -222,7 +220,7 @@ app.post('/createadmin', (req, res) => {
             } else {
                 res.send("admin created");
             }
-        });
+    });
 });
 
 app.get('/adminprofile', (_req, res) => {
@@ -236,10 +234,11 @@ app.get('/adminprofile', (_req, res) => {
 });
 
 app.put('/updateadmin', (req, res) => {
+    const admin_ID = req.body.admin_ID;
     const name = req.body.name;
     const email = req.body.email;
-    const admin_ID = req.body.admin_ID;
-    
+
+
     db.query("UPDATE admin SET name = ?, email = ? WHERE admin_ID=?",
         [name, email, admin_ID],
         (err, result) => {
@@ -251,6 +250,7 @@ app.put('/updateadmin', (req, res) => {
         }
     );
 });
+
 // db.query("SELECT * FROM admin WHERE email=? AND password=?",
 //     [email,password],(err,result)=>{
 //         if(err){
@@ -272,11 +272,11 @@ app.post('/createmanager', (req, res) => {
     const phone_no = req.body.phone_no;
     const area = req.body.area;
     const password = req.body.password;
-    // const created_at = new Date(req.body.created_at)
+    const created_at = req.body.created_at
 
     // bcrypt.hash(password, saltRounds, (err, hash) => {
-    db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password) VALUES (?,?,?,?,?,?)",
-        [manager_ID, name, email, phone_no, area, password], (err, _results) => {
+    db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password,created_at) VALUES (?,?,?,?,?,?,?)",
+        [manager_ID, name, email, phone_no, area, password, created_at], (err, _results) => {
             if (err) {
                 console.log(err);
             } else {
@@ -417,10 +417,10 @@ app.post('/createmedicalrep', (req, res) => {
     // const rating = req.body.rating;
     const password = req.body.password;
     const manager_ID = req.body.manager_ID;
-    // const created_at = req.body.created_at
+    const created_at = req.body.created_at
 
-    db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,area,password,manager_ID) VALUES (?,?,?,?,?,?,?)",
-        [rep_ID, name, email, phone_no, area, password, manager_ID], (err, _results) => {
+    db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,area,password,manager_ID,created_at) VALUES (?,?,?,?,?,?,?,?)",
+        [rep_ID, name, email, phone_no, area, password, manager_ID, created_at], (err, _results) => {
             if (err) {
                 console.log(err);
             } else {

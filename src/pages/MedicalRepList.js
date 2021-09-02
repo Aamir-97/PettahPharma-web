@@ -213,8 +213,13 @@ const MedicalRepList = ({ rest,props} ) => {
                 {selectedRowIds.slice(0, limit).filter(val => {
                   if (searchTerm === "") {
                     return val;
-                  } else if (
+                  } 
+                  else if (
                     val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return val
+                  }
+                  else if (
+                    val.rep_ID==searchTerm) {
                     return val
                   }
                 }).map((Row) => {

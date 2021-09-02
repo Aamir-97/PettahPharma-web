@@ -1,7 +1,11 @@
 import jsPDF from "jspdf";
-import "jspdf-autotable";
+// import "jspdf-autotable";
+import autoTable from 'jspdf-autotable'
 // Date Fns is used to format the dates we receive
 // from our API call
+// import jsPDF from 'jspdf/dist/jspdf.node.debug'
+// import { applyPlugin } from 'jspdf-autotable'
+// applyPlugin(jsPDF)
 import { format } from "date-fns";
 
 const generatePDF = tasks => {

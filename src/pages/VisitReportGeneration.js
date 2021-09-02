@@ -1,7 +1,11 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+// import autoTable from 'jspdf-autotable'
 // Date Fns is used to format the dates we receive
 // from our API call
+// import jsPDF from 'jspdf/dist/jspdf.node.debug'
+// import { applyPlugin } from 'jspdf-autotable'
+// applyPlugin(jsPDF)
 import { format } from "date-fns";
 
 // define a generatePDF function that accepts a tickets argument
@@ -11,7 +15,7 @@ const generatePDF = visits => {
 
   // define the columns we want and their titles
   const tableColumn1 = ["ID", "Visit Type", "Location", "Date", "Avg Duration", "No of Samples", "Description",
-    "Doctor", "Product", "Rep ID", "Manager ID"];
+    "Doctor", "Product"];
   // define an empty array of rows
   const tableRows1 = [];
 
@@ -31,8 +35,8 @@ const generatePDF = visits => {
       visit.description,
       visit.doctor_name,
       visit.product_name,
-      visit.rep_ID,
-      visit.manager_ID,
+      // visit.rep_ID,
+      // visit.manager_ID,
       // visit.manager_comment,
 
       // called date-fns to format the date on the visit
@@ -43,9 +47,7 @@ const generatePDF = visits => {
   });
 
   // startY is basically margin-top
-  doc.autoTable(tableColumn1, tableRows1, { startY: 20 },
-  {theme: 'grid'}, {cellWidth: 'auto'}
-  );
+  doc.autoTable(tableColumn1, tableRows1, { startY: 20 });
   
   const date = Date().split(" ");
   // we use a date string to generate our filename.

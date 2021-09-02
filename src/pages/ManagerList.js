@@ -218,10 +218,10 @@ const ManagerList = ({ rest,props} ) => {
                   val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
                   return val
                 }
-                // else if (
-                //   val.id.includes(searchTerm)) {
-                //   return val
-                // }
+                else if (
+                  val.manager_ID==searchTerm) {
+                  return val
+                }
                 }).map((Row) => {
                   return (
                     <TableRow

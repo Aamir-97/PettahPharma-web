@@ -11,59 +11,10 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 
-const states = [
-];
 
-const AccountProfileDetails = (props) => {
-  // const [values, setValues] = useState({
-  //   // name: setName,
-  //   // email: setEmail
-  // });
+// const AdminProfileDetails = (props) => {
 
-    const [Row, setRow] = useState([]);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-
-  let admin_ID = localStorage.getItem('admin_ID');
-  admin_ID = JSON.parse(admin_ID)
-  console.log(admin_ID);
-
-
-
-    
-    const edit_adminprofile = (admin_ID) => {
-        axios.put("http://localhost:3001/updateadmin",
-            { name: name, email: email, admin_ID: admin_ID }).then(
-                (response) => { 
-                    window.location.reload();
-                    console.log(response.data[0]);
-                    localStorage.setItem('name', name);
-                }
-            )
-            
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await axios.get('http://localhost:3001/adminprofile', {
-                params: {
-                    admin_ID: admin_ID,
-                }
-            });
-            setRow(response.data[0]);
-            setName(response.data[0].name);
-            setEmail(response.data[0].email);
-            console.log(response.data[0]);
-        };
-        fetchData();
-    }, [admin_ID]);
-
-  // const handleChange = (event) => {
-  //   setValues({
-  //     ...values,
-  //     [event.target.name]: event.target.value
-  //   });
-  // }
+export default function AdminProfileDetails() {
 
   const mystyle = {
     closeBtn: {
@@ -110,6 +61,36 @@ const AccountProfileDetails = (props) => {
   },
 
 };
+    // const admin_ID = window.location.pathname.substring(21, 26);
+    const [Row, setRow] = useState([]);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [admin_ID, setAdmin_ID] = useState("");
+
+
+    const edit_adminprofile = (admin_ID) => {
+        axios.put("http://localhost:3001/updateadmin",
+            { name: name,  email: email, admin_ID: admin_ID }).then(
+                (response) => { 
+                    window.location.reload();
+                }
+            )
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get('http://localhost:3001/adminprofile', {
+                params: {
+                    admin_ID: admin_ID,
+                }
+            });
+            setRow(response.data[0]);
+            setName(response.data[0].name);
+            setEmail(response.data[0].email);
+            console.log(response.data[0]);
+        };
+        fetchData();
+    }, [admin_ID]);
   
 
   return (
@@ -117,7 +98,7 @@ const AccountProfileDetails = (props) => {
     <form
       autoComplete="off"
       noValidate
-      {...props}
+      // {...props}
     >
       <Card>
         <CardHeader
@@ -261,4 +242,3 @@ const AccountProfileDetails = (props) => {
   );
 };
 
-export default AccountProfileDetails;

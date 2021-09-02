@@ -69,8 +69,8 @@ const options = {
           min: 0
         },
         gridLines: {
-          borderDash: [2],
-          borderDashOffset: [2],
+          borderDash: [1],
+          borderDashOffset: [1],
           color: theme.palette.divider,
           drawBorder: false,
           zeroLineBorderDash: [2],

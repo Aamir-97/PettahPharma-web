@@ -317,22 +317,23 @@ export default function SettingsPassword() {
 
   const [validation, setValidation] = useState(" ")
 
+
   const updatepassword = (data) => {
     console.log(data.confirm_password)
     console.log(data.oldpassword)
 
-    const fetchData1 = async () => {
+   
     axios.get("http://localhost:3001/updatepassword",
       { params: { oldpassword: data.oldpassword, confirm_password: data.confirm_password, manager_ID: manager_ID } }).then(
         (response) => {} )
         
-      }
+    
 
-    const fetchData2 = async () => {
+   
     axios.get('http://localhost:3001/passwordvalidation', {
       params: {
         manager_ID: manager_ID,
-        oldpassword: data.oldpassword,
+        confirm_password: data.confirm_password,
       }
     }).then(
       (response) => {
@@ -345,10 +346,7 @@ export default function SettingsPassword() {
           document.getElementById("create-course-form").reset();
         }
       });
-    }
 
-    fetchData1();
-    fetchData2();
 
   };
 

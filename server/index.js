@@ -33,11 +33,16 @@ app.use(
 );
 
 const db = mysql.createConnection({
-    user: "root",
-    host: "localhost",
-    password: "",
-    database: "pettahpharma",
-    multipleStatements: true
+    // user: "root",
+    // host: "localhost",
+    // password: "",
+    // database: "pettahpharma",
+    // multipleStatements: true
+    user : "admin",
+host : "pettahpharma-db.cjrpsgnfuucd.us-east-2.rds.amazonaws.com",
+password : "pharmadb2021",
+database: "pettahpharma"
+
 });
 
 db.connect((err) => {
@@ -468,7 +473,7 @@ app.put('/updatemedicalrep', (req, res) => {
 });
 
 app.get('/gettask', (req, res) => {
-    db.query('SELECT medicalrep.name,task.location,task.title,task.date,task.task_id,task.status FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ?', [req.query.manager_ID], (err, result, fields) => {
+    db.query('SELECT medicalrep.name,task.location,task.title,task.date,task.task_id,task.status FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? AND type="task"', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
             console.log(result);
@@ -567,9 +572,10 @@ app.post('/assigntask', (req, res) => {
     const date = req.body.date;
     const location = req.body.location;
     const manager_ID = req.body.manager_ID;
+    const created_at = req.body.created_at;
 
-    db.query("INSERT INTO task (rep_ID,title,type,description,session,date,manager_ID,location) VALUES (?,?,?,?,?,?,?,?)",
-        [rep_ID, title, type, description, session, date, manager_ID, location], (err, _results) => {
+    db.query("INSERT INTO task (rep_ID,title,type,description,session,date,manager_ID,location,created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+        [rep_ID, title, type, description, session, date, manager_ID, location,created_at], (err, _results) => {
             if (err) {
                 console.log(err);
             } else {

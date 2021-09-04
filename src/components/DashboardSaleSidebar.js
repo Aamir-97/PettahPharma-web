@@ -12,6 +12,7 @@ import {
   Typography
 } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 import {
   AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
@@ -93,8 +94,8 @@ const items = [
   },
   {
     href: '/appp/Kpi',
-    icon: ForumIcon,
-    title: 'KPI'
+    icon: AssessmentIcon,
+    title: 'KPI Analysis'
   },
   // {
   //   href: '/appp/settings',

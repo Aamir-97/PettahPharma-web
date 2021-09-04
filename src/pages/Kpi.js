@@ -1,16 +1,21 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
+import {
+  Box,
+  Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Typography
+} from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -61,7 +66,7 @@ function Row(props) {
         <TableCell align="right">{row.protein}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom component="div">
@@ -126,20 +131,54 @@ const rows = [
 ];
 
 export default function Kpi() {
-  return (
-    <Box
-    sx={{
-      display: 'flex',
-      mt: 3,ml: 3,mr: 3,
-      flex: 3
-    }} 
-    > 
 
+  const useStyles = makeStyles(() => ({
+    link: {
+      // backgroundColor: '#5eb6b8',
+      color: '#FFF',
+    },
+    h1:{
+      // backgroundColor: '#5eb6b8',
+      // color: '#FFF',
+      fontFamily: "Sans-serif", 
+      align: "center"
+    },
+  }));
+  
+  const classes = useStyles();
+
+  return (
+    <>
+    <Helmet>
+      <title>KPI</title>
+    </Helmet>
+    <Box
+      sx={{
+        backgroundColor: 'background.default',
+        minHeight: '100%',
+        py: 3
+      }}
+    >
+      <Container maxWidth={false}>
+      <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              marginTop: '0px',
+              marginLeft: '400px',
+            }}
+          >
+    <h1 style={{ flex: 3, flexWrap: 'wrap' }} className={classes.h1} >KPI ANALYSIS</h1>
+    </Box>
+     <Box
+            sx={{
+              marginTop: '30px'
+            }}
+          >
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell />
             <TableCell>Rep ID</TableCell>
             <TableCell align="right">Name</TableCell>
             <TableCell align="right">Email</TableCell>
@@ -152,9 +191,12 @@ export default function Kpi() {
           {rows.map((row) => (
             <Row key={row.name} row={row} />
           ))}
-        </TableBody>
+        </TableBody> 
       </Table>
     </TableContainer>
+        </Box>
+    </Container>
     </Box>
+  </>
   );
 }

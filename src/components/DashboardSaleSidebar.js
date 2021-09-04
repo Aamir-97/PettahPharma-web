@@ -38,7 +38,7 @@ import axios from "axios";
 
 
 const user = {
-  avatar: '/static/images/avatars/avatar_3.png',
+  avatar: '/static/images/avatars/avatar_13.png',
   jobTitle: 'Sales Manager',
 
 };

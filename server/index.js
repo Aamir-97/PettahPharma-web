@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
+const multer = require('multer');
 // const dotenv = require('dotenv');
 const path = require('path');
 const fileUpload = require('express-fileupload');
@@ -15,13 +16,16 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const saltRounds1 = 10;
 // const bodyParser =  require('body-parser')
-// const saltRounds = 10;
+// const saltRounds = 10;""
 // const fileUpload = require('express-fileupload');
+// import public from "../public/static/images/avatars/"
 app.use(cors());
 app.use(express.urlencoded({
     extended: false
 }));
 app.use(express.json());
+
+// import public from '../public/static/images'
 
 app.use(
     fileUpload({
@@ -332,7 +336,7 @@ app.put('/updatemanager', (req, res) => {
 });
 
 app.get('/viewmanager', (req, res) => {
-    db.query("SELECT name,email,phone_no,area FROM salesmanager WHERE manager_ID = ? ", [req.query.manager_ID], (err, result) => {
+    db.query("SELECT name,email,phone_no,area,display_photo FROM salesmanager WHERE manager_ID = ? ", [req.query.manager_ID], (err, result) => {
         res.send(result);
         console.log(result);
     })
@@ -1184,15 +1188,12 @@ app.get('/updatepassword', (req, res) => {
     const password = req.query.oldpassword;
     const confirm_password = req.query.confirm_password;
     const manager_ID = req.query.manager_ID;
-
-    // bcrypt.hash(confirm_password, saltRounds1, (err, hashconfirm_password) => {
     db.query("UPDATE salesmanager SET password = ? WHERE manager_ID=? AND password=?",
         [confirm_password, manager_ID, password],
         (err, result) => {
 
         });
-    // });
-    // });
+   
 });
 
 app.get('/passwordvalidation', (req, res) => {
@@ -1204,16 +1205,9 @@ app.get('/passwordvalidation', (req, res) => {
         [manager_ID,confirm_password],
         (err, result) => {
             if (result.length > 0) {
-                // bcrypt.compare(oldpassword, result[0].password, (error, response) => {
-                //     if (response) {
-                //         //   req.session.user = result;
-                //         //   console.log(req.session.user);
-                //         res.send({ message: "successfully password changed" });
-                //     } else {
-                //         res.send({ message: "The current password is wrong. " });
-                //     }
-                // });
+                
                 res.send({ message: "successfully password changed" });
+                res.send({ message0: " " });
             }
             else {
                 res.send({ message: "The current password is wrong. " });
@@ -1222,8 +1216,81 @@ app.get('/passwordvalidation', (req, res) => {
     // });
 });
 
+app.get('/adminupdatepassword', (req, res) => {
+    const password = req.query.oldpassword;
+    const confirm_password = req.query.confirm_password;
+    db.query("UPDATE admin SET password = ? WHERE  password=?",
+        [confirm_password, password],
+        (err, result) => {
 
+        });
+   
+});
 
+app.get('/adminpasswordvalidation', (req, res) => {
+    const confirm_password = req.query.confirm_password;
+
+    // bcrypt.hash(oldpassword, saltRounds, (err, hasholdpassword) => {
+    db.query("SELECT * FROM admin  WHERE password=? ",
+        [confirm_password],
+        (err, result) => {
+            if (result.length > 0) {
+                
+                res.send({ message: "successfully password changed" });
+                res.send({ message0: " " });
+            }
+            else {
+                res.send({ message: "The current password is wrong. " });
+            }
+        });
+    // });
+});
+
+const storage = multer.diskStorage({
+    destination(req,file,cb){
+      cb(null,'../public/')
+    },
+    filename(req,file,cb){
+      cb(
+        null,
+        `${file.originalname.split('.')[0]}.jpg`
+      )
+    }
+  })
+  
+  const upload = multer({
+    storage,
+    limits:{
+      fileSize: 5000000
+    },
+    fileFilter(req,file,cb){
+      if(!file.originalname.match(/\.(jpeg|jpg|png)$/i)){
+        return  cb(new Error('pleaseupload image with type of jpg or jpeg'))
+    }
+    cb(undefined,true)
+  }
+  })
+  
+  app.post("/imageUpload",upload.single('file'),(req,res)=> {
+     
+  })
+
+  app.put('/updateProfile', (req,res) => {
+    const manager_ID=req.body.manager_ID;
+    const emp_img = req.body.emp_img;
+    
+   
+    db.query("UPDATE salesmanager SET display_photo=? WHERE manager_ID = ?", 
+    [emp_img,manager_ID], 
+    (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
 
 app.listen(3001, () => {
     console.log("Your server is running on port 3001");

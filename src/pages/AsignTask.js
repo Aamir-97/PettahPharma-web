@@ -207,135 +207,136 @@ export default function AsignTask() {
                 </Grid>
 
                 <div className={classes.root}>
-<form id="create-course-form">
-                    <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
-                        <AccordionSummary>
-                            <Typography className={classes.heading}>Date</Typography>
-                            <Typography className={classes.secondaryHeading}>
-                                <input
-                                    type="date"
-                                    min={today}
-                                    onChange={(event) => { setDate(event.target.value); }}
-                                    // style={mystyle.forminput}
-                                    className={classes.forminput}
-                                    required
-                                />
-                            </Typography>
-                        </AccordionSummary>
-                    </Accordion><br />
+                    <form id="create-course-form">
+                        <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
+                            <AccordionSummary>
+                                <Typography className={classes.heading}>Date</Typography>
+                                <Typography className={classes.secondaryHeading}>
+                                    <input
+                                        type="date"
+                                        min={today}
+                                        onChange={(event) => { setDate(event.target.value); }}
+                                        // style={mystyle.forminput}
+                                        className={classes.forminput}
+                                        required
+                                    />
+                                </Typography>
+                            </AccordionSummary>
+                        </Accordion><br />
 
-                    <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
-                        <AccordionSummary>
-                            <Typography className={classes.heading}>Time Slot</Typography>
-                            <Typography className={classes.secondaryHeading}>
-                                {/* <input
+                        <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel8')}>
+                            <AccordionSummary>
+                                <Typography className={classes.heading}>Time Slot</Typography>
+                                <Typography className={classes.secondaryHeading}>
+                                    {/* <input
                                     type="text"
                                    
                                     onChange={(event) => { setSession(event.target.value); }}
                                     // style={mystyle.forminput}
                                     className={classes.forminput}
                                 /> */}
-                                <Select
-                                    native
-                                    onChange={(event) => { setSession(event.target.value); }}
-                                    // style={mystyle.formselect}
-                                    className={classes.formselect}
-                                    required
-                                >
-                                    <option aria-label="None" value="">Select Time Slot</option>
-                                    <option Value="Morning">Morning</option>
-                                    <option Value="Evening">Evening</option>
-                                    <option Value="Full-Day" >Full-Day</option>
-                                </Select>
-                            </Typography>
-                        </AccordionSummary>
-                    </Accordion><br />
+                                    <Select
+                                        native
+                                        onChange={(event) => { setSession(event.target.value); }}
+                                        // style={mystyle.formselect}
+                                        className={classes.formselect}
+                                        required
+                                    >
+                                        <option aria-label="None" value="">Select Time Slot</option>
+                                        <option Value="Morning">Morning</option>
+                                        <option Value="Evening">Evening</option>
+                                        <option Value="Full-Day" >Full-Day</option>
+                                    </Select>
+                                </Typography>
+                            </AccordionSummary>
+                        </Accordion><br />
 
-                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                        <AccordionSummary>
-                            <Typography className={classes.heading}>Medical Rep Name</Typography>
-                            <Typography className={classes.secondaryHeading}>
-                                {/* <FormControl className={classes.formControl}> */}
-                                <Select
-                                    onClick={() => { fetchData() }}
-                                    native
-                                    onChange={(event) => { setRepID(event.target.value); }}
-                                    // style={mystyle.formselect}
-                                    className={classes.formselect}
-                                    required
-                                >
-                                    <option aria-label="None" value="">Select Medical Rep Name</option>
-                                    {GetRep.map((customer) => (
-                                        <option Value={customer.rep_ID}>{customer.name}-{customer.rep_ID}</option>
-                                    ))}
-                                </Select>
-                                {/* </FormControl> */}
-                            </Typography>
-                        </AccordionSummary>
-                    </Accordion><br />
+                        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                            <AccordionSummary>
+                                <Typography className={classes.heading}>Medical Rep Name</Typography>
+                                <Typography className={classes.secondaryHeading}>
+                                    {/* <FormControl className={classes.formControl}> */}
+                                    <Select
+                                        onClick={() => { fetchData() }}
+                                        native
+                                        onChange={(event) => { setRepID(event.target.value); }}
+                                        // style={mystyle.formselect}
+                                        className={classes.formselect}
+                                        required
+                                    >
+                                        <option aria-label="None" value="">Select Medical Rep Name</option>
+                                        {GetRep.map((customer) => (
+                                            <option Value={customer.rep_ID}>{customer.name}-{customer.rep_ID}</option>
+                                        ))}
+                                    </Select>
+                                    {/* </FormControl> */}
+                                </Typography>
+                            </AccordionSummary>
+                        </Accordion><br />
 
-                    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                        <AccordionSummary>
-                            <Typography className={classes.heading}>Title</Typography>
-                            <Typography className={classes.secondaryHeading}>
-                                <input
-                                    type="text"
+                        <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                            <AccordionSummary>
+                                <Typography className={classes.heading}>Title</Typography>
+                                <Typography className={classes.secondaryHeading}>
+                                    <input
+                                        type="text"
 
-                                    onChange={(event) => { setTitle(event.target.value); }}
-                                    // style={mystyle.forminput}
-                                    className={classes.forminput}
-                                    required
-                                />
-                            </Typography>
-                        </AccordionSummary>
-                    </Accordion><br />
+                                        onChange={(event) => { setTitle(event.target.value); }}
+                                        // style={mystyle.forminput}
+                                        className={classes.forminput}
+                                        required
+                                    />
+                                </Typography>
+                            </AccordionSummary>
+                        </Accordion><br />
 
-                    {/* <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                        {/* <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Type</Typography>
                             <Typography className={classes.secondaryHeading}>
                                 <input
-                                    type="text"
-                                    defaultValue={Dt.type}
-                                    onChange={(event) => { setType(event.target.value); }}
+                                    type="file"
+                                    // defaultValue={Dt.type}
+                                    // onChange={(event) => { setType(event.target.value); }}
+                                    name ="my"
                                     style={mystyle.forminput}
-                                />
+                                > my</input>
                             </Typography>
                         </AccordionSummary>
                     </Accordion><br /> */}
 
-                    <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-                        <AccordionSummary>
-                            <Typography className={classes.heading}>Location</Typography>
-                            <Typography className={classes.secondaryHeading}>
-                                <input
-                                    type="text"
+                        <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+                            <AccordionSummary>
+                                <Typography className={classes.heading}>Location</Typography>
+                                <Typography className={classes.secondaryHeading}>
+                                    <input
+                                        type="text"
 
-                                    onChange={(event) => { setLocation(event.target.value); }}
-                                    // style={mystyle.forminput}
-                                    className={classes.forminput}
-                                />
-                            </Typography>
-                        </AccordionSummary>
-                    </Accordion><br />
+                                        onChange={(event) => { setLocation(event.target.value); }}
+                                        // style={mystyle.forminput}
+                                        className={classes.forminput}
+                                    />
+                                </Typography>
+                            </AccordionSummary>
+                        </Accordion><br />
 
-                    <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1bh-content"
-                            id="panel1bh-header"
-                        >
-                            <Typography className={classes.heading}>Description</Typography>
-                            <Typography className={classes.secondaryHeading}>click full details</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                                <textarea
-                                    onChange={(event) => { setDescription(event.target.value); }}
-                                    rows="10" cols="80"   ></textarea>
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion><br />
+                        <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1bh-content"
+                                id="panel1bh-header"
+                            >
+                                <Typography className={classes.heading}>Description</Typography>
+                                <Typography className={classes.secondaryHeading}>click full details</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    <textarea
+                                        onChange={(event) => { setDescription(event.target.value); }}
+                                        rows="10" cols="80"   ></textarea>
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion><br />
 
 
                     </form>
@@ -357,6 +358,16 @@ export default function AsignTask() {
                         style={mystyle.closeBtn}
                     > Exit</Button>
                 </Link>
+                {/* <Button
+                    variant="contained"
+                    component="label"
+                >
+                    Upload File
+                    <input
+                        type="file"
+                        hidden
+                    />
+                </Button> */}
 
             </div>
         </div>

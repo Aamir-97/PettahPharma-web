@@ -34,6 +34,7 @@ import LeaveComment from 'src/pages/LeaveComment';
 import AllownsInfo from 'src/pages/AllownsInfo';
 import AllownsComment from 'src/pages/AllownsComment';
 import Reports from 'src/pages/Reports';
+import Kpi from 'src/pages/Kpi';
 // import ReportGeneration from 'src/pages/ReportGeneration';
 import MonthlyVisitReport from 'src/components/reports/AnnualVisitReport';
 
@@ -83,6 +84,7 @@ const routes = [
       { path: 'LeaveComment/:leave_ID', element: <LeaveComment /> },
       { path: 'AllownsInfo/:expense_ID', element: <AllownsInfo /> },
       { path: 'AllownsComment/:expense_ID', element: <AllownsComment /> },
+      { path: 'Kpi', element: <Kpi /> },
       // { path: 'Add_product', element: <Add_product /> },
       // { path: 'products', element: <ProductList /> },
       // { path: 'settings', element: <Settings /> },

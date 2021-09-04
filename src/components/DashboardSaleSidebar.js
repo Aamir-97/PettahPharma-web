@@ -92,7 +92,7 @@ const items = [
     title: 'Expenses'
   },
   {
-    href: '',
+    href: '/appp/Kpi',
     icon: ForumIcon,
     title: 'KPI'
   },

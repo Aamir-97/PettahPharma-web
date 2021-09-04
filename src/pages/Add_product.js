@@ -213,7 +213,7 @@ function Add_Product() {
                 </form>
 
             </div>
-        </div>
+        </div> 
 
     )
 }

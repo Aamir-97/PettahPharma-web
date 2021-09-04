@@ -57,9 +57,7 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {row.name}
-        </TableCell>
+        <TableCell component="th" scope="row">{row.name}</TableCell>
         <TableCell align="right">{row.calories}</TableCell>
         <TableCell align="right">{row.fat}</TableCell>
         <TableCell align="right">{row.carbs}</TableCell>
@@ -179,7 +177,8 @@ export default function Kpi() {
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell>Rep ID</TableCell>
+            <TableCell></TableCell>
+            <TableCell >Rep ID</TableCell>
             <TableCell align="right">Name</TableCell>
             <TableCell align="right">Email</TableCell>
             <TableCell align="right">Contact No</TableCell>

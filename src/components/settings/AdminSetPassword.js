@@ -1,107 +1,3 @@
-// import { useState } from 'react';
-// import {
-//   Box,
-//   Button,
-//   Card,
-//   CardContent,
-//   CardHeader,
-//   Divider,
-//   TextField
-// } from '@material-ui/core';
-// import axios from 'axios';
-// const SettingsPassword = (props) => {
-//   // const [values, setValues] = useState({
-//   //   password: '',
-//   //   confirm: ''
-//   // });
-//   let manager_ID = localStorage.getItem('managerid');
-//   manager_ID = JSON.parse(manager_ID)
-//   const [Currentpassword, setCurrentpassword] = useState("");
-//   const [Password, setPassword] = useState("");
-//   const [Confirmpassword, setConfirmpassword] = useState("");
-
-//   const updatePassword = (manager_ID) => {
-//     if(Password != " " && Confirmpassword != " " && Password == Confirmpassword ){
-//       axios.put("http://localhost:3001/updatepassword",
-//       { Currentpassword: Currentpassword, Confirmpassword: Confirmpassword, manager_ID: manager_ID }).then(
-//           (response) => { 
-//               // window.location.reload();
-//           }
-//       )
-//     }
-//     // else{
-//     //   var validation= "Incorrect Current password";
-//     // }
-
-// };
-
-//   return (
-//     <form {...props}>
-//       <Card>
-//         <CardHeader
-//           subheader="Update password"
-//           title="Password"
-//         />
-//         <Divider />
-//         <CardContent>
-//           <TextField
-//             fullWidth
-//             label="Current password"
-//             margin="normal"
-//             name="Current password"
-//             onChange={(event) => { setCurrentpassword(event.target.value); }}
-//             // onChange={handleChange}
-//             type="password"
-//             // value={values.password}
-//             variant="outlined"
-//           />
-//           {/* {validation} */}
-//           <TextField
-//             fullWidth
-//             label="Password"
-//             margin="normal"
-//             name="password"
-//             onChange={(event) => { setPassword(event.target.value); }}
-//             type="password"
-//             // value={values.password}
-//             variant="outlined"
-//           />
-//           <TextField
-//             fullWidth
-//             label="Confirm password"
-//             margin="normal"
-//             name="confirm"
-//             onChange={(event) => { setConfirmpassword(event.target.value); }}
-//             type="password"
-//             // value={values.confirm}
-//             variant="outlined"
-//           />
-//         </CardContent>
-//         <Divider />
-//         <Box
-//           sx={{
-//             display: 'flex',
-//             justifyContent: 'flex-end',
-//             p: 2
-//           }}
-//         >
-//           <Button
-//             color="primary"
-//             variant="contained"
-//             onClick={() => { updatePassword(manager_ID) }}
-//           >
-//             Update
-//           </Button>
-//         </Box>
-//       </Card>
-//     </form>
-//   );
-// };
-
-// export default SettingsPassword;
-
-
-
 import React, { useState } from "react";
 import clsx from 'clsx';
 import axios from "axios";
@@ -305,15 +201,15 @@ const schema = yup.object().shape({
 })
 
 
-export default function SettingsPassword() {
+export default function AdminSetPassword() {
   const classes = useStyles();
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
 
 
-  let manager_ID = localStorage.getItem('managerid');
-  manager_ID = JSON.parse(manager_ID)
+  // let manager_ID = localStorage.getItem('managerid');
+  // manager_ID = JSON.parse(manager_ID)
 
   const [validation, setValidation] = useState(" ")
 
@@ -323,16 +219,15 @@ export default function SettingsPassword() {
     console.log(data.oldpassword)
 
    
-    axios.get("http://localhost:3001/updatepassword",
-      { params: { oldpassword: data.oldpassword, confirm_password: data.confirm_password, manager_ID: manager_ID } }).then(
+    axios.get("http://localhost:3001/adminupdatepassword",
+      { params: { oldpassword: data.oldpassword, confirm_password: data.confirm_password } }).then(
         (response) => {} );
         
     
 
    
-    axios.get('http://localhost:3001/passwordvalidation', {
+    axios.get('http://localhost:3001/adminpasswordvalidation', {
       params: {
-        manager_ID: manager_ID,
         confirm_password: data.confirm_password,
       }
     }).then(

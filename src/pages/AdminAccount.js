@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 import AdminAccountProfile from 'src/components/account/AdminAccountProfile';
 import AdminProfileDetails from 'src/components/account/AdminProfileDetails';
-import SettingsPassword from 'src/components/settings/SettingsPassword';
+import SettingsPassword from 'src/components/settings/AdminSetPassword';
 
 const AdminAccount = () => (
   <>

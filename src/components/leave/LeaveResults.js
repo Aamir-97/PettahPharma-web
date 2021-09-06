@@ -179,7 +179,7 @@ const LeaveResults = ({ Leave, ...rest }) => {
                         variant="contained"
                         // onClick={addstatus("Accept", customer.leave_ID)}
                         onClick={() => { addstatus("1", customer.leave_ID) }}
-                        disabled={customer.status == "1" }
+                        // disabled={customer.status == "1" }
                         startIcon={<CheckIcon />}>
                         Accept
                       </Button>
@@ -187,10 +187,10 @@ const LeaveResults = ({ Leave, ...rest }) => {
                       <Button
                         color="exit"
                         variant="contained"
-                        onClick={() => { addstatus("0", customer.leave_ID) }}
-                        disabled={customer.status == "0" }
+                        onClick={() => { addstatus("2", customer.leave_ID) }}
+                        // disabled={customer.status == "2" }
                         startIcon={<ClearIcon />} >
-                        Reject
+                        Rejectttt
                       </Button>
                       {' '}
 

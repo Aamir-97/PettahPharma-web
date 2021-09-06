@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
+  avatar: '/static/images/avatars/avatar_13.png',
   jobTitle: 'Sales Manager',
   email: 'madhusha@gmail.com',
   name: 'Madhusha Mathivannan',

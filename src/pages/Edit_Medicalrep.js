@@ -97,7 +97,7 @@ export default function Edit_Medicalrep() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone_no, setPhone_no] = useState("");
-    const [area, setArea] = useState("");
+    const [working_area, setWorkingarea] = useState("");
     const [rating, setRating] = useState("");
 
     // let admin_ID = localStorage.getItem('admin_ID');
@@ -106,7 +106,7 @@ export default function Edit_Medicalrep() {
     
     const edit_Medicalrep = (rep_ID) => {
         axios.put("http://localhost:3001/updatemedicalrep",
-            { name: name,  email: email, phone_no: phone_no, area: area, rep_ID: rep_ID }).then(
+            { name: name,  email: email, phone_no: phone_no, working_area: working_area, rep_ID: rep_ID }).then(
                 (response) => { 
                     window.location.reload();
                 }
@@ -125,7 +125,7 @@ export default function Edit_Medicalrep() {
             setName(response.data[0].name);
             setEmail(response.data[0].email);
             setPhone_no(response.data[0].phone_no);
-            setArea(response.data[0].area);
+            setWorkingarea(response.data[0].working_area);
             setRating(response.data[0].rating);
             console.log(response.data[0]);
         };
@@ -210,7 +210,7 @@ export default function Edit_Medicalrep() {
                                 <input
                                     type="text"
                                     defaultValue={Row.area}
-                                    onChange={(event) => { setArea(event.target.value); }}
+                                    onChange={(event) => { setWorkingarea(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
                             </Typography>
@@ -227,7 +227,7 @@ export default function Edit_Medicalrep() {
                                     onChange={(event) => { setRating(event.target.value); }}
                                     style={mystyle.forminput}
                                     disabled
-                                />
+                                /> 
                             </Typography>
                         </AccordionSummary>
                     </Accordion><br />

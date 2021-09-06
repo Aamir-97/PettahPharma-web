@@ -5,12 +5,12 @@ const cors = require('cors');
 const multer = require('multer');
 // const dotenv = require('dotenv');
 const path = require('path');
+const fs = require('fs');
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 const hbs = require('nodemailer-express-handlebars');
 const sendMail = require('./mail');
-// const multer = require('multer');
 // const { name } = require('ejs');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -19,22 +19,28 @@ const saltRounds1 = 10;
 // const saltRounds = 10;""
 // const fileUpload = require('express-fileupload');
 // import public from "../public/static/images/avatars/"
-app.use(cors());
+app.use(cors({
+    origin: true,
+    methods: ["GET", "POST"],
+    credentials: true
+}));
 app.use(express.urlencoded({
     extended: false
 }));
+app.use(express.static(__dirname + '/public'));  
+app.use('/products', express.static('static/images/products')); 
 app.use(express.json());
 
 // import public from '../public/static/images'
 
-app.use(
-    fileUpload({
-        useTempFiles: true,
-        safeFileNames: true,
-        preserveExtension: true,
-        tempFileDir: `${__dirname}/public/files/temp`
-    })
-);
+// app.use(
+//     fileUpload({
+//         useTempFiles: true,
+//         safeFileNames: true,
+//         preserveExtension: true,
+//         tempFileDir: `${__dirname}/public/files/temp`
+//     })
+// );
 
 const db = mysql.createConnection({
     // Instance Identifier- PettahPharma-DB
@@ -59,7 +65,9 @@ db.connect((err) => {
 });
 
 const publicDirectory = path.join(__dirname, './public')
+const imageDirectory = path.join(__dirname, '../public/static/images/products/')
 console.log(__dirname);
+// console.log(imageDirectory);
 app.set("view engine", "hbs");
 
 // app.get('/',(_req,res)=>{
@@ -342,10 +350,48 @@ app.get('/viewmanager', (req, res) => {
     })
 })
 
+const storage = multer.diskStorage({
+    destination(req,file,cb){
+      cb(null,'../public/static/images/products/')
+    },
+    filename(req,file,cb){
+      cb(
+        null,
+        `${file.originalname.split('.')[0]}.jpg`
+      )
+    }
+  })
+   
+  const upload = multer({
+    storage,
+    limits:{
+      fileSize: 5000000
+    },
+    fileFilter(req,file,cb){
+      if(!file.originalname.match(/\.(jpeg|jpg|png)$/i)){
+        return  cb(new Error('please upload image with type of jpg or jpeg'))
+    }
+    cb(null,true)
+  }
+  })
+  
+//   app.post("/imageUpload",upload.single('file'),(req,res)=> {
+//     // const url = req.protocol + '://' + req.get('host')
+//     // const display_photo = url + '/public/' + req.file.filename
+//     const obj = {
+//         display_photo: {
+//             data: fs.readFileSync(path.join(imageDirectory + req.file.filename)),
+//             // contentType: 'image/png'
+//         }
+//     }
+
+//   })
+
 app.post('/createproduct', (req, res) => {
     console.log(req.body)
+    // const url = req.protocol + '://' + req.get('host')
     const product_id = req.body.product_id;
-    const display_photo = req.body.display_photo;
+    const display_photo = imageDirectory + req.body.display_photo;
     const name = req.body.name;
     const volume = req.body.volume;
     const price = req.body.price;
@@ -363,7 +409,7 @@ app.post('/createproduct', (req, res) => {
 
 app.put('/updateproduct', (req, res) => {
     const product_id = req.body.product_id;
-    const display_photo = req.body.image;
+    const display_photo = __dirname + '../public/static/images/products/' + req.body.display_photo;
     const name = req.body.name;
     const volume = req.body.volume;
     const price = req.body.price;
@@ -390,6 +436,7 @@ app.get('/viewproductlist', (_req, res) => {
     db.query('SELECT * FROM product ', (err, result, _fields) => {
         if (!err) {
             res.send(result);
+            // console.log(result[4].display_photo);
         } else {
             console.log(err);
         }
@@ -417,14 +464,14 @@ app.post('/createmedicalrep', (req, res) => {
     // const display_photo=req.body.display_photo;
     const email = req.body.email;
     const phone_no = req.body.phone_no;
-    const area = req.body.area;
+    const working_area = req.body.working_area;
     // const rating = req.body.rating;
     const password = req.body.password;
     const manager_ID = req.body.manager_ID;
     const created_at = req.body.created_at
 
-    db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,area,password,manager_ID,created_at) VALUES (?,?,?,?,?,?,?,?)",
-        [rep_ID, name, email, phone_no, area, password, manager_ID, created_at], (err, _results) => {
+    db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,working_area,password,manager_ID,created_at) VALUES (?,?,?,?,?,?,?,?)",
+        [rep_ID, name, email, phone_no, working_area, password, manager_ID, created_at], (err, _results) => {
             if (err) {
                 console.log(err);
             } else {
@@ -444,7 +491,7 @@ app.get('/viewmedicalreplist', (_req, res) => {
 });
  
 app.get('/viewmedicalrep', (req, res) => {
-    db.query("SELECT name,email,phone_no,area,rating FROM medicalrep WHERE rep_ID = ? ", [req.query.rep_ID], (err, result) => {
+    db.query("SELECT name,email,phone_no,working_area,rating FROM medicalrep WHERE rep_ID = ? ", [req.query.rep_ID], (err, result) => {
         res.send(result);
         console.log(result);
     })
@@ -470,12 +517,12 @@ app.put('/updatemedicalrep', (req, res) => {
     // const display_photo = req.body.image;
     const email = req.body.email;
     const phone_no = req.body.phone_no;
-    const area = req.body.area;
+    const working_area = req.body.working_area;
     // const rating = req.body.rating;
     // const manager_ID = req.body.manager_ID;
 
-    db.query('UPDATE medicalrep SET name = ?, email = ?, phone_no = ?, area = ? WHERE rep_ID=?',
-        [name, email, phone_no, area, rep_ID],
+    db.query('UPDATE medicalrep SET name = ?, email = ?, phone_no = ?, working_area = ? WHERE rep_ID=?',
+        [name, email, phone_no, working_area, rep_ID],
         (err, result) => {
             if (err) {
                 console.log(err);
@@ -1246,34 +1293,34 @@ app.get('/adminpasswordvalidation', (req, res) => {
     // });
 });
 
-const storage = multer.diskStorage({
-    destination(req,file,cb){
-      cb(null,'../public/')
-    },
-    filename(req,file,cb){
-      cb(
-        null,
-        `${file.originalname.split('.')[0]}.jpg`
-      )
-    }
-  })
+// const storage = multer.diskStorage({
+//     destination(req,file,cb){
+//       cb(null,'../public/')
+//     },
+//     filename(req,file,cb){
+//       cb(
+//         null,
+//         `${file.originalname.split('.')[0]}.jpg`
+//       )
+//     }
+//   })
   
-  const upload = multer({
-    storage,
-    limits:{
-      fileSize: 5000000
-    },
-    fileFilter(req,file,cb){
-      if(!file.originalname.match(/\.(jpeg|jpg|png)$/i)){
-        return  cb(new Error('pleaseupload image with type of jpg or jpeg'))
-    }
-    cb(undefined,true)
-  }
-  })
+//   const upload = multer({
+//     storage,
+//     limits:{
+//       fileSize: 5000000
+//     },
+//     fileFilter(req,file,cb){
+//       if(!file.originalname.match(/\.(jpeg|jpg|png)$/i)){
+//         return  cb(new Error('pleaseupload image with type of jpg or jpeg'))
+//     }
+//     cb(undefined,true)
+//   }
+//   })
   
-  app.post("/imageUpload",upload.single('file'),(req,res)=> {
+//   app.post("/imageUpload",upload.single('file'),(req,res)=> {
      
-  })
+//   })
 
   app.put('/updateProfile', (req,res) => {
     const manager_ID=req.body.manager_ID;

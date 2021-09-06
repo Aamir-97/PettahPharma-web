@@ -126,10 +126,7 @@ const Reports = ({ rest,props} ) => {
   }, []);
 
   const classes = useStyles();
-  const [selectedRowIds, setSelectedRowIds] = useState([])
-  const [limit, setLimit] = useState(5);
-  const [searchTerm, setSearchTerm] = useState("");
-  
+
   return (
     <>
     <Helmet>
@@ -155,35 +152,6 @@ const Reports = ({ rest,props} ) => {
         >
           <h1 style={{flex:3, flexWrap: 'wrap'}} >Reports</h1>
 
-        </Box>
-        <Box sx={{ mt: 3 }}
-        >
-          <Card>
-            <CardContent>
-              <Box sx={{ maxWidth: 1050 }}>
-                <TextField
-                  // fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SvgIcon
-                          fontSize="small"
-                          color="action"
-                        >
-                          <SearchIcon />
-                        </SvgIcon>
-                      </InputAdornment>
-                    )
-                  }}
-                  placeholder="Search"
-                  variant="outlined"
-                  onChange={(e) => { setSearchTerm(e.target.value); }}
-                  // alignItems="center"
-                  className={classes.textfield}
-                />
-              </Box>
-            </CardContent>
-          </Card>
         </Box>
       </Box>
       <br />

@@ -20,21 +20,21 @@ function Add_Medicalrep() {
     // const [display_photo, setDisplay_photo] = useState("");
     const [email, setEmail] = useState("");
     const [phone_no, setPhone_no] = useState("");
-    const [area, setArea] = useState("");
+    const [working_area, setWorkingarea] = useState("");
     // const [rating, setRating] = useState("");
     const [password, setPassword] = useState("");
     const [manager_ID, setManager_ID] =useState("")
 
 
     const add_Medicalrep= () => {
-        if (rep_ID && name && email && area && password && manager_ID) {
+        if (rep_ID && name && email && working_area && password && manager_ID) {
         axios.post('http://localhost:3001/createmedicalrep', {
             rep_ID: rep_ID,
             name: name,
             // display_photo: display_photo,
             email: email,
             phone_no: phone_no,
-            area: area,
+            working_area: working_area,
             // rating: rating,
             password: password,
             manager_ID: manager_ID,
@@ -196,7 +196,7 @@ function Add_Medicalrep() {
                             type="text"
                             style={mystyle.forminput}
                             placeholder="Working Area"
-                            onChange={(event) => { setArea(event.target.value); }}
+                            onChange={(event) => { setWorkingarea(event.target.value); }}
                             required
                         /><br />
                         {/* <input

@@ -250,8 +250,8 @@ const LeaveList = ({ rest, props }) => {
                       <Button
                         color="exit"
                         variant="contained"
-                        onClick={() => { addstatus("0", customer.leave_ID) }}
-                        disabled={customer.status == "0" }
+                        onClick={() => { addstatus("2", customer.leave_ID) }}
+                        disabled={customer.status == "2" }
                         startIcon={<ClearIcon />} >
                         Reject
                       </Button>

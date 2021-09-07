@@ -10,7 +10,6 @@ const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 const hbs = require('nodemailer-express-handlebars');
-const sendMail = require('./mail');
 // const { name } = require('ejs');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -62,7 +61,7 @@ db.connect((err) => {
     else {
         console.log('Database Connected...');
     }
-});
+}); 
 
 const publicDirectory = path.join(__dirname, './public')
 const imageDirectory = path.join(__dirname, '../public/static/images/products/')
@@ -74,53 +73,24 @@ app.set("view engine", "hbs");
 //             //res.send("<h1>Pettah Pharma - Web App</h1>");
 //             res.render("../../src/pages/Login")
 //         })
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
-    }
-});
 
-transporter.use('compile', hbs({
-    viewEngine: 'express-handlebars',
-    viewPath: '.'
-}));
+// app.post('/email', (req, res) => {
+//     const { subject, email, text } = req.body;
+//     log('Data: ', req.body);
 
-let mailOptions = {
-    from: 'mamadhu1219@gmail.com',
-    to: 'madhushadavidmathivannan@gmail.com',
-    // cc: 'msaamirali123@gmail.com',
-    subject: 'Password for PettahPharma',
-    text: 'This is your password',
-    template: 'main'
-};
+//     sendMail(email, subject, text, function (err, data) {
+//         if (err) {
+//             log('ERROR: ', err);
+//             return res.status(500).json({ message: err.message || 'Internal Error' });
+//         }
+//         log('Email sent!!!');
+//         return res.json({ message: 'Email sent!!!!!' });
+//     });
+// });
 
-transporter.sendMail(mailOptions, function (err, data) {
-    if (err) {
-        console.log('Error Occurs', err);
-    } else {
-        console.log('Email Sent');
-    }
-});
-
-app.post('/email', (req, res) => {
-    const { subject, email, text } = req.body;
-    log('Data: ', req.body);
-
-    sendMail(email, subject, text, function (err, data) {
-        if (err) {
-            log('ERROR: ', err);
-            return res.status(500).json({ message: err.message || 'Internal Error' });
-        }
-        log('Email sent!!!');
-        return res.json({ message: 'Email sent!!!!!' });
-    });
-});
-
-app.get('/email/sent', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'emailMessage.html'));
-});
+// app.get('/email/sent', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'views', 'emailMessage.html'));
+// });
 
 app.get('/getManagerid', (req, res) => {
     db.query('SELECT * FROM salesmanager WHERE email=? AND password=?', [req.query.email, req.query.password], (err, result) => {
@@ -157,6 +127,7 @@ app.get('/loginsal', (req, res) => {
     const password = req.query.password;
     db.query("SELECT * FROM salesmanager WHERE email=? AND password=? ",
         [email,password], (err, result) => {
+
             // if (result.length > 0) {
             //     // res.send({ message1: "Login salesmanager" },{result});
             //     // array=[...result]
@@ -174,6 +145,7 @@ app.get('/loginsal', (req, res) => {
             // else {
             //     res.send({ message11: "User doesn't exist" });
             // }
+
             if (result.length > 0) {
 
 
@@ -286,16 +258,56 @@ app.post('/createmanager', (req, res) => {
     const password = req.body.password;
     const created_at = req.body.created_at
 
-    // bcrypt.hash(password, saltRounds, (err, hash) => {
-    db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password,created_at) VALUES (?,?,?,?,?,?,?)",
-        [manager_ID, name, email, phone_no, area, password, created_at], (err, _results) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send("sales manager created");
+    let transport = nodemailer.createTransport(
+        {
+            service:'gmail',
+            auth: {
+                user: 'pettahpharma@gmail.com',
+                pass:'MAdhu@1998'
             }
-        });
-    // });
+        }
+    )
+
+    const subject = 'Login Credentials';
+    const message = `Dear ${name},
+ 
+
+    Welcome to the team! We’re excited to have you at Pettah Pharmacy Private Limited. 
+    We know you’re going to be a valuable asset to our company and can’t wait to see what you accomplish.
+     
+    You can login to our system by using your email : ${email} and your password : ${password}
+                
+    If you have any questions prior to your arrival, please feel free to email me and I’ll be more than happy to help you.
+    
+    We are looking forward to working with you and seeing you achieve great things!
+
+    Best regards,
+    Pettah Pharmacy Private Limited,
+    pettahpharma@gmail.com`;
+    
+    let mailOptions = {
+        from : 'pettahpharma@gmail.com',
+        to: email,
+        subject: subject,
+        text: message
+    }
+
+    transport.sendMail(mailOptions,function(error,info){
+        if(error){
+            console.log(error)
+        }
+        else{
+                db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password,created_at) VALUES (?,?,?,?,?,?,?)", 
+                [manager_ID, name, email, phone_no, area, password, created_at], (err, _results) => {
+                    if(err){
+                        console.log(err)
+                      }else{
+                        // console.log(result);
+                        res.send("sales manager created");
+                      }
+                })
+        }
+    })    
 });
 
 app.get('/viewmanagerlist', (_req, res) => {
@@ -470,16 +482,59 @@ app.post('/createmedicalrep', (req, res) => {
     const manager_ID = req.body.manager_ID;
     const created_at = req.body.created_at
 
-    db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,working_area,password,manager_ID,created_at) VALUES (?,?,?,?,?,?,?,?)",
-        [rep_ID, name, email, phone_no, working_area, password, manager_ID, created_at], (err, _results) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send("medical rep created");
+    let transport = nodemailer.createTransport(
+        {
+            service:'gmail',
+            auth: {
+                user: 'pettahpharma@gmail.com',
+                pass:'MAdhu@1998'
             }
-        });
-});
+        }
+    )
+
+    const subject = 'Login Credentials';
+    const message = `Dear ${name},
  
+
+    Welcome to the team! We’re excited to have you at Pettah Pharmacy Private Limited. 
+    We know you’re going to be a valuable asset to our company and can’t wait to see what you accomplish.
+     
+    You can login to our system by using your email : ${email} and your password : ${password}
+    You will also contact with your salesmanager(${manager_ID}) to discuss your tasks.
+                
+    If you have any questions prior to your arrival, please feel free to email me and I’ll be more than happy to help you.
+    
+    We are looking forward to working with you and seeing you achieve great things!
+
+    Best regards,
+    Pettah Pharmacy Private Limited,
+    pettahpharma@gmail.com`;
+    
+    let mailOptions = {
+        from : 'pettahpharma@gmail.com',
+        to: email,
+        subject: subject,
+        text: message
+    }
+
+    transport.sendMail(mailOptions,function(error,info){
+        if(error){
+            console.log(error)
+        }
+        else{
+            db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,working_area,password,manager_ID,created_at) VALUES (?,?,?,?,?,?,?,?)",
+            [rep_ID, name, email, phone_no, working_area, password, manager_ID, created_at], (err, _results) => {
+                    if(err){
+                        console.log(err)
+                      }else{
+                        // console.log(result);
+                        res.send("medical rep created");
+                      }
+                })
+        }
+    })    
+});
+
 app.get('/viewmedicalreplist', (_req, res) => {
     db.query('SELECT * FROM medicalrep ', (err, result, _fields) => {
         if (!err) {

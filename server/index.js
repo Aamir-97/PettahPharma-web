@@ -1353,17 +1353,17 @@ app.get('/adminpasswordvalidation', (req, res) => {
 });
 
 
-const storage = multer.diskStorage({
-    destination(req,file,cb){
-      cb(null,'../public/img')
-    },
-    filename(req,file,cb){
-      cb(
-        null,
-        `${file.originalname.split('.')[0]}.jpg`
-      )
-    }
-  })
+// const storage = multer.diskStorage({
+//     destination(req,file,cb){
+//       cb(null,'../public/img')
+//     },
+//     filename(req,file,cb){
+//       cb(
+//         null,
+//         `${file.originalname.split('.')[0]}.jpg`
+//       )
+//     }
+//   })
 
 // const storage = multer.diskStorage({
 //     destination(req,file,cb){

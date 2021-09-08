@@ -175,26 +175,23 @@ const AnnualVisitReportTable = ({ visits }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {visits.map((visit) => {
-              const dt = new Date(visit.date);
-              const year = dt.getFullYear() + '/';
-              const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
-              const day = ('0' + dt.getDate()).slice(-2);
+            
 
-              {selectedRowIds.slice(0, limit).filter(val => {
+              {visits.slice(0, limit).filter(val => {
                 if (searchTerm === "") {
                  return val;
                } 
-               else if (
-                val.visit.date==searchTerm) {
-                return val
-              }
-               else if (
-                 val.visit.report_id==searchTerm) {
+              //  else if (val.date.includes(searchTerm)) {
+              //   return val
+              // }
+               else if (String( val.report_id).includes(searchTerm)) {
                  return val
                }
-               })
-               {
+               }).map((visit) => {
+                const dt = new Date(visit.date);
+                const year = dt.getFullYear() + '/';
+                const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
+                const day = ('0' + dt.getDate()).slice(-2);
               return (
               <TableRow  
               hover
@@ -213,7 +210,6 @@ const AnnualVisitReportTable = ({ visits }) => {
                 {/* <td>{visit.manager_comment}</td> */}
               </TableRow >
                 )
-               }}
               })
             }
           </TableBody>

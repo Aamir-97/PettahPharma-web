@@ -165,26 +165,23 @@ const AnnualTaskReportTable = ({ tasks }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tasks.map((task) => {
-              const dt = new Date(task.date);
-              const year = dt.getFullYear() + '/';
-              const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
-              const day = ('0' + dt.getDate()).slice(-2);
-
-              {selectedRowIds.slice(0, limit).filter(val => {
+            
+              {tasks.slice(0, limit).filter(val => {
                 if (searchTerm === "") {
                  return val;
                } 
-               else if (
-                val.visit.date==searchTerm) {
-                return val
-              }
-               else if (
-                 val.visit.report_id==searchTerm) {
+              //  else if (val.date.includes(searchTerm)) {
+              //   return val
+              // }
+               else if (String( val.task_id).includes(searchTerm)) {
                  return val
                }
-               })
-               {
+              }).map((task) => {
+                const dt = new Date(task.date);
+                const year = dt.getFullYear() + '/';
+                const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
+                const day = ('0' + dt.getDate()).slice(-2);
+  
               return (
               <TableRow  
               hover
@@ -201,7 +198,6 @@ const AnnualTaskReportTable = ({ tasks }) => {
                 <TableCell>{task.rep_ID}</TableCell> */}
               </TableRow >
                 )
-              }}
              })
            }
           </TableBody>

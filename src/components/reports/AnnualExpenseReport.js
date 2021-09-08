@@ -39,14 +39,17 @@ const Expenses = () => {
   justifyContent="center"
   alignItems="center"
 >
-    <Box m={2} >
+    <Box mt={2} ml={2} mr={3}>
       <div className="container mb-4 mt-4 p-3">
         <div className="row">
+        <Box ml={6} >
         <h3>Annual Expense Report</h3>
+        </Box>
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'flex-end',
+            mr: 6
           }}>
             <Button
               variant="contained" 
@@ -59,7 +62,7 @@ const Expenses = () => {
           </Box>
         </div>
       </div>
-      <Box mt={2}>
+      <Box mt={2} ml={4} mr={3}>
       <AnnualExpenseReportTable expenses={expenses} />
       </Box>      
       </Box>

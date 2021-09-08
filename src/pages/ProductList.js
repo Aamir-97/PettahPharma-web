@@ -123,7 +123,7 @@ const ProductList = ({ rest,props} ) => {
   };
 
   const [searchTerm, setSearchTerm] = useState("");
-  
+  const path = require('path');
 
   return (
     <>
@@ -221,13 +221,15 @@ const ProductList = ({ rest,props} ) => {
                     return val
                   }
                 }).map((Row) => {
+                  const imageDirectory = path.join(__dirname, '../public/static/images/products/')
+                  // console.log(imageDirectory)
                   return (
                     <TableRow
                       hover
                       key={Row.product_ID}
                     >
                       <TableCell align="center">{Row.product_id}</TableCell>
-                      <TableCell align="center">{Row.display_photo}</TableCell>
+                      <TableCell align="center"><img style={{height:'100px',width:'100px'}} src= {Row.display_photo} /></TableCell>
                       <TableCell align="center">{Row.name}</TableCell>
                       <TableCell align="center">{Row.volume}</TableCell>
                       <TableCell align="center">{Row.price}</TableCell>

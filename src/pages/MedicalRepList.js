@@ -233,7 +233,7 @@ const MedicalRepList = ({ rest,props} ) => {
                     <TableCell align="center">{Row.name}</TableCell>
                     <TableCell align="center">{Row.email}</TableCell>
                     <TableCell align="center">{Row.phone_no}</TableCell>
-                    <TableCell align="center">{Row.area}</TableCell>
+                    <TableCell align="center">{Row.working_area}</TableCell>
                     <TableCell align="center">{Row.rating}</TableCell>
                     <TableCell align="center">{Row.manager_ID}</TableCell>
                        <TableCell align="center">

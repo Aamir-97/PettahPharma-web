@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+// app.use(express.static('img'));
+app.use(express.static(__dirname + '/public'));
 const mysql = require('mysql');
 const cors = require('cors');
 const multer = require('multer');
@@ -11,6 +13,8 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 const hbs = require('nodemailer-express-handlebars');
 // const { name } = require('ejs');
+// const path = require("path");
+
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const saltRounds1 = 10;
@@ -1348,6 +1352,19 @@ app.get('/adminpasswordvalidation', (req, res) => {
     // });
 });
 
+
+const storage = multer.diskStorage({
+    destination(req,file,cb){
+      cb(null,'../public/img')
+    },
+    filename(req,file,cb){
+      cb(
+        null,
+        `${file.originalname.split('.')[0]}.jpg`
+      )
+    }
+  })
+
 // const storage = multer.diskStorage({
 //     destination(req,file,cb){
 //       cb(null,'../public/')
@@ -1359,6 +1376,7 @@ app.get('/adminpasswordvalidation', (req, res) => {
 //       )
 //     }
 //   })
+
   
 //   const upload = multer({
 //     storage,

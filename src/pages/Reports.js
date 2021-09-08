@@ -5,7 +5,7 @@ import React from 'react';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from "axios";
-// import generatePDF from "src/pages/ReportGeneration";
+// import generatePDF from "public/avatar_13";
 import AnnualVisitReport from "src/components/reports/AnnualVisitReport";
 import AnnualExpenseReport from "src/components/reports/AnnualExpenseReport";
 import AnnualTaskReport from "src/components/reports/AnnualTaskReport";

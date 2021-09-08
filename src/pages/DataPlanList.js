@@ -79,17 +79,17 @@ const DataPlanList = ({ rest, props }) => {
     // debutton:{
     //   backgroundColor: 'red',
     // },
-    link:{
+    link: {
       // backgroundColor: '#5eb6b8',
       color: '#FFF',
     },
-    h1:{
+    h1: {
       // backgroundColor: '#5eb6b8',
       // color: '#FFF',
-      fontFamily: "Sans-serif", 
+      fontFamily: "Sans-serif",
     },
   }));
-  
+
   // #35dade,#27bec2,#186263
   const classes = useStyles();
 
@@ -126,7 +126,7 @@ const DataPlanList = ({ rest, props }) => {
   };
 
   const deleteEmployee = (task_id) => {
-    
+
     axios.get("http://localhost:3001/delete", {
       params: {
         task_id: task_id,
@@ -137,20 +137,20 @@ const DataPlanList = ({ rest, props }) => {
     // window.confirmAlert('Are you sure you wish to delete this item?') ? confirmAlert("confirm") ;
   };
 
- 
+
   const [searchTerm, setSearchTerm] = useState("");
 
   var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
-    var yyyy = today.getFullYear();
-    if (dd < 10) {
-        dd = '0' + dd
-    }
-    if (mm < 10) {
-        mm = '0' + mm
-    }
-    today = yyyy + '-' + mm + '-' + dd;
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+  today = yyyy + '-' + mm + '-' + dd;
 
   console.log(manager_ID);
 
@@ -181,14 +181,14 @@ const DataPlanList = ({ rest, props }) => {
                   marginLeft: '500px',
                 }}
               >
-                <h1 style={{ flex: 3, flexWrap: 'wrap' }}  className={classes.h1}><b> TASK</b> </h1>
+                <h1 style={{ flex: 3, flexWrap: 'wrap' }} className={classes.h1}><b> TASK</b> </h1>
                 <Link to={'/appp/AsignTask'}>
                   <Button
                     color="primary"
                     variant="contained"
-                    startIcon ={<PersonAddIcon />}
+                    startIcon={<PersonAddIcon />}
                   >
-                  {/* {today} */}
+                    {/* {today} */}
                     Asign Task
                   </Button>
                 </Link>
@@ -232,7 +232,7 @@ const DataPlanList = ({ rest, props }) => {
                       <TableRow>
                         <TableCell><b> Medical Rep Name</b></TableCell>
                         <TableCell><b>Task Title</b></TableCell>
-                        <TableCell><b>Location</b></TableCell>                        
+                        <TableCell><b>Location</b></TableCell>
                         <TableCell><b>Date</b></TableCell>
                         <TableCell><b>Status</b></TableCell>
                         <TableCell align="center"><b>Action</b></TableCell>
@@ -243,7 +243,7 @@ const DataPlanList = ({ rest, props }) => {
                       {selectedCustomerIds.slice(0, limit).filter(val => {
                         if (searchTerm === "") {
                           return val;
-                        } 
+                        }
                         else if (
                           val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
                           return val
@@ -254,9 +254,9 @@ const DataPlanList = ({ rest, props }) => {
                         }
                       }).map((customer) => {
                         const dt = new Date(customer.date);
-                      const year = dt.getFullYear() + '-';
-                      const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '-';
-                      const day = ('0' + dt.getDate()).slice(-2);
+                        const year = dt.getFullYear() + '-';
+                        const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '-';
+                        const day = ('0' + dt.getDate()).slice(-2);
                         return (
                           <TableRow
                             hover
@@ -283,46 +283,46 @@ const DataPlanList = ({ rest, props }) => {
                             <TableCell>{year + month + day}</TableCell>
                             <TableCell>{customer.status}</TableCell>
                             <TableCell align="center">
-                            <Link to={`/appp/TaskInfo/${customer.task_id}`} className={classes.link}  >
+                              <Link to={`/appp/TaskInfo/${customer.task_id}`} className={classes.link}  >
                                 <Button
                                   color="primary"
                                   variant="contained"
-                                  startIcon ={<VisibilityIcon />}>
-                                    
+                                  startIcon={<VisibilityIcon />}>
+
                                   View
-                                  
+
                                 </Button>
-                                </Link>
+                              </Link>
                               {'   '}
-                              
-                                <Button
-                                  color="edit"
-                                  variant="contained"
-                                  disabled={customer.status =="Complete" }
-                                  startIcon ={<EditIcon />}
-                                  >
-                                    <Link to={`/appp/UpdateTask/${customer.task_id}`} className={classes.link} >
+
+                              <Button
+                                color="edit"
+                                variant="contained"
+                                disabled={customer.status == "Complete"}
+                                startIcon={<EditIcon />}
+                              >
+                                <Link to={`/appp/UpdateTask/${customer.task_id}`} className={classes.link} >
                                   Edit
-                                  </Link>
-                                </Button>
-                             
+                                </Link>
+                              </Button>
+
                               {' '}
-                              <Button onClick={() => { deleteEmployee(customer.task_id) }} 
+                              <Button onClick={() => { deleteEmployee(customer.task_id) }}
                                 variant="contained"
                                 color="exit"
-                                disabled={customer.status =="Complete"}
+                                disabled={customer.status == "Complete"}
                                 // disabled={true}
                                 className={classes.debutton}
-                                startIcon ={<DeleteIcon />}
-                                >
-                                  <Link to={`/appp/dataplan`} className={classes.link} >
-                                Delete
+                                startIcon={<DeleteIcon />}
+                              >
+                                <Link to={`/appp/dataplan`} className={classes.link} >
+                                  Delete
                                 </Link>
                               </Button>
 
                             </TableCell>
                           </TableRow>
-                          
+
                           // ))}
                         )
                       })
@@ -338,7 +338,7 @@ const DataPlanList = ({ rest, props }) => {
                 onRowsPerPageChange={handleLimitChange}
                 page={page}
                 rowsPerPage={limit}
-                rowsPerPageOptions={[5, 10, 20,50]}
+                rowsPerPageOptions={[5, 10, 20, 50]}
               />
             </Card>
           </>

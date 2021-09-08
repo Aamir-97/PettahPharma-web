@@ -162,26 +162,23 @@ const AnnualExpenseReportTable = ({ expenses }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {expenses.map((expense) => {
-              const dt = new Date(expense.date);
-              const year = dt.getFullYear() + '/';
-              const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
-              const day = ('0' + dt.getDate()).slice(-2);
-
-              {selectedRowIds.slice(0, limit).filter(val => {
+              {expenses.slice(0, limit).filter(val => {
                 if (searchTerm === "") {
                  return val;
                } 
+              //  else if (
+              //   val.date.includes(searchTerm)) {
+              //   return val
+              // }
                else if (
-                val.visit.date==searchTerm) {
-                return val
-              }
-               else if (
-                 val.visit.report_id==searchTerm) {
+                String( val.expense_ID).includes(searchTerm)) {
                  return val
                }
-               })
-               {
+               }).map((expense) => {
+                const dt = new Date(expense.date);
+                const year = dt.getFullYear() + '-';
+                const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '-';
+                const day = ('0' + dt.getDate()).slice(-2);
               return (
               <TableRow  
               hover
@@ -194,7 +191,6 @@ const AnnualExpenseReportTable = ({ expenses }) => {
                 {/* <TableCell>{expense.description}</TableCell> */}
               </TableRow >
                 )
-              }}
              })
            }
           </TableBody>

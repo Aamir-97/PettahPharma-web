@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+// app.use(express.static('img'));
+app.use(express.static(__dirname + '/public'));
 const mysql = require('mysql');
 const cors = require('cors');
 const multer = require('multer');
@@ -12,6 +14,8 @@ const hbs = require('nodemailer-express-handlebars');
 const sendMail = require('./mail');
 // const multer = require('multer');
 // const { name } = require('ejs');
+// const path = require("path");
+
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const saltRounds1 = 10;
@@ -1248,7 +1252,7 @@ app.get('/adminpasswordvalidation', (req, res) => {
 
 const storage = multer.diskStorage({
     destination(req,file,cb){
-      cb(null,'../public/')
+      cb(null,'../public/img')
     },
     filename(req,file,cb){
       cb(

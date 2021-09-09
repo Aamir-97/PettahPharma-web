@@ -10,10 +10,12 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import back from '../images/back3.jpg';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
+        
     },
     paper: {
         padding: theme.spacing(2),
@@ -23,15 +25,17 @@ const useStyles = makeStyles((theme) => ({
         fontSize: theme.typography.pxToRem(15),
         flexBasis: '33.33%',
         flexShrink: 0,
+        
     },
     secondaryHeading: {
         fontSize: theme.typography.pxToRem(15),
         color: 'black',
+        
     },
     formbox: {
         backgroundColor: 'lightgray',
         width: '60%',
-        marginTop: '7px',
+        marginTop: 'px',
         marginLeft: '200px',
         height: 'full',
         boxShadow: "2px 2px 5px  2px #9E9E9E",
@@ -39,6 +43,20 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "5px",
         align: 'center',
     },
+    bo: {
+        
+        borderRadius: "500px",
+       
+    },
+    backgroud: {
+        backgroundColor: '#5eb6b8',
+        backgroundImage: `url(${back})`
+        //  color: '#0A6466',
+        // marginTop: '7px',
+        // paddingRight:'10px',
+        // fontSize:'100px',
+        // size:'200px',
+      },
 }));
 
 const mystyle = {
@@ -107,6 +125,7 @@ export default function SummaryInfo() {
     const day = ('0' + dtt.getDate()).slice(-2);
 
     return (
+        <div className={classes.backgroud}>
         <div className={classes.formbox}>
             <div className={classes.root}>
                 <Grid item xs={12}>
@@ -114,8 +133,8 @@ export default function SummaryInfo() {
                 </Grid>
 
                 <div className={classes.root}>
-                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                        <AccordionSummary>
+                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}   >
+                        <AccordionSummary >
                             <Typography className={classes.heading}>Medical Rep Name</Typography>
                             <Typography className={classes.secondaryHeading}>{Dt.repname}</Typography>
                         </AccordionSummary>
@@ -215,6 +234,7 @@ export default function SummaryInfo() {
                         </Link>
 
             </div>
+        </div>
         </div>
     );
 }

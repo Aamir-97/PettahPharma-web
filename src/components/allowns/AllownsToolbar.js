@@ -9,7 +9,7 @@ import {
   } from '@material-ui/core';
   import { Search as SearchIcon } from 'react-feather';
   import { Link } from 'react-router-dom';
-  
+  import ReceiptIcon from '@material-ui/icons/Receipt';
   
   const AllownsToolbar = (props) => (
     <Box {...props}>
@@ -18,7 +18,7 @@ import {
           display: 'flex',
           justifyContent: 'flex-end',
           marginTop: '0px',
-                  marginLeft: '500px',
+                  marginLeft: '450px',
         }}
       >
        {/* <Link to={'/appp/AsignTask'}>
@@ -29,6 +29,7 @@ import {
           Asign Task
         </Button>
         </Link> */}
+        <view > <ReceiptIcon style={{ fontSize:"40px" }} /></view>
   <h1 style={{ flex: 3, flexWrap: 'wrap' }} >Expenses</h1>
       </Box>
       <Box sx={{ mt: 3 }}>

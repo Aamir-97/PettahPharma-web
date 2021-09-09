@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-
+import back from '../images/back3.jpg';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,13 +37,23 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
         width: '60%',
         marginTop: '0px',
-        marginLeft: '0px',
+        marginLeft:'250px',
         height: 'full',
         boxShadow: "2px 2px 5px  2px #9E9E9E",
         padding: "2vh",
         borderRadius: "5px",
         align: 'center'
     },
+    backgroud: {
+        backgroundColor: '#5eb6b8',
+        backgroundImage: `url(${back})`,
+        height:'666px',
+        //  color: '#0A6466',
+        // marginTop: '7px',
+        // paddingRight:'10px',
+        // fontSize:'100px',
+        // size:'200px',
+      },
 
 }));
 
@@ -136,6 +146,7 @@ export default function Edit_Product() {
     };
 
     return (
+        <div className={classes.backgroud}>
         <div className={classes.formbox}>
             <div className={classes.root}>
                 <Grid item xs={12}>
@@ -235,7 +246,7 @@ export default function Edit_Product() {
                                 style={mystyle.closeBtn}                      
                             > Close</Button>
                         </Link>
-
+                        </div>
             </div>
         </div>
     );

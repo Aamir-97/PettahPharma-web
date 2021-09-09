@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import back from '../images/back3.jpg';
 
 function Add_Salesmanager() {
 
@@ -58,7 +59,7 @@ function Add_Salesmanager() {
             backgroundColor: 'white',
             width: '60%',
             textalign: 'center',
-            marginTop: '10px',
+            marginTop: '0px',
             height: 'full',
             boxShadow: "2px 2px 5px  2px #9E9E9E",
             padding: "2vh",
@@ -129,6 +130,16 @@ function Add_Salesmanager() {
           aaa: {
               width: '500px',
             },
+            backgroud: {
+                backgroundColor: '#5eb6b8',
+                backgroundImage: `url(${back})`,
+                height:'666px',
+                //  color: '#0A6466',
+                // marginTop: '7px',
+                // paddingRight:'10px',
+                // fontSize:'100px',
+                // size:'200px',
+              },
     };
     
     // const useStyles = makeStyles((theme) => ({
@@ -146,6 +157,7 @@ function Add_Salesmanager() {
     //   const classes = useStyles();
 
     return (
+        <div style={mystyle.backgroud}  >
         <div align='center'>
             <div style={mystyle.formbox}>
                 <h1 style={mystyle.formhead}> Add Salesmanager </h1>
@@ -219,7 +231,7 @@ function Add_Salesmanager() {
                         </Link>
                     </div>
                 </form>
-
+                </div>
             </div>
         </div>
 

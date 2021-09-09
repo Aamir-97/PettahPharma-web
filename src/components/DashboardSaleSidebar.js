@@ -32,7 +32,7 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import NavItem from './NavItem';
 import axios from "axios";
-
+import side from '../images/side3.jpg';
 
 
 
@@ -77,11 +77,11 @@ const items = [
     icon: ListAltIcon,
     title: 'Summary Report'
   },
-  {
-    href: '',
-    icon: ForumIcon,
-    title: 'Discussion Forum'
-  },
+  // {
+  //   href: '',
+  //   icon: ForumIcon,
+  //   title: 'Discussion Forum'
+  // },
   {
     href: '/appp/Leave',
     icon: AssignmentIndIcon,
@@ -163,7 +163,9 @@ const DashboardSaleSidebar = ({ onMobileClose, openMobile }) => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        height: '100%',
+        // backgroundColor:'#5eb6b8',
+        // backgroundImage: `url(${side})`
       }}
     >
       <Box

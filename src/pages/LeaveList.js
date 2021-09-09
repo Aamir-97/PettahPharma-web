@@ -35,7 +35,8 @@ import {
 import LeaveResults from 'src/components/leave/LeaveResults';
 import LeaveToolbar from 'src/components/leave/LeaveToolbar';
 import Leave from 'src/__mocks__/Leave';
-
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import back from '../images/back3.jpg';
 const LeaveList = ({ rest, props }) => {
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([])
@@ -95,7 +96,26 @@ const LeaveList = ({ rest, props }) => {
     h1:{
       // backgroundColor: '#5eb6b8',
       // color: '#FFF',
+      color: '#FFF',
       fontFamily: "Sans-serif", 
+    },
+    view: {
+      // backgroundColor: '#5eb6b8',
+      //  color: '#0A6466',
+      // marginTop: '7px',
+      color: '#FFF',
+      paddingRight:'10px',
+      // fontSize:'100px',
+      size:'200px',
+    },
+    backgroud: {
+      backgroundColor: '#5eb6b8',
+      backgroundImage: `url(${back})`
+      //  color: '#0A6466',
+      // marginTop: '7px',
+      // paddingRight:'10px',
+      // fontSize:'100px',
+      // size:'200px',
     },
   }));
 
@@ -123,6 +143,7 @@ const LeaveList = ({ rest, props }) => {
         minHeight: '100%',
         py: 3
       }}
+      className={classes.backgroud}
     >
       <Container maxWidth={false}>
 <>
@@ -131,10 +152,11 @@ const LeaveList = ({ rest, props }) => {
             sx={{
               display: 'flex',
               justifyContent: 'flex-end',
-              marginTop: '0px',
+              marginTop: '10px',
               marginLeft: '400px',
             }}
           >
+            <view className={classes.view}> <AssignmentIndIcon style={{ fontSize:"40px" }} /></view>
             <h1 style={{ flex: 3, flexWrap: 'wrap' }} className={classes.h1} >LEAVE APPROVAL</h1>
 
           </Box>

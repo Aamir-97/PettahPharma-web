@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-
+import back from '../images/back3.jpg';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,13 +36,22 @@ const useStyles = makeStyles((theme) => ({
     formbox: {
         backgroundColor: 'lightgray',
         width: '60%',
-        marginTop: '7px',
+        marginTop: '0px',
         marginLeft: '200px',
         height: 'full',
         boxShadow: "2px 2px 5px  2px #9E9E9E",
         padding: "2vh",
         borderRadius: "5px",
         align: 'center'
+    },
+    backgroud: {
+        backgroundColor: '#5eb6b8',
+        backgroundImage: `url(${back})`
+        //  color: '#0A6466',
+        // marginTop: '7px',
+        // paddingRight:'10px',
+        // fontSize:'100px',
+        // size:'200px',
     },
 
 }));
@@ -106,21 +115,21 @@ export default function UpdateTask() {
     manager_ID = JSON.parse(manager_ID)
     console.log(manager_ID);
 
-    
-        const update = (task_id, manager_ID) => {
-            if (rep_ID && title && date && location && session) {
+
+    const update = (task_id, manager_ID) => {
+        if (rep_ID && title && date && location && session) {
             axios.put("http://localhost:3001/update",
                 { rep_ID: rep_ID, type: type, title: title, location: location, date: date, session: session, description: description, task_id: task_id, manager_ID: manager_ID }).then(
                     (response) => { }
                 )
-                alert("The task was updated successfully.")
-            }
-            else {
-                alert("Date,Time slot,Medical rep name,title,location are required")
+            alert("The task was updated successfully.")
+        }
+        else {
+            alert("Date,Time slot,Medical rep name,title,location are required")
 
-            }
-        };
-    
+        }
+    };
+
 
 
     useEffect(() => {
@@ -184,6 +193,7 @@ export default function UpdateTask() {
     // const mydate="2021/06/25"
     // var s ="(Requird)" 
     return (
+        <div className={classes.backgroud}>
         <div className={classes.formbox}>
             <div className={classes.root}>
                 <Grid item xs={12}>
@@ -345,5 +355,6 @@ export default function UpdateTask() {
 
             </div>
         </div>
+        </div >
     );
 }

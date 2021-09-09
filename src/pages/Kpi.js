@@ -19,7 +19,7 @@ import {
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-
+import AssessmentIcon from '@material-ui/icons/Assessment';
 const useRowStyles = makeStyles({
   root: {
     '& > *': {
@@ -166,6 +166,7 @@ export default function Kpi() {
               marginLeft: '400px',
             }}
           >
+            <view className={classes.view}> <AssessmentIcon style={{ fontSize:"40px" }} /></view>
     <h1 style={{ flex: 3, flexWrap: 'wrap' }} className={classes.h1} >KPI ANALYSIS</h1>
     </Box>
      <Box

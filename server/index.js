@@ -229,7 +229,7 @@ app.get('/adminprofile', (_req, res) => {
     });
 });
 
-app.put('/updateadmin', (req, res) => {
+app.post('/updateadmin', (req, res) => {
     // const admin_ID = req.query.admin_ID;
     const name = req.body.name;
     const email = req.body.email;
@@ -346,15 +346,16 @@ app.get("/deletemanager", (req, res) => {
     );
 });
 
-app.put('/updatemanager', (req, res) => {
+app.post('/updatemanager', (req, res) => {
     const manager_ID = req.body.manager_ID;
     const name = req.body.name;
     // const display_photo = req.body.display_photo;
     const email = req.body.email;
     const phone_no = req.body.phone_no;
     const area = req.body.area;
-    // console.log(manager_ID,name,email,phone_no,area)
-
+    console.log('manager_ID')
+    console.log(manager_ID,name,email,phone_no,area)
+    console.log('manager_ID')
     db.query("UPDATE salesmanager SET name = ?, email = ?,phone_no = ?,area = ? WHERE manager_ID=?",
         [name, email, phone_no, area, manager_ID],
         (err, result) => {
@@ -601,7 +602,7 @@ app.put('/updatemedicalrep', (req, res) => {
 });
 
 app.get('/gettask', (req, res) => {
-    db.query('SELECT medicalrep.name,task.location,task.title,task.date,task.task_id,task.status FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? AND type="task"', [req.query.manager_ID], (err, result, fields) => {
+    db.query('SELECT medicalrep.name,task.location,task.title,task.date,task.task_id,task.status FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? AND type="task" ORDER BY date DESC', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
             console.log(result);
@@ -612,7 +613,7 @@ app.get('/gettask', (req, res) => {
 })
  
 app.get('/viewtask', (req, res) => {
-    db.query('SELECT medicalrep.name,task.type,task.title,task.location,task.date,task.session,task.description,task.rep_note,task.status,task.task_id,task.task_id,task.rep_ID FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? AND task.task_id=?', [req.query.manager_ID, req.query.task_id], (err, result) => {
+    db.query('SELECT medicalrep.name,task.type,task.title,task.location,task.date,task.session,task.description,task.rep_note,task.status,task.task_id,task.task_id,task.rep_ID FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? AND task.task_id=? ', [req.query.manager_ID, req.query.task_id], (err, result) => {
         res.send(result);
         console.log(result);
     })
@@ -1403,22 +1404,22 @@ app.get('/adminpasswordvalidation', (req, res) => {
      
 //   })
 
-  app.put('/updateProfile', (req,res) => {
-    const manager_ID=req.body.manager_ID;
-    const emp_img = req.body.emp_img;
+//   app.put('/updateProfile', (req,res) => {
+//     const manager_ID=req.body.manager_ID;
+//     const emp_img = req.body.emp_img;
     
    
-    db.query("UPDATE salesmanager SET display_photo=? WHERE manager_ID = ?", 
-    [emp_img,manager_ID], 
-    (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-       }
-    );
-  });
+//     db.query("UPDATE salesmanager SET display_photo=? WHERE manager_ID = ?", 
+//     [emp_img,manager_ID], 
+//     (err, result) => {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             res.send(result);
+//         }
+//        }
+//     );
+//   });
 
 
 

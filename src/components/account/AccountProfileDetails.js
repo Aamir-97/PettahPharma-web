@@ -32,10 +32,11 @@ const AccountProfileDetails = (props) => {
   console.log(manager_ID);
 
 
-
+  console.log(manager_ID,name,email,phone_no,area)
     
     const edit_Salesmanager = (manager_ID) => {
-        axios.put("http://localhost:3001/updatemanager",
+      console.log(manager_ID,name,email,phone_no,area)
+        axios.post("http://localhost:3001/updatemanager",
             { name: name, email: email, phone_no: phone_no, area: area, manager_ID: manager_ID }).then(
                 (response) => { 
                     window.location.reload();

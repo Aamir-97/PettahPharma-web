@@ -10,7 +10,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import back from '../images/back3.jpg';
 
 const TaskInfo = () => {
 
@@ -34,7 +34,7 @@ const TaskInfo = () => {
         formbox: {
             backgroundColor: 'lightgray',
             width: '60%',
-            marginTop: '7px',
+            marginTop: '0px',
             marginLeft: '200px',
             height: 'full',
             boxShadow: "2px 2px 5px  2px #9E9E9E",
@@ -45,6 +45,15 @@ const TaskInfo = () => {
         link:{
             // backgroundColor: '#5eb6b8',
             color: '#FFF',
+          },
+          backgroud: {
+            backgroundColor: '#5eb6b8',
+            backgroundImage: `url(${back})`
+            //  color: '#0A6466',
+            // marginTop: '7px',
+            // paddingRight:'10px',
+            // fontSize:'100px',
+            // size:'200px',
           },
     }));
 
@@ -124,6 +133,7 @@ const TaskInfo = () => {
     const day = ('0' + dtt.getDate()).slice(-2);
 
     return (
+        <div className={classes.backgroud}>
         <div className={classes.formbox}>
             <div className={classes.root}>
                 <Grid item xs={12}>
@@ -232,6 +242,7 @@ const TaskInfo = () => {
 
 
             </div>
+        </div>
         </div>
     );
 }

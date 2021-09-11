@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-
+import back from '../images/back3.jpg';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'lightgray',
         width: '55%',
         marginTop: '0px',
-        marginLeft: '200px',
+        marginLeft: '270px',
         height: 'full',
         boxShadow: "2px 2px 5px  2px #9E9E9E",
         padding: "2vh",
@@ -65,6 +65,15 @@ const useStyles = makeStyles((theme) => ({
         height: '40px',
         backgroundColor: 'white'
     },
+    backgroud: {
+        backgroundColor: '#5eb6b8',
+        backgroundImage: `url(${back})`
+        //  color: '#0A6466',
+        // marginTop: '7px',
+        // paddingRight:'10px',
+        // fontSize:'100px',
+        // size:'200px',
+      },
 
 }));
 
@@ -200,6 +209,7 @@ export default function AsignTask() {
     today = yyyy + '-' + mm + '-' + dd;
 
     return (
+        <div className={classes.backgroud}>
         <div className={classes.formbox}>
             <div className={classes.root}>
                 <Grid item xs={12}>
@@ -370,6 +380,7 @@ export default function AsignTask() {
                 </Button> */}
 
             </div>
+        </div>
         </div>
     );
 }

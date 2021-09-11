@@ -10,12 +10,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import axios from "axios";
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import { confirmAlert } from 'react-confirm-alert';
 import {
   Avatar,
   Box,
   Card,
   Checkbox,
+  
   Table,
   Container,
   Button,
@@ -34,6 +36,8 @@ import getInitials from 'src/utils/getInitials';
 import { Link, Route } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
+import back from '../images/back3.jpg';
+
 
 const DataPlanList = ({ rest, props }) => {
 
@@ -84,9 +88,30 @@ const DataPlanList = ({ rest, props }) => {
       color: '#FFF',
     },
     h1: {
-      // backgroundColor: '#5eb6b8',
-      // color: '#FFF',
+      //  backgroundColor: '#5eb6b8',
+      //  color: '#0A6466',
+      color: '#FFF',
       fontFamily: "Sans-serif",
+    },
+    view: {
+      // backgroundColor: '#5eb6b8',
+      //  color: '#0A6466',
+      // marginTop: '7px',
+      paddingRight:'10px',
+      // fontSize:'100px',
+      // color: '#0A6466',
+      color: '#FFF',
+      size:'200px',
+    },
+    backgroud: {
+      backgroundColor: '#5eb6b8',
+      backgroundImage: `url(${back})`,
+      //  color: '#0A6466',
+      // marginTop: '7px',
+      // paddingRight:'10px',
+      // fontSize:'100px',
+      // size:'200px',
+      // width:'1000px',
     },
   }));
 
@@ -168,6 +193,7 @@ const DataPlanList = ({ rest, props }) => {
         }}
         className={classes.backgroud}
       >
+        {/* <img src={back} alt="back" width='1000px' /> */}
         <Container maxWidth={false}>
           <>
             <Box {...props}>
@@ -178,10 +204,12 @@ const DataPlanList = ({ rest, props }) => {
                   mt: 3,
                   flex: 3,
                   marginTop: '0px',
-                  marginLeft: '500px',
+                  marginLeft: '455px',
                 }}
               >
-                <h1 style={{ flex: 3, flexWrap: 'wrap' }} className={classes.h1}><b> TASK</b> </h1>
+                <view className={classes.view}> <AssignmentIcon style={{ fontSize:"40px" }} /></view>
+               
+                <h1 style={{ flex: 3, flexWrap: 'wrap' }} className={classes.h1} ><b> TASK</b> </h1>
                 <Link to={'/appp/AsignTask'}>
                   <Button
                     color="primary"

@@ -15,8 +15,8 @@ import {
 } from '@material-ui/core';
 import { height } from '@material-ui/system';
 import { AlignCenter } from 'react-feather';
-
-
+import back from '../images/login2.jpg';
+import { makeStyles } from '@material-ui/core/styles';
 function Login() {
 
   const navigate = useNavigate("");
@@ -28,7 +28,81 @@ function Login() {
   const [loginStatusmanagerexist, setLoginStatusmanagerexist] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
 
+  const useStyles = makeStyles((theme) => ({
+      root: {
+        width: '100%',
   
+      },
+      paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+      },
+      heading: {
+        fontSize: theme.typography.pxToRem(15),
+        flexBasis: '33.33%',
+        flexShrink: 0,
+      },
+      secondaryHeading: {
+        fontSize: theme.typography.pxToRem(15),
+        color: 'black',
+      },
+      formbox: {
+        backgroundColor: 'gray',
+        width: '60%',
+        marginTop: '40px',
+        marginLeft: '200px',
+        height: 'full',
+        boxShadow: "2px 2px 5px  2px #9E9E9E",
+        padding: "2vh",
+        borderRadius: "5px",
+        align: 'center',
+      },
+      textfield: {
+        backgroundColor: 'white',
+        width: '100%',
+        marginTop: '0px',
+        marginLeft: '100px',
+        height: '100%',
+        // boxShadow: "2px 2px 5px  2px #9E9E9E",
+        padding: "2vh",
+        borderRadius: "5px",
+      },
+      // debutton:{
+      //   backgroundColor: 'red',
+      // },
+      link: {
+        // backgroundColor: '#5eb6b8',
+        color: '#FFF',
+      },
+      h1: {
+        //  backgroundColor: '#5eb6b8',
+        //  color: '#0A6466',
+        color: '#FFF',
+        fontFamily: "Sans-serif",
+      },
+      view: {
+        // backgroundColor: '#5eb6b8',
+        //  color: '#0A6466',
+        // marginTop: '7px',
+        paddingRight:'10px',
+        // fontSize:'100px',
+        // color: '#0A6466',
+        color: '#FFF',
+        size:'200px',
+      },
+      backgroud: {
+        backgroundColor: '#5eb6b8',
+        backgroundImage: `url(${back})`
+        //  color: '#0A6466',
+        // marginTop: '7px',
+        // paddingRight:'10px',
+        // fontSize:'100px',
+        // size:'200px',
+      },
+    }));
+  
+
+    const classes = useStyles();
   
 
   const Login = () => {
@@ -106,6 +180,7 @@ function Login() {
           height: '100%',
           justifyContent: 'center'
         }}
+        className={classes.backgroud}
       >
         <img style={{
           width: "86px",

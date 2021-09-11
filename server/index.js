@@ -369,12 +369,12 @@ app.get('/viewmanager', (req, res) => {
 
 const storage = multer.diskStorage({
     destination(req,file,cb){
-      cb(null,'../public/static/images/products/')
+      cb(null,'../public/')
     },
     filename(req,file,cb){
       cb(
         null,
-        `${file.originalname.split('.')[0]}.jpg`
+        `${file.originalname}`
       )
     }
   })
@@ -1392,26 +1392,26 @@ app.get('/adminpasswordvalidation', (req, res) => {
 //   }
 //   })
   
-//   app.post("/imageUpload",upload.single('file'),(req,res)=> {
+  app.post("/imageUpload",upload.single('file'),(req,res)=> {
      
-//   })
+  })
 
-//   app.put('/updateProfile', (req,res) => {
-//     const manager_ID=req.body.manager_ID;
-//     const emp_img = req.body.emp_img;
+  app.post('/updateProfile', (req,res) => {
+    const manager_ID=req.body.manager_ID;
+    const emp_img = req.body.emp_img;
     
    
-//     db.query("UPDATE salesmanager SET display_photo=? WHERE manager_ID = ?", 
-//     [emp_img,manager_ID], 
-//     (err, result) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             res.send(result);
-//         }
-//        }
-//     );
-//   });
+    db.query("UPDATE salesmanager SET display_photo=? WHERE manager_ID = ?", 
+    [emp_img,manager_ID], 
+    (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
 
 app.listen(3001, () => {
     console.log("Your server is running on port 3001");

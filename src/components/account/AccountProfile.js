@@ -17,14 +17,14 @@ const user = {
   email: 'madhusha@gmail.com',
   name: 'Madhusha Mathivannan',
 };
-
+// import img from 'public/static/images/products/'
 
 
 const AccountProfile = (props) => {
   let manager_ID = localStorage.getItem('managerid');
   manager_ID = JSON.parse(manager_ID)
 
-  const [state, setState] = useState({ file: '', product_img: '', message: '', success: false })
+  const [state, setState] = useState({ file: '', emp_img: '', message: '', success: false })
 
 
   const [Row, setRow] = useState([]);
@@ -54,6 +54,7 @@ const handleInput = (e) => {
   }
   reader.readAsDataURL(file);
 }
+
 console.log(state.file)
 
    if (state.file) {
@@ -63,7 +64,7 @@ console.log(state.file)
       'content-Type': 'multipart/form-data',
     })
 
-    axios.put("http://localhost:3001/updateProfile", { emp_img: state.file.name, manager_ID: manager_ID }).then(
+    axios.post("http://localhost:3001/updateProfile", { emp_img: state.file.name, manager_ID: manager_ID }).then(
       (response) => {
 
         // setAdminList(Dt.map((val) => {
@@ -92,20 +93,21 @@ console.log(state.file)
           flexDirection: 'column'
         }}
       >
-        <Avatar
+        {/* <Avatar
           src={user.avatar}
           sx={{
             height: 100,
             width: 100
           }}
-        />
-        {/* <img 
+        /> */}
+        <img 
         sx={{
             height: 100,
             width: 100
           }}
-          src={`/${Row.display_photo}`}  align='center'></img>
-         */}
+          src={`/${Row.display_photo}`}  align='center' height= '100'
+          width= '100' ></img>
+        
         <Typography
           color="textPrimary"
           gutterBottom

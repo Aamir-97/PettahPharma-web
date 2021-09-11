@@ -6,14 +6,11 @@ import axios from "axios";
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import back from '../images/back3.jpg';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
         align: 'center'
     },
     forminput: {
-
         width: '430px',
         padding: '10px 10px',
         margin: '2px 0',
@@ -55,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
         height: '40px'
     },
     formselect: {
-
         width: '430px',
         padding: '10px 10px',
         margin: '2px 0',
@@ -68,11 +63,6 @@ const useStyles = makeStyles((theme) => ({
     backgroud: {
         backgroundColor: '#5eb6b8',
         backgroundImage: `url(${back})`
-        //  color: '#0A6466',
-        // marginTop: '7px',
-        // paddingRight:'10px',
-        // fontSize:'100px',
-        // size:'200px',
       },
 
 }));
@@ -80,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
 
 const mystyle = {
     closeBtn: {
-        // marginTop: '0px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -90,11 +79,9 @@ const mystyle = {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // marginRight: '0px',
         marginLeft: '10px'
     },
     submitBtn: {
-        // marginTop: '5px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -129,15 +116,12 @@ export default function AsignTask() {
     const [GetRep, setGetRep] = useState([]);
     const [rep_ID, setRepID] = useState("");
     const [title, setTitle] = useState("");
-    // const [type, setType] = useState("");
-    const [location, setLocation] = useState("")
     const [description, setDescription] = useState("");
     const [session, setSession] = useState("");
     const [date, setDate] = useState("")
-
+    const [location, setLocation] = useState("")
     let fullday = 'Full-Day';
     let type = 'task';
-
     const items = [
         {
             href: '/appp/dataplan',
@@ -156,24 +140,15 @@ export default function AsignTask() {
                 date: date,
                 manager_ID: manager_ID,
                 created_at: today,
-
             }).then(() => {
-                console.log("success");
-                //    window.location.reload();
                 alert("The task was assigned successfully.")
                 document.getElementById("create-course-form").reset();
             });
-
         }
         else {
             alert("Date, Time slot, Medical rep name, title, location are required.")
-            // return (confirm('are you sure you want to delete??'));
-            // return confirm("You are about to permanently delete a product. Click OK to continue or CANCEL to quit.");
         }
     };
-
-
-
 
     const fetchData = async () => {
         const response = await axios.get('http://localhost:3001/getrep', {
@@ -186,9 +161,6 @@ export default function AsignTask() {
         });
         setGetRep(response.data);
     };
-    // fetchData();
-
-    console.log(GetRep);
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
@@ -215,7 +187,6 @@ export default function AsignTask() {
                 <Grid item xs={12}>
                     <Paper className={classes.paper}><h1>ASIGN TASK</h1>  </Paper><br />
                 </Grid>
-
                 <div className={classes.root}>
                     <form id="create-course-form">
                         <Accordion expanded={expanded === 'panel9'} onChange={handleChange('panel9')}>
@@ -225,8 +196,7 @@ export default function AsignTask() {
                                     <input
                                         type="date"
                                         min={today}
-                                        onChange={(event) => { setDate(event.target.value); }}
-                                        // style={mystyle.forminput}
+                                        onChange={(event) => { setDate(event.target.value); }}                                     
                                         className={classes.forminput}
                                         required
                                     />
@@ -238,17 +208,10 @@ export default function AsignTask() {
                             <AccordionSummary>
                                 <Typography className={classes.heading}>Time Slot</Typography>
                                 <Typography className={classes.secondaryHeading}>
-                                    {/* <input
-                                    type="text"
-                                   
-                                    onChange={(event) => { setSession(event.target.value); }}
-                                    // style={mystyle.forminput}
-                                    className={classes.forminput}
-                                /> */}
                                     <Select
                                         native
                                         onChange={(event) => { setSession(event.target.value); }}
-                                        // style={mystyle.formselect}
+ 
                                         className={classes.formselect}
                                         required
                                     >
@@ -265,12 +228,10 @@ export default function AsignTask() {
                             <AccordionSummary>
                                 <Typography className={classes.heading}>Medical Rep Name</Typography>
                                 <Typography className={classes.secondaryHeading}>
-                                    {/* <FormControl className={classes.formControl}> */}
                                     <Select
                                         onClick={() => { fetchData() }}
                                         native
                                         onChange={(event) => { setRepID(event.target.value); }}
-                                        // style={mystyle.formselect}
                                         className={classes.formselect}
                                         required
                                     >
@@ -279,7 +240,6 @@ export default function AsignTask() {
                                             <option Value={customer.rep_ID}>{customer.name}-{customer.rep_ID}</option>
                                         ))}
                                     </Select>
-                                    {/* </FormControl> */}
                                 </Typography>
                             </AccordionSummary>
                         </Accordion><br />
@@ -292,29 +252,12 @@ export default function AsignTask() {
                                         type="text"
 
                                         onChange={(event) => { setTitle(event.target.value); }}
-                                        // style={mystyle.forminput}
                                         className={classes.forminput}
                                         required
                                     />
                                 </Typography>
                             </AccordionSummary>
                         </Accordion><br />
-
-                        {/* <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                        <AccordionSummary>
-                            <Typography className={classes.heading}>Type</Typography>
-                            <Typography className={classes.secondaryHeading}>
-                                <input
-                                    type="file"
-                                    // defaultValue={Dt.type}
-                                    // onChange={(event) => { setType(event.target.value); }}
-                                    name ="my"
-                                    style={mystyle.forminput}
-                                > my</input>
-                            </Typography>
-                        </AccordionSummary>
-                    </Accordion><br /> */}
-
                         <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
                             <AccordionSummary>
                                 <Typography className={classes.heading}>Location</Typography>
@@ -323,7 +266,6 @@ export default function AsignTask() {
                                         type="text"
 
                                         onChange={(event) => { setLocation(event.target.value); }}
-                                        // style={mystyle.forminput}
                                         className={classes.forminput}
                                     />
                                 </Typography>
@@ -347,20 +289,15 @@ export default function AsignTask() {
                                 </Typography>
                             </AccordionDetails>
                         </Accordion><br />
-
-
                     </form>
 
                 </div>
-
-                {/* <Link to='/appp/dataplan' style={mystyle.button}> */}
                 <Button
                     color="primary"
                     variant="contained"
                     style={mystyle.submitBtn}
                     onClick={asign_task}
                 > Create</Button>
-                {/* </Link> */}
                 <Link to='/appp/dataplan'>
                     <Button
                         type="submit"
@@ -368,17 +305,6 @@ export default function AsignTask() {
                         style={mystyle.closeBtn}
                     > Exit</Button>
                 </Link>
-                {/* <Button
-                    variant="contained"
-                    component="label"
-                >
-                    Upload File
-                    <input
-                        type="file"
-                        hidden
-                    />
-                </Button> */}
-
             </div>
         </div>
         </div>

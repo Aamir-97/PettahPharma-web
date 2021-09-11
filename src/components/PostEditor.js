@@ -1,8 +1,6 @@
 import React from 'react'
 
 import ReactQuill from 'react-quill'
-
-// import './editor.css'
 import 'react-quill/dist/quill.snow.css'
 
 const PostEditor = ({ text, setText }) => {

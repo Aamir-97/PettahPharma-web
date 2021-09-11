@@ -1,15 +1,11 @@
 import { Helmet } from 'react-helmet';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import React from 'react';
-import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from "axios";
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
   Container,
   Button,
@@ -18,7 +14,6 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
   CardContent,
   TextField,
   InputAdornment,
@@ -27,7 +22,6 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import getInitials from 'src/utils/getInitials';
 import { Link, Route } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
@@ -69,7 +63,6 @@ const ManagerList = ({ rest,props} ) => {
       marginTop: '0px',
       marginLeft: '100px',
       height: '100%',
-      // boxShadow: "2px 2px 5px  2px #9E9E9E",
       padding: "2vh",
       borderRadius: "5px",
     },
@@ -79,20 +72,9 @@ const ManagerList = ({ rest,props} ) => {
     backgroud: {
       backgroundColor: '#5eb6b8',
       backgroundImage: `url(${back})`,
-      //  color: '#0A6466',
-      // marginTop: '7px',
-      // paddingRight:'10px',
-      // fontSize:'100px',
-      // size:'200px',
-      // width:'1000px',
     },
     h1: {
-      // backgroundColor: '#5eb6b8',
-      //  color: '#0A6466',
-      // marginTop: '7px',
       paddingRight:'10px',
-      // fontSize:'100px',
-      // color: '#0A6466',
       fontFamily: "Sans-serif",
       color: '#FFF',
       size:'200px',
@@ -103,16 +85,9 @@ const ManagerList = ({ rest,props} ) => {
   const classes = useStyles();
   const [selectedRowIds, setSelectedRowIds] = useState([])
 
-  // let admin_ID = localStorage.getItem('admin_ID');
-  // admin_ID = JSON.parse(admin_ID)
-  // console.log(admin_ID);
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get('http://localhost:3001/viewmanagerlist', {
-        // params: {
-        //   admin_ID: admin_ID,
-        // }
       });
       setSelectedRowIds(response.data);
       console.log(response.data);
@@ -168,11 +143,9 @@ const ManagerList = ({ rest,props} ) => {
         <Box
           sx={{
             display: 'flex',
-            // justifyContent: 'flex-end',
             mt: 3,
             flex: 3,
             marginLeft: '455px',
-            // marginTop: '0px',
           }}
         >
           <h1 style={{flex:3, flexWrap: 'wrap'}} className={classes.h1} > <b> Sales Managers </b></h1>
@@ -193,7 +166,6 @@ const ManagerList = ({ rest,props} ) => {
             <CardContent>
               <Box sx={{ maxWidth: 1050 }}>
                 <TextField
-                  // fullWidth
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -209,7 +181,6 @@ const ManagerList = ({ rest,props} ) => {
                   placeholder="Search"
                   variant="outlined"
                   onChange={(e) => { setSearchTerm(e.target.value); }}
-                  // alignItems="center"
                   className={classes.textfield}
                 />
               </Box>
@@ -225,7 +196,6 @@ const ManagerList = ({ rest,props} ) => {
               <TableHead>
                 <TableRow>
                 <TableCell align="center"><b>ID</b></TableCell>  
-                {/* <TableCell align="center"><b>Photo</b></TableCell> */}
                 <TableCell align="center"><b>Name</b></TableCell>
                 <TableCell align="center"><b>Email</b></TableCell>
                 <TableCell align="center"><b>Phone No</b></TableCell>
@@ -234,7 +204,6 @@ const ManagerList = ({ rest,props} ) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/* {selectedRowIds.slice(0, limit).map((Row) => ( */}
                 {selectedRowIds.slice(0, limit).filter(val => {
                  if (searchTerm === "") {
                   return val;
@@ -254,7 +223,6 @@ const ManagerList = ({ rest,props} ) => {
                       key={Row.manager_ID}
                     >
                       <TableCell align="center">{Row.manager_ID}</TableCell> 
-                      {/* <TableCell align="center">{Row.display_photo}</TableCell> */}
                       <TableCell align="center">{Row.name}</TableCell>
                       <TableCell align="center">{Row.email}</TableCell>
                       <TableCell align="center">{Row.phone_no}</TableCell>

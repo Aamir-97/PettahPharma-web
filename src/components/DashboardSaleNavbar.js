@@ -13,8 +13,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from './Logo';
-// import { RouterOutlined } from '@material-ui/icons';
-// import { white } from '@material-ui/core/colors';
 
 const DashboardSaleNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
@@ -29,14 +27,6 @@ const DashboardSaleNavbar = ({ onMobileNavOpen, ...rest }) => {
       {...rest}
     >
       <Toolbar>
-      
-          {/* <IconButton
-            color="inherit"
-            onClick={onMobileNavOpen}
-          >
-            <MenuIcon />
-          </IconButton> */}
-        
         <RouterLink to="./dashboardsale">
           <Logo />
         </RouterLink>

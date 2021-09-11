@@ -21,11 +21,6 @@ function VisitTypes() {
   
   const [promotionVisit,setPromotionVisit]=useState([])
   
-  // useEffect(()=>{
-  //   axios.get("http://localhost:3001/promotionVisitCount").then((response)=>{
-  //       setPromotionVisit(response.data)
-  //   })
-  // },[])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,17 +30,11 @@ function VisitTypes() {
             }
         });
         setPromotionVisit(response.data)
-        // console.log(response.data[0]);
     };
     fetchData();
   }, []);
 
   const [generalVisit,setGeneralVisit]=useState([])
-  // useEffect(()=>{
-  //   axios.get("http://localhost:3001/generalVisitCount").then((response)=>{
-  //       setGeneralVisit(response.data)
-  //   })
-  // },[])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,17 +44,11 @@ function VisitTypes() {
             }
         });
         setGeneralVisit(response.data)
-        // console.log(response.data[0]);
     };
     fetchData();
   }, []);
 
   const [feedbackVisit,setFeedbackVisit]=useState([])
-  // useEffect(()=>{
-  //   axios.get("http://localhost:3001/feedbackVisitCount").then((response)=>{
-  //       setFeedbackVisit(response.data)
-  //   })
-  // },[])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -122,15 +105,10 @@ function VisitTypes() {
     maintainAspectRatio: false,
     responsive: true,
     tooltips: {
-      // backgroundColor: theme.palette.background.paper,
-      // bodyFontColor: theme.palette.text.secondary,
-      // borderColor: theme.palette.divider,
       borderWidth: 1,
       enabled: true,
-      // footerFontColor: theme.palette.text.secondary,
       intersect: false,
       mode: 'index',
-      // titleFontColor: theme.palette.text.primary
     }
   };
 

@@ -8,7 +8,6 @@ import {
   Divider,
   Typography,
   colors,
-  useTheme
 } from '@material-ui/core';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
@@ -80,15 +79,11 @@ function TaskProgress() {
     maintainAspectRatio: false,
     responsive: true,
     tooltips: {
-      // backgroundColor: theme.palette.background.paper,
-      // bodyFontColor: theme.palette.text.secondary,
-      // borderColor: theme.palette.divider,
       borderWidth: 1,
       enabled: true,
-      // footerFontColor: theme.palette.text.secondary,
       intersect: false,
       mode: 'index',
-      // titleFontColor: theme.palette.text.primary
+
     }
   };
 

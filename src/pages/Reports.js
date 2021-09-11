@@ -1,38 +1,16 @@
 import { Helmet } from 'react-helmet';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import React from 'react';
-import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from "axios";
-// import generatePDF from "public/avatar_13";
 import AnnualVisitReport from "src/components/reports/AnnualVisitReport";
 import AnnualExpenseReport from "src/components/reports/AnnualExpenseReport";
 import AnnualTaskReport from "src/components/reports/AnnualTaskReport";
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
-  Table,
   Container,
-  Button,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography,
-  CardContent,
-  TextField,
-  InputAdornment,
-  SvgIcon,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import getInitials from 'src/utils/getInitials';
-import { Link, Route } from 'react-router-dom';
-import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
 import back from '../images/back3.jpg';
 
@@ -72,7 +50,6 @@ const Reports = ({ rest,props} ) => {
       marginTop: '0px',
       marginLeft: '100px',
       height: '100%',
-      // boxShadow: "2px 2px 5px  2px #9E9E9E",
       padding: "2vh",
       borderRadius: "5px",
     },
@@ -82,20 +59,9 @@ const Reports = ({ rest,props} ) => {
     backgroud: {
       backgroundColor: '#5eb6b8',
       backgroundImage: `url(${back})`,
-      //  color: '#0A6466',
-      // marginTop: '7px',
-      // paddingRight:'10px',
-      // fontSize:'100px',
-      // size:'200px',
-      // width:'1000px',
     },
     h1: {
-      // backgroundColor: '#5eb6b8',
-      //  color: '#0A6466',
-      // marginTop: '7px',
       paddingRight:'10px',
-      // fontSize:'100px',
-      // color: '#0A6466',
       fontFamily: "Sans-serif",
       color: '#FFF',
       size:'200px',
@@ -168,11 +134,9 @@ const Reports = ({ rest,props} ) => {
         <Box
           sx={{
             display: 'flex',
-            // justifyContent: 'flex-end',
             mt: 3,
             flex: 3,
             marginLeft: '455px',
-            // marginTop: '0px',
           }}
         >
           <h1 style={{flex:3, flexWrap: 'wrap'}} className={classes.h1} >Reports</h1>

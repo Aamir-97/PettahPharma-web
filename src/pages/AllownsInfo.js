@@ -42,17 +42,11 @@ const useStyles = makeStyles((theme) => ({
     backgroud: {
         backgroundColor: '#5eb6b8',
         backgroundImage: `url(${back})`
-        //  color: '#0A6466',
-        // marginTop: '7px',
-        // paddingRight:'10px',
-        // fontSize:'100px',
-        // size:'200px',
       },
 }));
 
 const mystyle = {
     closeBtn: {
-        // marginTop: '0px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -62,11 +56,9 @@ const mystyle = {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // marginRight: '0px',
         marginLeft:'10px'
     },
     submitBtn: {
-        // marginTop: '5px',
         width: '175px',
         height: '40px',
         fontSize: '18px',
@@ -75,35 +67,28 @@ const mystyle = {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // /marginRight: '30px'
          marginLeft:'50px'
     },
     acceptBtn: {
-        // marginTop: '0px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
-        // backgroundColor: '#0A6466',
         transition: '1s background ease',
         cursor: 'pointer',
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // marginRight: '0px',
         marginLeft:'10px'
     },
     rejectBtn: {
-        // marginTop: '0px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
-        // backgroundColor: '#0A6466',
         transition: '1s background ease',
         cursor: 'pointer',
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // marginRight: '0px',
         marginLeft:'10px'
     },
 };
@@ -111,12 +96,9 @@ const mystyle = {
 export default function AllownsInfo() {
     const expense_ID = window.location.pathname.substring(18, 23);
     const [Dt, setDt] = useState([]);
-    console.log(expense_ID);
     let manager_ID = localStorage.getItem('managerid');
     manager_ID = JSON.parse(manager_ID)
-    console.log(manager_ID);
 
-    // console.log(report_id);
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get('http://localhost:3001/viewexpense', {
@@ -135,20 +117,16 @@ export default function AllownsInfo() {
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-
     const dtt = new Date(Dt.date);
     const year = dtt.getFullYear() + '/';
     const month = ('0' + (dtt.getMonth() + 1)).slice(-2) + '/';
     const day = ('0' + dtt.getDate()).slice(-2);
-
-
     const addstatus = (status, expense_ID) => {
         console.log(status);
         axios.put("http://localhost:3001/addexpensestatus",
           { status: status, expense_ID: expense_ID }).then(
             (response) => {
               window.location.reload();
-              // this.setState({});
              }
           )
       };
@@ -160,7 +138,6 @@ export default function AllownsInfo() {
                 <Grid item xs={12}>
                     <Paper className={classes.paper}><h1>EXPENSE INFORMATION</h1>  </Paper><br />
                 </Grid>
-
                 <div className={classes.root}>
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                         <AccordionSummary>
@@ -168,42 +145,36 @@ export default function AllownsInfo() {
                             <Typography className={classes.secondaryHeading}>{Dt.repname}</Typography>
                         </AccordionSummary>
                     </Accordion><br />
-
                      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Expense Type</Typography>
                             <Typography className={classes.secondaryHeading}>{Dt.expense_type}</Typography>
                         </AccordionSummary>
                     </Accordion><br />
-
                     <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Location</Typography>
                             <Typography className={classes.secondaryHeading}>{Dt.location}</Typography>
                         </AccordionSummary>
                     </Accordion><br />
-
                     <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Bill</Typography>
                             <Typography className={classes.secondaryHeading}>{Dt.bills}</Typography>
                         </AccordionSummary>
                     </Accordion><br />
-
                     <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Amount</Typography>
                             <Typography className={classes.secondaryHeading}>{Dt.amount}</Typography>
                         </AccordionSummary>
                     </Accordion><br />
-
                     <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Date</Typography>
                             <Typography className={classes.secondaryHeading}>{year + month + day}</Typography>
                         </AccordionSummary>
                     </Accordion><br />
-
                     <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
@@ -219,7 +190,6 @@ export default function AllownsInfo() {
                             </Typography>
                         </AccordionDetails>
                     </Accordion><br />
-
                     <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
@@ -252,7 +222,6 @@ export default function AllownsInfo() {
                       <Button
                         color="primary"
                         variant="contained"
-                        // onClick={addstatus("Accept", customer.expense_ID)}
                         onClick={()=>{addstatus("1",expense_ID)}} 
                         disabled={Dt.status =="1"}
                         style={mystyle.acceptBtn}>
@@ -274,7 +243,6 @@ export default function AllownsInfo() {
                                 style={mystyle.closeBtn}                      
                             > Exit</Button>
                         </Link>
-
             </div>
         </div>
         </div>

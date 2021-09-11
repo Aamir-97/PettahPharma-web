@@ -13,26 +13,13 @@ import {
 } from '@material-ui/core';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AssessmentIcon from '@material-ui/icons/Assessment';
-import {
-  AlertCircle as AlertCircleIcon,
-  BarChart as BarChartIcon,
-  Lock as LockIcon,
-  Settings as SettingsIcon,
-  ShoppingBag as ShoppingBagIcon,
-  User as UserIcon,
-  UserPlus as UserPlusIcon,
-  Users as UsersIcon
-} from 'react-feather';
-import ForumIcon from '@material-ui/icons/Forum';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import DashboardIcon from '@material-ui/icons/DashboardOutlined';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ListAltIcon from '@material-ui/icons/ListAlt';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import NavItem from './NavItem';
 import axios from "axios";
-import side from '../images/side3.jpg';
 
 
 
@@ -126,29 +113,24 @@ const items = [
 
 const DashboardSaleSidebar = ({ onMobileClose, openMobile }) => {
 
-  // let manager_ID = localStorage.getItem('managerid');
+  let manager_ID = localStorage.getItem('managerid');
   // manager_ID = JSON.parse(manager_ID)
   // console.log(manager_ID);
 
   let salname = localStorage.getItem('name');
-  // salname = JSON.parse(salname)
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await axios.get('http://localhost:3001/getmanagername', {
-  //       params: {
-
-  //         manager_ID: manager_ID,
-  //       }
-  //     });
-
-  //     setDt(response.data[0]);
-  //     // console.log(response.data[0]);
-  //   };
-  //   fetchData();
-  // }, []);
-
-  // const [Dt, setDt] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+        const response = await axios.get('http://localhost:3001/viewmanager', {
+            params: {
+                manager_ID: manager_ID,
+            }
+        });
+        setRow(response.data[0]);
+    };
+    fetchData();
+  }, []);
+  const [Row, setRow] = useState([]);
 
   const location = useLocation();
 
@@ -178,7 +160,7 @@ const DashboardSaleSidebar = ({ onMobileClose, openMobile }) => {
       >
         <Avatar
           component={RouterLink}
-          src={user.avatar}
+          src={`/${Row.display_photo}`}
           sx={{
             cursor: 'pointer',
             width: 64,

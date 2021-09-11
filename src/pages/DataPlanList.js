@@ -1,9 +1,5 @@
 import { Helmet } from 'react-helmet';
-// import DataPlanListResults from 'src/components/dataplan/DataPlanListResults';
-// import DataPlan from 'src/__mocks__/DataPlan';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
@@ -11,13 +7,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import axios from "axios";
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import { confirmAlert } from 'react-confirm-alert';
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
-  
   Table,
   Container,
   Button,
@@ -32,7 +24,6 @@ import {
   InputAdornment,
   SvgIcon,
 } from '@material-ui/core';
-import getInitials from 'src/utils/getInitials';
 import { Link, Route } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
@@ -44,7 +35,6 @@ const DataPlanList = ({ rest, props }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
-
     },
     paper: {
       padding: theme.spacing(2),
@@ -76,53 +66,33 @@ const DataPlanList = ({ rest, props }) => {
       marginTop: '0px',
       marginLeft: '100px',
       height: '100%',
-      // boxShadow: "2px 2px 5px  2px #9E9E9E",
       padding: "2vh",
       borderRadius: "5px",
     },
-    // debutton:{
-    //   backgroundColor: 'red',
-    // },
     link: {
-      // backgroundColor: '#5eb6b8',
       color: '#FFF',
     },
     h1: {
-      //  backgroundColor: '#5eb6b8',
-      //  color: '#0A6466',
       color: '#FFF',
       fontFamily: "Sans-serif",
     },
     view: {
-      // backgroundColor: '#5eb6b8',
-      //  color: '#0A6466',
-      // marginTop: '7px',
       paddingRight:'10px',
-      // fontSize:'100px',
-      // color: '#0A6466',
       color: '#FFF',
       size:'200px',
     },
     backgroud: {
       backgroundColor: '#5eb6b8',
       backgroundImage: `url(${back})`,
-      //  color: '#0A6466',
-      // marginTop: '7px',
-      // paddingRight:'10px',
-      // fontSize:'100px',
-      // size:'200px',
-      // width:'1000px',
     },
   }));
 
-  // #35dade,#27bec2,#186263
   const classes = useStyles();
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([])
 
   let manager_ID = localStorage.getItem('managerid');
   manager_ID = JSON.parse(manager_ID);
-  // console.log(manager_ID);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -159,7 +129,6 @@ const DataPlanList = ({ rest, props }) => {
     }).then((response) => {
       window.location.reload();
     })
-    // window.confirmAlert('Are you sure you wish to delete this item?') ? confirmAlert("confirm") ;
   };
 
 
@@ -177,9 +146,6 @@ const DataPlanList = ({ rest, props }) => {
   }
   today = yyyy + '-' + mm + '-' + dd;
 
-  // console.log(manager_ID);
-
-  // var today = new Date()
   return (
     <>
       <Helmet>
@@ -187,20 +153,17 @@ const DataPlanList = ({ rest, props }) => {
       </Helmet>
       <Box
         sx={{
-          // backgroundColor: 'background.default',
           minHeight: '100%',
           py: 3
         }}
         className={classes.backgroud}
       >
-        {/* <img src={back} alt="back" width='1000px' /> */}
         <Container maxWidth={false}>
           <>
             <Box {...props}>
               <Box
                 sx={{
                   display: 'flex',
-                  // justifyContent: 'flex-end',
                   mt: 3,
                   flex: 3,
                   marginTop: '0px',
@@ -227,7 +190,6 @@ const DataPlanList = ({ rest, props }) => {
                   <CardContent>
                     <Box sx={{ maxWidth: 500 }}>
                       <TextField
-                        // fullWidth
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
@@ -243,7 +205,6 @@ const DataPlanList = ({ rest, props }) => {
                         placeholder="Search Employee"
                         variant="outlined"
                         onChange={(e) => { setSearchTerm(e.target.value); }}
-                        // alignItems="center"
                         className={classes.textfield}
                       />
                     </Box>

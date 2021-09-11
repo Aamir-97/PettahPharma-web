@@ -43,7 +43,6 @@ const SummaryReportResults = ({ SummaryReport,rest,props }) => {
         }
       });
       setSelectedCustomerIds(response.data);
-      // console.log(response.data);
     };
     fetchData();
   }, [manager_ID]);
@@ -63,12 +62,9 @@ const SummaryReportResults = ({ SummaryReport,rest,props }) => {
 
   const useStyles = makeStyles(() => ({
     link: {
-      // backgroundColor: '#5eb6b8',
       color: '#FFF',
     },
     h1:{
-      // backgroundColor: '#5eb6b8',
-      // color: '#FFF',
       fontFamily: "Sans-serif", 
       align: "center"
     },
@@ -78,20 +74,12 @@ const SummaryReportResults = ({ SummaryReport,rest,props }) => {
       marginTop: '0px',
       marginLeft: '100px',
       height: '100%',
-      // boxShadow: "2px 2px 5px  2px #9E9E9E",
       padding: "2vh",
       borderRadius: "5px",
     },
   }));
   
   const classes = useStyles();
-
-  // const [kpiResult, setKpiResult] = React.useState({
-  //   totalDoctors : '',
-  //   totalVSR : '',
-  //   expensesAmount : '',
-  //   leaveCount : '',
-  // }) 
 
   const [showKpi, setShowKpi] = useState(false);
   const [totalDoctors, setTotalDoctor] = React.useState(0);
@@ -100,9 +88,7 @@ const SummaryReportResults = ({ SummaryReport,rest,props }) => {
   const [leaveCount, setLeaveCount] = React.useState(0);
   const [visitedDoctorCount, setVisitedDoctorCount] = React.useState(0);
   const [completeTask, setCompleteTask] = React.useState(0);
-  // const [expenseVisit, setExpenseVisit] = React.useState(0);
   const [metPerDays, setMetPerDays] = React.useState(0);
-
   const taskCompletePercentage = parseInt(completeTask)/parseInt(totalVSR) * 100;
   const expensePerVisit = parseInt(expensesAmount)/parseInt(totalVSR);
   const doctorCourage = parseInt(visitedDoctorCount)/ parseInt(totalDoctors) *100;
@@ -115,58 +101,36 @@ const SummaryReportResults = ({ SummaryReport,rest,props }) => {
         await axios.post("http://localhost:3001/kpi/doctorCount",{
           rep_ID : rep_ID,  
         }).then((response)=>{
-          // setStateData({...stateData, reportCount : response.data[0].reportCount})
-          // setKpiResult({...kpiResult, totalDoctors : response.data.doctorCount});
           setTotalDoctor(response.data.doctorCount);
         });
  
-
-        // to post claimed expenses count
         await axios.post("http://localhost:3001/kpi/reportCount",{
           rep_ID : rep_ID, 
         }).then((response)=>{
-          // setStateData({...stateData, expensesCount: response.data.expensesCount });
-          // setKpiResult({...kpiResult, totalVSR : response.data.reportCount});
           setTotalVSR(response.data.reportCount);
         });
 
-
-        // to post annual leave taken count
         await axios.post("http://localhost:3001/kpi/ExpensesAmount",{
           rep_ID : rep_ID, 
         }).then((response)=>{
-          // setStateData({...stateData, leaveCount: response.data.leaveCount });
-          // setKpiResult({...kpiResult, expensesAmount : response.data.expensesAmount});
           setExpensesAmount(response.data.expensesAmount);
         });
 
-        // to post total doctors count
         await axios.post("http://localhost:3001/kpi/leaveCount",{
           rep_ID : rep_ID, 
         }).then((response)=>{
-          // console.log(response.data.doctorCount);      
-          // setStateData({...stateData, doctorCount: response.data.doctorCount });
-          // setKpiResult({...kpiResult, leaveCount : response.data.leaveCount});
           setLeaveCount(response.data.leaveCount);  
         });
 
-        // to get Complete task count
         await axios.post("http://localhost:3001/kpi/compeleteTask",{
           rep_ID : rep_ID, 
         }).then((response)=>{
-          // console.log(response.data.doctorCount);      
-          // setStateData({...stateData, doctorCount: response.data.doctorCount });
-          // setKpiResult({...kpiResult, leaveCount : response.data.leaveCount});
           setCompleteTask(response.data.completeTaskCount);  
         }); 
 
-        // to get Complete task count
         await axios.post("http://localhost:3001/kpi/VisitDoctor",{
           rep_ID : rep_ID, 
         }).then((response)=>{
-          // console.log(response.data.doctorCount);      
-          // setStateData({...stateData, doctorCount: response.data.doctorCount });
-          // setKpiResult({...kpiResult, leaveCount : response.data.leaveCount});
           setVisitedDoctorCount(response.data.visitDoctorCount);  
         });  
 
@@ -242,10 +206,8 @@ const SummaryReportResults = ({ SummaryReport,rest,props }) => {
                                       </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                      {/* {selectedCustomerIds.slice(0, limit).map((rep) => ( */}
                                         <TableRow
                                           hover
-                                          // key={rep.task_id}
                                         >
                                           <TableCell align="center"> {totalDoctors} </TableCell>
                                           <TableCell align="center"> {totalVSR} </TableCell>

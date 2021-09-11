@@ -9,7 +9,6 @@ import {
   Typography
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-// import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import GroupIcon from '@material-ui/icons/Group';
 
 function TotalEmployees() {
@@ -95,20 +94,6 @@ return (
           pt: 2
         }}
       >
-        {/* <Typography
-          sx={{
-            color: green[900],
-            mr: 1
-          }}
-          variant="body2"
-        > */}
-        {/* </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Sales Managers
-        </Typography> */}
       </Box>
     </CardContent>
     </Card>

@@ -43,7 +43,6 @@ const Account = () => (
           </Grid>
         </Grid>
       </Container>
-
       <Box
       sx={{
         backgroundColor: 'background.default',

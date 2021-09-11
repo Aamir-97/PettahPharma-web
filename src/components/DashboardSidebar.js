@@ -13,21 +13,10 @@ import {
   List,
   Typography
 } from '@material-ui/core';
-import {
-  AlertCircle as AlertCircleIcon,
-  // BarChart as BarChartIcon,
-  Lock as LockIcon,
-  Settings as SettingsIcon,
-  ShoppingBag as ShoppingBagIcon,
-  User as UserIcon,
-  UserPlus as UserPlusIcon,
-  // Users as UsersIcon
-} from 'react-feather';
 import ForumIcon from '@material-ui/icons/ForumOutlined';
 import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacyOutlined';
 import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
 import DashboardIcon from '@material-ui/icons/DashboardOutlined';
-import HelpIcon from '@material-ui/icons/HelpOutlineOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToAppOutlined';
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
@@ -36,7 +25,6 @@ import NavItem from './NavItem';
 const user = {
   avatar: '/static/images/avatars/admin.png',
   jobTitle: 'Admin',
-  // name: 'Madhusha Mathivannan'
 };
 
   
@@ -61,16 +49,6 @@ const items = [
     icon: LocalPharmacyIcon,
     title: 'Products'
   },
-  // {
-  //   href: '/app/account',
-  //   icon: UserIcon,
-  //   title: 'Account'
-  // },
-  // {
-  //   href: '/app/MonthlyVisitReport',
-  //   icon: DescriptionOutlinedIcon,
-  //   title: 'Reports'
-  // },
   {
     href: '/app/Reports',
     icon: DescriptionOutlinedIcon,
@@ -90,8 +68,6 @@ const items = [
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
-  // let adminname = localStorage.getItem('name');
-
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose();

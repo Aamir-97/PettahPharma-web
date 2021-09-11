@@ -17,17 +17,6 @@ function Expenses() {
   const [expensecount,setExpensecount]=useState([])
   console.log(manager_ID)
 
-//   useEffect(()=>{
-//   axios.get("http://localhost:3001/totalRepExpenses",{
-//     params: {
-//       manager_ID: manager_ID,
-//   }
-//   }).then((response)=>{
-//   console.log(response.data)
-//   setExpensecount(response.data)
-//   })
-// },[])
-
 useEffect(() => {
   const fetchData = async () => {
       const response = await axios.get('http://localhost:3001/totalRepExpenses', {
@@ -36,7 +25,6 @@ useEffect(() => {
           }
       });
       setExpensecount(response.data)
-      // console.log(response.data[0]);
   };
   fetchData();
 }, []);
@@ -90,22 +78,6 @@ return (
           alignItems: 'center'
         }}
       >
-        {/* <ArrowDownwardIcon sx={{ color: red[900] }} />
-        <Typography
-          sx={{
-            color: red[900],
-            mr: 1
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography> */}
       </Box>
     </CardContent>
   </Card>

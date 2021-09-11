@@ -16,12 +16,6 @@ function TotalVisits() {
   let manager_ID = localStorage.getItem('managerid');
   manager_ID = JSON.parse(manager_ID)
   const [visitcount,setVisitcount]=useState([])
-//   useEffect(()=>{
-//   axios.get("http://localhost:3001/repvisitCount").then((response)=>{
-//   console.log(response.data)
-//   setVisitcount(response.data)
-//   })
-// },[])
 
 useEffect(() => {
   const fetchData = async () => {
@@ -31,7 +25,6 @@ useEffect(() => {
           }
       });
       setVisitcount(response.data)
-      // console.log(response.data[0]);
   };
   fetchData();
 }, []);
@@ -87,22 +80,6 @@ return (
         }}
       >
 
-        {/* <ArrowUpwardIcon sx={{ color: green[900] }} /> */}
-        {/* <Typography
-          sx={{
-            color: green[900],
-            mr: 1
-          }}
-          variant="body2"
-        >
-          16%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography> */}
       </Box>
 
     </CardContent>

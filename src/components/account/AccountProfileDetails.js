@@ -7,7 +7,6 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
 } from '@material-ui/core';
 import axios from 'axios';
 
@@ -15,14 +14,8 @@ const states = [
 ];
 
 const AccountProfileDetails = (props) => {
-  // const [values, setValues] = useState({
-  //   // name: setName,
-  //   // email: setEmail
-  // });
-
   const [Row, setRow] = useState([]);
     const [name, setName] = useState("");
-    // const [display_photo, setDisplay_photo] = useState("");
     const [email, setEmail] = useState("");
     const [phone_no, setPhone_no] = useState("");
     const [area, setArea] = useState("");
@@ -56,7 +49,6 @@ const AccountProfileDetails = (props) => {
             });
             setRow(response.data[0]);
             setName(response.data[0].name);
-            // setDisplay_photo(response.data[0].display_photo);
             setEmail(response.data[0].email);
             setPhone_no(response.data[0].phone_no);
             setArea(response.data[0].area);
@@ -65,16 +57,8 @@ const AccountProfileDetails = (props) => {
         fetchData();
     }, [manager_ID]);
 
-  // const handleChange = (event) => {
-  //   setValues({
-  //     ...values,
-  //     [event.target.name]: event.target.value
-  //   });
-  // }
-
   const mystyle = {
     closeBtn: {
-        // marginTop: '0px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -83,12 +67,10 @@ const AccountProfileDetails = (props) => {
         cursor: 'pointer',
         border: 'none',
         borderRadius: '5px',
-        color: 'white',
-        // marginRight: '0px',
+        color: 'white', 
         marginLeft: '10px'
     },
     submitBtn: {
-        // marginTop: '5px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -97,11 +79,9 @@ const AccountProfileDetails = (props) => {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // /marginRight: '30px'
         marginLeft: '350px'
     },
     forminput: {
-
       width: '360px',
       padding: '10px 10px',
       margin: '2px 0',
@@ -111,8 +91,6 @@ const AccountProfileDetails = (props) => {
       height: '50px'
   },
   h5:{
-    // backgroundColor: '#5eb6b8',
-    // color: '#FFF',
     fontFamily: "Sans-serif", 
   },
 
@@ -128,7 +106,6 @@ const AccountProfileDetails = (props) => {
     >
       <Card>
         <CardHeader
-          // subheader="The information can be edited"
           title="Profile"
         />
         <CardContent>
@@ -152,21 +129,6 @@ const AccountProfileDetails = (props) => {
                 variant="outlined"
               />
             </Grid>
-            {/* <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Last name"
-                name="lastName"
-                onChange={handleChange}
-                required
-                value={values.lastName}
-                variant="outlined"
-              />
-            </Grid> */}
             <Grid
               item
               md={6}
@@ -219,32 +181,6 @@ const AccountProfileDetails = (props) => {
                 variant="outlined"
               />
             </Grid>
-            {/* <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={Row.area}
-                variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid> */}
           </Grid>
         </CardContent>
         <Divider />

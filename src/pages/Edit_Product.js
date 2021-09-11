@@ -5,15 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import back from '../images/back3.jpg';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,11 +44,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#5eb6b8',
         backgroundImage: `url(${back})`,
         height:'666px',
-        //  color: '#0A6466',
-        // marginTop: '7px',
-        // paddingRight:'10px',
-        // fontSize:'100px',
-        // size:'200px',
       },
 
 }));
@@ -60,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
 
 const mystyle = {
     closeBtn: {
-        // marginTop: '0px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -74,7 +64,6 @@ const mystyle = {
         marginLeft:'10px'
     },
     submitBtn: {
-        // marginTop: '5px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -83,7 +72,6 @@ const mystyle = {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // /marginRight: '30px'
          marginLeft:'410px'
     },
     forminput: {
@@ -100,17 +88,12 @@ const mystyle = {
 
 export default function Edit_Product() {
     const product_id = window.location.pathname.substring(18, 21);
-
     const [Row, setRow] = useState([]);
     const [name, setName] = useState("");
     const [display_photo, setDisplay_photo] = useState("");
     const [volume, setVolume] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
-
-    // let admin_ID = localStorage.getItem('admin_ID');
-    // admin_ID = JSON.parse(admin_ID)
-    // console.log(admin_ID);
     
     const edit_Product = (product_id) => {
         axios.put("http://localhost:3001/updateproduct", 

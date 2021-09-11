@@ -1,7 +1,5 @@
 import { Helmet } from 'react-helmet';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from "axios";
 import { Search as SearchIcon } from 'react-feather';
@@ -15,9 +13,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import {
   Box,
   Container,
-  Avatar,
   Card,
-  Checkbox,
   Table,
   Button,
   TableBody,
@@ -31,9 +27,6 @@ import {
   InputAdornment,
   SvgIcon
 } from '@material-ui/core';
-
-import LeaveResults from 'src/components/leave/LeaveResults';
-import LeaveToolbar from 'src/components/leave/LeaveToolbar';
 import Leave from 'src/__mocks__/Leave';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import back from '../images/back3.jpg';
@@ -67,7 +60,6 @@ const LeaveList = ({ rest, props }) => {
       { status: status, leave_ID: leave_ID }).then(
         (response) => {
           window.location.reload();
-          // this.setState({});
         }
       )
   };
@@ -84,13 +76,9 @@ const LeaveList = ({ rest, props }) => {
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
   };
-  // constructor = () => {
-  // this.state.Date().toLocaleString();
-  // };
 
   const useStyles = makeStyles(() => ({
     link: {
-      // backgroundColor: '#5eb6b8',
       color: '#FFF',
     },
     h1:{
@@ -100,22 +88,13 @@ const LeaveList = ({ rest, props }) => {
       fontFamily: "Sans-serif", 
     },
     view: {
-      // backgroundColor: '#5eb6b8',
-      //  color: '#0A6466',
-      // marginTop: '7px',
       color: '#FFF',
       paddingRight:'10px',
-      // fontSize:'100px',
       size:'200px',
     },
     backgroud: {
       backgroundColor: '#5eb6b8',
       backgroundImage: `url(${back})`
-      //  color: '#0A6466',
-      // marginTop: '7px',
-      // paddingRight:'10px',
-      // fontSize:'100px',
-      // size:'200px',
     },
   }));
 

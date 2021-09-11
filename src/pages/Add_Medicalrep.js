@@ -1,60 +1,38 @@
 import React, { useState , useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import shadows from 'src/theme/shadows';
 import axios from "axios";
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import back from '../images/back3.jpg';
 
 function Add_Medicalrep() {
-
-    // let admin_ID = localStorage.getItem('admin_ID');
-    // admin_ID = JSON.parse(admin_ID)
-    // console.log(admin_ID);
-
     const [getManager, setGetManager] = useState([]);
     const [rep_ID, setRep_ID] = useState("")
     const [name, setName] = useState("");
-    // const [display_photo, setDisplay_photo] = useState("");
     const [email, setEmail] = useState("");
     const [phone_no, setPhone_no] = useState("");
     const [working_area, setWorkingarea] = useState("");
-    // const [rating, setRating] = useState("");
     const [password, setPassword] = useState("");
     const [manager_ID, setManager_ID] =useState("")
-
 
     const add_Medicalrep= () => {
         if (rep_ID && name && email && working_area && password && manager_ID) {
         axios.post('http://localhost:3001/createmedicalrep', {
             rep_ID: rep_ID,
             name: name,
-            // display_photo: display_photo,
             email: email,
             phone_no: phone_no,
             working_area: working_area,
-            // rating: rating,
             password: password,
             manager_ID: manager_ID,
-
         }).then(() => {
             console.log("success");
-            //    window.location.reload();
             alert("The new medical rep was added successfully.")
             document.getElementById("create-course-form").reset();
         });
-
     }
     else {
         alert("Rep ID, Name, Email, Area, Password, Manager ID are required.")
-        // return (confirm('are you sure you want to delete??'));
-        // return confirm("You are about to permanently delete a product. Click OK to continue or CANCEL to quit.");
     }
 };
-
 
     useEffect(() => {
       const fetchData = async () => {
@@ -70,11 +48,6 @@ function Add_Medicalrep() {
  console.log(getManager);
 
     const mystyle = {
-        formstep: {
-            fontsize: '35px',
-            textalign: 'center',
-            color: '#23750a',
-        },
         formbox: {
             backgroundColor: 'white',
             width: '60%',
@@ -85,16 +58,7 @@ function Add_Medicalrep() {
             padding: "2vh",
             borderRadius: "5px"
         },
-        popupbox: {
-            position: 'fixed',
-            background: '#00000050',
-            width: '75vh',
-            height: '75vh',
-            top: '12vh',
-            left: '90vh',
-        },
         forminput: {
-
             width: '70%',
             padding: '10px 10px',
             margin: '8px 0',
@@ -103,64 +67,14 @@ function Add_Medicalrep() {
             borderRadius: '5px',
             height: '40px'
         },
-        formtextarea: {
-
-            width: '70%',
-            padding: '10px 10px',
-            margin: '8px 0',
-            display: 'inline - block',
-            border: '1px solid #C0C0C0',
-            borderRadius: '5px',
-            height: '80px'
-        },
         formhead: {
             paddingTop: '50px',
             paddingBottom: '20px'
         },
-        submitBtn: {
-            marginTop: '20px',
-            width: '145px',
-            height: '40px',
-            fontSize: '18px',
-            backgroundColor: '#0A6466',
-            cursor: 'pointer',
-            border: 'none',
-            borderRadius: '5px',
-            color: 'white',
-            marginRight: '30px'
-        },
-        closeBtn: {
-            marginTop: '20px',
-            width: '145px',
-            height: '40px',
-            fontSize: '18px',
-            backgroundColor: 'red',
-            transition: '1s background ease',
-            cursor: 'pointer',
-            border: 'none',
-            borderRadius: '5px',
-            color: 'white',
-            marginRight: '200px'
-        },
-        formControl: {
-            // margin: theme.spacing(1),
-            minWidth: '320px',
-          },
-          selectEmpty: {
-            // marginTop: theme.spacing(2),
-          },
-          selectfield: {
-              width: '500px',
-            },
             backgroud: {
                 backgroundColor: '#5eb6b8',
                 backgroundImage: `url(${back})`,
                 height:'666px',
-                //  color: '#0A6466',
-                // marginTop: '7px',
-                // paddingRight:'10px',
-                // fontSize:'100px',
-                // size:'200px',
               },
     };
     
@@ -178,12 +92,6 @@ function Add_Medicalrep() {
                             onChange={(event) => { setRep_ID(event.target.value); }}
                             required
                         /><br />
-                        {/* <input
-                            type="file"
-                            style={mystyle.forminput}
-                            placeholder="Photo"
-                            onChange={(event) => { setDisplay_photo(event.target.value); }}
-                        /><br /> */}
                         <input
                             type="text"
                             style={mystyle.forminput}
@@ -211,12 +119,6 @@ function Add_Medicalrep() {
                             onChange={(event) => { setWorkingarea(event.target.value); }}
                             required
                         /><br />
-                        {/* <input
-                            type="text"
-                            style={mystyle.forminput}
-                            placeholder="Rating"
-                            onChange={(event) => { setRating(event.target.value); }}
-                        /><br /> */}
                         <input
                             type="text"
                             style={mystyle.forminput}
@@ -231,32 +133,15 @@ function Add_Medicalrep() {
                             onChange={(event) => { setManager_ID(event.target.value); }}
                             required
                         /><br />
-                        {/* <FormControl style={mystyle.formControl} >
-                            <InputLabel id="demo-customized-select-label">Salesmanager Name</InputLabel>
-                            <Select
-                                 native
-                                onChange={(event) => { setManager_ID(event.target.value); }}
-                                style={mystyle.selectfield}
-                            >                    
-                                <option aria-label="None" value="" />
-                                {getManager.map((Row) => (
-                                    <option Value={Row.manager_ID}>{Row.name}-{Row.manager_ID}</option>
-                                ))}
-                            </Select>
-
-                        </FormControl><br /> */}
                     </div>
 
                     <div display='flex' align='right'>
-
-                        {/* <Link to='/app/MedicalRepList'> */}
                             <button
                                 type="submit"
                                 id="submitBtn"
                                 style={mystyle.submitBtn}
                                 onClick={add_Medicalrep}
                             > Create</button>
-                        {/* </Link> */}
                         <Link to='/app/MedicalRepList'>
                             <button
                                 type="submit"
@@ -269,7 +154,6 @@ function Add_Medicalrep() {
                 </div>
             </div>
         </div>
-
     )
 }
 

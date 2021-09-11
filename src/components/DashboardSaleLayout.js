@@ -40,7 +40,6 @@ const DashboardLayoutContent = experimentalStyled('div')({
 
 const DashboardSaleLayout = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
-  // window.location.reload();
   return (
    
     <DashboardLayoutRoot>

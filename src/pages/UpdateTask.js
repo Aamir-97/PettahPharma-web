@@ -6,14 +6,12 @@ import axios from "axios";
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import back from '../images/back3.jpg';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,11 +45,6 @@ const useStyles = makeStyles((theme) => ({
     backgroud: {
         backgroundColor: '#5eb6b8',
         backgroundImage: `url(${back})`
-        //  color: '#0A6466',
-        // marginTop: '7px',
-        // paddingRight:'10px',
-        // fontSize:'100px',
-        // size:'200px',
     },
 
 }));
@@ -59,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 
 const mystyle = {
     closeBtn: {
-        // marginTop: '0px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -69,11 +61,9 @@ const mystyle = {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // marginRight: '0px',
         marginLeft: '10px'
     },
     submitBtn: {
-        // marginTop: '5px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -82,7 +72,6 @@ const mystyle = {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // /marginRight: '30px'
         marginLeft: '410px'
     },
     forminput: {
@@ -190,8 +179,6 @@ export default function UpdateTask() {
     const month = ('0' + (dtt.getMonth() + 1)).slice(-2) + '-';
     const day = ('0' + dtt.getDate()).slice(-2);
     const mydate = (year + month + day)
-    // const mydate="2021/06/25"
-    // var s ="(Requird)" 
     return (
         <div className={classes.backgroud}>
         <div className={classes.formbox}>
@@ -226,16 +213,10 @@ export default function UpdateTask() {
                         <AccordionSummary>
                             <Typography className={classes.heading}>Time Slot </Typography>
                             <Typography className={classes.secondaryHeading}>
-                                {/* <input
-                                    type="text"
-                                    defaultValue={Dt.session}
-                                    onChange={(event) => { setSession(event.target.value); }}
-                                    style={mystyle.forminput}
-                                /> */}
+                                
                                 <Select
                                     native
                                     onChange={(event) => { setSession(event.target.value); }}
-                                    // style={mystyle.formselect}
                                     required
                                     style={mystyle.forminput}
                                 >
@@ -285,20 +266,6 @@ export default function UpdateTask() {
                         </AccordionSummary>
                     </Accordion><br />
 
-                    {/* <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                        <AccordionSummary>
-                            <Typography className={classes.heading}>Type</Typography>
-                            <Typography className={classes.secondaryHeading}>
-                                <input
-                                    type="text"
-                                    defaultValue={Dt.type}
-                                    onChange={(event) => { setType(event.target.value); }}
-                                    style={mystyle.forminput}
-                                />
-                            </Typography>
-                        </AccordionSummary>
-                    </Accordion><br /> */}
-
                     <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Location</Typography>
@@ -336,15 +303,12 @@ export default function UpdateTask() {
 
 
                 </div>
-
-                {/* <Link to='/appp/dataplan' style={mystyle.button}> */}
                     <Button
                         color="primary"
                         variant="contained"
                         style={mystyle.submitBtn}
                         onClick={() => { update(Dt.task_id, manager_ID) }}
                     > Update</Button>
-                {/* </Link> */}
                 <Link to='/appp/dataplan'>
                     <Button
                         type="submit"

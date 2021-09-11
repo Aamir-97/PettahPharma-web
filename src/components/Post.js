@@ -4,8 +4,6 @@ import DOMPurify from 'dompurify'
 import ReactHtmlParser from 'react-html-parser'
 import Avatar from 'react-avatar'
 
-// import styles from './post.module.css'
-
 const Post = ({ profileImage, name, content, date, time }) => {
   const clean = DOMPurify.sanitize(content)
 

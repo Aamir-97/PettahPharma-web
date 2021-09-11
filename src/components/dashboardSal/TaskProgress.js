@@ -18,27 +18,6 @@ import axios from 'axios'
 function TaskProgress() {
   let manager_ID = localStorage.getItem('managerid');
   manager_ID = JSON.parse(manager_ID)
-  // const [completetask,setCompletetask]=useState([])
-  // useEffect(()=>{
-  //   axios.get("http://localhost:3001/completeTaskCount").then((response)=>{
-  //     setCompletetask(response.data)
-  //   })
-  // },[])
-
-  // const [pendingtask,setPendingtask]=useState([])
-  // useEffect(()=>{
-  //   axios.get("http://localhost:3001/pendingTaskCount").then((response)=>{
-  //     setPendingtask(response.data)
-  //   })
-  // },[])
-
-  // const [rejecttask,setRejecttask]=useState([])
-  // useEffect(()=>{
-  //   axios.get("http://localhost:3001/rejectTaskCount").then((response)=>{
-  //     setRejecttask(response.data)
-  //   })
-  // },[])
-  console.log(manager_ID);
 
   const [completetask,setCompletetask]=useState([])
     useEffect(() => {
@@ -63,7 +42,7 @@ function TaskProgress() {
               }
           });
           setPendingtask(response.data)
-          // console.log(response.data[0]);
+
       };
       fetchData();
     }, []);
@@ -124,15 +103,10 @@ function TaskProgress() {
     maintainAspectRatio: false,
     responsive: true,
     tooltips: {
-      // backgroundColor: theme.palette.background.paper,
-      // bodyFontColor: theme.palette.text.secondary,
-      // borderColor: theme.palette.divider,
       borderWidth: 1,
       enabled: true,
-      // footerFontColor: theme.palette.text.secondary,
       intersect: false,
       mode: 'index',
-      // titleFontColor: theme.palette.text.primary
     }
   };
 

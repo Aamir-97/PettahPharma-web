@@ -1,8 +1,10 @@
 import React, { useState , useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
+import back from '../images/back3.jpg';
 
 function Add_Product() {
+
     const [product_id, setProduct_id] = useState("")
     const [state,setState]=useState({file:'',display_photo:'',message:'',success:false})
     const [name, setName] = useState("");
@@ -18,6 +20,7 @@ function Add_Product() {
         axios.post('http://localhost:3001/imageUpload',formData,{
         'content-Type':'multipart/form-data',
       })
+      
         if (name && volume) {
         axios.post('http://localhost:3001/createproduct', {
             product_id: product_id,
@@ -34,6 +37,7 @@ function Add_Product() {
             alert("The new product was added successfully.")
             document.getElementById("create-course-form").reset();
         });
+
     }
     else {
         alert("Name, Volume are required.")
@@ -41,16 +45,29 @@ function Add_Product() {
 }
 };
 
-    const mystyle = {    
+    const mystyle = {
+        formstep: {
+            fontsize: '35px',
+            textalign: 'center',
+            color: '#23750a',
+        },
         formbox: {
             backgroundColor: 'white',
             width: '60%',
             textalign: 'center',
-            marginTop: '10px',
+            marginTop: '0px',
             height: 'full',
             boxShadow: "2px 2px 5px  2px #9E9E9E",
             padding: "2vh",
             borderRadius: "5px"
+        },
+        popupbox: {
+            position: 'fixed',
+            background: '#00000050',
+            width: '75vh',
+            height: '75vh',
+            top: '12vh',
+            left: '90vh',
         },
         forminput: {
             width: '70%',
@@ -61,9 +78,30 @@ function Add_Product() {
             borderRadius: '5px',
             height: '40px'
         },
+        formtextarea: {
+            width: '70%',
+            padding: '10px 10px',
+            margin: '8px 0',
+            display: 'inline - block',
+            border: '1px solid #C0C0C0',
+            borderRadius: '5px',
+            height: '80px'
+        },
         formhead: {
             paddingTop: '50px',
             paddingBottom: '20px'
+        },
+        submitBtn: {
+            marginTop: '20px',
+            width: '145px',
+            height: '40px',
+            fontSize: '18px',
+            backgroundColor: '#0A6466',
+            cursor: 'pointer',
+            border: 'none',
+            borderRadius: '5px',
+            color: 'white',
+            marginRight: '30px'
         },
         closeBtn: {
             marginTop: '20px',
@@ -78,6 +116,21 @@ function Add_Product() {
             color: 'white',
             marginRight: '200px'
         },
+        formControl: {
+            // margin: theme.spacing(1),
+            minWidth: '320px',
+          },
+          selectEmpty: {
+            // marginTop: theme.spacing(2),
+          },
+          aaa: {
+              width: '500px',
+            },
+            backgroud: {
+                backgroundColor: '#5eb6b8',
+                backgroundImage: `url(${back})`,
+                height:'666px',
+              },
     };
     
     const handleInput =(e) =>{
@@ -95,6 +148,7 @@ function Add_Product() {
       }
 
     return (
+        <div style={mystyle.backgroud}  >
         <div align='center'>
             <div style={mystyle.formbox}>
                 <h1 style={mystyle.formhead}> Add Product </h1>
@@ -105,6 +159,7 @@ function Add_Product() {
                             style={mystyle.forminput}
                             placeholder="Product ID"
                             onChange={(event) => { setProduct_id(event.target.value); }}
+                            // required
                         /><br />
                         <input
                             type="file"
@@ -158,9 +213,10 @@ function Add_Product() {
                         </Link>
                     </div>
                 </form>
-
+                </div>
             </div>
         </div> 
+
     )
 }
 

@@ -121,8 +121,8 @@ const DataPlanList = ({ rest, props }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([])
 
   let manager_ID = localStorage.getItem('managerid');
-  manager_ID = JSON.parse(manager_ID)
-  console.log(manager_ID);
+  manager_ID = JSON.parse(manager_ID);
+  // console.log(manager_ID);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -177,7 +177,7 @@ const DataPlanList = ({ rest, props }) => {
   }
   today = yyyy + '-' + mm + '-' + dd;
 
-  console.log(manager_ID);
+  // console.log(manager_ID);
 
   // var today = new Date()
   return (

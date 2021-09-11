@@ -86,7 +86,7 @@ const DataPlanListResults = ({ DataPlan, rest, props }) => {
         }
       });
       setSelectedCustomerIds(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     };
     fetchData();
   }, [manager_ID]);

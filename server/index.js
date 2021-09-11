@@ -58,6 +58,14 @@ const db = mysql.createConnection({
     multipleStatements: true
 });
 
+app.listen(3001, () => {
+    console.log("Your server is running on port 3001");
+});
+
+app.get ("/", (_req, res) => {
+    res.send("Web Server is working Perfectly...!")
+});
+
 db.connect((err) => {
     if (err) {
         console.log(err);
@@ -810,11 +818,11 @@ app.get("/delete", (req, res) => {
 });
 
 app.get('/getsummary', (req, res) => {
-    console.log(req.query.manager_ID);
+    // console.log(req.query.manager_ID);
     db.query('SELECT visit_summary_report.report_id,visit_summary_report.visit_type,visit_summary_report.date,visit_summary_report.avg_duration,visit_summary_report.doctor_name,medicalrep.name FROM visit_summary_report INNER JOIN medicalrep ON visit_summary_report.rep_ID = medicalrep.rep_ID WHERE visit_summary_report.manager_ID = ? ORDER BY visit_summary_report.date DESC', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
-            console.log(result);
+            // console.log(result);
         }
         else
             console.log(err);
@@ -862,7 +870,7 @@ app.get('/getleave', (req, res) => {
     db.query('SELECT leaves.status,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,medicalrep.name AS repname FROM medicalrep INNER JOIN leaves ON medicalrep.rep_ID = leaves.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
-            console.log(result);
+            // console.log(result);
         }
         else
             console.log(err);
@@ -982,7 +990,7 @@ app.get('/getexpense', (req, res) => {
     db.query('SELECT expenses.expense_ID,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,medicalrep.name AS repname FROM medicalrep INNER JOIN expenses ON medicalrep.rep_ID = expenses.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
-            console.log(result);
+            // console.log(result);
         }
         else
             console.log(err);
@@ -1412,6 +1420,163 @@ app.get('/adminpasswordvalidation', (req, res) => {
     );
   });
 
-app.listen(3001, () => {
-    console.log("Your server is running on port 3001");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////
+
+  app.get('/GetMedicalRapList',(req,res) => {
+    const manager_ID = req.query.manager_ID;
+    // console.log(manager_ID); 
+
+    const getRepListSQL = "SELECT * FROM medicalrep WHERE manager_ID=?"
+
+    db.query (getRepListSQL,[manager_ID],(err,result) => {
+        if (err) {
+            console.log(err);  
+            console.log("Error while get medical rep details in server code");
+        } else {
+            res.send(result);
+        }
+
+    })
+
+  })
+
+  app.post('/kpi/reportCount',(req,res)=>{
+    // console.log(req.body.rep_ID);
+    const rep_ID = req.body.rep_ID;
+    const sqlLogin = "SELECT COUNT(report_id) AS reportCount FROM visit_summary_report WHERE rep_ID=?";
+     
+    db.query(sqlLogin,[rep_ID],(err,result)=>{
+            if(err){
+                res.send({err:err})
+                console.log("Error while reportCount ");
+              } if(result.length > 0){
+                res.send({
+                    reportCount: result[0].reportCount,
+                });
+                // console.log("Get Report reportCount");
+              } 
+            //   else {
+            //     res.send({message : " No report submit yet "});
+            //   }     
+    }); 
+}); 
+
+app.post('/kpi/ExpensesAmount',(req,res)=>{
+
+    const rep_ID = req.body.rep_ID;
+    const sqlLogin = "SELECT SUM(amount) AS expensesAmount FROM expenses WHERE rep_ID=?";
+     
+    db.query(sqlLogin,[rep_ID],(err,result)=>{
+            if(err){
+                res.send({err:err})
+                console.log("Error while expensesCount ");
+              } if(result.length > 0){
+                res.send({
+                    expensesAmount: result[0].expensesAmount,
+                });
+              } 
+            //   else {
+            //     res.send({message : " No Expenses claimed yet "});
+            //   }     
+    }); 
+}); 
+   
+app.post('/kpi/leaveCount',(req,res)=>{
+
+    const rep_ID = req.body.rep_ID;
+    const sqlLogin = "SELECT COUNT(rep_ID) AS leaveCount FROM leaves WHERE rep_ID=?";
+     
+    db.query(sqlLogin,[rep_ID],(err,result)=>{
+            if(err){
+                res.send({err:err})
+                console.log("Error while leaveCount ");
+              } if(result.length > 0){
+                res.send({
+                    leaveCount: result[0].leaveCount,
+                });
+                // console.log("Get Report Count");
+              } 
+            //   else {
+            //     res.send({message : " No leave taken yet "});
+            //   }     
+    }); 
+});   
+
+app.post('/kpi/doctorCount',(req,res)=>{    
+
+    const rep_ID = req.body.rep_ID;
+    const sqlLogin = "SELECT COUNT(doctor_ID) AS doctorCount FROM doctor_details WHERE rep_ID=?";
+
+    // res.send({message : "Hello test"});
+     
+    db.query(sqlLogin,[rep_ID],(err,result)=>{
+            if(err){
+                res.send({err:err})
+                console.log("Error while doctorCount ");
+              } if(result.length > 0){
+                //   console.log(result[0].doctorCount);
+                res.send({
+                    doctorCount: result[0].doctorCount,
+                });
+                // console.log("Get Report Count");
+              } 
+            //   else {
+            //     res.send({message : " No Doctors added yet "});
+            //   }     
+    }); 
+}); 
+
+app.post('/kpi/compeleteTask', (req, res) => {
+    const rep_ID=req.body.rep_ID;
+    // console.log(req.body)
+
+    db.query('SELECT Count(task_id) AS count FROM task WHERE type="task" AND status="Complete" AND rep_ID = ?',
+    [rep_ID],  (err, result) => {
+        if (!err) {
+            res.send({
+                completeTaskCount: result[0].count,
+            });
+        } else {
+            console.log(err);
+        }
+    });
 });
+
+app.post('/kpi/VisitDoctor', (req, res) => {
+    const rep_ID=req.body.rep_ID;
+    // console.log(req.body)
+
+    db.query('SELECT Count(DISTINCT doctor_name) AS count FROM visit_summary_report WHERE rep_ID = ?',
+    [rep_ID],  (err, result) => {
+        if (!err) {
+            res.send({
+                visitDoctorCount: result[0].count,
+            });
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+

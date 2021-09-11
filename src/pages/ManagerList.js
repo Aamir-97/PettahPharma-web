@@ -31,6 +31,7 @@ import getInitials from 'src/utils/getInitials';
 import { Link, Route } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
+import back from '../images/back3.jpg';
 
 const ManagerList = ({ rest,props} ) => {
 
@@ -74,6 +75,27 @@ const ManagerList = ({ rest,props} ) => {
     },
     button: {
       margin: theme.spacing(1),
+    },
+    backgroud: {
+      backgroundColor: '#5eb6b8',
+      backgroundImage: `url(${back})`,
+      //  color: '#0A6466',
+      // marginTop: '7px',
+      // paddingRight:'10px',
+      // fontSize:'100px',
+      // size:'200px',
+      // width:'1000px',
+    },
+    h1: {
+      // backgroundColor: '#5eb6b8',
+      //  color: '#0A6466',
+      // marginTop: '7px',
+      paddingRight:'10px',
+      // fontSize:'100px',
+      // color: '#0A6466',
+      fontFamily: "Sans-serif",
+      color: '#FFF',
+      size:'200px',
     },
   }));
 
@@ -138,6 +160,7 @@ const ManagerList = ({ rest,props} ) => {
         minHeight: '100%',
         py: 3
       }}
+      className={classes.backgroud}
     >
       <Container maxWidth={false}>
     <>
@@ -147,10 +170,12 @@ const ManagerList = ({ rest,props} ) => {
             display: 'flex',
             // justifyContent: 'flex-end',
             mt: 3,
-            flex: 3
+            flex: 3,
+            marginLeft: '455px',
+            // marginTop: '0px',
           }}
         >
-          <h1 style={{flex:3, flexWrap: 'wrap'}} >Sales Managers</h1>
+          <h1 style={{flex:3, flexWrap: 'wrap'}} className={classes.h1} > <b> Sales Managers </b></h1>
           <Link to={'/app/Add_Salesmanager'}>
             <Button
               color="primary"

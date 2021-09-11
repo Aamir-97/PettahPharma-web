@@ -17,16 +17,26 @@ function Add_Product() {
 
     const [product_id, setProduct_id] = useState("")
     const [display_photo, setDisplay_photo] = useState("")
+    const [state,setState]=useState({file:'',display_photo:'',message:'',success:false})
     const [name, setName] = useState("");
     const [volume, setVolume] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
-
+ 
     const add_Product = () => {
-        if (product_id && name && volume) {
+        if(state.file){
+      let formData=new FormData();
+      formData.append('file',state.file)
+        
+        axios.post('http://localhost:3001/imageUpload',formData,{
+        'content-Type':'multipart/form-data',
+      })
+      
+        if (name && volume) {
         axios.post('http://localhost:3001/createproduct', {
             product_id: product_id,
-            display_photo: display_photo,
+            display_photo: state.file.name,
+            // display_photo: display_photo,
             name: name,
             volume: volume,
             price: price,
@@ -41,10 +51,11 @@ function Add_Product() {
 
     }
     else {
-        alert("Product ID, Name, Volume are required.")
+        alert("Name, Volume are required.")
         // return (confirm('are you sure you want to delete??'));
         // return confirm("You are about to permanently delete a product. Click OK to continue or CANCEL to quit.");
     }
+}
 };
 
     const mystyle = {
@@ -130,6 +141,37 @@ function Add_Product() {
             },
     };
     
+    const handleInput =(e) =>{
+        let reader =new FileReader();
+        let file=e.target.files[0]
+        reader.onloadend =() =>{
+          setState({
+            ...state,
+            file:file,
+            display_photo:reader.result,
+            message:""
+          })
+        }
+        reader.readAsDataURL(file);
+      }
+
+    // const handleInput =(event) =>{
+
+    //     const file = event.target.files[0];
+    //     const formData = new FormData()
+    //     formData.append('image', file)
+
+    //     fetch('http://localhost:3001/imageUpload'), {
+    //         method: 'POST',
+    //         body: formData,
+    //         headers: {
+    //             'Accept': 'multipart/form-data',
+    //         },
+    //         credentials: 'include',
+    //     }
+
+    // }
+
     // const useStyles = makeStyles((theme) => ({
     //     formControl: {
     //       margin: theme.spacing(1),
@@ -148,20 +190,23 @@ function Add_Product() {
         <div align='center'>
             <div style={mystyle.formbox}>
                 <h1 style={mystyle.formhead}> Add Product </h1>
-                <form >
+                <form>
                     <div >
                         <input
                             type="text"
                             style={mystyle.forminput}
                             placeholder="Product ID"
                             onChange={(event) => { setProduct_id(event.target.value); }}
-                            required
+                            // required
                         /><br />
                         <input
                             type="file"
+                            name="file"
                             style={mystyle.forminput}
                             placeholder="Product Image"
-                            onChange={(event) => { setDisplay_photo(event.target.value); }}
+                            // accept="image/*"
+                            // onChange={(event) => { setDisplay_photo(event.target.value); }}
+                            onChange={handleInput}
                         /><br />
                         <input
                             type="text"

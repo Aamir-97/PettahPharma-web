@@ -69,7 +69,7 @@ export default function AdminProfileDetails() {
 
 
     const edit_adminprofile = () => {
-        axios.put("http://localhost:3001/updateadmin",
+        axios.post("http://localhost:3001/updateadmin",
             { name: name,  email: email }).then(
                 (response) => { 
                     window.location.reload();

@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-
+import back from '../images/back3.jpg';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,13 +37,23 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
         width: '60%',
         marginTop: '0px',
-        marginLeft: '0px',
+        marginLeft:'250px',
         height: 'full',
         boxShadow: "2px 2px 5px  2px #9E9E9E",
         padding: "2vh",
         borderRadius: "5px",
         align: 'center'
     },
+    backgroud: {
+        backgroundColor: '#5eb6b8',
+        backgroundImage: `url(${back})`,
+        height:'666px',
+        //  color: '#0A6466',
+        // marginTop: '7px',
+        // paddingRight:'10px',
+        // fontSize:'100px',
+        // size:'200px',
+      },
 
 }));
 
@@ -97,7 +107,7 @@ export default function Edit_Medicalrep() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone_no, setPhone_no] = useState("");
-    const [area, setArea] = useState("");
+    const [working_area, setWorkingarea] = useState("");
     const [rating, setRating] = useState("");
 
     // let admin_ID = localStorage.getItem('admin_ID');
@@ -106,7 +116,7 @@ export default function Edit_Medicalrep() {
     
     const edit_Medicalrep = (rep_ID) => {
         axios.put("http://localhost:3001/updatemedicalrep",
-            { name: name,  email: email, phone_no: phone_no, area: area, rep_ID: rep_ID }).then(
+            { name: name,  email: email, phone_no: phone_no, working_area: working_area, rep_ID: rep_ID }).then(
                 (response) => { 
                     window.location.reload();
                 }
@@ -125,7 +135,7 @@ export default function Edit_Medicalrep() {
             setName(response.data[0].name);
             setEmail(response.data[0].email);
             setPhone_no(response.data[0].phone_no);
-            setArea(response.data[0].area);
+            setWorkingarea(response.data[0].working_area);
             setRating(response.data[0].rating);
             console.log(response.data[0]);
         };
@@ -139,6 +149,7 @@ export default function Edit_Medicalrep() {
     };
 
     return (
+        <div className={classes.backgroud}>
         <div className={classes.formbox}>
             <div className={classes.root}>
                 <Grid item xs={12}>
@@ -210,7 +221,7 @@ export default function Edit_Medicalrep() {
                                 <input
                                     type="text"
                                     defaultValue={Row.area}
-                                    onChange={(event) => { setArea(event.target.value); }}
+                                    onChange={(event) => { setWorkingarea(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
                             </Typography>
@@ -227,7 +238,7 @@ export default function Edit_Medicalrep() {
                                     onChange={(event) => { setRating(event.target.value); }}
                                     style={mystyle.forminput}
                                     disabled
-                                />
+                                /> 
                             </Typography>
                         </AccordionSummary>
                     </Accordion><br />
@@ -248,7 +259,7 @@ export default function Edit_Medicalrep() {
                                 style={mystyle.closeBtn}                      
                             > Close</Button>
                         </Link>
-
+                        </div>
             </div>
         </div>
     );

@@ -1,17 +1,20 @@
 const express = require('express');
 const app = express();
+// app.use(express.static('img'));
+app.use(express.static(__dirname + '/public'));
 const mysql = require('mysql');
 const cors = require('cors');
 const multer = require('multer');
 // const dotenv = require('dotenv');
 const path = require('path');
+const fs = require('fs');
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 const hbs = require('nodemailer-express-handlebars');
-const sendMail = require('./mail');
-// const multer = require('multer');
 // const { name } = require('ejs');
+// const path = require("path");
+
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const saltRounds1 = 10;
@@ -19,22 +22,28 @@ const saltRounds1 = 10;
 // const saltRounds = 10;""
 // const fileUpload = require('express-fileupload');
 // import public from "../public/static/images/avatars/"
-app.use(cors());
+app.use(cors({
+    origin: true,
+    methods: ["GET", "POST"],
+    credentials: true
+}));
 app.use(express.urlencoded({
     extended: false
 }));
+app.use(express.static(__dirname + '/public'));  
+app.use('/products', express.static('static/images/products')); 
 app.use(express.json());
 
 // import public from '../public/static/images'
 
-app.use(
-    fileUpload({
-        useTempFiles: true,
-        safeFileNames: true,
-        preserveExtension: true,
-        tempFileDir: `${__dirname}/public/files/temp`
-    })
-);
+// app.use(
+//     fileUpload({
+//         useTempFiles: true,
+//         safeFileNames: true,
+//         preserveExtension: true,
+//         tempFileDir: `${__dirname}/public/files/temp`
+//     })
+// );
 
 const db = mysql.createConnection({
     // Instance Identifier- PettahPharma-DB
@@ -56,63 +65,36 @@ db.connect((err) => {
     else {
         console.log('Database Connected...');
     }
-});
+}); 
 
 const publicDirectory = path.join(__dirname, './public')
+const imageDirectory = path.join(__dirname, '../public/static/images/products/')
 console.log(__dirname);
+// console.log(imageDirectory);
 app.set("view engine", "hbs");
 
 // app.get('/',(_req,res)=>{
 //             //res.send("<h1>Pettah Pharma - Web App</h1>");
 //             res.render("../../src/pages/Login")
 //         })
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
-    }
-});
 
-transporter.use('compile', hbs({
-    viewEngine: 'express-handlebars',
-    viewPath: '.'
-}));
+// app.post('/email', (req, res) => {
+//     const { subject, email, text } = req.body;
+//     log('Data: ', req.body);
 
-let mailOptions = {
-    from: 'mamadhu1219@gmail.com',
-    to: 'madhushadavidmathivannan@gmail.com',
-    // cc: 'msaamirali123@gmail.com',
-    subject: 'Password for PettahPharma',
-    text: 'This is your password',
-    template: 'main'
-};
+//     sendMail(email, subject, text, function (err, data) {
+//         if (err) {
+//             log('ERROR: ', err);
+//             return res.status(500).json({ message: err.message || 'Internal Error' });
+//         }
+//         log('Email sent!!!');
+//         return res.json({ message: 'Email sent!!!!!' });
+//     });
+// });
 
-transporter.sendMail(mailOptions, function (err, data) {
-    if (err) {
-        console.log('Error Occurs', err);
-    } else {
-        console.log('Email Sent');
-    }
-});
-
-app.post('/email', (req, res) => {
-    const { subject, email, text } = req.body;
-    log('Data: ', req.body);
-
-    sendMail(email, subject, text, function (err, data) {
-        if (err) {
-            log('ERROR: ', err);
-            return res.status(500).json({ message: err.message || 'Internal Error' });
-        }
-        log('Email sent!!!');
-        return res.json({ message: 'Email sent!!!!!' });
-    });
-});
-
-app.get('/email/sent', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'emailMessage.html'));
-});
+// app.get('/email/sent', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'views', 'emailMessage.html'));
+// });
 
 app.get('/getManagerid', (req, res) => {
     db.query('SELECT * FROM salesmanager WHERE email=? AND password=?', [req.query.email, req.query.password], (err, result) => {
@@ -149,6 +131,7 @@ app.get('/loginsal', (req, res) => {
     const password = req.query.password;
     db.query("SELECT * FROM salesmanager WHERE email=? AND password=? ",
         [email,password], (err, result) => {
+
             // if (result.length > 0) {
             //     // res.send({ message1: "Login salesmanager" },{result});
             //     // array=[...result]
@@ -166,6 +149,7 @@ app.get('/loginsal', (req, res) => {
             // else {
             //     res.send({ message11: "User doesn't exist" });
             // }
+
             if (result.length > 0) {
 
 
@@ -237,7 +221,7 @@ app.get('/adminprofile', (_req, res) => {
     });
 });
 
-app.put('/updateadmin', (req, res) => {
+app.post('/updateadmin', (req, res) => {
     // const admin_ID = req.query.admin_ID;
     const name = req.body.name;
     const email = req.body.email;
@@ -278,16 +262,56 @@ app.post('/createmanager', (req, res) => {
     const password = req.body.password;
     const created_at = req.body.created_at
 
-    // bcrypt.hash(password, saltRounds, (err, hash) => {
-    db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password,created_at) VALUES (?,?,?,?,?,?,?)",
-        [manager_ID, name, email, phone_no, area, password, created_at], (err, _results) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send("sales manager created");
+    let transport = nodemailer.createTransport(
+        {
+            service:'gmail',
+            auth: {
+                user: 'pettahpharma@gmail.com',
+                pass:'MAdhu@1998'
             }
-        });
-    // });
+        }
+    )
+
+    const subject = 'Login Credentials';
+    const message = `Dear ${name},
+ 
+
+    Welcome to the team! We’re excited to have you at Pettah Pharmacy Private Limited. 
+    We know you’re going to be a valuable asset to our company and can’t wait to see what you accomplish.
+     
+    You can login to our system by using your email : ${email} and your password : ${password}
+                
+    If you have any questions prior to your arrival, please feel free to email me and I’ll be more than happy to help you.
+    
+    We are looking forward to working with you and seeing you achieve great things!
+
+    Best regards,
+    Pettah Pharmacy Private Limited,
+    pettahpharma@gmail.com`;
+    
+    let mailOptions = {
+        from : 'pettahpharma@gmail.com',
+        to: email,
+        subject: subject,
+        text: message
+    }
+
+    transport.sendMail(mailOptions,function(error,info){
+        if(error){
+            console.log(error)
+        }
+        else{
+                db.query("INSERT INTO salesmanager (manager_ID,name,email,phone_no,area,password,created_at) VALUES (?,?,?,?,?,?,?)", 
+                [manager_ID, name, email, phone_no, area, password, created_at], (err, _results) => {
+                    if(err){
+                        console.log(err)
+                      }else{
+                        // console.log(result);
+                        res.send("sales manager created");
+                      }
+                })
+        }
+    })    
 });
 
 app.get('/viewmanagerlist', (_req, res) => {
@@ -314,15 +338,16 @@ app.get("/deletemanager", (req, res) => {
     );
 });
 
-app.put('/updatemanager', (req, res) => {
+app.post('/updatemanager', (req, res) => {
     const manager_ID = req.body.manager_ID;
     const name = req.body.name;
     // const display_photo = req.body.display_photo;
     const email = req.body.email;
     const phone_no = req.body.phone_no;
     const area = req.body.area;
-    // console.log(manager_ID,name,email,phone_no,area)
-
+    console.log('manager_ID')
+    console.log(manager_ID,name,email,phone_no,area)
+    console.log('manager_ID')
     db.query("UPDATE salesmanager SET name = ?, email = ?,phone_no = ?,area = ? WHERE manager_ID=?",
         [name, email, phone_no, area, manager_ID],
         (err, result) => {
@@ -342,10 +367,48 @@ app.get('/viewmanager', (req, res) => {
     })
 })
 
+const storage = multer.diskStorage({
+    destination(req,file,cb){
+      cb(null,'../public/static/images/products/')
+    },
+    filename(req,file,cb){
+      cb(
+        null,
+        `${file.originalname.split('.')[0]}.jpg`
+      )
+    }
+  })
+   
+  const upload = multer({
+    storage,
+    limits:{
+      fileSize: 5000000
+    },
+    fileFilter(req,file,cb){
+      if(!file.originalname.match(/\.(jpeg|jpg|png)$/i)){
+        return  cb(new Error('please upload image with type of jpg or jpeg'))
+    }
+    cb(null,true)
+  }
+  })
+  
+//   app.post("/imageUpload",upload.single('file'),(req,res)=> {
+//     // const url = req.protocol + '://' + req.get('host')
+//     // const display_photo = url + '/public/' + req.file.filename
+//     const obj = {
+//         display_photo: {
+//             data: fs.readFileSync(path.join(imageDirectory + req.file.filename)),
+//             // contentType: 'image/png'
+//         }
+//     }
+
+//   })
+
 app.post('/createproduct', (req, res) => {
     console.log(req.body)
+    // const url = req.protocol + '://' + req.get('host')
     const product_id = req.body.product_id;
-    const display_photo = req.body.display_photo;
+    const display_photo = imageDirectory + req.body.display_photo;
     const name = req.body.name;
     const volume = req.body.volume;
     const price = req.body.price;
@@ -363,7 +426,7 @@ app.post('/createproduct', (req, res) => {
 
 app.put('/updateproduct', (req, res) => {
     const product_id = req.body.product_id;
-    const display_photo = req.body.image;
+    const display_photo = __dirname + '../public/static/images/products/' + req.body.display_photo;
     const name = req.body.name;
     const volume = req.body.volume;
     const price = req.body.price;
@@ -390,6 +453,7 @@ app.get('/viewproductlist', (_req, res) => {
     db.query('SELECT * FROM product ', (err, result, _fields) => {
         if (!err) {
             res.send(result);
+            // console.log(result[4].display_photo);
         } else {
             console.log(err);
         }
@@ -417,22 +481,65 @@ app.post('/createmedicalrep', (req, res) => {
     // const display_photo=req.body.display_photo;
     const email = req.body.email;
     const phone_no = req.body.phone_no;
-    const area = req.body.area;
+    const working_area = req.body.working_area;
     // const rating = req.body.rating;
     const password = req.body.password;
     const manager_ID = req.body.manager_ID;
     const created_at = req.body.created_at
 
-    db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,area,password,manager_ID,created_at) VALUES (?,?,?,?,?,?,?,?)",
-        [rep_ID, name, email, phone_no, area, password, manager_ID, created_at], (err, _results) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send("medical rep created");
+    let transport = nodemailer.createTransport(
+        {
+            service:'gmail',
+            auth: {
+                user: 'pettahpharma@gmail.com',
+                pass:'MAdhu@1998'
             }
-        });
-});
+        }
+    )
+
+    const subject = 'Login Credentials';
+    const message = `Dear ${name},
  
+
+    Welcome to the team! We’re excited to have you at Pettah Pharmacy Private Limited. 
+    We know you’re going to be a valuable asset to our company and can’t wait to see what you accomplish.
+     
+    You can login to our system by using your email : ${email} and your password : ${password}
+    You will also contact with your salesmanager(${manager_ID}) to discuss your tasks.
+                
+    If you have any questions prior to your arrival, please feel free to email me and I’ll be more than happy to help you.
+    
+    We are looking forward to working with you and seeing you achieve great things!
+
+    Best regards,
+    Pettah Pharmacy Private Limited,
+    pettahpharma@gmail.com`;
+    
+    let mailOptions = {
+        from : 'pettahpharma@gmail.com',
+        to: email,
+        subject: subject,
+        text: message
+    }
+
+    transport.sendMail(mailOptions,function(error,info){
+        if(error){
+            console.log(error)
+        }
+        else{
+            db.query("INSERT INTO medicalrep (rep_ID,name,email,phone_no,working_area,password,manager_ID,created_at) VALUES (?,?,?,?,?,?,?,?)",
+            [rep_ID, name, email, phone_no, working_area, password, manager_ID, created_at], (err, _results) => {
+                    if(err){
+                        console.log(err)
+                      }else{
+                        // console.log(result);
+                        res.send("medical rep created");
+                      }
+                })
+        }
+    })    
+});
+
 app.get('/viewmedicalreplist', (_req, res) => {
     db.query('SELECT * FROM medicalrep ', (err, result, _fields) => {
         if (!err) {
@@ -444,7 +551,7 @@ app.get('/viewmedicalreplist', (_req, res) => {
 });
  
 app.get('/viewmedicalrep', (req, res) => {
-    db.query("SELECT name,email,phone_no,area,rating FROM medicalrep WHERE rep_ID = ? ", [req.query.rep_ID], (err, result) => {
+    db.query("SELECT name,email,phone_no,working_area,rating FROM medicalrep WHERE rep_ID = ? ", [req.query.rep_ID], (err, result) => {
         res.send(result);
         console.log(result);
     })
@@ -470,12 +577,12 @@ app.put('/updatemedicalrep', (req, res) => {
     // const display_photo = req.body.image;
     const email = req.body.email;
     const phone_no = req.body.phone_no;
-    const area = req.body.area;
+    const working_area = req.body.working_area;
     // const rating = req.body.rating;
     // const manager_ID = req.body.manager_ID;
 
-    db.query('UPDATE medicalrep SET name = ?, email = ?, phone_no = ?, area = ? WHERE rep_ID=?',
-        [name, email, phone_no, area, rep_ID],
+    db.query('UPDATE medicalrep SET name = ?, email = ?, phone_no = ?, working_area = ? WHERE rep_ID=?',
+        [name, email, phone_no, working_area, rep_ID],
         (err, result) => {
             if (err) {
                 console.log(err);
@@ -487,7 +594,7 @@ app.put('/updatemedicalrep', (req, res) => {
 });
 
 app.get('/gettask', (req, res) => {
-    db.query('SELECT medicalrep.name,task.location,task.title,task.date,task.task_id,task.status FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? AND type="task"', [req.query.manager_ID], (err, result, fields) => {
+    db.query('SELECT medicalrep.name,task.location,task.title,task.date,task.task_id,task.status FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? AND type="task" ORDER BY date DESC', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
             console.log(result);
@@ -498,7 +605,7 @@ app.get('/gettask', (req, res) => {
 })
  
 app.get('/viewtask', (req, res) => {
-    db.query('SELECT medicalrep.name,task.type,task.title,task.location,task.date,task.session,task.description,task.rep_note,task.status,task.task_id,task.task_id,task.rep_ID FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? AND task.task_id=?', [req.query.manager_ID, req.query.task_id], (err, result) => {
+    db.query('SELECT medicalrep.name,task.type,task.title,task.location,task.date,task.session,task.description,task.rep_note,task.status,task.task_id,task.task_id,task.rep_ID FROM medicalrep INNER JOIN task ON medicalrep.rep_ID = task.rep_ID WHERE task.manager_ID = ? AND task.task_id=? ', [req.query.manager_ID, req.query.task_id], (err, result) => {
         res.send(result);
         console.log(result);
     })
@@ -1246,51 +1353,65 @@ app.get('/adminpasswordvalidation', (req, res) => {
     // });
 });
 
-const storage = multer.diskStorage({
-    destination(req,file,cb){
-      cb(null,'../public/')
-    },
-    filename(req,file,cb){
-      cb(
-        null,
-        `${file.originalname.split('.')[0]}.jpg`
-      )
-    }
-  })
-  
-  const upload = multer({
-    storage,
-    limits:{
-      fileSize: 5000000
-    },
-    fileFilter(req,file,cb){
-      if(!file.originalname.match(/\.(jpeg|jpg|png)$/i)){
-        return  cb(new Error('pleaseupload image with type of jpg or jpeg'))
-    }
-    cb(undefined,true)
-  }
-  })
-  
-  app.post("/imageUpload",upload.single('file'),(req,res)=> {
-     
-  })
 
-  app.put('/updateProfile', (req,res) => {
-    const manager_ID=req.body.manager_ID;
-    const emp_img = req.body.emp_img;
+// const storage = multer.diskStorage({
+//     destination(req,file,cb){
+//       cb(null,'../public/img')
+//     },
+//     filename(req,file,cb){
+//       cb(
+//         null,
+//         `${file.originalname.split('.')[0]}.jpg`
+//       )
+//     }
+//   })
+
+// const storage = multer.diskStorage({
+//     destination(req,file,cb){
+//       cb(null,'../public/')
+//     },
+//     filename(req,file,cb){
+//       cb(
+//         null,
+//         `${file.originalname.split('.')[0]}.jpg`
+//       )
+//     }
+//   })
+
+  
+//   const upload = multer({
+//     storage,
+//     limits:{
+//       fileSize: 5000000
+//     },
+//     fileFilter(req,file,cb){
+//       if(!file.originalname.match(/\.(jpeg|jpg|png)$/i)){
+//         return  cb(new Error('pleaseupload image with type of jpg or jpeg'))
+//     }
+//     cb(undefined,true)
+//   }
+//   })
+  
+//   app.post("/imageUpload",upload.single('file'),(req,res)=> {
+     
+//   })
+
+//   app.put('/updateProfile', (req,res) => {
+//     const manager_ID=req.body.manager_ID;
+//     const emp_img = req.body.emp_img;
     
    
-    db.query("UPDATE salesmanager SET display_photo=? WHERE manager_ID = ?", 
-    [emp_img,manager_ID], 
-    (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-       }
-    );
-  });
+//     db.query("UPDATE salesmanager SET display_photo=? WHERE manager_ID = ?", 
+//     [emp_img,manager_ID], 
+//     (err, result) => {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             res.send(result);
+//         }
+//        }
+//     );
+//   });
 
 app.listen(3001, () => {
     console.log("Your server is running on port 3001");

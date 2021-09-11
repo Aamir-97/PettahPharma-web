@@ -11,7 +11,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TextField from '@material-ui/core/TextField';
-
+import back from '../images/back3.jpg';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     formbox: {
         backgroundColor: 'lightgray',
         width: '60%',
-        marginTop: '40px',
+        marginTop: '0px',
         marginLeft: '200px',
         height: 'full',
         boxShadow: "2px 2px 5px  2px #9E9E9E",
@@ -52,6 +52,17 @@ const useStyles = makeStyles((theme) => ({
         align: 'center',
         rows: '10',
     },
+    backgroud: {
+        height:'916px',
+        backgroundColor: '#5eb6b8',
+        backgroundImage: `url(${back})`,
+        height:'666px',
+        //  color: '#0A6466',
+        // marginTop: '7px',
+        // paddingRight:'10px',
+        // fontSize:'100px',
+        // size:'200px',
+      },
 }));
 
 const mystyle = {
@@ -174,6 +185,7 @@ export default function AllownsComment() {
       };
 
     return (
+        <div className={classes.backgroud}>
         <div className={classes.formbox}>
             <div className={classes.root}>
                 <Grid item xs={12}>
@@ -275,6 +287,7 @@ export default function AllownsComment() {
                 </Link>
 
             </div>
+        </div>
         </div>
     );
 }

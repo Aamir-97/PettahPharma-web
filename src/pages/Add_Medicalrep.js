@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import back from '../images/back3.jpg';
 
 function Add_Medicalrep() {
 
@@ -20,21 +21,21 @@ function Add_Medicalrep() {
     // const [display_photo, setDisplay_photo] = useState("");
     const [email, setEmail] = useState("");
     const [phone_no, setPhone_no] = useState("");
-    const [area, setArea] = useState("");
+    const [working_area, setWorkingarea] = useState("");
     // const [rating, setRating] = useState("");
     const [password, setPassword] = useState("");
     const [manager_ID, setManager_ID] =useState("")
 
 
     const add_Medicalrep= () => {
-        if (rep_ID && name && email && area && password && manager_ID) {
+        if (rep_ID && name && email && working_area && password && manager_ID) {
         axios.post('http://localhost:3001/createmedicalrep', {
             rep_ID: rep_ID,
             name: name,
             // display_photo: display_photo,
             email: email,
             phone_no: phone_no,
-            area: area,
+            working_area: working_area,
             // rating: rating,
             password: password,
             manager_ID: manager_ID,
@@ -78,7 +79,7 @@ function Add_Medicalrep() {
             backgroundColor: 'white',
             width: '60%',
             textalign: 'center',
-            marginTop: '10px',
+            marginTop: '0px',
             height: 'full',
             boxShadow: "2px 2px 5px  2px #9E9E9E",
             padding: "2vh",
@@ -151,9 +152,20 @@ function Add_Medicalrep() {
           selectfield: {
               width: '500px',
             },
+            backgroud: {
+                backgroundColor: '#5eb6b8',
+                backgroundImage: `url(${back})`,
+                height:'666px',
+                //  color: '#0A6466',
+                // marginTop: '7px',
+                // paddingRight:'10px',
+                // fontSize:'100px',
+                // size:'200px',
+              },
     };
     
     return (
+        <div style={mystyle.backgroud}  >
         <div align='center'>
             <div style={mystyle.formbox}>
                 <h1 style={mystyle.formhead}> Add Medicalrep </h1>
@@ -196,7 +208,7 @@ function Add_Medicalrep() {
                             type="text"
                             style={mystyle.forminput}
                             placeholder="Working Area"
-                            onChange={(event) => { setArea(event.target.value); }}
+                            onChange={(event) => { setWorkingarea(event.target.value); }}
                             required
                         /><br />
                         {/* <input
@@ -254,7 +266,7 @@ function Add_Medicalrep() {
                         </Link>
                     </div>
                 </form>
-
+                </div>
             </div>
         </div>
 

@@ -10,14 +10,10 @@ import {
   Grid
 } from '@material-ui/core';
 import Expenses from 'src/components/dashboard/Expenses';
-import LatestOrders from 'src/components/dashboard/LatestTasks';
-import LatestProducts from 'src/components/dashboard//LatestProducts';
-import Sales from 'src/components/dashboard/Sales';
 import TotalVisits from 'src/components/dashboard/TotalVisits';
 import TotalEmployees from 'src/components/dashboard/TotalEmployees';
 import TotalProducts from 'src/components/dashboard/TotalProducts';
 import TaskProgress from 'src/components/dashboard/TaskProgress';
-import TaskAnalysis from 'src/components/charts/TaskAnalysis'
 import ExpenseAnalysis from 'src/components/charts/ExpenseAnalysis'
 import VisitAnalysis from 'src/components/charts/VisitAnalysis';
 import VisitTypes from 'src/components/charts/VisitTypes';
@@ -38,7 +34,6 @@ class Dashboard extends Component {
         const imgData = canvas.toDataURL('img/png');
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-        // pdf.output('dataurlnewwindow');
         pdf.save("download.pdf");
       })
     ;
@@ -54,7 +49,6 @@ class Dashboard extends Component {
         const imgData = canvas.toDataURL('img/png');
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-        // pdf.output('dataurlnewwindow');
         pdf.save("download.pdf");
       })
     ;
@@ -70,7 +64,6 @@ class Dashboard extends Component {
         const imgData = canvas.toDataURL('img/png');
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-        // pdf.output('dataurlnewwindow');
         pdf.save("download.pdf");
       })
     ;
@@ -86,7 +79,6 @@ class Dashboard extends Component {
         const imgData = canvas.toDataURL('img/png');
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-        // pdf.output('dataurlnewwindow');
         pdf.save("download.pdf");
       })
     ;
@@ -237,15 +229,6 @@ class Dashboard extends Component {
         onClick={this.printDocument4}
         >Print</Button></center></Box>
           </Grid>
-          {/* <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          > 
-            <LatestOrders />
-          </Grid>  */}
         </Grid>
       </Container>
     </Box>

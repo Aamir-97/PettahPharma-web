@@ -1,17 +1,13 @@
 import { Helmet } from 'react-helmet';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from "axios";
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
   Container,
   Button,
@@ -20,13 +16,11 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
   CardContent,
   TextField,
   InputAdornment,
   SvgIcon,
 } from '@material-ui/core';
-import getInitials from 'src/utils/getInitials';
 import { Link, Route } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
@@ -37,7 +31,6 @@ const ProductList = ({ rest,props} ) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
-
     },
     paper: {
       padding: theme.spacing(2),
@@ -69,27 +62,15 @@ const ProductList = ({ rest,props} ) => {
       marginTop: '0px',
       marginLeft: '100px',
       height: '100%',
-      // boxShadow: "2px 2px 5px  2px #9E9E9E",
       padding: "2vh",
       borderRadius: "5px",
     },
     backgroud: {
       backgroundColor: '#5eb6b8',
       backgroundImage: `url(${back})`,
-      //  color: '#0A6466',
-      // marginTop: '7px',
-      // paddingRight:'10px',
-      // fontSize:'100px',
-      // size:'200px',
-      // width:'1000px',
     },
     h1: {
-      // backgroundColor: '#5eb6b8',
-      //  color: '#0A6466',
-      // marginTop: '7px',
       paddingRight:'10px',
-      // fontSize:'100px',
-      // color: '#0A6466',
       fontFamily: "Sans-serif",
       color: '#FFF',
       size:'200px',
@@ -100,17 +81,9 @@ const ProductList = ({ rest,props} ) => {
   const classes = useStyles();
 
   const [selectedRowIds, setSelectedRowIds] = useState([])
-
-  // let admin_ID = localStorage.getItem('admin_ID');
-  // admin_ID = JSON.parse(admin_ID)
-  // console.log(admin_ID);
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get('http://localhost:3001/viewproductlist', {
-        // params: {
-        //   admin_ID: admin_ID,
-        // }
       });
       setSelectedRowIds(response.data);
       console.log(response.data);
@@ -166,11 +139,9 @@ const ProductList = ({ rest,props} ) => {
         <Box
           sx={{
             display: 'flex',
-            // justifyContent: 'flex-end',
             mt: 3,
             flex: 3,
             marginLeft: '455px',
-            // marginTop: '0px',
           }}
         >
           <h1 style={{flex:3, flexWrap: 'wrap'}} className={classes.h1} >Products</h1>
@@ -191,7 +162,6 @@ const ProductList = ({ rest,props} ) => {
             <CardContent>
               <Box sx={{ maxWidth: 1050 }}>
                 <TextField
-                  // fullWidth
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -207,7 +177,6 @@ const ProductList = ({ rest,props} ) => {
                   placeholder="Search"
                   variant="outlined"
                   onChange={(e) => { setSearchTerm(e.target.value); }}
-                  // alignItems="center"
                   className={classes.textfield}
                 />
               </Box>
@@ -232,7 +201,6 @@ const ProductList = ({ rest,props} ) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/* {selectedRowIds.slice(0, limit).map((Row) => ( */}
                 {selectedRowIds.slice(0, limit).filter(val => {
                   if (searchTerm === "") {
                     return val;
@@ -247,7 +215,6 @@ const ProductList = ({ rest,props} ) => {
                   }
                 }).map((Row) => {
                   const imageDirectory = path.join(__dirname, '../public/static/images/products/')
-                  // console.log(imageDirectory)
                   return (
                     <TableRow
                       hover

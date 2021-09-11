@@ -69,22 +69,6 @@ return (
           alignItems: 'center'
         }}
       >
-        {/* <ArrowDownwardIcon sx={{ color: red[900] }} />
-        <Typography
-          sx={{
-            color: red[900],
-            mr: 1
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography> */}
       </Box>
     </CardContent>
   </Card>

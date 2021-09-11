@@ -14,8 +14,6 @@ import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from './Logo';
-// import { RouterOutlined } from '@material-ui/icons';
-// import { white } from '@material-ui/core/colors';
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);

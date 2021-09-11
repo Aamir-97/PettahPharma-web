@@ -51,17 +51,11 @@ const useStyles = makeStyles((theme) => ({
     backgroud: {
         backgroundColor: '#5eb6b8',
         backgroundImage: `url(${back})`
-        //  color: '#0A6466',
-        // marginTop: '7px',
-        // paddingRight:'10px',
-        // fontSize:'100px',
-        // size:'200px',
       },
 }));
 
 const mystyle = {
     closeBtn: {
-        // marginTop: '0px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -71,11 +65,9 @@ const mystyle = {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // marginRight: '0px',
         marginLeft:'10px'
     },
     submitBtn: {
-        // marginTop: '5px',
         width: '175px',
         height: '40px',
         fontSize: '18px',
@@ -84,7 +76,6 @@ const mystyle = {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // /marginRight: '30px'
          marginLeft:'380px'
     },
 };

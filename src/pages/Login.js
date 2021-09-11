@@ -3,18 +3,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Helmet } from 'react-helmet';
 import logo from '../images/logo-gr.png'
-// import * as Yup from 'yup';
 import {
   Box,
   Button,
   Container,
   Grid,
-  Link,
   TextField,
   Typography
 } from '@material-ui/core';
-import { height } from '@material-ui/system';
-import { AlignCenter } from 'react-feather';
 import back from '../images/login2.jpg';
 import { makeStyles } from '@material-ui/core/styles';
 function Login() {
@@ -63,41 +59,24 @@ function Login() {
         marginTop: '0px',
         marginLeft: '100px',
         height: '100%',
-        // boxShadow: "2px 2px 5px  2px #9E9E9E",
         padding: "2vh",
         borderRadius: "5px",
       },
-      // debutton:{
-      //   backgroundColor: 'red',
-      // },
       link: {
-        // backgroundColor: '#5eb6b8',
         color: '#FFF',
       },
       h1: {
-        //  backgroundColor: '#5eb6b8',
-        //  color: '#0A6466',
         color: '#FFF',
         fontFamily: "Sans-serif",
       },
       view: {
-        // backgroundColor: '#5eb6b8',
-        //  color: '#0A6466',
-        // marginTop: '7px',
         paddingRight:'10px',
-        // fontSize:'100px',
-        // color: '#0A6466',
         color: '#FFF',
         size:'200px',
       },
       backgroud: {
         backgroundColor: '#5eb6b8',
         backgroundImage: `url(${back})`
-        //  color: '#0A6466',
-        // marginTop: '7px',
-        // paddingRight:'10px',
-        // fontSize:'100px',
-        // size:'200px',
       },
     }));
   
@@ -114,7 +93,6 @@ function Login() {
       }
     }).then((response) => {
       console.log(response.data[0]);
-      // setDt(response.data[0]);
       console.log(response.data[0]);
 
       if (response.data.message1) {
@@ -139,7 +117,6 @@ function Login() {
       }
     }).then((response) => {
       console.log(response.data[0]);
-      // setDt(response.data[0]);
       console.log(response.data[0]);
       if (response.data.message2 ) {
         setLoginStatusadmin(response.data.message2);
@@ -160,12 +137,6 @@ function Login() {
   {
     var validation= "Wrong email/password combination!";
   }
-  // else if(loginStatusadminexist == "User doesn't exist" && loginStatusmanagerexist =="User doesn't exist")
-  // {
-  //   var validation= "User doesn't exist";
-  // }
-
-
   return (
 
     <>
@@ -187,7 +158,6 @@ function Login() {
           height: "86px",
           alignSelf: "center"
         }} src={logo} alt="Logo" />
-        {/* Logo of company */}
 
         <Container maxWidth="xs">
           <Box sx={{ mb: 3 }}>
@@ -256,7 +226,6 @@ function Login() {
           />
 
           <Box sx={{ py: 2 }}>
-            {/* {loginStatus} */}
             <Button
               color="primary"
               fullWidth

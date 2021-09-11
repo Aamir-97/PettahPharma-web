@@ -1,11 +1,8 @@
-import moment from 'moment';
 import { useEffect,useState } from 'react';
 import {
   Avatar,
   Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
   Divider,
   Typography
@@ -14,7 +11,6 @@ import axios from 'axios';
 
 
 const AdminAccountProfile = (props) => {
-
   let admin_ID = localStorage.getItem('admin_ID');
   admin_ID = JSON.parse(admin_ID)
   const [Row, setRow] = useState([]);
@@ -77,15 +73,6 @@ const user = {
       </Box>
     </CardContent>
     <Divider />
-    {/* <CardActions>
-      <Button
-        color="primary"
-        fullWidth
-        variant="text"
-      >
-        Upload picture
-      </Button>
-    </CardActions> */}
   </Card>
   )
   

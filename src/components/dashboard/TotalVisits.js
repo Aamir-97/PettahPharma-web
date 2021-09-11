@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   Grid,
-  LinearProgress,
   Typography
 } from '@material-ui/core';
 import { orange,green } from '@material-ui/core/colors';
@@ -71,23 +70,6 @@ return (
           pt: 2
         }}
       >
-
-        {/* <ArrowUpwardIcon sx={{ color: green[900] }} /> */}
-        {/* <Typography
-          sx={{
-            color: green[900],
-            mr: 1
-          }}
-          variant="body2"
-        >
-          16%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography> */}
       </Box>
 
     </CardContent>

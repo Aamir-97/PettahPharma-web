@@ -17,11 +17,6 @@ function VisitAnalysis() {
   let manager_ID = localStorage.getItem('managerid');
   manager_ID = JSON.parse(manager_ID)
   const [visitanalysis,setVisitanalysis]=useState([])
-  // useEffect(()=>{
-  //   axios.get("http://localhost:3001/visitanalysis").then((response)=>{
-  //       setVisitanalysis(response.data)
-  //   })
-  // },[])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +26,6 @@ function VisitAnalysis() {
             }
         });
         setVisitanalysis(response.data)
-        // console.log(response.data[0]);
     };
     fetchData();
   }, []);
@@ -130,52 +124,7 @@ const options = {
     </Card>
   );
 };
-//     <Card>
-//     <CardHeader title="Monthly Total Visits" />
-//     <Divider />
-//    <Box
-//           sx={{
-//             height: 460,
-//             position: 'relative'
-//           }}
-//         >
-//       <div className="app">
-//       <div className="row">
-//         <div>
-//           <ReactApexChart align="center"
-//             options={{
-//               chart: {
-//                 type: "bar",
-//                 height: 350,
-//                 width: '100%'
-//               },
-//               xaxis: {
-//                 categories: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
-//                 title: {
-//                   text: 'Months'
-//                 }
-//               },
-//               yaxis: {
-//                 show: false
-//               },
-//               colors:  ["#1b5e20"]
-//             }}
-//             series={[
-//               {
-//                 name: "No of visits",
-//                 data: count
-//               }
-//             ]} 
-//             type="bar"
-//             width="600"
-//           />
-//         </div>
-//       </div>
-//     </div>
-//     </Box>
-//     </Card>
-//   )
-// }
+
 
 export default VisitAnalysis;
 

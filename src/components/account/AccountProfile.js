@@ -17,9 +17,6 @@ const user = {
   email: 'madhusha@gmail.com',
   name: 'Madhusha Mathivannan',
 };
-// import img from 'public/static/images/products/'
-
-
 const AccountProfile = (props) => {
   let manager_ID = localStorage.getItem('managerid');
   manager_ID = JSON.parse(manager_ID)
@@ -66,18 +63,8 @@ console.log(state.file)
 
     axios.post("http://localhost:3001/updateProfile", { emp_img: state.file.name, manager_ID: manager_ID }).then(
       (response) => {
-
-        // setAdminList(Dt.map((val) => {
-        //   return val.id === id ? {
-        //     id: val.id, name: val.name, email: val.email, phone_no: val.phone_no, address: val.address, emp_img: val.emp_img,
-        //     name: newName, email: newEmail, phone_no: newPhone_no, address: newAddress, emp_img: newEmp_img
-        //   } : val
-
-        // }))
       }
     )
-
-    // alert("Profile Edited successfully")
 
    }
 
@@ -93,13 +80,6 @@ console.log(state.file)
           flexDirection: 'column'
         }}
       >
-        {/* <Avatar
-          src={user.avatar}
-          sx={{
-            height: 100,
-            width: 100
-          }}
-        /> */}
         <img 
         sx={{
             height: 100,

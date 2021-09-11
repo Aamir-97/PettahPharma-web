@@ -9,21 +9,12 @@ import {
   Typography
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-// import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import GroupIcon from '@material-ui/icons/Group';
 
 function TotalEmployees() {
   let manager_ID = localStorage.getItem('managerid');
   manager_ID = JSON.parse(manager_ID)
   const [employeecount,setEmployeecount]=useState([])
-//   useEffect(()=>{
-//   axios.get("http://localhost:3001/MedicalRepCount",{
-//     manager_ID: manager_ID,
-//   }).then((response)=>{
-//   console.log(response.data)
-//   setEmployeecount(response.data)
-//   })
-// },[])
 console.log(manager_ID)
 useEffect(() => {
   const fetchData = async () => {
@@ -33,26 +24,9 @@ useEffect(() => {
           }
       });
       setEmployeecount(response.data)
-      // console.log(response.data[0]);
   };
   fetchData();
 }, []);
-
-// const [managercount,setManagercount]=useState([])
-//   useEffect(()=>{
-//   axios.get("http://localhost:3001/managerCount").then((response)=>{
-//   console.log(response.data)
-//   setManagercount(response.data)
-//   })
-// },[])
-
-// const [repcount,setRepcount]=useState([])
-//   useEffect(()=>{
-//   axios.get("http://localhost:3001/repCount").then((response)=>{
-//   console.log(response.data)
-//   setRepcount(response.data)
-//   })
-// },[])
 
 return (
 <div>
@@ -81,16 +55,6 @@ return (
               <p style={{fontSize:'30px'}}>{record.count}</p>
               )
             })}
-            {/* {managercount.map((record)=>{
-              return(
-            <p style={{fontSize:'13px',color:'#388e3c'}}>{record.count} Sales Managers</p>
-            )
-          })}
-          {repcount.map((record)=>{
-              return(
-            <p style={{fontSize:'13px',color:'#388e3c'}}>{record.count} Medical Reps</p>
-            )
-          })} */}
           </Typography>
         </Grid>
         <Grid item>
@@ -112,20 +76,6 @@ return (
           pt: 2
         }}
       >
-        {/* <Typography
-          sx={{
-            color: green[900],
-            mr: 1
-          }}
-          variant="body2"
-        > */}
-        {/* </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Sales Managers
-        </Typography> */}
       </Box>
     </CardContent>
     </Card>

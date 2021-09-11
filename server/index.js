@@ -1,27 +1,15 @@
 const express = require('express');
 const app = express();
-// app.use(express.static('img'));
 app.use(express.static(__dirname + '/public'));
 const mysql = require('mysql');
 const cors = require('cors');
 const multer = require('multer');
-// const dotenv = require('dotenv');
 const path = require('path');
 const fs = require('fs');
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 const hbs = require('nodemailer-express-handlebars');
-// const { name } = require('ejs');
-// const path = require("path");
-
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-const saltRounds1 = 10;
-// const bodyParser =  require('body-parser')
-// const saltRounds = 10;""
-// const fileUpload = require('express-fileupload');
-// import public from "../public/static/images/avatars/"
 app.use(cors({
     origin: true,
     methods: ["GET", "POST"],
@@ -34,19 +22,8 @@ app.use(express.static(__dirname + '/public'));
 app.use('/products', express.static('static/images/products')); 
 app.use(express.json());
 
-// import public from '../public/static/images'
-
-// app.use(
-//     fileUpload({
-//         useTempFiles: true,
-//         safeFileNames: true,
-//         preserveExtension: true,
-//         tempFileDir: `${__dirname}/public/files/temp`
-//     })
-// );
 
 const db = mysql.createConnection({
-    // Instance Identifier- PettahPharma-DB
     user : "admin",
     host : "pettahpharma-db.cjrpsgnfuucd.us-east-2.rds.amazonaws.com",
     password: "pharmadb2021",
@@ -78,31 +55,8 @@ db.connect((err) => {
 const publicDirectory = path.join(__dirname, './public')
 const imageDirectory = path.join(__dirname, '../public/static/images/products/')
 console.log(__dirname);
-// console.log(imageDirectory);
 app.set("view engine", "hbs");
 
-// app.get('/',(_req,res)=>{
-//             //res.send("<h1>Pettah Pharma - Web App</h1>");
-//             res.render("../../src/pages/Login")
-//         })
-
-// app.post('/email', (req, res) => {
-//     const { subject, email, text } = req.body;
-//     log('Data: ', req.body);
-
-//     sendMail(email, subject, text, function (err, data) {
-//         if (err) {
-//             log('ERROR: ', err);
-//             return res.status(500).json({ message: err.message || 'Internal Error' });
-//         }
-//         log('Email sent!!!');
-//         return res.json({ message: 'Email sent!!!!!' });
-//     });
-// });
-
-// app.get('/email/sent', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'views', 'emailMessage.html'));
-// });
 
 app.get('/getManagerid', (req, res) => {
     db.query('SELECT * FROM salesmanager WHERE email=? AND password=?', [req.query.email, req.query.password], (err, result) => {
@@ -119,44 +73,12 @@ app.get('/getManagerid', (req, res) => {
     })
 })
 
-// app.get("/delete", (req, res) => {
-//     const task_id = req.query.task_id;
-//     db.query("DELETE FROM task WHERE task_id=?",
-//         [task_id],
-//         (err, result) => {
-//             if (err) {
-//                 console.log(err);
-//             } else {
-//                 res.send(result);
-//             }
-//         }
-
-//     );
-// });
-
 app.get('/loginsal', (req, res) => {
     const email = req.query.email;
     const password = req.query.password;
     db.query("SELECT * FROM salesmanager WHERE email=? AND password=? ",
         [email,password], (err, result) => {
 
-            // if (result.length > 0) {
-            //     // res.send({ message1: "Login salesmanager" },{result});
-            //     // array=[...result]
-            //     // res.send(result);
-            //     bcrypt.compare(password, result[0].password, (error, response) => {
-            //         if (response) {
-            //             //   req.session.user = result;
-            //             //   console.log(req.session.user);
-            //             res.send(result);
-            //         } else {
-            //             res.send({ message1: "Wrong email/password combination!" });
-            //         }
-            //     });
-            // }
-            // else {
-            //     res.send({ message11: "User doesn't exist" });
-            // }
 
             if (result.length > 0) {
 
@@ -203,9 +125,7 @@ app.get('/getid', (req, res) => {
 
 app.post('/createadmin', (req, res) => {
     console.log(req.body)
-    // const display_photo = req.body.display_photo;
     const name = req.body.name;
-    // const contact_no = req.body.contact_no;
     const email = req.body.email;
     const password = req.body.password;
 
@@ -230,7 +150,6 @@ app.get('/adminprofile', (_req, res) => {
 });
 
 app.post('/updateadmin', (req, res) => {
-    // const admin_ID = req.query.admin_ID;
     const name = req.body.name;
     const email = req.body.email;
 
@@ -247,23 +166,10 @@ app.post('/updateadmin', (req, res) => {
     );
 });
 
-// db.query("SELECT * FROM admin WHERE email=? AND password=?",
-//     [email,password],(err,result)=>{
-//         if(err){
-//             res.send({err:err})
-//         }
-//           if(result.length > 0){
-//             res.send({message1 : "Login Successful" });
-//           } else{
-//             res.send({message2 : "Wrong Username Or password"});
-//         }
-// });
-
 app.post('/createmanager', (req, res) => {
     console.log(req.body)
     const manager_ID = req.body.manager_ID;
     const name = req.body.name;
-    // const display_photo = req.body.display_photo;
     const email = req.body.email;
     const phone_no = req.body.phone_no;
     const area = req.body.area;
@@ -314,7 +220,6 @@ app.post('/createmanager', (req, res) => {
                     if(err){
                         console.log(err)
                       }else{
-                        // console.log(result);
                         res.send("sales manager created");
                       }
                 })
@@ -349,7 +254,6 @@ app.get("/deletemanager", (req, res) => {
 app.post('/updatemanager', (req, res) => {
     const manager_ID = req.body.manager_ID;
     const name = req.body.name;
-    // const display_photo = req.body.display_photo;
     const email = req.body.email;
     const phone_no = req.body.phone_no;
     const area = req.body.area;
@@ -400,21 +304,9 @@ const storage = multer.diskStorage({
   }
   })
   
-//   app.post("/imageUpload",upload.single('file'),(req,res)=> {
-//     // const url = req.protocol + '://' + req.get('host')
-//     // const display_photo = url + '/public/' + req.file.filename
-//     const obj = {
-//         display_photo: {
-//             data: fs.readFileSync(path.join(imageDirectory + req.file.filename)),
-//             // contentType: 'image/png'
-//         }
-//     }
-
-//   })
 
 app.post('/createproduct', (req, res) => {
     console.log(req.body)
-    // const url = req.protocol + '://' + req.get('host')
     const product_id = req.body.product_id;
     const display_photo = imageDirectory + req.body.display_photo;
     const name = req.body.name;
@@ -461,7 +353,6 @@ app.get('/viewproductlist', (_req, res) => {
     db.query('SELECT * FROM product ', (err, result, _fields) => {
         if (!err) {
             res.send(result);
-            // console.log(result[4].display_photo);
         } else {
             console.log(err);
         }
@@ -486,11 +377,9 @@ app.post('/createmedicalrep', (req, res) => {
     console.log(req.body)
     const rep_ID = req.body.rep_ID;
     const name = req.body.name;
-    // const display_photo=req.body.display_photo;
     const email = req.body.email;
     const phone_no = req.body.phone_no;
     const working_area = req.body.working_area;
-    // const rating = req.body.rating;
     const password = req.body.password;
     const manager_ID = req.body.manager_ID;
     const created_at = req.body.created_at
@@ -540,7 +429,6 @@ app.post('/createmedicalrep', (req, res) => {
                     if(err){
                         console.log(err)
                       }else{
-                        // console.log(result);
                         res.send("medical rep created");
                       }
                 })
@@ -582,12 +470,9 @@ app.get("/deletemedicalrep", (req, res) => {
 app.put('/updatemedicalrep', (req, res) => {
     const rep_ID = req.body.rep_ID;
     const name = req.body.name;
-    // const display_photo = req.body.image;
     const email = req.body.email;
     const phone_no = req.body.phone_no;
     const working_area = req.body.working_area;
-    // const rating = req.body.rating;
-    // const manager_ID = req.body.manager_ID;
 
     db.query('UPDATE medicalrep SET name = ?, email = ?, phone_no = ?, working_area = ? WHERE rep_ID=?',
         [name, email, phone_no, working_area, rep_ID],
@@ -748,7 +633,7 @@ app.get('/totalExpenses', (req, res) => {
         }
     });
 });
-// SELECT SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS totalexpense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE expenses.status=1 AND medicalrep.manager_ID="2"
+
 
 app.get('/visitCount', (req, res) => {
     console.log(req.body)
@@ -781,19 +666,6 @@ app.post('/upload', function (req, res) {
         res.send('File uploaded!');
     });
 });
-
-// app.put("/update/:manager_ID",(req,res)=>{
-//     const manager_ID = req.body.manager_ID;
-//     const area = req.body.area;
-
-//     db.query('UPDATE salesmanager SET area=? WHERE manager_ID=?',[area,manager_ID],(err,result)=>{
-//         if(!err){
-//             res.send(result);
-//         }else{
-//         console.log(err);
-//         }
-//     });
-// });
 
 app.get('/getrep', (req, res) => {
     console.log(req.query.date);
@@ -1045,7 +917,6 @@ app.get('/fuelexpense', (req, res) => {
             console.log(err)
         } else {
             res.send(result);
-            // console.log(result);
         }
     });
 });
@@ -1056,7 +927,6 @@ app.get('/accommodationexpense', (req, res) => {
             console.log(err)
         } else {
             res.send(result);
-            // console.log(result);
         }
     });
 });
@@ -1067,7 +937,6 @@ app.get('/dailyexpense', (req, res) => {
             console.log(err)
         } else {
             res.send(result);
-            // console.log(result);
         }
     });
 });
@@ -1078,7 +947,6 @@ app.get('/otherexpense', (req, res) => {
             console.log(err)
         } else {
             res.send(result);
-            // console.log(result);
         }
     });
 });
@@ -1183,11 +1051,11 @@ app.get('/repfuelexpense', (req, res) => {
             console.log(err)
         } else {
             res.send(result);
-            // console.log(result);
+
         }
     });
 });
-// SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE expenses.status=1  AND expenses.expense_Type="Fuel" GROUP BY month
+
 
 app.get('/repaccommodationexpense', (req, res) => {
     const manager_ID = req.query.manager_ID;
@@ -1196,7 +1064,7 @@ app.get('/repaccommodationexpense', (req, res) => {
             console.log(err)
         } else {
             res.send(result);
-            // console.log(result);
+
         }
     });
 });
@@ -1208,7 +1076,6 @@ app.get('/repdailyexpense', (req, res) => {
             console.log(err)
         } else {
             res.send(result);
-            // console.log(result);
         }
     });
 });
@@ -1258,7 +1125,6 @@ app.get('/repvisitanalysis', (req, res) => {
             console.log(err)
         } else {
             res.send(result);
-            // console.log(result);
         }
     });
 });
@@ -1344,8 +1210,6 @@ app.get('/adminupdatepassword', (req, res) => {
 
 app.get('/adminpasswordvalidation', (req, res) => {
     const confirm_password = req.query.confirm_password;
-
-    // bcrypt.hash(oldpassword, saltRounds, (err, hasholdpassword) => {
     db.query("SELECT * FROM admin  WHERE password=? ",
         [confirm_password],
         (err, result) => {
@@ -1361,44 +1225,6 @@ app.get('/adminpasswordvalidation', (req, res) => {
     // });
 });
 
-
-// const storage = multer.diskStorage({
-//     destination(req,file,cb){
-//       cb(null,'../public/img')
-//     },
-//     filename(req,file,cb){
-//       cb(
-//         null,
-//         `${file.originalname.split('.')[0]}.jpg`
-//       )
-//     }
-//   })
-
-// const storage = multer.diskStorage({
-//     destination(req,file,cb){
-//       cb(null,'../public/')
-//     },
-//     filename(req,file,cb){
-//       cb(
-//         null,
-//         `${file.originalname.split('.')[0]}.jpg`
-//       )
-//     }
-//   })
-
-  
-//   const upload = multer({
-//     storage,
-//     limits:{
-//       fileSize: 5000000
-//     },
-//     fileFilter(req,file,cb){
-//       if(!file.originalname.match(/\.(jpeg|jpg|png)$/i)){
-//         return  cb(new Error('pleaseupload image with type of jpg or jpeg'))
-//     }
-//     cb(undefined,true)
-//   }
-//   })
   
   app.post("/imageUpload",upload.single('file'),(req,res)=> {
      
@@ -1421,28 +1247,6 @@ app.get('/adminpasswordvalidation', (req, res) => {
     );
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////
 
   app.get('/GetMedicalRapList',(req,res) => {
     const manager_ID = req.query.manager_ID;
@@ -1475,11 +1279,7 @@ app.get('/adminpasswordvalidation', (req, res) => {
                 res.send({
                     reportCount: result[0].reportCount,
                 });
-                // console.log("Get Report reportCount");
               } 
-            //   else {
-            //     res.send({message : " No report submit yet "});
-            //   }     
     }); 
 }); 
 
@@ -1497,9 +1297,6 @@ app.post('/kpi/ExpensesAmount',(req,res)=>{
                     expensesAmount: result[0].expensesAmount,
                 });
               } 
-            //   else {
-            //     res.send({message : " No Expenses claimed yet "});
-            //   }     
     }); 
 }); 
    
@@ -1518,9 +1315,6 @@ app.post('/kpi/leaveCount',(req,res)=>{
                 });
                 // console.log("Get Report Count");
               } 
-            //   else {
-            //     res.send({message : " No leave taken yet "});
-            //   }     
     }); 
 });   
 
@@ -1536,21 +1330,16 @@ app.post('/kpi/doctorCount',(req,res)=>{
                 res.send({err:err})
                 console.log("Error while doctorCount ");
               } if(result.length > 0){
-                //   console.log(result[0].doctorCount);
                 res.send({
                     doctorCount: result[0].doctorCount,
                 });
-                // console.log("Get Report Count");
               } 
-            //   else {
-            //     res.send({message : " No Doctors added yet "});
-            //   }     
+
     }); 
 }); 
 
 app.post('/kpi/compeleteTask', (req, res) => {
     const rep_ID=req.body.rep_ID;
-    // console.log(req.body)
 
     db.query('SELECT Count(task_id) AS count FROM task WHERE type="task" AND status="Complete" AND rep_ID = ?',
     [rep_ID],  (err, result) => {
@@ -1566,7 +1355,6 @@ app.post('/kpi/compeleteTask', (req, res) => {
 
 app.post('/kpi/VisitDoctor', (req, res) => {
     const rep_ID=req.body.rep_ID;
-    // console.log(req.body)
 
     db.query('SELECT Count(DISTINCT doctor_name) AS count FROM visit_summary_report WHERE rep_ID = ?',
     [rep_ID],  (err, result) => {

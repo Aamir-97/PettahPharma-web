@@ -1,20 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import shadows from 'src/theme/shadows';
-import {
-    Avatar,
-    Box,
-    Card,
-    Checkbox,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TablePagination,
-    TableRow,
-    Typography
-  } from '@material-ui/core';
-  import getInitials from 'src/utils/getInitials';
+
 function ViewSummary() {
 
     const mystyle = {
@@ -101,25 +87,18 @@ function ViewSummary() {
                 <h1 style={mystyle.formhead}> View Summary Report </h1>
                 <form >
                     <div >
-                    
                         <input
                             type="text"
                             style={mystyle.forminput}
-                            // className="forminput"
                             name="Name"
-                            // value={getInitials(customer.doctor_name)}
                         /><br />
-
-
-                        <textarea 
+                        <textarea
                             type="text"
                             style={mystyle.formtextarea}
                             name="details"
                             placeholder="Details of Task"
 
                         ></textarea><br />
-
-                       
                     </div>
 
                     <div display='flex' align='right'>
@@ -129,7 +108,6 @@ function ViewSummary() {
                                 type="submit"
                                 id="submitBtn"
                                 style={mystyle.submitBtn}
-                            //className="nextBtn"
                             > Create</button>
                         </Link>
 
@@ -138,7 +116,6 @@ function ViewSummary() {
                                 type="submit"
                                 id="submitBtn"
                                 style={mystyle.closeBtn}
-                            //className="nextBtn"
                             > Close</button>
                         </Link>
                     </div>

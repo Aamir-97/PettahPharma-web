@@ -1,8 +1,4 @@
 import { Helmet } from 'react-helmet';
-// import { Box, Container } from '@material-ui/core';
-// import SummaryReportResults from 'src/components/summaryreport/SummaryReportResults';
-// import SummaryReportToolbar from 'src/components/summaryreport/SummaryReportToolbar';
-// import SummaryReport from 'src/__mocks__/SummaryReport';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -72,16 +68,6 @@ const SummaryReportList = (rest, props) => {
     setPage(newPage);
   };
 
-  // const deleteEmployee = (task_id) => {
-  //   axios.get("http://localhost:3001/delete", {
-  //     params: {
-  //       task_id: task_id,
-  //     }
-  //   }).then((response) => {
-  //     window.location.reload();
-  //   })
-  // };
-
   const useStyles = makeStyles((theme) => ({
     root: {
       width: '100%',
@@ -117,43 +103,25 @@ const SummaryReportList = (rest, props) => {
       marginTop: '0px',
       marginLeft: '100px',
       height: '100%',
-      // boxShadow: "2px 2px 5px  2px #9E9E9E",
       padding: "2vh",
       borderRadius: "5px",
     },
-    // debutton:{
-    //   backgroundColor: 'red',
-    // },
     link: {
-      // backgroundColor: '#5eb6b8',
       color: '#FFF',
       
     },
     h1: {
-      // backgroundColor: '#5eb6b8',
-      // color: '#FFF',
       color: '#FFF',
       fontFamily: "Sans-serif",
     },
     view: {
-      // backgroundColor: '#5eb6b8',
-      //  color: '#0A6466',
-      // marginTop: '7px',
       color: '#FFF',
       paddingRight:'10px',
-      // fontSize:'100px',
-      // backgroundImage: `url(${back})`,
-      // color: '#0A6466',
       size:'200px',
     },
     backgroud: {
       backgroundColor: '#5eb6b8',
       backgroundImage: `url(${back})`
-      //  color: '#0A6466',
-      // marginTop: '7px',
-      // paddingRight:'10px',
-      // fontSize:'100px',
-      // size:'200px',
     },
   }));
   const classes = useStyles();
@@ -190,36 +158,17 @@ const SummaryReportList = (rest, props) => {
           <Box sx={{ pt: 3 }}>
             <>
               <Box {...props}>
-                {/* <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  marginTop: '10px',
-                  marginLeft: '400px',
-                  
-                }}> */}
                 <Box
                   sx={{
                     display: 'flex',
                     justifyContent: 'flex-end',
                     marginTop: '-10px',
                     marginLeft: '400px',
-                    // backgroundImage: `url(${back})`
                   }}
                 >
                   <view className={classes.view}> <ListAltIcon style={{ fontSize:"40px" }} /></view>
                   <h1 style={{ flex: 3, flexWrap: 'wrap' }} className={classes.h1}>SUMMARY REPORT</h1>
-                  {/* <Link to={'/appp/AsignTask'}>
-        <Button
-          color="primary"
-          variant="contained"
-        >
-          Asign Task
-        </Button>
-        </Link> */}
-
                 </Box>
-                {/* </Box> */}
                 <Box sx={{ mt: 3 }}>
                   <Card>
                     <CardContent>
@@ -263,8 +212,6 @@ const SummaryReportList = (rest, props) => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {/* {selectedCustomerIds.slice(0, limit).map((customer) => ( */}
-                        {/* {selectedCustomerIds.slice(0, limit).map((customer) => ( */}
                         {selectedCustomerIds.slice(0, limit).filter(val => {
                           if (searchTerm === "") {
                             return val;
@@ -284,7 +231,6 @@ const SummaryReportList = (rest, props) => {
                           return (
                             <TableRow
                               hover
-                            // key={customer.task_id}
                             >
                               <TableCell>
                                 <Box
@@ -325,12 +271,6 @@ const SummaryReportList = (rest, props) => {
                                   </Button>
                                 </Link>
                                 {' '}
-                                {/* <Button onClick={() => { deleteSummaryReport(customer.report_id) }} color="primary"
-                      variant="contained">
-                      Delete
-                    </Button> */}
-
-
                               </TableCell>
                             </TableRow>
                           )

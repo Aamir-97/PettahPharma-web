@@ -7,18 +7,12 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
 } from '@material-ui/core';
 import axios from 'axios';
 
-
-// const AdminProfileDetails = (props) => {
-
 export default function AdminProfileDetails() {
-
   const mystyle = {
     closeBtn: {
-        // marginTop: '0px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -28,11 +22,9 @@ export default function AdminProfileDetails() {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // marginRight: '0px',
         marginLeft: '10px'
     },
     submitBtn: {
-        // marginTop: '5px',
         width: '145px',
         height: '40px',
         fontSize: '18px',
@@ -41,7 +33,6 @@ export default function AdminProfileDetails() {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // /marginRight: '30px'
         marginLeft: '350px'
     },
     forminput: {
@@ -55,18 +46,13 @@ export default function AdminProfileDetails() {
       height: '50px'
   },
   h5:{
-    // backgroundColor: '#5eb6b8',
-    // color: '#FFF',
     fontFamily: "Sans-serif", 
   },
 
 };
-    // const admin_ID = window.location.pathname.substring(21, 26);
     const [Row, setRow] = useState([]);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    // const [admin_ID, setAdmin_ID] = useState("");
-
 
     const edit_adminprofile = () => {
         axios.post("http://localhost:3001/updateadmin",
@@ -80,15 +66,10 @@ export default function AdminProfileDetails() {
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get('http://localhost:3001/adminprofile', {
-                // params: {
-                //     admin_ID: admin_ID,
-                // }
             });
             setRow(response.data[0]);
             setName(response.data[0].name);
             setEmail(response.data[0].email);
-            // setAdmin_ID(response.data[0].email);
-            console.log(response.data[0]);
         };
         fetchData();
     }, []);
@@ -103,7 +84,6 @@ export default function AdminProfileDetails() {
     >
       <Card>
         <CardHeader
-          // subheader="The information can be edited"
           title="Profile"
         />
         <CardContent>
@@ -127,21 +107,6 @@ export default function AdminProfileDetails() {
                 variant="outlined"
               />
             </Grid>
-            {/* <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Last name"
-                name="lastName"
-                onChange={handleChange}
-                required
-                value={values.lastName}
-                variant="outlined"
-              />
-            </Grid> */}
             <Grid
               item
               md={6}
@@ -160,66 +125,6 @@ export default function AdminProfileDetails() {
                 
               />
             </Grid>
-            {/* <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <h5 style={mystyle.h5} >Phone No</h5>
-              <input
-                fullWidth
-                label="Country"
-                name="country"
-                onChange={(event) => { setPhone_no(event.target.value); }}
-                required
-                defaultValue={Row.phone_no}
-                variant="outlined"
-                style={mystyle.forminput}
-              />
-            </Grid> */}
-            {/* <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <h5 style={mystyle.h5} >Area</h5>
-              <input
-                fullWidth
-                label="Country"
-                name="country"
-                onChange={(event) => { setArea(event.target.value); }}
-                required
-                style={mystyle.forminput}
-                defaultValue={Row.area}
-                variant="outlined"
-              />
-            </Grid> */}
-            {/* <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={Row.area}
-                variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid> */}
           </Grid>
         </CardContent>
         <Divider />

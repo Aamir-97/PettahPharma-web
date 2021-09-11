@@ -5,14 +5,10 @@ import {
   Grid
 } from '@material-ui/core';
 import Expenses from 'src/components/dashboardSal/Expenses';
-// import LatestOrders from 'src/components/dashboard/LatestTasks';
-// import LatestProducts from 'src/components/dashboard//LatestProducts';
-// import Sales from 'src/components/dashboard/Sales';
 import TotalVisits from 'src/components/dashboardSal/TotalVisits';
 import TotalEmployees from 'src/components/dashboardSal/TotalEmployees';
 import TotalProducts from 'src/components/dashboardSal/TotalProducts';
 import TaskProgress from 'src/components/dashboardSal/TaskProgress';
-// import TaskAnalysis from 'src/components/charts/TaskAnalysis'
 import ExpenseAnalysis from 'src/components/dashboardSal/ExpenseAnalysis'
 import VisitAnalysis from 'src/components/dashboardSal/VisitAnalysis';
 import VisitTypes from 'src/components/dashboardSal/VisitTypes';
@@ -106,15 +102,6 @@ const Dashboardsale = () => (
           >
             <VisitTypes/>
           </Grid>
-          {/* <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          > 
-            <LatestOrders />
-          </Grid>  */}
         </Grid>
       </Container>
     </Box>

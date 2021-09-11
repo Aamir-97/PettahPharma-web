@@ -43,17 +43,11 @@ const TaskInfo = () => {
             align: 'center',
         },
         link:{
-            // backgroundColor: '#5eb6b8',
             color: '#FFF',
           },
           backgroud: {
             backgroundColor: '#5eb6b8',
             backgroundImage: `url(${back})`
-            //  color: '#0A6466',
-            // marginTop: '7px',
-            // paddingRight:'10px',
-            // fontSize:'100px',
-            // size:'200px',
           },
     }));
 
@@ -69,20 +63,16 @@ const TaskInfo = () => {
             border: 'none',
             borderRadius: '5px',
             color: 'white',
-            // marginRight: '0px',
             marginLeft: '10px'
         },
         submitBtn: {
-            // marginTop: '5px',
             width: '145px',
             height: '40px',
             fontSize: '18px',
-            // backgroundColor: '#0A6466',
             cursor: 'pointer',
             border: 'none',
             borderRadius: '5px',
             color: 'white',
-            // /marginRight: '30px'
             marginLeft: '410px'
         },
         forminput: {
@@ -154,13 +144,6 @@ const TaskInfo = () => {
                             <Typography className={classes.secondaryHeading}>{Dt.title}</Typography>
                         </AccordionSummary>
                     </Accordion><br />
-
-                    {/* <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                        <AccordionSummary>
-                            <Typography className={classes.heading}>Type</Typography>
-                            <Typography className={classes.secondaryHeading}>{Dt.type}</Typography>
-                        </AccordionSummary>
-                    </Accordion><br /> */}
 
                     <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
                         <AccordionSummary>
@@ -238,9 +221,6 @@ const TaskInfo = () => {
                                  </Button>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
         </div>

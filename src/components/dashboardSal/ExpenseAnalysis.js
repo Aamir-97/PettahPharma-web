@@ -26,7 +26,6 @@ function ExpenseAnalysis() {
               }
           });
           setFuelexpense(response.data)
-          // console.log(response.data[0]);
       };
       fetchData();
     }, []);
@@ -40,7 +39,6 @@ function ExpenseAnalysis() {
               }
           });
           setAccommodationexpense(response.data)
-          // console.log(response.data[0]);
       };
       fetchData();
     }, []);
@@ -54,7 +52,6 @@ function ExpenseAnalysis() {
               }
           });
           setDailyexpense(response.data)
-          // console.log(response.data[0]);
       };
       fetchData();
     }, []);

@@ -1,23 +1,11 @@
 import React, { useState , useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import shadows from 'src/theme/shadows';
 import axios from "axios";
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import back from '../images/back3.jpg';
 
 function Add_Salesmanager() {
-
-    // let admin_ID = localStorage.getItem('admin_ID');
-    // admin_ID = JSON.parse(admin_ID)
-    // console.log(admin_ID);
-
     const [manager_ID, setManager_ID] = useState("")
     const [name, setName] = useState("");
-    // const [display_photo, setDisplay_photo] = useState("");
     const [email, setEmail] = useState("");
     const [phone_no, setPhone_no] = useState("");
     const [area, setArea] = useState("");
@@ -28,7 +16,6 @@ function Add_Salesmanager() {
         axios.post('http://localhost:3001/createmanager', {
             manager_ID: manager_ID,
             name: name,
-            // display_photo: display_photo,
             email: email,
             phone_no: phone_no,
             area: area,
@@ -36,7 +23,6 @@ function Add_Salesmanager() {
 
         }).then(() => {
             console.log("success");
-            //    window.location.reload();
             alert("The new salesmanager was added successfully.")
             document.getElementById("create-course-form").reset();
         });
@@ -44,17 +30,10 @@ function Add_Salesmanager() {
     }
     else {
         alert("Manager ID, Name, Email, Area, Password are required.")
-        // return (confirm('are you sure you want to delete??'));
-        // return confirm("You are about to permanently delete a product. Click OK to continue or CANCEL to quit.");
     }
 };
 
     const mystyle = {
-        formstep: {
-            fontsize: '35px',
-            textalign: 'center',
-            color: '#23750a',
-        },
         formbox: {
             backgroundColor: 'white',
             width: '60%',
@@ -65,14 +44,6 @@ function Add_Salesmanager() {
             padding: "2vh",
             borderRadius: "5px"
         },
-        popupbox: {
-            position: 'fixed',
-            background: '#00000050',
-            width: '75vh',
-            height: '75vh',
-            top: '12vh',
-            left: '90vh',
-        },
         forminput: {
             width: '70%',
             padding: '10px 10px',
@@ -81,19 +52,6 @@ function Add_Salesmanager() {
             border: '1px solid #C0C0C0',
             borderRadius: '5px',
             height: '40px'
-        },
-        formtextarea: {
-            width: '70%',
-            padding: '10px 10px',
-            margin: '8px 0',
-            display: 'inline - block',
-            border: '1px solid #C0C0C0',
-            borderRadius: '5px',
-            height: '80px'
-        },
-        formhead: {
-            paddingTop: '50px',
-            paddingBottom: '20px'
         },
         submitBtn: {
             marginTop: '20px',
@@ -120,41 +78,7 @@ function Add_Salesmanager() {
             color: 'white',
             marginRight: '200px'
         },
-        formControl: {
-            // margin: theme.spacing(1),
-            minWidth: '320px',
-          },
-          selectEmpty: {
-            // marginTop: theme.spacing(2),
-          },
-          aaa: {
-              width: '500px',
-            },
-            backgroud: {
-                backgroundColor: '#5eb6b8',
-                backgroundImage: `url(${back})`,
-                height:'666px',
-                //  color: '#0A6466',
-                // marginTop: '7px',
-                // paddingRight:'10px',
-                // fontSize:'100px',
-                // size:'200px',
-              },
     };
-    
-    // const useStyles = makeStyles((theme) => ({
-    //     formControl: {
-    //       margin: theme.spacing(1),
-    //       minWidth: '320px',
-    //     },
-    //     selectEmpty: {
-    //       marginTop: theme.spacing(2),
-    //     },
-    //     aaa: {
-    //         width: '500px',
-    //       },
-    //   }));
-    //   const classes = useStyles();
 
     return (
         <div style={mystyle.backgroud}  >
@@ -170,12 +94,6 @@ function Add_Salesmanager() {
                             onChange={(event) => { setManager_ID(event.target.value); }}
                             required
                         /><br />
-                         {/* <input
-                            type="file"
-                            style={mystyle.forminput}
-                            placeholder="Photo"
-                            onChange={(event) => { setDisplay_photo(event.target.value); }}
-                        /><br /> */}
                         <input
                             type="text"
                             style={mystyle.forminput}
@@ -213,15 +131,12 @@ function Add_Salesmanager() {
                     </div>
  
                     <div display='flex' align='right'>
-
-                        {/* <Link to='/app/ManagerList'> */}
                             <button
                                 type="submit"
                                 id="submitBtn"
                                 style={mystyle.submitBtn}
                                 onClick={add_Salesmanager}
                             > Create</button>
-                        {/* </Link> */}
                         <Link to='/app/ManagerList'>
                             <button
                                 type="submit"

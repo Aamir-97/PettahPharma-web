@@ -76,6 +76,31 @@ function Add_Medicalrep() {
                 backgroundImage: `url(${back})`,
                 height:'666px',
               },
+              submitBtn: {
+                marginTop: '20px',
+                width: '145px',
+                height: '40px',
+                fontSize: '18px',
+                backgroundColor: '#0A6466',
+                cursor: 'pointer',
+                border: 'none',
+                borderRadius: '5px',
+                color: 'white',
+                marginRight: '30px'
+            },
+            closeBtn: {
+                marginTop: '20px',
+                width: '145px',
+                height: '40px',
+                fontSize: '18px',
+                backgroundColor: 'red',
+                transition: '1s background ease',
+                cursor: 'pointer',
+                border: 'none',
+                borderRadius: '5px',
+                color: 'white',
+                marginRight: '200px'
+            },
     };
     
     return (

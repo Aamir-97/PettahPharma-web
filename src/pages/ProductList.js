@@ -25,6 +25,7 @@ import { Link, Route } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
 import back from '../images/back3.jpg';
+import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacyOutlined';
 
 const ProductList = ({ rest,props} ) => {
 
@@ -69,11 +70,14 @@ const ProductList = ({ rest,props} ) => {
       backgroundColor: '#5eb6b8',
       backgroundImage: `url(${back})`,
     },
-    h1: {
+    view: {
       paddingRight:'10px',
-      fontFamily: "Sans-serif",
       color: '#FFF',
       size:'200px',
+    },
+    h1: {
+      fontFamily: "Sans-serif",
+      color: '#FFF',
     },
   }));
 
@@ -141,9 +145,10 @@ const ProductList = ({ rest,props} ) => {
             display: 'flex',
             mt: 3,
             flex: 3,
-            marginLeft: '455px',
+            marginLeft: '400px',
           }}
         >
+          <view className={classes.view}> <LocalPharmacyIcon style={{ fontSize:"40px" }} /></view>
           <h1 style={{flex:3, flexWrap: 'wrap'}} className={classes.h1} >Products</h1>
           <Link to={'/app/Add_Product'}>
             <Button
@@ -214,7 +219,7 @@ const ProductList = ({ rest,props} ) => {
                     return val
                   }
                 }).map((Row) => {
-                  const imageDirectory = path.join(__dirname, '../public/static/images/products/')
+                  // const imageDirectory = path.join(__dirname, '../public/')
                   return (
                     <TableRow
                       hover

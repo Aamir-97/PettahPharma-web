@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import back from '../images/back3.jpg';
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 
 const Reports = ({ rest,props} ) => {
 
@@ -60,11 +61,14 @@ const Reports = ({ rest,props} ) => {
       backgroundColor: '#5eb6b8',
       backgroundImage: `url(${back})`,
     },
-    h1: {
+    view: {
       paddingRight:'10px',
-      fontFamily: "Sans-serif",
       color: '#FFF',
       size:'200px',
+    },
+    h1: {
+      fontFamily: "Sans-serif",
+      color: '#FFF',
     },
   }));
 
@@ -136,9 +140,10 @@ const Reports = ({ rest,props} ) => {
             display: 'flex',
             mt: 3,
             flex: 3,
-            marginLeft: '455px',
+            marginLeft: '400px',
           }}
         >
+          <view className={classes.view}> <DescriptionOutlinedIcon style={{ fontSize:"40px" }} /></view>
           <h1 style={{flex:3, flexWrap: 'wrap'}} className={classes.h1} >Reports</h1>
 
         </Box>

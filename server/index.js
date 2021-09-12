@@ -53,7 +53,7 @@ db.connect((err) => {
 }); 
 
 const publicDirectory = path.join(__dirname, './public')
-const imageDirectory = path.join(__dirname, '../public/static/images/products/')
+const imageDirectory = path.join(__dirname, '../public/')
 console.log(__dirname);
 app.set("view engine", "hbs");
 
@@ -326,7 +326,7 @@ app.post('/createproduct', (req, res) => {
 
 app.put('/updateproduct', (req, res) => {
     const product_id = req.body.product_id;
-    const display_photo = __dirname + '../public/static/images/products/' + req.body.display_photo;
+    const display_photo = __dirname + '../public/' + req.body.display_photo;
     const name = req.body.name;
     const volume = req.body.volume;
     const price = req.body.price;
@@ -402,7 +402,7 @@ app.post('/createmedicalrep', (req, res) => {
     We know you’re going to be a valuable asset to our company and can’t wait to see what you accomplish.
      
     You can login to our system by using your email : ${email} and your password : ${password}
-    You will also contact with your salesmanager(${manager_ID}) to discuss your tasks.
+    You will also contact with your salesmanager to discuss your tasks.
                 
     If you have any questions prior to your arrival, please feel free to email me and I’ll be more than happy to help you.
     

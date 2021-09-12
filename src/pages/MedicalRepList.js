@@ -25,6 +25,7 @@ import { Link, Route } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
 import back from '../images/back3.jpg';
+import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
 
 const MedicalRepList = ({ rest,props} ) => {
 
@@ -70,8 +71,12 @@ const MedicalRepList = ({ rest,props} ) => {
       backgroundColor: '#5eb6b8',
       backgroundImage: `url(${back})`,
     },
-    h1: {
+    view: {
       paddingRight:'10px',
+      color: '#FFF',
+      size:'200px',
+    },
+    h1: {
       fontFamily: "Sans-serif",
       color: '#FFF',
     },
@@ -142,9 +147,10 @@ const MedicalRepList = ({ rest,props} ) => {
             display: 'flex',
             mt: 3,
             flex: 3,
-            marginLeft: '455px',
+            marginLeft: '300px',
           }}
         >
+          <view className={classes.view}> <GroupOutlinedIcon style={{ fontSize:"40px" }} /></view>
           <h1 style={{flex:3, flexWrap: 'wrap'}} className={classes.h1} >Medical Representatives</h1>
           <Link to={'/app/Add_Medicalrep'}>
             <Button

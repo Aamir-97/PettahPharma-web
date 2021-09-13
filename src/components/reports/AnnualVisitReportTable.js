@@ -160,17 +160,18 @@ const AnnualVisitReportTable = ({ visits }) => {
         <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-              <TableCell scope="col">Report ID</TableCell>
+              {/* <TableCell scope="col">Report ID</TableCell> */}
+              <TableCell scope="col">Rep ID</TableCell>
+              <TableCell scope="col">Manager ID</TableCell>
               <TableCell scope="col">Visit Type</TableCell>
               <TableCell scope="col">Location</TableCell>
               <TableCell scope="col">Date</TableCell>
               <TableCell scope="col">Avg Duration</TableCell>
               {/* <TableCell scope="col">No of Samples</TableCell> */}
-              {/* <TableCell scope="col">Description</TableCell> */}
+              <TableCell scope="col">Description</TableCell>
               {/* <TableCell scope="col">Doctor Name</TableCell>
               <TableCell scope="col">Product Name</TableCell>
-              <TableCell scope="col">Rep ID</TableCell>
-              <TableCell scope="col">Manager ID</TableCell> */}
+               */}
             {/* <TableCell scope="col">Manager Comment</TableCell> */} 
             </TableRow>
           </TableHead>
@@ -181,12 +182,15 @@ const AnnualVisitReportTable = ({ visits }) => {
                 if (searchTerm === "") {
                  return val;
                } 
-              //  else if (val.date.includes(searchTerm)) {
+               else if (String( val.rep_ID).includes(searchTerm))  {
+                return val
+              }
+              // else if (String( val.date).includes(searchTerm))  {
               //   return val
               // }
-               else if (String( val.report_id).includes(searchTerm)) {
-                 return val
-               }
+              //  else if (String( val.report_id).includes(searchTerm)) {
+              //    return val
+              //  }
                }).map((visit) => {
                 const dt = new Date(visit.date);
                 const year = dt.getFullYear() + '/';
@@ -196,17 +200,18 @@ const AnnualVisitReportTable = ({ visits }) => {
               <TableRow  
               hover
               key={visit.report_id}>
-                <TableCell>{visit.report_id}</TableCell>
+                {/* <TableCell>{visit.report_id}</TableCell> */}
+                <TableCell>{visit.rep_ID}</TableCell>
+                <TableCell>{visit.manager_ID}</TableCell>
                 <TableCell>{visit.visit_type}</TableCell>
                 <TableCell>{visit.location}</TableCell>
                 <TableCell>{year+month+day}</TableCell>
-                <TableCell>{visit.avg_duration}</TableCell>
+                <TableCell>{visit.avg_duration} hours</TableCell>
                 {/* <TableCell>{visit.no_of_sample}</TableCell> */}
-                {/* <TableCell>{visit.description}</TableCell>
-                <TableCell>{visit.doctor_name}</TableCell>
+                <TableCell>{visit.description}</TableCell>
+                {/* <TableCell>{visit.doctor_name}</TableCell>
                 <TableCell>{visit.product_name}</TableCell>
-                <TableCell>{visit.rep_ID}</TableCell>
-                <TableCell>{visit.manager_ID}</TableCell> */}
+                */}
                 {/* <td>{visit.manager_comment}</td> */}
               </TableRow >
                 )
@@ -224,7 +229,7 @@ const AnnualVisitReportTable = ({ visits }) => {
             onRowsPerPageChange={handleLimitChange}
             rowsPerPage={limit}
             onRowsPerPageChange={handleChangeRowsPerPage}
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[5, 10, 25, 50]}
       />
         </TableContainer>
       )

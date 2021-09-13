@@ -154,13 +154,13 @@ function Add_Product() {
                 <h1 style={mystyle.formhead}> Add Product </h1>
                 <form>
                     <div >
-                        <input
+                        {/* <input
                             type="text"
                             style={mystyle.forminput}
                             placeholder="Product ID"
                             onChange={(event) => { setProduct_id(event.target.value); }}
                             // required
-                        /><br />
+                        /><br /> */}
                         <input
                             type="file"
                             name="file"

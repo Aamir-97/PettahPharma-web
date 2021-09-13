@@ -152,30 +152,33 @@ const AnnualTaskReportTable = ({ tasks }) => {
         <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-              <TableCell scope="col">Task ID</TableCell>
+              {/* <TableCell scope="col">Task ID</TableCell> */}
+              <TableCell scope="col">Manager ID</TableCell>
+              <TableCell scope="col">Rep ID</TableCell>
               <TableCell scope="col">Title</TableCell>
               <TableCell scope="col">Location</TableCell>
               {/* <TableCell scope="col">Session</TableCell> */}
               <TableCell scope="col">Date</TableCell>
-              {/* <TableCell scope="col">Description</TableCell> */}
+              <TableCell scope="col">Description</TableCell>
               <TableCell scope="col">Task Type</TableCell>
-              {/* <TableCell scope="col">Rep Note</TableCell>
-              <TableCell scope="col">Manager ID</TableCell>
-              <TableCell scope="col">Rep ID</TableCell> */}
+              {/* <TableCell scope="col">Rep Note</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
             
               {tasks.slice(0, limit).filter(val => {
-                if (searchTerm === "") {
-                 return val;
-               } 
-              //  else if (val.date.includes(searchTerm)) {
-              //   return val
-              // }
-               else if (String( val.task_id).includes(searchTerm)) {
-                 return val
-               }
+               if (searchTerm === "") {
+                return val;
+              } 
+              else if (String( val.rep_ID).includes(searchTerm))  {
+               return val
+             }
+             // else if (String( val.date).includes(searchTerm))  {
+             //   return val
+             // }
+             //  else if (String( val.report_id).includes(searchTerm)) {
+             //    return val
+             //  }
               }).map((task) => {
                 const dt = new Date(task.date);
                 const year = dt.getFullYear() + '/';
@@ -186,16 +189,16 @@ const AnnualTaskReportTable = ({ tasks }) => {
               <TableRow  
               hover
               key={task.task_id}>
-                <TableCell>{task.task_id}</TableCell>
+                {/* <TableCell>{task.task_id}</TableCell> */}
+                <TableCell>{task.manager_ID}</TableCell>
+                <TableCell>{task.rep_ID}</TableCell>
                 <TableCell>{task.title}</TableCell>
                 <TableCell>{task.location}</TableCell>
                 {/* <TableCell>{task.session}</TableCell> */}
                 <TableCell>{year+month+day}</TableCell>
-                {/* <TableCell>{task.description}</TableCell> */}
+                <TableCell>{task.description}</TableCell>
                 <TableCell>{task.type}</TableCell>
-                {/* <TableCell>{task.rep_note}</TableCell>
-                <TableCell>{task.manager_ID}</TableCell>
-                <TableCell>{task.rep_ID}</TableCell> */}
+                {/* <TableCell>{task.rep_note}</TableCell> */}
               </TableRow >
                 )
              })
@@ -212,7 +215,7 @@ const AnnualTaskReportTable = ({ tasks }) => {
             onRowsPerPageChange={handleLimitChange}
             rowsPerPage={limit}
             onRowsPerPageChange={handleChangeRowsPerPage}
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[5, 10, 25, 50]}
       />
        </TableContainer>
       )

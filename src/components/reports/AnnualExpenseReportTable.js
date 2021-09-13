@@ -154,26 +154,27 @@ const AnnualExpenseReportTable = ({ expenses }) => {
         <TableHead>
           <TableRow>
               <TableCell scope="col">Rep ID</TableCell>
-              <TableCell scope="col">Expense ID</TableCell>
+              {/* <TableCell scope="col">Expense ID</TableCell> */}
               <TableCell scope="col">Expense Type</TableCell>
               <TableCell scope="col">Date</TableCell>
               <TableCell scope="col">Amount</TableCell>
-              {/* <TableCell scope="col">Description</TableCell> */}
+              <TableCell scope="col">Description</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
               {expenses.slice(0, limit).filter(val => {
-                if (searchTerm === "") {
-                 return val;
-               } 
-              //  else if (
-              //   val.date.includes(searchTerm)) {
-              //   return val
-              // }
-               else if (
-                String( val.expense_ID).includes(searchTerm)) {
-                 return val
-               }
+               if (searchTerm === "") {
+                return val;
+              } 
+              else if (String( val.rep_ID).includes(searchTerm))  {
+               return val
+             }
+             // else if (String( val.date).includes(searchTerm))  {
+             //   return val
+             // }
+             //  else if (String( val.report_id).includes(searchTerm)) {
+             //    return val
+             //  }
                }).map((expense) => {
                 const dt = new Date(expense.date);
                 const year = dt.getFullYear() + '-';
@@ -184,11 +185,11 @@ const AnnualExpenseReportTable = ({ expenses }) => {
               hover
               key={expense.expense_ID}>
                 <TableCell>{expense.rep_ID}</TableCell>
-                <TableCell>{expense.expense_ID}</TableCell>
+                {/* <TableCell>{expense.expense_ID}</TableCell> */}
                 <TableCell>{expense.expense_Type}</TableCell>
                 <TableCell>{year+month+day}</TableCell>
                 <TableCell>{expense.amount}</TableCell>
-                {/* <TableCell>{expense.description}</TableCell> */}
+                <TableCell>{expense.description}</TableCell>
               </TableRow >
                 )
              })
@@ -205,7 +206,7 @@ const AnnualExpenseReportTable = ({ expenses }) => {
             onRowsPerPageChange={handleLimitChange}
             rowsPerPage={limit}
             onRowsPerPageChange={handleChangeRowsPerPage}
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[5, 10, 25, 50]}
       />
         </TableContainer>
       )

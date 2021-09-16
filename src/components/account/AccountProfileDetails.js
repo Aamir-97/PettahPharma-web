@@ -10,8 +10,8 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 
-const states = [
-];
+// const states = [
+// ];
 
 const AccountProfileDetails = (props) => {
   const [Row, setRow] = useState([]);

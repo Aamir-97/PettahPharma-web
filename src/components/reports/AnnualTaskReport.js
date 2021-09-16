@@ -5,11 +5,8 @@ import axios from "axios";
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import {
     Button,
-    Card,
-    CardContent,
     Grid,
-    Box,
-    Typography
+    Box
   } from '@material-ui/core';
 
 const Tasks = () => { 

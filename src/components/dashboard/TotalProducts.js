@@ -8,7 +8,7 @@ import {
     Box,
     Typography
   } from '@material-ui/core';
-  import { indigo,red } from '@material-ui/core/colors';
+  import { indigo } from '@material-ui/core/colors';
   import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy';
   
   function TotalProducts() {

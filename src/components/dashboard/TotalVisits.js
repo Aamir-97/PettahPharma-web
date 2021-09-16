@@ -8,7 +8,7 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
-import { orange,green } from '@material-ui/core/colors';
+import { orange } from '@material-ui/core/colors';
 import DescriptionIcon from '@material-ui/icons/Description';
 
 function TotalVisits() {

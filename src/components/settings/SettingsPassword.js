@@ -1,138 +1,12 @@
-// import { useState } from 'react';
-// import {
-//   Box,
-//   Button,
-//   Card,
-//   CardContent,
-//   CardHeader,
-//   Divider,
-//   TextField
-// } from '@material-ui/core';
-// import axios from 'axios';
-// const SettingsPassword = (props) => {
-//   // const [values, setValues] = useState({
-//   //   password: '',
-//   //   confirm: ''
-//   // });
-//   let manager_ID = localStorage.getItem('managerid');
-//   manager_ID = JSON.parse(manager_ID)
-//   const [Currentpassword, setCurrentpassword] = useState("");
-//   const [Password, setPassword] = useState("");
-//   const [Confirmpassword, setConfirmpassword] = useState("");
-
-//   const updatePassword = (manager_ID) => {
-//     if(Password != " " && Confirmpassword != " " && Password == Confirmpassword ){
-//       axios.put("http://localhost:3001/updatepassword",
-//       { Currentpassword: Currentpassword, Confirmpassword: Confirmpassword, manager_ID: manager_ID }).then(
-//           (response) => { 
-//               // window.location.reload();
-//           }
-//       )
-//     }
-//     // else{
-//     //   var validation= "Incorrect Current password";
-//     // }
-
-// };
-
-//   return (
-//     <form {...props}>
-//       <Card>
-//         <CardHeader
-//           subheader="Update password"
-//           title="Password"
-//         />
-//         <Divider />
-//         <CardContent>
-//           <TextField
-//             fullWidth
-//             label="Current password"
-//             margin="normal"
-//             name="Current password"
-//             onChange={(event) => { setCurrentpassword(event.target.value); }}
-//             // onChange={handleChange}
-//             type="password"
-//             // value={values.password}
-//             variant="outlined"
-//           />
-//           {/* {validation} */}
-//           <TextField
-//             fullWidth
-//             label="Password"
-//             margin="normal"
-//             name="password"
-//             onChange={(event) => { setPassword(event.target.value); }}
-//             type="password"
-//             // value={values.password}
-//             variant="outlined"
-//           />
-//           <TextField
-//             fullWidth
-//             label="Confirm password"
-//             margin="normal"
-//             name="confirm"
-//             onChange={(event) => { setConfirmpassword(event.target.value); }}
-//             type="password"
-//             // value={values.confirm}
-//             variant="outlined"
-//           />
-//         </CardContent>
-//         <Divider />
-//         <Box
-//           sx={{
-//             display: 'flex',
-//             justifyContent: 'flex-end',
-//             p: 2
-//           }}
-//         >
-//           <Button
-//             color="primary"
-//             variant="contained"
-//             onClick={() => { updatePassword(manager_ID) }}
-//           >
-//             Update
-//           </Button>
-//         </Box>
-//       </Card>
-//     </form>
-//   );
-// };
-
-// export default SettingsPassword;
-
-
-
 import React, { useState } from "react";
-import clsx from 'clsx';
 import axios from "axios";
 import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link'
 import Form from 'react-bootstrap/Form';
-// import { Button } from 'react-bootstrap';
 import { Button } from '@material-ui/core';
 import { Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
-// import { Redirect } from "react-router-dom"
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import { useForm } from "react-hook-form";
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {
@@ -252,8 +126,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fff',
     marginLeft: '30px',
     display: 'flex',
-    //boxShadow:'5px 1px 2px 2px '
-
   },
   categorybtn: {
     border: 0,
@@ -290,11 +162,11 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const styles = {
-  side: {
-    backgroundColor: 'rgb(37, 37, 94)',
-  }
-};
+// const styles = {
+//   side: {
+//     backgroundColor: 'rgb(37, 37, 94)',
+//   }
+// };
 
 const schema = yup.object().shape({
   // password: yup.string().required().min(8).max(15),
@@ -353,7 +225,7 @@ export default function SettingsPassword() {
 
 
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  // const [anchorEl, setAnchorEl] = React.useState(null);
 
 
 

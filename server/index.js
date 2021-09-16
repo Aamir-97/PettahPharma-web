@@ -995,7 +995,7 @@ app.get('/viewvisitsummary', (req, res) => {
 })
 
 app.get('/viewvisitsummaryReport',(req,res) => {
-    db.query("SELECT * FROM visit_summary_report FROM customer WHERE date BETWEEN ? AND ? ",[req.query.from_date,req.query.to_date], (err, result) => {
+    db.query("SELECT * FROM visit_summary_report WHERE date BETWEEN ? AND ? ",[req.query.from_date,req.query.to_date], (err, result) => {
         if(err) {
             console.log(err)
         }else {

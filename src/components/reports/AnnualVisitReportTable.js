@@ -1,20 +1,15 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
-  Container,
-  Button,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
   CardContent,
   TextField,
   InputAdornment,
@@ -82,7 +77,6 @@ const AnnualVisitReportTable = ({ visits }) => {
       marginTop: '0px',
       marginLeft: '100px',
       height: '100%',
-      // boxShadow: "2px 2px 5px  2px #9E9E9E",
       padding: "2vh",
       borderRadius: "5px",
     },
@@ -92,8 +86,6 @@ const AnnualVisitReportTable = ({ visits }) => {
   }));
 
   const classes = useStyles();
-  const [selectedRowIds, setSelectedRowIds] = useState([])
-
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
 
@@ -143,7 +135,6 @@ const AnnualVisitReportTable = ({ visits }) => {
                   placeholder="Search"
                   variant="outlined"
                   onChange={(e) => { setSearchTerm(e.target.value); }}
-                  // alignItems="center"
                   className={classes.textfield}
                 />
               </Box>
@@ -160,19 +151,13 @@ const AnnualVisitReportTable = ({ visits }) => {
         <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-              {/* <TableCell scope="col">Report ID</TableCell> */}
               <TableCell >Rep ID</TableCell>
               <TableCell >Manager ID</TableCell>
               <TableCell >Visit Type</TableCell>
               <TableCell >Location</TableCell>
               <TableCell >Date</TableCell>
               <TableCell >Avg Duration</TableCell>
-              {/* <TableCell >No of Samples</TableCell> */}
               <TableCell size='small'>Description</TableCell>
-              {/* <TableCell >Doctor Name</TableCell>
-              <TableCell >Product Name</TableCell>
-               */}
-            {/* <TableCell >Manager Comment</TableCell> */} 
             </TableRow>
           </TableHead>
           <TableBody>
@@ -200,19 +185,13 @@ const AnnualVisitReportTable = ({ visits }) => {
               <TableRow  
               hover
               key={visit.report_id}>
-                {/* <TableCell>{visit.report_id}</TableCell> */}
                 <TableCell>{visit.rep_ID}</TableCell>
                 <TableCell>{visit.manager_ID}</TableCell>
                 <TableCell>{visit.visit_type}</TableCell>
                 <TableCell>{visit.location}</TableCell>
                 <TableCell>{year+month+day}</TableCell>
                 <TableCell>{visit.avg_duration} hours</TableCell>
-                {/* <TableCell>{visit.no_of_sample}</TableCell> */}
                 <TableCell>{visit.description}</TableCell>
-                {/* <TableCell>{visit.doctor_name}</TableCell>
-                <TableCell>{visit.product_name}</TableCell>
-                */}
-                {/* <td>{visit.manager_comment}</td> */}
               </TableRow >
                 )
               })

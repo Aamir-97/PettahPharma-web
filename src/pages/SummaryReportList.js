@@ -5,15 +5,11 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from "axios";
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
   Button,
   Container,
@@ -28,8 +24,7 @@ import {
   InputAdornment,
   SvgIcon
 } from '@material-ui/core';
-import getInitials from 'src/utils/getInitials';
-import { Link, Route } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
 import back from '../images/back3.jpg';

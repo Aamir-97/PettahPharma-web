@@ -1,19 +1,11 @@
 import { Helmet } from 'react-helmet';
-// import { Box, Container } from '@material-ui/core';
-// import AllownsResults from 'src/components/allowns/AllownsResults';
-// import AllownsToolbar from 'src/components/allowns/AllownsToolbar';
-// import Allowns from 'src/__mocks__/Allowns';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from "axios";
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
   Button,
   CardContent,
@@ -28,17 +20,14 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core';
-import getInitials from 'src/utils/getInitials';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import back from '../images/back3.jpg';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { Search as SearchIcon } from 'react-feather';
-  // import { Link } from 'react-router-dom';
-  // import ReceiptIcon from '@material-ui/icons/Receipt';
-  import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const AllownsList = ({ rest, props }) => {
 
@@ -343,5 +332,5 @@ return(
     </Box>
   </>
 );
-                    };
+};
 export default AllownsList;

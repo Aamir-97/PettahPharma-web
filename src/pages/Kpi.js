@@ -101,7 +101,7 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
   const [leaveCount, setLeaveCount] = React.useState(0);
   const [visitedDoctorCount, setVisitedDoctorCount] = React.useState(0);
   const [completeTask, setCompleteTask] = React.useState(0);
-  const [metPerDays, setMetPerDays] = React.useState(0);
+  // const [metPerDays, setMetPerDays] = React.useState(0);
   const taskCompletePercentage = parseInt(completeTask) / parseInt(totalVSR) * 100;
   const expensePerVisit = parseInt(expensesAmount) / parseInt(totalVSR);
   const doctorCourage = parseInt(visitedDoctorCount) / parseInt(totalDoctors) * 100;
@@ -278,7 +278,7 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
                         return val
                       }
                       else if (
-                        val.rep_ID == searchTerm) {
+                        val.rep_ID === searchTerm) {
                         return val
                       }
                     }).map((rep) => (

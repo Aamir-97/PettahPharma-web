@@ -36,6 +36,7 @@ return (
         container
         spacing={3}
         sx={{ justifyContent: 'space-between' }}
+        height="110px"
       >
         <Grid item>
           <Typography

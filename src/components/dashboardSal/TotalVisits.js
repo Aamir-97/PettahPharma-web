@@ -37,6 +37,7 @@ return (
         container
         spacing={3}
         sx={{ justifyContent: 'space-between' }}
+        height="110px"
       >
         <Grid item>
           <Typography
@@ -52,10 +53,10 @@ return (
           >
             {visitcount.map((record)=>{
               return(
-              <p style={{fontSize:'30px'}}>{record.count}</p>
+              <p style={{fontSize:'30px' , height:"25px" }}>{record.count}</p>
               )
             })}
-          <p style={{fontSize:'13px',color:'#fb8c00'}}>Annual Total Visits</p>
+          <p style={{fontSize:'13px',color:'#fb8c00' ,height:"6px"}}>Annual Total Visits</p>
           <p style={{fontSize:'13px',color:'#fb8c00'}}>Year - 2021</p>
           </Typography>
         </Grid>

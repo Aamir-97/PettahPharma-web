@@ -27,6 +27,7 @@ import {
           container
           spacing={3}
           sx={{ justifyContent: 'space-between' }}
+          height="110px"
         >
           <Grid item>
             <Typography
@@ -42,11 +43,11 @@ import {
             >
             {productcount.map((record)=>{
               return(
-              <p style={{fontSize:'30px'}}>{record.count}</p>
+              <p style={{fontSize:'30px' , height:"25px"}}>{record.count}</p>
               )
             })}
-            <p style={{fontSize:'13px',color:'#3949ab'}}>Medicines</p>
-            <p style={{fontSize:'13px',color:'#3949ab'}}>Surgical Products</p>
+            <p style={{fontSize:'13px',color:'#3949ab' ,height:"6px"}}>Medicines</p>
+            <p style={{fontSize:'13px',color:'#3949ab' }}>Surgical Products</p>
             </Typography>
           </Grid>
           <Grid item>

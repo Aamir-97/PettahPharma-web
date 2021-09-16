@@ -45,27 +45,30 @@ return (
         container
         spacing={3}
         sx={{ justifyContent: 'space-between' }}
+        height="110px"
       >
-        <Grid item>
+        <Grid item >
           <Typography
             color="textSecondary"
             gutterBottom
             variant="h6"
+            
           >
             TOTAL EMPLOYEES
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
+            
           >
             {employeecount.map((record)=>{
               return(
-              <p style={{fontSize:'30px'}}>{record.totalcount}</p>
+              <p style={{fontSize:'30px', height:"25px" }}>{record.totalcount}</p>
               )
             })}
             {managercount.map((record)=>{
               return(
-            <p style={{fontSize:'13px',color:'#388e3c'}}>{record.count} Sales Managers</p>
+            <p style={{fontSize:'13px',color:'#388e3c' ,height:"6px"}}>{record.count} Sales Managers</p>
             )
           })}
           {repcount.map((record)=>{

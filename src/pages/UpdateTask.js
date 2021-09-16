@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
     },
     formbox: {
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         width: '60%',
         marginTop: '0px',
         marginLeft: '200px',
@@ -107,7 +107,7 @@ export default function UpdateTask() {
 
     const update = (task_id, manager_ID) => {
         if (rep_ID && title && date && location && session) {
-            axios.put("http://localhost:3001/update",
+            axios.post("http://localhost:3001/update",
                 { rep_ID: rep_ID, type: type, title: title, location: location, date: date, session: session, description: description, task_id: task_id, manager_ID: manager_ID }).then(
                     (response) => { }
                 )
@@ -198,7 +198,7 @@ export default function UpdateTask() {
                                 <input
                                     type="date"
                                     min={today}
-                                    value={mydate}
+                                    defaultValue={mydate}
                                     onChange={(event) => { setDate(event.target.value); }}
                                     style={mystyle.forminput}
                                     required

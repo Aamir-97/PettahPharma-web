@@ -504,7 +504,7 @@ app.get('/viewtask', (req, res) => {
     })
 })
  
-app.put('/update', (req, res) => {
+app.post('/update', (req, res) => {
     const rep_ID = req.body.rep_ID;
     const type = req.body.type;
     const title = req.body.title;
@@ -723,7 +723,7 @@ app.get("/deletesummary", (req, res) => {
     );
 });
 
-app.put('/addcomment', (req, res) => {
+app.post('/addcomment', (req, res) => {
     const report_id = req.body.report_id;
     const manager_comment = req.body.manager_comment;
 
@@ -740,7 +740,7 @@ app.put('/addcomment', (req, res) => {
 });
 
 app.get('/getleave', (req, res) => {
-    db.query('SELECT leaves.status,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,medicalrep.name AS repname FROM medicalrep INNER JOIN leaves ON medicalrep.rep_ID = leaves.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID], (err, result, fields) => {
+    db.query('SELECT leaves.status,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,medicalrep.name AS repname FROM medicalrep INNER JOIN leaves ON medicalrep.rep_ID = leaves.rep_ID WHERE medicalrep.manager_ID = ? ORDER BY start_Date DESC', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
             // console.log(result);
@@ -761,7 +761,7 @@ app.get('/viewLeave', (req, res) => {
     })
 });
  
-app.put('/addleavecomment', (req, res) => {
+app.post('/addleavecomment', (req, res) => {
     const leave_ID = req.body.leave_ID;
     const salesmanager_comment = req.body.salesmanager_comment;
 
@@ -844,7 +844,7 @@ app.get('/TaskReport', (req, res) => {
     });
 });
  
-app.put('/addstatus', (req, res) => {
+app.post('/addstatus', (req, res) => {
     const status = req.body.status;
     const leave_ID = req.body.leave_ID;
 
@@ -860,7 +860,7 @@ app.put('/addstatus', (req, res) => {
 });
  
 app.get('/getexpense', (req, res) => {
-    db.query('SELECT expenses.expense_ID,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,medicalrep.name AS repname FROM medicalrep INNER JOIN expenses ON medicalrep.rep_ID = expenses.rep_ID WHERE medicalrep.manager_ID = ?', [req.query.manager_ID], (err, result, fields) => {
+    db.query('SELECT expenses.expense_ID,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,medicalrep.name AS repname FROM medicalrep INNER JOIN expenses ON medicalrep.rep_ID = expenses.rep_ID WHERE medicalrep.manager_ID = ? ORDER BY expenses.date DESC', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
             // console.log(result);
@@ -881,7 +881,7 @@ app.get('/viewexpense', (req, res) => {
     })
 });
 
-app.put('/addexpensecomment', (req, res) => {
+app.post('/addexpensecomment', (req, res) => {
     const expense_ID = req.body.expense_ID;
     const salesmanager_comment = req.body.salesmanager_comment;
 
@@ -896,7 +896,7 @@ app.put('/addexpensecomment', (req, res) => {
         });
 });
 
-app.put('/addexpensestatus', (req, res) => {
+app.post('/addexpensestatus', (req, res) => {
     const status = req.body.status;
     const expense_ID = req.body.expense_ID;
 
@@ -1083,6 +1083,17 @@ app.get('/repaccommodationexpense', (req, res) => {
 app.get('/repdailyexpense', (req, res) => {
     const manager_ID = req.query.manager_ID;
     db.query('SELECT EXTRACT(MONTH FROM expenses.date) AS month, SUM(CAST(expenses.amount AS DECIMAL(10,2))) AS expense FROM expenses INNER JOIN medicalrep ON expenses.rep_ID=medicalrep.rep_ID WHERE status=1  AND expense_Type="Daily batta" AND medicalrep.manager_ID=? GROUP BY month', [manager_ID], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+app.get('/repotherexpense', (req, res) => {
+    const manager_ID = req.query.manager_ID;
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses INNER JOIN medicalrep  ON medicalrep.rep_ID=expenses.rep_ID  WHERE expenses.status=1  AND expenses.expense_Type="Other" AND medicalrep.manager_ID=? GROUP BY month', [manager_ID], (err, result) => {
         if (err) {
             console.log(err)
         } else {

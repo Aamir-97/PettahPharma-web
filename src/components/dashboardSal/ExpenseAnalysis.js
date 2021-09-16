@@ -55,10 +55,24 @@ function ExpenseAnalysis() {
       };
       fetchData();
     }, []);
+
+    const [otherexpense,setOtherexpense]=useState([])
+    useEffect(() => {
+      const fetchData = async () => {
+          const response = await axios.get('http://localhost:3001/repotherexpense', {
+              params: {
+                  manager_ID: manager_ID,
+              }
+          });
+          setOtherexpense(response.data)
+      };
+      fetchData();
+    }, []);
   
   const expense1=fuelexpense.map(record=>record.expense);
   const expense2=accommodationexpense.map(record=>record.expense);
   const expense3=dailyexpense.map(record=>record.expense);
+  const expense4=otherexpense.map(record=>record.expense);
   
   const theme = useTheme();
 
@@ -78,6 +92,11 @@ function ExpenseAnalysis() {
         backgroundColor: colors.teal[100],
         data:   expense3,
         label: 'Daily Expenses'
+      },
+      { 
+        backgroundColor: colors.teal[200],
+        data:   expense4,
+        label: 'Other Expenses'
       }
     ],
     labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
@@ -108,7 +127,7 @@ function ExpenseAnalysis() {
       ],
       yAxes: [
         {
-          display: false,
+          display: true,
           ticks: {
             fontColor: theme.palette.text.secondary,
             beginAtZero: true,

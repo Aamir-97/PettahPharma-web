@@ -169,9 +169,9 @@ const AnnualExpenseReportTable = ({ expenses }) => {
               else if (String( val.rep_ID).includes(searchTerm))  {
                return val
              }
-             // else if (String( val.date).includes(searchTerm))  {
-             //   return val
-             // }
+             else if (String( val.date).includes(searchTerm))  {
+               return val
+             }
              //  else if (String( val.report_id).includes(searchTerm)) {
              //    return val
              //  }

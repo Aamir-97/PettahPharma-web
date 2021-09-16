@@ -54,11 +54,11 @@ const items = [
     icon: DescriptionOutlinedIcon,
     title: 'Reports'
   },
-  {
-    href: '/app/Forum',
-    icon: ForumIcon,
-    title: 'Discussion Forum'
-  },
+  // {
+  //   href: '/app/Forum',
+  //   icon: ForumIcon,
+  //   title: 'Discussion Forum'
+  // },
   {
     href: '/login',
     icon: ExitToAppIcon,

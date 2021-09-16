@@ -161,18 +161,18 @@ const AnnualVisitReportTable = ({ visits }) => {
         <TableHead>
           <TableRow>
               {/* <TableCell scope="col">Report ID</TableCell> */}
-              <TableCell scope="col">Rep ID</TableCell>
-              <TableCell scope="col">Manager ID</TableCell>
-              <TableCell scope="col">Visit Type</TableCell>
-              <TableCell scope="col">Location</TableCell>
-              <TableCell scope="col">Date</TableCell>
-              <TableCell scope="col">Avg Duration</TableCell>
-              {/* <TableCell scope="col">No of Samples</TableCell> */}
-              <TableCell scope="col">Description</TableCell>
-              {/* <TableCell scope="col">Doctor Name</TableCell>
-              <TableCell scope="col">Product Name</TableCell>
+              <TableCell >Rep ID</TableCell>
+              <TableCell >Manager ID</TableCell>
+              <TableCell >Visit Type</TableCell>
+              <TableCell >Location</TableCell>
+              <TableCell >Date</TableCell>
+              <TableCell >Avg Duration</TableCell>
+              {/* <TableCell >No of Samples</TableCell> */}
+              <TableCell size='small'>Description</TableCell>
+              {/* <TableCell >Doctor Name</TableCell>
+              <TableCell >Product Name</TableCell>
                */}
-            {/* <TableCell scope="col">Manager Comment</TableCell> */} 
+            {/* <TableCell >Manager Comment</TableCell> */} 
             </TableRow>
           </TableHead>
           <TableBody>
@@ -185,9 +185,9 @@ const AnnualVisitReportTable = ({ visits }) => {
                else if (String( val.rep_ID).includes(searchTerm))  {
                 return val
               }
-              // else if (String( val.date).includes(searchTerm))  {
-              //   return val
-              // }
+              else if (String( val.date).includes(searchTerm))  {
+                return val
+              }
               //  else if (String( val.report_id).includes(searchTerm)) {
               //    return val
               //  }

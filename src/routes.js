@@ -4,7 +4,7 @@ import DashboardSaleLayout from 'src/components/DashboardSaleLayout';
 import Account from 'src/pages/Account';
 import AdminAccount from 'src/pages/AdminAccount';
 import Forum from 'src/pages/Forum';
-import Forum2 from 'src/pages/Forum2';
+import GenerateReport from 'src/pages/GenerateReport';
 import DataPlanList from 'src/pages/DataPlanList';
 import ManagerList from 'src/pages/ManagerList';
 import MedicalRepList from 'src/pages/MedicalRepList';
@@ -36,7 +36,6 @@ import Reports from 'src/pages/Reports';
 import Kpi from 'src/pages/Kpi';
 import MonthlyVisitReport from 'src/components/reports/AnnualVisitReport';
 
-
 const routes = [
   {
     path: 'app',
@@ -56,7 +55,7 @@ const routes = [
       { path: 'Edit_Medicalrep/:rep_ID', element: <Edit_Medicalrep /> },
       { path: 'Edit_Product/:product_id', element: <Edit_Product /> },
       { path: 'Forum', element: <Forum /> },
-      { path: 'Forum2', element: <Forum2 /> },
+      { path: 'GenerateReport', element: <GenerateReport /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

@@ -86,20 +86,30 @@ const mystyle = {
 };
 
 
-export default function Edit_Product() {
+export default function Edit_Product({navigation}) {
     const product_id = window.location.pathname.substring(18, 21);
-    const [Row, setRow] = useState([]);
-    const [name, setName] = useState("");
+    // const [Row, setRow] = useState([]);
     const [display_photo, setDisplay_photo] = useState("");
+    const [name, setName] = useState("");
     const [volume, setVolume] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     
     const edit_Product = (product_id) => {
-        axios.put("http://localhost:3001/updateproduct", 
-        { display_photo: display_photo, name: name,  volume: volume, price: price, description: description, product_id: product_id }).then(
+        console.log(display_photo,name,volume,price,description,product_id)
+        axios.post("http://localhost:3001/updateproduct", 
+        { display_photo: display_photo, 
+            name: name,  
+            volume: volume, 
+            price: price, 
+            description: description, 
+            product_id: product_id 
+        }).then(
             (response) => { 
-                window.location.reload();
+                // console.log(response)
+                // window.location.reload();
+                // navigation.navigate('/app/ProductList')
+                window.location.replace('/app/ProductList');
             }
         )
 };
@@ -111,13 +121,13 @@ export default function Edit_Product() {
                     product_id: product_id,
                 }
             });
-            setRow(response.data[0]);
+            // setRow(response.data[0]);
             setDisplay_photo(response.data[0].display_photo);
             setName(response.data[0].name);
             setVolume(response.data[0].volume);
             setPrice(response.data[0].price);
             setDescription(response.data[0].description);
-            console.log(response.data[0]);
+            // console.log(response.data[0]);
         };
         fetchData();
     }, []);
@@ -139,13 +149,13 @@ export default function Edit_Product() {
                 <div className={classes.root}>
 
                     
-                    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel2')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Image</Typography>
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="file"
-                                    defaultValue={Row.display_photo}
+                                    defaultValue={display_photo}
                                     onChange={(event) => { setDisplay_photo(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -153,13 +163,13 @@ export default function Edit_Product() {
                         </AccordionSummary>
                     </Accordion><br />
 
-                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel1')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Name</Typography>
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Row.name}
+                                    defaultValue={name}
                                     onChange={(event) => { setName(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -173,7 +183,7 @@ export default function Edit_Product() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Row.volume}
+                                    defaultValue={volume}
                                     onChange={(event) => { setVolume(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -187,7 +197,7 @@ export default function Edit_Product() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Row.price}
+                                    defaultValue={price}
                                     onChange={(event) => { setPrice(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -206,7 +216,7 @@ export default function Edit_Product() {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
-                                <textarea defaultValue={Row.description}
+                                <textarea defaultValue={description}
                                     onChange={(event) => { setDescription(event.target.value) }}
                                     rows="10" cols="80"   ></textarea>
                             </Typography>
@@ -214,14 +224,14 @@ export default function Edit_Product() {
                     </Accordion><br />
                 </div>
 
-                <Link to='/app/ProductList' style={mystyle.button}>
+                {/* <Link to='/app/ProductList' style={mystyle.button}> */}
                     <Button
                         color="primary"
                         variant="contained"
                         style={mystyle.submitBtn}
                         onClick={() => { edit_Product(product_id) }}
                     > Update</Button>
-                </Link>
+                {/* </Link> */}
                 <Link to='/app/ProductList'>
                             <Button
                                 type="submit"

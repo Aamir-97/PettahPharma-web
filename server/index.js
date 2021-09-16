@@ -257,9 +257,7 @@ app.post('/updatemanager', (req, res) => {
     const email = req.body.email;
     const phone_no = req.body.phone_no;
     const area = req.body.area;
-    console.log('manager_ID')
-    console.log(manager_ID,name,email,phone_no,area)
-    console.log('manager_ID')
+
     db.query("UPDATE salesmanager SET name = ?, email = ?,phone_no = ?,area = ? WHERE manager_ID=?",
         [name, email, phone_no, area, manager_ID],
         (err, result) => {
@@ -307,15 +305,16 @@ const storage = multer.diskStorage({
 
 app.post('/createproduct', (req, res) => {
     console.log(req.body)
-    const product_id = req.body.product_id;
-    const display_photo = imageDirectory + req.body.display_photo;
+    // const product_id = req.body.product_id;
+    // const display_photo = imageDirectory + req.body.display_photo;
+    const display_photo = req.body.display_photo;
     const name = req.body.name;
     const volume = req.body.volume;
     const price = req.body.price;
     const description = req.body.description;
 
-    db.query("INSERT INTO product (product_id,display_photo,name,volume,price,description) VALUES (?,?,?,?,?,?)",
-        [product_id, display_photo, name, volume, price, description], (err, _results) => {
+    db.query("INSERT INTO product (display_photo,name,volume,price,description) VALUES (?,?,?,?,?)",
+        [display_photo, name, volume, price, description], (err, _results) => {
             if (err) {
                 console.log(err);
             } else {
@@ -324,13 +323,14 @@ app.post('/createproduct', (req, res) => {
         });
 });
 
-app.put('/updateproduct', (req, res) => {
+app.post('/updateproduct', (req, res) => {
     const product_id = req.body.product_id;
-    const display_photo = __dirname + '../public/' + req.body.display_photo;
+    const display_photo = req.body.display_photo;
     const name = req.body.name;
     const volume = req.body.volume;
     const price = req.body.price;
     const description = req.body.description;
+    console.log(product_id,display_photo,name,volume,price,description)
 
     db.query("UPDATE product SET display_photo=?,name=?,volume=?,price=?,description=? WHERE product_id = ?",
         [display_photo, name, volume, price, description, product_id], (err, result) => {
@@ -345,7 +345,7 @@ app.put('/updateproduct', (req, res) => {
 app.get('/viewproduct', (req, res) => {
     db.query("SELECT display_photo,name,volume,price,description FROM product WHERE product_id = ? ", [req.query.product_id], (err, result) => {
         res.send(result);
-        console.log(result);
+        // console.log(result);
     })
 })
 
@@ -467,7 +467,7 @@ app.get("/deletemedicalrep", (req, res) => {
     );
 });
  
-app.put('/updatemedicalrep', (req, res) => {
+app.post('/updatemedicalrep', (req, res) => {
     const rep_ID = req.body.rep_ID;
     const name = req.body.name;
     const email = req.body.email;
@@ -777,7 +777,7 @@ app.put('/addleavecomment', (req, res) => {
 });
 
 app.get('/taskanalysis', (req, res) => {
-    db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(task_id) AS count FROM task WHERE status="Complete" GROUP BY month', (err, result) => {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(task_id) AS count FROM task WHERE status="Complete" GROUP BY month ORDER BY month', (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -824,7 +824,7 @@ app.get('/rejectTaskCount', (req, res) => {
 });
  
 app.get('/visitanalysis', (req, res) => {
-    db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(report_id) AS count FROM visit_summary_report GROUP BY month', (err, result) => {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(report_id) AS count FROM visit_summary_report GROUP BY month ORDER BY month', (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -912,7 +912,7 @@ app.put('/addexpensestatus', (req, res) => {
 });
 
 app.get('/fuelexpense', (req, res) => {
-    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Fuel" GROUP BY month', (err, result) => {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Fuel" GROUP BY month ORDER BY month ', (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -922,7 +922,7 @@ app.get('/fuelexpense', (req, res) => {
 });
  
 app.get('/accommodationexpense', (req, res) => {
-    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Accommodation" GROUP BY month', (err, result) => {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Accommodation" GROUP BY month ORDER BY month', (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -932,7 +932,7 @@ app.get('/accommodationexpense', (req, res) => {
 });
 
 app.get('/dailyexpense', (req, res) => {
-    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Daily batta" GROUP BY month', (err, result) => {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Daily batta" GROUP BY month ORDER BY month', (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -942,7 +942,7 @@ app.get('/dailyexpense', (req, res) => {
 });
 
 app.get('/otherexpense', (req, res) => {
-    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Other" GROUP BY month', (err, result) => {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, SUM(CAST(amount AS DECIMAL(10,2))) AS expense FROM expenses WHERE status=1  AND expense_Type="Other" GROUP BY month ORDER BY month', (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -993,6 +993,17 @@ app.get('/viewvisitsummary', (req, res) => {
         console.log(result);
     })
 })
+
+app.get('/viewvisitsummaryReport',(req,res) => {
+    db.query("SELECT * FROM visit_summary_report FROM customer WHERE date BETWEEN ? AND ? ",[req.query.from_date,req.query.to_date], (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+           
+        }
+    });
+ }); 
 
 app.get('/viewexpensesummary', (req, res) => {
     db.query('SELECT * FROM expenses WHERE status="1"', [req.query.expense_ID], (err, result) => {

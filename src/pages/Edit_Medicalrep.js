@@ -89,7 +89,7 @@ const mystyle = {
 export default function Edit_Medicalrep() {
     const rep_ID = window.location.pathname.substring(21, 26);
 
-    const [Row, setRow] = useState([]);
+    // const [Row, setRow] = useState([]);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone_no, setPhone_no] = useState("");
@@ -97,10 +97,10 @@ export default function Edit_Medicalrep() {
     const [rating, setRating] = useState("");
     
     const edit_Medicalrep = (rep_ID) => {
-        axios.put("http://localhost:3001/updatemedicalrep",
+        axios.post("http://localhost:3001/updatemedicalrep",
             { name: name,  email: email, phone_no: phone_no, working_area: working_area, rep_ID: rep_ID }).then(
                 (response) => { 
-                    window.location.reload();
+                    window.location.replace('/app/MedicalRepList');
                 }
             )
     };
@@ -112,7 +112,7 @@ export default function Edit_Medicalrep() {
                     rep_ID: rep_ID,
                 }
             });
-            setRow(response.data[0]);
+            // setRow(response.data[0]);
             setName(response.data[0].name);
             setEmail(response.data[0].email);
             setPhone_no(response.data[0].phone_no);
@@ -144,7 +144,7 @@ export default function Edit_Medicalrep() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Row.name}
+                                    defaultValue={name}
                                     onChange={(event) => { setName(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -158,7 +158,7 @@ export default function Edit_Medicalrep() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Row.email}
+                                    defaultValue={email}
                                     onChange={(event) => { setEmail(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -172,7 +172,7 @@ export default function Edit_Medicalrep() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Row.phone_no}
+                                    defaultValue={phone_no}
                                     onChange={(event) => { setPhone_no(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -186,7 +186,7 @@ export default function Edit_Medicalrep() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Row.area}
+                                    defaultValue={working_area}
                                     onChange={(event) => { setWorkingarea(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -200,7 +200,7 @@ export default function Edit_Medicalrep() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Row.rating}
+                                    defaultValue={rating}
                                     onChange={(event) => { setRating(event.target.value); }}
                                     style={mystyle.forminput}
                                     disabled
@@ -210,14 +210,14 @@ export default function Edit_Medicalrep() {
                     </Accordion><br />
                 </div>
 
-                <Link to='/app/MedicalRepList' style={mystyle.button}>
+                {/* <Link to='/app/MedicalRepList' style={mystyle.button}> */}
                     <Button
                         color="primary"
                         variant="contained"
                         style={mystyle.submitBtn}
                         onClick={() => { edit_Medicalrep(rep_ID) }}
                     > Update</Button>
-                </Link>
+                {/* </Link> */}
                 <Link to='/app/MedicalRepList'>
                             <Button
                                 type="submit"

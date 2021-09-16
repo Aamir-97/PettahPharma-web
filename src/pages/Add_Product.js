@@ -5,7 +5,6 @@ import back from '../images/back3.jpg';
 
 function Add_Product() {
 
-    const [product_id, setProduct_id] = useState("")
     const [state,setState]=useState({file:'',display_photo:'',message:'',success:false})
     const [name, setName] = useState("");
     const [volume, setVolume] = useState("");
@@ -13,6 +12,7 @@ function Add_Product() {
     const [description, setDescription] = useState("");
  
     const add_Product = () => {
+        if (name && volume && price) {
         if(state.file){
       let formData=new FormData();
       formData.append('file',state.file)
@@ -20,12 +20,9 @@ function Add_Product() {
         axios.post('http://localhost:3001/imageUpload',formData,{
         'content-Type':'multipart/form-data',
       })
-      
-        if (name && volume) {
+    }
         axios.post('http://localhost:3001/createproduct', {
-            product_id: product_id,
-            display_photo: state.file.name,
-            // display_photo: display_photo,
+            display_photo: "https://image.shutterstock.com/image-vector/various-meds-pills-capsules-blisters-600w-1409823341.jpg",
             name: name,
             volume: volume,
             price: price,
@@ -33,16 +30,15 @@ function Add_Product() {
 
         }).then(() => {
             console.log("success");
-            //    window.location.reload();
+               window.location.replace("/app/ProductList");
             alert("The new product was added successfully.")
-            document.getElementById("create-course-form").reset();
+            // document.getElementById("create-course-form").reset();
         });
 
     }
     else {
-        alert("Name, Volume are required.")
+        alert("Name, Volume, Price are required.")
     }
-}
 };
 
     const mystyle = {
@@ -154,13 +150,6 @@ function Add_Product() {
                 <h1 style={mystyle.formhead}> Add Product </h1>
                 <form>
                     <div >
-                        {/* <input
-                            type="text"
-                            style={mystyle.forminput}
-                            placeholder="Product ID"
-                            onChange={(event) => { setProduct_id(event.target.value); }}
-                            // required
-                        /><br /> */}
                         <input
                             type="file"
                             name="file"

@@ -90,7 +90,7 @@ const mystyle = {
 export default function Edit_Salesmanager() {
     const manager_ID = window.location.pathname.substring(23, 25);
 
-    const [Row, setRow] = useState([]);
+    // const [Row, setRow] = useState([]);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone_no, setPhone_no] = useState("");
@@ -98,10 +98,10 @@ export default function Edit_Salesmanager() {
 
     
     const edit_Salesmanager = (manager_ID) => {
-        axios.put("http://localhost:3001/updatemanager",
+        axios.post("http://localhost:3001/updatemanager",
             { name: name, email: email, phone_no: phone_no, area: area, manager_ID: manager_ID }).then(
                 (response) => { 
-                    window.location.reload();
+                    window.location.replace('/app/ManagerList');
                 }
             )
     };
@@ -113,7 +113,7 @@ export default function Edit_Salesmanager() {
                     manager_ID: manager_ID,
                 }
             });
-            setRow(response.data[0]);
+            // setRow(response.data[0]);
             setName(response.data[0].name);
             setEmail(response.data[0].email);
             setPhone_no(response.data[0].phone_no);
@@ -149,7 +149,7 @@ export default function Edit_Salesmanager() {
                                     </InputAdornment>
                                     }
                                     type="text"
-                                    defaultValue={Row.name}
+                                    defaultValue={name}
                                     onChange={(event) => { setName(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -163,7 +163,7 @@ export default function Edit_Salesmanager() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Row.email}
+                                    defaultValue={email}
                                     onChange={(event) => { setEmail(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -177,7 +177,7 @@ export default function Edit_Salesmanager() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Row.phone_no}
+                                    defaultValue={phone_no}
                                     onChange={(event) => { setPhone_no(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -191,7 +191,7 @@ export default function Edit_Salesmanager() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Row.area}
+                                    defaultValue={area}
                                     onChange={(event) => { setArea(event.target.value); }}
                                     style={mystyle.forminput}
                                 />
@@ -200,14 +200,14 @@ export default function Edit_Salesmanager() {
                     </Accordion><br />
                 </div>
 
-                <Link to='/app/ManagerList' style={mystyle.button}>
+                {/* <Link to='/app/ManagerList' style={mystyle.button}> */}
                     <Button
                         color="primary"
                         variant="contained"
                         style={mystyle.submitBtn}
                         onClick={() => { edit_Salesmanager(manager_ID) }}
                     > Update</Button>
-                </Link>
+                {/* </Link> */}
                 <Link to='/app/ManagerList'>
                             <Button
                                 type="submit"

@@ -70,7 +70,7 @@ const options = {
     ],
     yAxes: [
       {
-        display: false,
+        display: true,
         ticks: {
           fontColor: theme.palette.text.secondary,
           beginAtZero: true,

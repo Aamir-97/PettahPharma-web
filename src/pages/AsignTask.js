@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
     },
     formbox: {
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         width: '55%',
         marginTop: '0px',
         marginLeft: '270px',

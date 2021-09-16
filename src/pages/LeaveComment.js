@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
     },
     formbox: {
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         width: '60%',
         marginTop: '0px',
         marginLeft: '200px',
@@ -141,7 +141,7 @@ export default function LeaveComment() {
 
 
     const addcomment = (leave_ID) => {
-        axios.put("http://localhost:3001/addleavecomment",
+        axios.post("http://localhost:3001/addleavecomment",
             { salesmanager_comment: salesmanager_comment, leave_ID: leave_ID }).then(
                 (response) => { }
             )
@@ -166,7 +166,7 @@ export default function LeaveComment() {
 
     const addstatus = (status, leave_ID) => {
         console.log(status);
-        axios.put("http://localhost:3001/addstatus",
+        axios.post("http://localhost:3001/addstatus",
           { status: status, leave_ID: leave_ID }).then(
             (response) => {
               window.location.reload();
@@ -253,10 +253,10 @@ export default function LeaveComment() {
                       </Button>
         
                       <Button
-                        color="primary"
+                        color="exit"
                         variant="contained"
-                        onClick={()=>{addstatus("0", Dt.leave_ID)}} 
-                        disabled={Dt.status =="0"} 
+                        onClick={()=>{addstatus("2", Dt.leave_ID)}} 
+                        disabled={Dt.status =="2"} 
                         style={mystyle.rejectBtn}>
                         Reject 
                       </Button>

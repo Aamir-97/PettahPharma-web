@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
     },
     formbox: {
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         width: '60%',
         marginTop: 'px',
         marginLeft: '200px',
@@ -112,7 +112,7 @@ export default function SummaryComment() {
     }, []);
 
     const addcomment = (report_id) => {
-        axios.put("http://localhost:3001/addcomment",
+        axios.post("http://localhost:3001/addcomment",
             { manager_comment: manager_comment, report_id: report_id }).then(
                 (response) => { }
             )

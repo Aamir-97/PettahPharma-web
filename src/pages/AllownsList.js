@@ -118,6 +118,7 @@ const AllownsList = ({ rest, props }) => {
   const classes = useStyles();
 
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([])
+  const [searchTerm, setSearchTerm] = useState("");
 
   let manager_ID = localStorage.getItem('managerid');
   manager_ID = JSON.parse(manager_ID)
@@ -139,7 +140,7 @@ const AllownsList = ({ rest, props }) => {
 
   const addstatus = (status, expense_ID) => {
     console.log(status);
-    axios.put("http://localhost:3001/addexpensestatus",
+    axios.post("http://localhost:3001/addexpensestatus",
       { status: status, expense_ID: expense_ID }).then(
         (response) => {
           window.location.reload();
@@ -206,6 +207,7 @@ return(
                         )
                       }}
                       placeholder="Search Employee"
+                      onChange={(e) => { setSearchTerm(e.target.value); }}
                       variant="outlined"
                     />
                   </Box>
@@ -229,7 +231,19 @@ return(
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {selectedCustomerIds.slice(0, limit).map((customer) => {
+                    {selectedCustomerIds.slice(0, limit).filter(val => {
+                        if (searchTerm === "") {
+                          return val;
+                        }
+                        else if (
+                          val.repname.toLowerCase().includes(searchTerm.toLowerCase())) {
+                          return val
+                        }
+                        else if (
+                          val.date.includes(searchTerm)) {
+                          return val
+                        }
+                      }).map((customer) => {
                         const dt = new Date(customer.date);
                         const year = dt.getFullYear() + '/';
                         const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
@@ -297,8 +311,8 @@ return(
                               <Button
                                 color="exit"
                                 variant="contained"
-                                onClick={() => { addstatus("0", customer.expense_ID) }}
-                                disabled={customer.status == "0"}
+                                onClick={() => { addstatus("2", customer.expense_ID) }}
+                                disabled={customer.status == "2"}
                                 startIcon={<ClearIcon />}>
                                 Reject
                               </Button>

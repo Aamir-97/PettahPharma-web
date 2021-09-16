@@ -32,7 +32,7 @@ const TaskInfo = () => {
             color: 'black',
         },
         formbox: {
-            backgroundColor: 'lightgray',
+            backgroundColor: 'white',
             width: '60%',
             marginTop: '0px',
             marginLeft: '200px',

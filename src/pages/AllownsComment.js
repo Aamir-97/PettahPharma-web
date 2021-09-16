@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
     },
     formbox: {
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         width: '60%',
         marginTop: '0px',
         marginLeft: '200px',
@@ -39,6 +39,17 @@ const useStyles = makeStyles((theme) => ({
         padding: "2vh",
         borderRadius: "5px",
         align: 'center',
+    },
+    textfield: {
+        backgroundColor: 'white',
+        width: '100%',
+        marginTop: '0px',
+        marginLeft: '0px',
+        height: '100%',
+        padding: "2vh",
+        borderRadius: "5px",
+        align: 'center',
+        rows: '10',
     },
     backgroud: {
         height: '916px',
@@ -119,7 +130,7 @@ export default function AllownsComment() {
 
 
     const addcomment = (expense_ID) => {
-        axios.put("http://localhost:3001/addexpensecomment",
+        axios.post("http://localhost:3001/addexpensecomment",
             { salesmanager_comment: salesmanager_comment, expense_ID: expense_ID }).then(
                 (response) => { }
             )
@@ -137,7 +148,7 @@ export default function AllownsComment() {
 
     const addstatus = (status, expense_ID) => {
         console.log(status);
-        axios.put("http://localhost:3001/addexpensestatus",
+        axios.post("http://localhost:3001/addexpensestatus",
             { status: status, expense_ID: expense_ID }).then(
                 (response) => {
                     window.location.reload();
@@ -223,8 +234,8 @@ export default function AllownsComment() {
                     <Button
                         color="primary"
                         variant="contained"
-                        onClick={() => { addstatus("0", Dt.expense_ID) }}
-                        disabled={Dt.status == "0"}
+                        onClick={() => { addstatus("2", Dt.expense_ID) }}
+                        disabled={Dt.status == "2"}
                         style={mystyle.rejectBtn}>
                         Reject
                     </Button>

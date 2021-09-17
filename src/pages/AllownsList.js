@@ -195,7 +195,7 @@ return(
                           </InputAdornment>
                         )
                       }}
-                      placeholder="Search Employee"
+                      placeholder="Search Medical Rep Name OR Date"
                       onChange={(e) => { setSearchTerm(e.target.value); }}
                       variant="outlined"
                     />

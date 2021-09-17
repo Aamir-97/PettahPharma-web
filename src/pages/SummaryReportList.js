@@ -182,7 +182,7 @@ const SummaryReportList = (rest, props) => {
                               </InputAdornment>
                             )
                           }}
-                          placeholder="Search Employee"
+                          placeholder="Search Medical Rep Name OR Date"
                           variant="outlined"
                           onChange={(e) => { setSearchTerm(e.target.value); }}
                         />

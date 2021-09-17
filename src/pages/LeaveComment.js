@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
         rows: '10',
     },
     backgroud: {
-        height:'825px',
+        height:'725px',
         backgroundColor: '#5eb6b8',
         backgroundImage: `url(${back})`
       },
@@ -214,7 +214,7 @@ export default function LeaveComment() {
                         <AccordionDetails>
                             <Typography className={classes.heading}>Description</Typography>
                             <Typography>
-                                <textarea value={Dt.description} rows="10" cols="80" ></textarea>
+                                <textarea value={Dt.description} rows="3" cols="80" ></textarea>
                             </Typography>
                         </AccordionDetails>
                     </Accordion><br />
@@ -223,7 +223,7 @@ export default function LeaveComment() {
                         // id="filled-multiline-static"
                         // label="Add Comment" 
                         multiline
-                        rows={5}
+                        rows={3}
                         placeholder="Add Comment"
                         defaultValue={Dt.salesmanager_comment}
                         // variant="outlined" 

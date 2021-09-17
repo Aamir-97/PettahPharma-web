@@ -230,7 +230,7 @@ export default function LeaveInfo() {
                         variant="contained"
                         // onClick={addstatus("Accept", customer.leave_ID)}
                         onClick={()=>{addstatus("1", Dt.leave_ID)}} 
-                        disabled={Dt.status =="1"}
+                        disabled={Dt.status == "1" || Dt.status == "2"}
                         style={mystyle.acceptBtn}>
                         Accept
                       </Button>
@@ -239,7 +239,7 @@ export default function LeaveInfo() {
                         color="exit"
                         variant="contained"
                         onClick={()=>{addstatus("2", Dt.leave_ID)}} 
-                        disabled={Dt.status =="2"} 
+                        disabled={Dt.status == "1" || Dt.status == "2"} 
                         style={mystyle.rejectBtn}>
                         Reject 
                       </Button>

@@ -227,6 +227,7 @@ return(
                         {/* <TableCell>Location</TableCell> */}
                         <TableCell><b>Amount</b></TableCell>
                         <TableCell><b>Date</b></TableCell>
+                        <TableCell><b>Status</b></TableCell>
                         <TableCell align="center"><b>Action</b></TableCell>
                       </TableRow>
                     </TableHead>
@@ -261,7 +262,8 @@ return(
                               <Box
                                 sx={{
                                   alignItems: 'center',
-                                  display: 'flex'
+                                  display: 'flex',
+                                  marginLeft:2
                                 }}
                               >
                                 <Typography
@@ -278,7 +280,7 @@ return(
                             <TableCell>{customer.amount} /=</TableCell>
                             <TableCell>{year + month + day}</TableCell>
                             {/* <TableCell>{yearr + monthr + dayr}</TableCell> */}
-                            {/* <TableCell>{customer.date}</TableCell> */}
+                            <TableCell style = {{color:'blue' , fontWeight :'bold' }}>{customer.status}</TableCell>
                             <TableCell align="center">
                               <Link to={`/appp/AllownsInfo/${customer.expense_ID}`}  >
                                 <Button
@@ -303,7 +305,7 @@ return(
                                 variant="contained"
                                 // onClick={addstatus("Accept", customer.leave_ID)}
                                 onClick={() => { addstatus("1", customer.expense_ID) }}
-                                disabled={customer.status == "1"}
+                                disabled={customer.status == "Accept" ||customer.status == "Rejected"}
                                 startIcon={<CheckIcon />}>
                                 Accept
                               </Button>
@@ -312,7 +314,7 @@ return(
                                 color="exit"
                                 variant="contained"
                                 onClick={() => { addstatus("2", customer.expense_ID) }}
-                                disabled={customer.status == "2"}
+                                disabled={customer.status == "Rejected" ||customer.status == "Accept"}
                                 startIcon={<ClearIcon />}>
                                 Reject
                               </Button>

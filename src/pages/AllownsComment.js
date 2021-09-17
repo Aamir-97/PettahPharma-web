@@ -185,10 +185,10 @@ export default function AllownsComment() {
                                 <Typography className={classes.heading}>Location</Typography>
                                 <Typography className={classes.secondaryHeading}>{Dt.location}</Typography>
                             </AccordionSummary>
-                            <AccordionSummary>
+                            {/* <AccordionSummary>
                                 <Typography className={classes.heading}>Bill</Typography>
                                 <Typography className={classes.secondaryHeading}>{Dt.bills}</Typography>
-                            </AccordionSummary>
+                            </AccordionSummary> */}
                             <AccordionSummary>
                                 <Typography className={classes.heading}>Amount</Typography>
                                 <Typography className={classes.secondaryHeading}>{Dt.amount}</Typography>
@@ -227,7 +227,7 @@ export default function AllownsComment() {
                         color="primary"
                         variant="contained"
                         onClick={() => { addstatus("1", Dt.expense_ID) }}
-                        disabled={Dt.status == "1"}
+                        disabled={Dt.status == "1" || Dt.status == "2"}
                         style={mystyle.acceptBtn}>
                         Accept
                     </Button>
@@ -235,7 +235,7 @@ export default function AllownsComment() {
                         color="primary"
                         variant="contained"
                         onClick={() => { addstatus("2", Dt.expense_ID) }}
-                        disabled={Dt.status == "2"}
+                        disabled={Dt.status == "2" || Dt.status == "1"}
                         style={mystyle.rejectBtn}>
                         Reject
                     </Button>

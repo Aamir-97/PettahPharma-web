@@ -160,7 +160,7 @@ const LeaveList = ({ rest, props }) => {
                             </InputAdornment>
                           )
                         }}
-                        placeholder="Search Employee"
+                        placeholder="Search Medical Rep Name OR Start Date"
                         onChange={(e) => { setSearchTerm(e.target.value); }}
                         variant="outlined"
                       />

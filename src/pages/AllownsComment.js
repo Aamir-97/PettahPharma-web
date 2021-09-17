@@ -45,17 +45,17 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         marginTop: '0px',
         marginLeft: '0px',
-        height: '100%',
+        height: '50%',
         padding: "2vh",
         borderRadius: "5px",
         align: 'center',
-        rows: '10',
+        rows: '1',
     },
     backgroud: {
-        height: '916px',
+        // height: '916px',
         backgroundColor: '#5eb6b8',
         backgroundImage: `url(${back})`,
-        height: '666px',
+        height: '773px',
     },
 }));
 
@@ -200,14 +200,14 @@ export default function AllownsComment() {
                             <AccordionDetails>
                                 <Typography className={classes.heading}>Description</Typography>
                                 <Typography>
-                                    <textarea value={Dt.description} rows="10" cols="80" ></textarea>
+                                    <textarea value={Dt.description} rows="3" cols="80" ></textarea>
                                 </Typography>
                             </AccordionDetails>
                         </Accordion><br />
 
                         <TextField
                             multiline
-                            rows={5}
+                            rows={3}
                             placeholder="Add Comment"
                             defaultValue={Dt.salesmanager_comment}
                             onChange={(event) => { setManagerCom(event.target.value); }}

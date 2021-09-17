@@ -255,7 +255,8 @@ const DataPlanList = ({ rest, props }) => {
                               <Box
                                 sx={{
                                   alignItems: 'center',
-                                  display: 'flex'
+                                  display: 'flex',
+                                  marginLeft:2
                                 }}
                               >
                                 <Typography
@@ -287,7 +288,7 @@ const DataPlanList = ({ rest, props }) => {
                               <Button
                                 color="edit"
                                 variant="contained"
-                                disabled={customer.status == "Complete"}
+                                disabled={customer.status == "Complete" || customer.status == "Reject" || customer.status == "Accept"}
                                 startIcon={<EditIcon />}
                               >
                                 <Link to={`/appp/UpdateTask/${customer.task_id}`} className={classes.link} >
@@ -299,7 +300,7 @@ const DataPlanList = ({ rest, props }) => {
                               <Button onClick={() => { deleteEmployee(customer.task_id) }}
                                 variant="contained"
                                 color="exit"
-                                disabled={customer.status == "Complete"}
+                                disabled={customer.status == "Complete" || customer.status == "Reject" || customer.status == "Accept"}
                                 // disabled={true}
                                 className={classes.debutton}
                                 startIcon={<DeleteIcon />}

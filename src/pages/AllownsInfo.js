@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
     },
     formbox: {
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         width: '60%',
         marginTop: '0px',
         marginLeft: '200px',
@@ -157,12 +157,12 @@ export default function AllownsInfo() {
                             <Typography className={classes.secondaryHeading}>{Dt.location}</Typography>
                         </AccordionSummary>
                     </Accordion><br />
-                    <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+                    {/* <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Bill</Typography>
                             <Typography className={classes.secondaryHeading}>{Dt.bills}</Typography>
                         </AccordionSummary>
-                    </Accordion><br />
+                    </Accordion><br /> */}
                     <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Amount</Typography>
@@ -223,7 +223,7 @@ export default function AllownsInfo() {
                         color="primary"
                         variant="contained"
                         onClick={()=>{addstatus("1",expense_ID)}} 
-                        disabled={Dt.status =="1"}
+                        disabled={Dt.status == "1" || Dt.status == "2"}
                         style={mystyle.acceptBtn}>
                         Accept
                       </Button>
@@ -232,7 +232,7 @@ export default function AllownsInfo() {
                         color="primary"
                         variant="contained"
                         onClick={()=>{addstatus("0",expense_ID)}} 
-                        disabled={Dt.status =="0"} 
+                        disabled={Dt.status == "1" || Dt.status == "2"} 
                         style={mystyle.rejectBtn}>
                         Reject 
                       </Button>

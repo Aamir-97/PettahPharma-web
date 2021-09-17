@@ -1,8 +1,7 @@
 import React from 'react';
-import AnnualVisitReport from "src/components/reports/AnnualVisitReport";
+import AnnualTaskReport from "src/components/reports/AnnualTaskReport";
 
-
-class DataComponent extends React.Component {
+class DataComponent3 extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,7 +12,7 @@ class DataComponent extends React.Component {
       }
     
       componentDidMount() {
-        fetch('http://localhost:3001/viewvisitsummaryReport')
+        fetch('http://localhost:3001/viewtasksummaryReport')
           .then(res => res.json())
           .then(result => {
             this.setState({
@@ -29,10 +28,10 @@ class DataComponent extends React.Component {
     render() {
       return (
           <div >
-          <AnnualVisitReport />
-        </div> 
+          <AnnualTaskReport />
+        </div>    
       );
     }
   }
 
-  export default DataComponent;
+  export default DataComponent3;

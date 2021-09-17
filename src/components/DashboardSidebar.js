@@ -51,11 +51,11 @@ const items = [
     icon: DescriptionOutlinedIcon,
     title: 'Reports'
   },
-  {
-    href: '/app/GenerateReport',
-    icon: ForumIcon,
-    title: 'Report'
-  },
+  // {
+  //   href: '/app/Forum',
+  //   icon: ForumIcon,
+  //   title: 'Forum'
+  // },
   {
     href: '/login',
     icon: ExitToAppIcon,

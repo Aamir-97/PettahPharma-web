@@ -4,23 +4,12 @@ import React, {  useState } from "react";
 import axios from "axios";
 // import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import {
-    // Button,
-    // Card,
-    // CardContent,
     Grid,
-    Box,
-    // Paper,
-    // TableCell,
-    // TableBody,
-    // TableHead,
-    // TableRow,
-    // Table,
-    // TableContainer,
-    // Typography,
+    Box
   } from '@material-ui/core';
 
 // const Visits = () => { 
-export default function Visits(componentRef) {
+export default function Visits() {
   // const [visits, setVisits] = useState([]);
   
 
@@ -38,6 +27,8 @@ export default function Visits(componentRef) {
   const[to_date,setTodate]=useState("");
   const[from_date,setFromdate]=useState("");
   const [visitsummaryList,setvisitsummaryList]=useState([])
+  const [expensesummaryList,setexpensesummaryList]=useState([])
+
 
   const visitsummary = async () => {
       const response = await axios.get('http://localhost:3001/viewvisitsummaryReport', {
@@ -48,6 +39,15 @@ export default function Visits(componentRef) {
       });
       console.log(response)
       setvisitsummaryList(response.data);
+
+      const response2 = await axios.get('http://localhost:3001/viewexpensesummaryReport', {
+        params: {
+           to_date:to_date,  
+           from_date:from_date
+        }
+    });
+    console.log(response2)
+    setexpensesummaryList(response2.data);
   }
 
   
@@ -85,7 +85,7 @@ export default function Visits(componentRef) {
                     setTodate(event.target.value);
                   }} ></input></div>
                   <button style={{marginLeft:'30px',fontSize:'15px',width:'200px',height:'35px',backgroundColor:'#0A6466',border:'none',borderRadius:'5px',color:'white',marginTop:'10px'}}
-                  onClick={()=>{visitsummary()}}><b>GENERATE</b></button>          
+                  onClick={()=>{visitsummary()}}><b>Generate Summary</b></button>          
             {/* <Button
               variant="contained" 
               color="primary"
@@ -97,8 +97,8 @@ export default function Visits(componentRef) {
           </Box>
           </div>
           <div>
-          <Box ml={6} >
-        <h3>Annual Visit Report</h3>
+          <Box ml={6} m>
+        <h4>Visit Summary Report</h4>
         </Box>
         <Box
           sx={{
@@ -106,7 +106,7 @@ export default function Visits(componentRef) {
             justifyContent: 'flex-end',
             mr: 6
           }}>
-          <table style={{backgroundColor:'#f2f3f4'}} className="table">
+          <table style={{backgroundColor:'#80cbc4'}} className="table">
      <thead>
          <tr>
            <th>Rep ID</th>      
@@ -138,7 +138,6 @@ export default function Visits(componentRef) {
            })}
            
      </tbody>
-     {/* <caption>Customer Details</caption> */}
    </table> 
    </Box>
    </div>
@@ -149,6 +148,8 @@ export default function Visits(componentRef) {
 
       
     </div>
+  
+  
   );
 };
 

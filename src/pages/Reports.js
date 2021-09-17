@@ -6,8 +6,19 @@ import axios from "axios";
 import AnnualVisitReport from "src/components/reports/AnnualVisitReport";
 import AnnualExpenseReport from "src/components/reports/AnnualExpenseReport";
 import AnnualTaskReport from "src/components/reports/AnnualTaskReport";
+import ReactToPrint1 from 'react-to-print';
+import ReactToPrint2 from 'react-to-print';
+import ReactToPrint3 from 'react-to-print';
+import DataComponent from 'src/pages/DataComponent';
+import DataComponent2 from 'src/pages/DataComponent2';
+import DataComponent3 from 'src/pages/DataComponent3';
+
+
 import {
   Box,
+  CssBaseline,
+  Grid,
+  Paper,
   Card,
   Container,
 } from '@material-ui/core';
@@ -15,7 +26,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import back from '../images/back3.jpg';
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 
-const Reports = ({ rest,props} ) => {
+const Reports = ({ rest,props,componentRef,componentRef2,componentRef3} ) => {
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -149,29 +160,115 @@ const Reports = ({ rest,props} ) => {
         </Box>
       </Box>
       <br />
-      <Card {...rest}>
+      <div className={classes.root}>
+      <CssBaseline />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={1}>
+          
+          
+              <div style={{display:'flex'}}>
+                   <div style={{width:'1000px'}}>
+               <Grid item xs={16}  direction="row">
+              <Paper style={{marginTop:'20px'}}>
+                
+                 
+              <div align='right' style={{marginTop:'20px'}}>
+          <ReactToPrint1
+           content={() =>componentRef}
+            trigger={() => <button className="btn btn-success" style={{marginTop:'20px',border:'none',marginRight:'30px',marginBottom:'20px',backgroundColor:'#0A6466'}}>Generate Report</button>}
+          />
+         </div>
+         
+          <DataComponent  ref={(response) => (componentRef = response)} />          
+              
+              </Paper>
+              </Grid><br/>
+              </div>
+              </div>
+              </Grid>
+        </Container>
+    </div>  
+      {/* <Card {...rest}>
         <PerfectScrollbar>
           <Box sx={{ minWidth: 1050 }}>
-          <AnnualVisitReport visits={visits} />
+          <AnnualVisitReport />
           </Box>
         </PerfectScrollbar>
-      </Card>
+      </Card> */}
       <br />
-      <Card {...rest}>
+      <div className={classes.root}>
+      <CssBaseline />
+
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={1}>
+          
+          
+              <div style={{display:'flex'}}>
+                   <div style={{width:'1000px'}}>
+               <Grid item xs={16}  direction="row">
+              <Paper style={{marginTop:'20px'}}>
+                
+                 
+              <div align='right' style={{marginTop:'20px'}}>
+          <ReactToPrint2
+           content={() =>componentRef2}
+            trigger={() => <button className="btn btn-success" style={{marginTop:'20px',border:'none',marginRight:'30px',marginBottom:'20px',backgroundColor:'#0A6466'}}>Generate Report</button>}
+          />
+         </div>
+         
+          <DataComponent2  ref={(response2) => (componentRef2 = response2)} />          
+              
+              </Paper>
+              </Grid><br/>
+              </div>
+              </div>
+              </Grid>
+        </Container>
+    </div>
+      {/* <Card {...rest}>
         <PerfectScrollbar>
           <Box sx={{ minWidth: 1050 }}>
           <AnnualExpenseReport expenses={expenses} />
           </Box>
         </PerfectScrollbar>
-      </Card>
+      </Card> */}
       <br />
-      <Card {...rest}>
+      <div className={classes.root}>
+      <CssBaseline />
+
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={1}>
+          
+          
+              <div style={{display:'flex'}}>
+                   <div style={{width:'1000px'}}>
+               <Grid item xs={16}  direction="row">
+              <Paper style={{marginTop:'20px'}}>
+                
+                 
+              <div align='right' style={{marginTop:'20px'}}>
+          <ReactToPrint3
+           content={() =>componentRef3}
+            trigger={() => <button className="btn btn-success" style={{marginTop:'20px',border:'none',marginRight:'30px',marginBottom:'20px',backgroundColor:'#0A6466'}}>Generate Report</button>}
+          />
+         </div>
+         
+          <DataComponent3  ref={(response3) => (componentRef3 = response3)} />          
+              
+              </Paper>
+              </Grid><br/>
+              </div>
+              </div>
+              </Grid>
+        </Container>
+    </div>
+      {/* <Card {...rest}>
         <PerfectScrollbar>
           <Box sx={{ minWidth: 1050 }}>
           <AnnualTaskReport tasks={tasks} />
           </Box>
         </PerfectScrollbar>
-      </Card>
+      </Card> */}
     </>
     </Container>
     </Box>

@@ -1012,12 +1012,34 @@ app.get('/viewexpensesummary', (req, res) => {
     })
 })
 
+app.get('/viewexpensesummaryReport',(req,res) => {
+    db.query('SELECT * FROM expenses WHERE status="1" AND date BETWEEN ? AND ? ',[req.query.from_date,req.query.to_date], (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+           
+        }
+    });
+ }); 
+
 app.get('/viewtasksummary', (req, res) => {
     db.query('SELECT * FROM task WHERE status="Complete"', [req.query.task_id], (err, result) => {
         res.send(result);
         console.log(result);
     })
 })
+
+app.get('/viewtasksummaryReport',(req,res) => {
+    db.query('SELECT * FROM task WHERE status="Complete" AND date BETWEEN ? AND ? ',[req.query.from_date,req.query.to_date], (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+           
+        }
+    });
+ }); 
 
 app.get('/totalRepExpenses', (req, res) => {
     const manager_ID = req.query.manager_ID;

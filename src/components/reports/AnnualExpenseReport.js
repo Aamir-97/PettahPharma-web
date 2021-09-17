@@ -87,7 +87,7 @@ const expensesummary = async () => {
           </div>
           <div>
           <Box ml={6} m>
-        <h4>Expense Summary Report</h4><br/>
+        <h4 style={{color:'#0A6466',marginTop:'25px',marginBottom:'20px'}}>Expense Summary Report</h4>
         </Box>
         <Box
           sx={{
@@ -95,8 +95,8 @@ const expensesummary = async () => {
             justifyContent: 'flex-end',
             mr: 6
           }}>
-          <table style={{backgroundColor:'#80cbc4'}} className="table">
-     <thead>
+          <table  className="table">
+     <thead style={{backgroundColor:'#b2dfdb'}}>
          <tr>
              <th>Rep ID</th>      
              <th >Expense Type</th>
@@ -105,7 +105,7 @@ const expensesummary = async () => {
              <th>Description</th>
          </tr>
      </thead>
-     <tbody>
+     <tbody >
      {expensesummaryList.map((record)=>{
         const dt = new Date(record.date);
         const year = dt.getFullYear() + '/';

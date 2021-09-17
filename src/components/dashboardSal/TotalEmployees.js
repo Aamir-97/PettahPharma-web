@@ -49,13 +49,15 @@ return (
           <Typography
             color="textPrimary"
             variant="h3"
-            height="62px"
+            // height="62px"
           >
             {employeecount.map((record)=>{
               return(
               <p style={{fontSize:'30px'}}>{record.count}</p>
               )
             })}
+            <p style={{fontSize:'13px',color:'#388e3c' ,height:"6px"}}>Promote Products</p>
+            <p style={{fontSize:'13px',color:'#388e3c'}}>Schedule Visits</p>
           </Typography>
         </Grid>
         <Grid item>

@@ -88,7 +88,7 @@ const tasksummary = async () => {
           </div>
           <div>
           <Box ml={6} m>
-        <h4>Task Summary Report</h4>
+        <h4 style={{color:'#0A6466',marginTop:'25px',marginBottom:'20px'}}>Task Summary Report</h4>
         </Box>
         <Box
           sx={{
@@ -96,8 +96,8 @@ const tasksummary = async () => {
             justifyContent: 'flex-end',
             mr: 6
           }}>
-          <table style={{backgroundColor:'#80cbc4'}} className="table">
-     <thead>
+          <table  className="table">
+     <thead style={{backgroundColor:'#b2dfdb'}}>
          <tr>
          <th>Manager ID</th>     
              <th>Rep ID</th>      

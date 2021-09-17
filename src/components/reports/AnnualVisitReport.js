@@ -27,8 +27,6 @@ export default function Visits() {
   const[to_date,setTodate]=useState("");
   const[from_date,setFromdate]=useState("");
   const [visitsummaryList,setvisitsummaryList]=useState([])
-  const [expensesummaryList,setexpensesummaryList]=useState([])
-
 
   const visitsummary = async () => {
       const response = await axios.get('http://localhost:3001/viewvisitsummaryReport', {
@@ -39,15 +37,6 @@ export default function Visits() {
       });
       console.log(response)
       setvisitsummaryList(response.data);
-
-      const response2 = await axios.get('http://localhost:3001/viewexpensesummaryReport', {
-        params: {
-           to_date:to_date,  
-           from_date:from_date
-        }
-    });
-    console.log(response2)
-    setexpensesummaryList(response2.data);
   }
 
   
@@ -98,7 +87,7 @@ export default function Visits() {
           </div>
           <div>
           <Box ml={6} m>
-        <h4>Visit Summary Report</h4>
+        <h4 style={{color:'#0A6466',marginTop:'25px',marginBottom:'20px'}}>Visit Summary Report</h4>
         </Box>
         <Box
           sx={{
@@ -106,8 +95,8 @@ export default function Visits() {
             justifyContent: 'flex-end',
             mr: 6
           }}>
-          <table style={{backgroundColor:'#80cbc4'}} className="table">
-     <thead>
+          <table  className="table">
+     <thead style={{backgroundColor:'#b2dfdb'}}>
          <tr>
            <th>Rep ID</th>      
            <th >Manager ID</th>

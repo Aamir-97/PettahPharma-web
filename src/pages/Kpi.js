@@ -21,6 +21,7 @@ import {
   SvgIcon
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
+import StarIcon from '@material-ui/icons/Star';
 import back from '../images/back3.jpg';
 
 const SummaryReportResults = ({ SummaryReport, rest, props }) => {
@@ -28,9 +29,10 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
 
   let manager_ID = localStorage.getItem('managerid');
   manager_ID = JSON.parse(manager_ID)
-  console.log(manager_ID);
+  // console.log(manager_ID);
 
   useEffect(() => {
+  console.log(manager_ID);
     const fetchData = async () => {
       const response = await axios.get('http://localhost:3001/GetMedicalRapList', {
         params: {
@@ -40,7 +42,7 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
       setSelectedCustomerIds(response.data);
     };
     fetchData();
-  }, [manager_ID]);
+  }, []);
 
 
   const [limit, setLimit] = useState(10);
@@ -78,17 +80,24 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
       backgroundImage: `url(${back})`,
     },
     h1: {
-      //  backgroundColor: '#5eb6b8',
-      //  color: '#0A6466',
       color: '#FFF',
       fontFamily: "Sans-serif",
     },
     h2: {
-      //  backgroundColor: '#5eb6b8',
-      //  color: '#0A6466',
-      // color: '#FFF',
       fontFamily: "Sans-serif",
-      marginLeft:'20px',
+      margin: 20,
+      fontSize : 24,
+      fontWeight : 'bold'
+
+    },
+
+    h3: {
+      fontFamily: "Sans-serif",
+      margin: 20,
+      fontSize : 20,
+      fontWeight : 'bold',
+      color : 'red'
+
     },
   }));
 
@@ -101,57 +110,82 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
   const [leaveCount, setLeaveCount] = React.useState(0);
   const [visitedDoctorCount, setVisitedDoctorCount] = React.useState(0);
   const [completeTask, setCompleteTask] = React.useState(0);
+  const [totalTask, setTotalTask] = React.useState(0);
   const [metPerDays, setMetPerDays] = React.useState(0);
-  const taskCompletePercentage = parseInt(completeTask) / parseInt(totalVSR) * 100;
   const expensePerVisit = parseInt(expensesAmount) / parseInt(totalVSR);
+  const taskCompletePercentage = parseInt(completeTask) / parseInt(totalTask) * 100;
   const doctorCourage = parseInt(visitedDoctorCount) / parseInt(totalDoctors) * 100;
+  const expensePerVisitPercentage = parseInt(expensePerVisit) / parseInt(expensesAmount) * 100;
   const [name, setName] = useState("");
+  const [rep_ID, setRepId] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
   const GetKpis = async (rep_ID, name) => {
 
     setName(name);
+    setRepId(rep_ID);
 
     setShowKpi(true);
 
-    await axios.post("http://localhost:3001/kpi/doctorCount", {
+    await axios.post("http://localhost:3001/Kpi/StatisticData", {
       rep_ID: rep_ID,
     }).then((response) => {
-      setTotalDoctor(response.data.doctorCount);
+      setTotalDoctor(response.data[0].doctorCount);
+      setTotalVSR(response.data[0].reportCount);
+      setExpensesAmount(response.data[0].expensesAmount);
+      setLeaveCount(response.data[0].leaveCount);
+      setCompleteTask(response.data[0].taskcount);
+      setVisitedDoctorCount(response.data[0].visitedDoctorcount);
+      setTotalTask(response.data[0].totalTask);
     });
-
-    await axios.post("http://localhost:3001/kpi/reportCount", {
-      rep_ID: rep_ID,
-    }).then((response) => {
-      setTotalVSR(response.data.reportCount);
-    });
-
-    await axios.post("http://localhost:3001/kpi/ExpensesAmount", {
-      rep_ID: rep_ID,
-    }).then((response) => {
-      setExpensesAmount(response.data.expensesAmount);
-    });
-
-    await axios.post("http://localhost:3001/kpi/leaveCount", {
-      rep_ID: rep_ID,
-    }).then((response) => {
-      setLeaveCount(response.data.leaveCount);
-    });
-
-    await axios.post("http://localhost:3001/kpi/compeleteTask", {
-      rep_ID: rep_ID,
-    }).then((response) => {
-      setCompleteTask(response.data.completeTaskCount);
-    });
-
-    await axios.post("http://localhost:3001/kpi/VisitDoctor", {
-      rep_ID: rep_ID,
-    }).then((response) => {
-      setVisitedDoctorCount(response.data.visitDoctorCount);
-    });
-
-
   }
+
+  const ratingEqu =  ( parseInt(taskCompletePercentage)+ parseInt(doctorCourage)+ parseInt(expensePerVisitPercentage))/3;
+  const [rating, setRating]=React.useState('');
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (ratingEqu>=90){
+        setRating('4.5');
+      } 
+      else if (ratingEqu>=80){
+        setRating('4.0');
+      } 
+      else if (ratingEqu>=70){
+        setRating('3.5');
+      } 
+      else if (ratingEqu>=60){
+        setRating('3.0');
+      } 
+      else if (ratingEqu>=50){
+        setRating('2.5');
+      } 
+      else if (ratingEqu>=40){
+        setRating('2.0');
+      } 
+      else if (ratingEqu>=30){
+        setRating('1.5');
+      } 
+      else if (ratingEqu>=20){
+        setRating('1.0');
+      } 
+      else if (ratingEqu>=10){
+        setRating('0.5');
+      } 
+      else if (ratingEqu>=0){
+        setRating('0.1');
+      } 
+      else {
+        setRating('0');
+      } 
+    }
+    fetchData();
+  }, [ratingEqu]);
+
+
+  
+
 
 
   return (
@@ -212,7 +246,11 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
             <Card {...rest}>
               <PerfectScrollbar>
                 <Box sx={{ minWidth: 1050 }}>
-                  <Box sx={{ maxWidth: 500 }} ><h2 className={classes.h2}>{name}</h2></Box>
+                  <Box><h2 className={classes.h2}>{rep_ID} - {name} </h2>
+                  <p className={classes.h3}>Kpi Rating - {rating} <StarIcon/> </p>
+
+                  </Box>
+                  
                   <Table>
                     <TableHead>
 
@@ -224,7 +262,7 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
                         <TableCell align="center">Doctor Coverage(%)</TableCell>
                         <TableCell align="center">Task complete (%)</TableCell>
                         <TableCell align="center">Expense per visit</TableCell>
-                        <TableCell align="center">No.of met/Working Days</TableCell>
+                        <TableCell align="center">No.of met/Working Day</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -240,7 +278,6 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
                         <TableCell align="center"> {parseInt(expensePerVisit)}.00 </TableCell>
                         <TableCell align="center"> {leaveCount} </TableCell>
                       </TableRow>
-                      {/* ))} */}
                     </TableBody>
                   </Table>
                 </Box>
@@ -264,7 +301,7 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
                       <TableCell align="center">Email</TableCell>
                       <TableCell align="center">Phone_no</TableCell>
                       <TableCell align="center">Working area</TableCell>
-                      <TableCell align="center">Rating</TableCell>
+                      <TableCell align="center">Address</TableCell>
                       <TableCell align="center">KPI</TableCell>
                     </TableRow>
                   </TableHead>
@@ -284,7 +321,6 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
                     }).map((rep) => (
                       <TableRow
                         hover
-                      // key={rep.task_id}
                       >
                         <TableCell align="center"></TableCell>
                         <TableCell >{rep.rep_ID}</TableCell>
@@ -292,16 +328,14 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
                         <TableCell>{rep.email}</TableCell>
                         <TableCell>{rep.phone_no}</TableCell>
                         <TableCell>{rep.working_area}</TableCell>
-                        <TableCell>{rep.rating}</TableCell>
+                        <TableCell>{rep.address}</TableCell>
                         <TableCell align="center">
-                          {/* <Link to={`/appp/SummaryInfo/${rep.report_id}`}  > */}
                           <Button
                             onClick={() => GetKpis(rep.rep_ID, rep.name)}
                             color="primary"
                             variant="contained">
                             View
                           </Button>
-                          {/* </Link> */}
                         </TableCell>
                       </TableRow>
                     ))}

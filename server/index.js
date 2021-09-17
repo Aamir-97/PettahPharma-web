@@ -1288,102 +1288,20 @@ app.get('/adminpasswordvalidation', (req, res) => {
 
   })
 
-  app.post('/kpi/reportCount',(req,res)=>{
-    // console.log(req.body.rep_ID);
-    const rep_ID = req.body.rep_ID;
-    const sqlLogin = "SELECT COUNT(report_id) AS reportCount FROM visit_summary_report WHERE rep_ID=?";
-     
-    db.query(sqlLogin,[rep_ID],(err,result)=>{
-            if(err){
-                res.send({err:err})
-                console.log("Error while reportCount ");
-              } if(result.length > 0){
-                res.send({
-                    reportCount: result[0].reportCount,
-                });
-              } 
-    }); 
-}); 
-
-app.post('/kpi/ExpensesAmount',(req,res)=>{
-
-    const rep_ID = req.body.rep_ID;
-    const sqlLogin = "SELECT SUM(amount) AS expensesAmount FROM expenses WHERE rep_ID=?";
-     
-    db.query(sqlLogin,[rep_ID],(err,result)=>{
-            if(err){
-                res.send({err:err})
-                console.log("Error while expensesCount ");
-              } if(result.length > 0){
-                res.send({
-                    expensesAmount: result[0].expensesAmount,
-                });
-              } 
-    }); 
-}); 
-   
-app.post('/kpi/leaveCount',(req,res)=>{
-
-    const rep_ID = req.body.rep_ID;
-    const sqlLogin = "SELECT COUNT(rep_ID) AS leaveCount FROM leaves WHERE rep_ID=?";
-     
-    db.query(sqlLogin,[rep_ID],(err,result)=>{
-            if(err){
-                res.send({err:err})
-                console.log("Error while leaveCount ");
-              } if(result.length > 0){
-                res.send({
-                    leaveCount: result[0].leaveCount,
-                });
-                // console.log("Get Report Count");
-              } 
-    }); 
-});   
-
-app.post('/kpi/doctorCount',(req,res)=>{    
-
-    const rep_ID = req.body.rep_ID;
-    const sqlLogin = "SELECT COUNT(doctor_ID) AS doctorCount FROM doctor_details WHERE rep_ID=?";
-
-    // res.send({message : "Hello test"});
-     
-    db.query(sqlLogin,[rep_ID],(err,result)=>{
-            if(err){
-                res.send({err:err})
-                console.log("Error while doctorCount ");
-              } if(result.length > 0){
-                res.send({
-                    doctorCount: result[0].doctorCount,
-                });
-              } 
-
-    }); 
-}); 
-
-app.post('/kpi/compeleteTask', (req, res) => {
+app.post('/Kpi/StatisticData', (req, res) => {
     const rep_ID=req.body.rep_ID;
 
-    db.query('SELECT Count(task_id) AS count FROM task WHERE type="task" AND status="Complete" AND rep_ID = ?',
-    [rep_ID],  (err, result) => {
+    db.query("SELECT \
+    (SELECT COUNT(report_id) FROM visit_summary_report WHERE rep_ID=?) AS reportCount ,\
+    (SELECT SUM(amount) FROM expenses WHERE rep_ID=?) AS expensesAmount, \
+    (SELECT COUNT(rep_ID) FROM leaves WHERE rep_ID=?) AS leaveCount,\
+    (SELECT COUNT(doctor_ID) FROM doctor_details WHERE rep_ID=?) AS doctorCount, \
+    (SELECT Count(task_id) FROM task WHERE type='task' AND status='Complete' AND rep_ID = ?) AS taskcount,\
+    (SELECT Count(task_id) FROM task WHERE type='task' AND rep_ID = ?) AS totalTask,\
+    (SELECT Count(DISTINCT doctor_name) FROM visit_summary_report WHERE rep_ID = ?) AS visitedDoctorcount",
+    [rep_ID,rep_ID,rep_ID,rep_ID,rep_ID,rep_ID,rep_ID],  (err, result) => {
         if (!err) {
-            res.send({
-                completeTaskCount: result[0].count,
-            });
-        } else {
-            console.log(err);
-        }
-    });
-});
-
-app.post('/kpi/VisitDoctor', (req, res) => {
-    const rep_ID=req.body.rep_ID;
-
-    db.query('SELECT Count(DISTINCT doctor_name) AS count FROM visit_summary_report WHERE rep_ID = ?',
-    [rep_ID],  (err, result) => {
-        if (!err) {
-            res.send({
-                visitDoctorCount: result[0].count,
-            });
+            res.send(result);
         } else {
             console.log(err);
         }

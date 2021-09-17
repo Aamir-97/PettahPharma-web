@@ -2,7 +2,7 @@ import React, { useState , useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import back from '../images/back3.jpg';
-
+ 
 function Add_Medicalrep() {
     const [getManager, setGetManager] = useState([]);
     const [rep_ID, setRep_ID] = useState("")
@@ -24,9 +24,10 @@ function Add_Medicalrep() {
             password: password,
             manager_ID: manager_ID,
         }).then(() => {
-            console.log("success");
+            // console.log("success");
+            window.location.replace("/app/MedicalRepList");
             alert("The new medical rep was added successfully.")
-            document.getElementById("create-course-form").reset();
+            // document.getElementById("create-course-form").reset();
         });
     }
     else {

@@ -42,9 +42,9 @@ function TaskProgress() {
   const count3=rejecttask.map(record=>record.count);
 
   const total = parseInt(count1) + parseInt(count2) + parseInt(count3) ;
-  const c1 = parseInt(count1) ;
-  const c2 = parseInt(count2) ;
-  const c3 = parseInt(count3) ;
+  // const c1 = parseInt(count1) ;
+  // const c2 = parseInt(count2) ;
+  // const c3 = parseInt(count3) ;
   const count1percentage =  parseInt(count1) / total * 100 ;
   const count2percentage =  parseInt(count2) / total * 100 ;
   const count3percentage =  parseInt(count3) / total * 100 ;

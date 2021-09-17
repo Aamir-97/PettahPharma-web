@@ -4,7 +4,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from "axios";
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 
@@ -181,7 +181,7 @@ const LeaveList = ({ rest, props }) => {
                           <TableCell><b>Leave Type</b></TableCell>
                           <TableCell><b>Start Date</b></TableCell>
                           <TableCell><b>End Date</b></TableCell>
-                          {/* <TableCell>Date</TableCell> */}
+                          <TableCell>Status</TableCell>
                           <TableCell align="center"><b>Action</b></TableCell>
                         </TableRow>
                       </TableHead>
@@ -216,7 +216,8 @@ const LeaveList = ({ rest, props }) => {
                                 <Box
                                   sx={{
                                     alignItems: 'center',
-                                    display: 'flex'
+                                    display: 'flex',
+                                    marginLeft:2
                                   }}
                                 >
                                   <Typography
@@ -231,7 +232,7 @@ const LeaveList = ({ rest, props }) => {
                               <TableCell>{customer.leave_Type}</TableCell>
                               <TableCell>{year + month + day}</TableCell>
                               <TableCell>{yearr + monthr + dayr}</TableCell>
-                              {/* <TableCell>{customer.date}</TableCell> */}
+                              <TableCell style = {{color:'blue' , fontWeight :'bold' }}>{customer.status}</TableCell>
                               <TableCell align="center">
                                 <Link to={`/appp/LeaveInfo/${customer.leave_ID}`}  >
                                   <Button
@@ -259,7 +260,7 @@ const LeaveList = ({ rest, props }) => {
                                   variant="contained"
                                   // onClick={addstatus("Accept", customer.leave_ID)}
                                   onClick={() => { addstatus("1", customer.leave_ID) }}
-                                  disabled={customer.status == "1"}
+                                  disabled={customer.status == "Rejected" ||customer.status == "Accept"}
                                   startIcon={<CheckIcon />}>
                                   Accept
                                 </Button>
@@ -268,7 +269,7 @@ const LeaveList = ({ rest, props }) => {
                                   color="exit"
                                   variant="contained"
                                   onClick={() => { addstatus("2", customer.leave_ID) }}
-                                  disabled={customer.status == "2"}
+                                  disabled={customer.status == "Rejected" ||customer.status == "Accept"}
                                   startIcon={<ClearIcon />} >
                                   Reject
                                 </Button>

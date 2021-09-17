@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import back from '../images/back3.jpg';
@@ -22,9 +22,10 @@ function Add_Salesmanager() {
             password: password,
 
         }).then(() => {
-            console.log("success");
+            // console.log("success");
+            window.location.replace("/app/ManagerList");
             alert("The new salesmanager was added successfully.")
-            document.getElementById("create-course-form").reset();
+            // document.getElementById("create-course-form").reset();
         });
 
     }

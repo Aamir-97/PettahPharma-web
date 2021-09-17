@@ -59,7 +59,6 @@ const mystyle = {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // marginRight: '0px',
         marginLeft:'10px'
     },
     submitBtn: {
@@ -209,15 +208,12 @@ export default function Edit_Medicalrep() {
                         </AccordionSummary>
                     </Accordion><br />
                 </div>
-
-                {/* <Link to='/app/MedicalRepList' style={mystyle.button}> */}
                     <Button
                         color="primary"
                         variant="contained"
                         style={mystyle.submitBtn}
                         onClick={() => { edit_Medicalrep(rep_ID) }}
                     > Update</Button>
-                {/* </Link> */}
                 <Link to='/app/MedicalRepList'>
                             <Button
                                 type="submit"

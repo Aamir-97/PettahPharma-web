@@ -1,20 +1,15 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
-  Container,
-  Button,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
   CardContent,
   TextField,
   InputAdornment,
@@ -82,7 +77,6 @@ const AnnualExpenseReportTable = ({ expenses }) => {
       marginTop: '0px',
       marginLeft: '100px',
       height: '100%',
-      // boxShadow: "2px 2px 5px  2px #9E9E9E",
       padding: "2vh",
       borderRadius: "5px",
     },
@@ -92,8 +86,6 @@ const AnnualExpenseReportTable = ({ expenses }) => {
   }));
 
   const classes = useStyles();
-  const [selectedRowIds, setSelectedRowIds] = useState([])
-
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
 
@@ -154,7 +146,6 @@ const AnnualExpenseReportTable = ({ expenses }) => {
         <TableHead>
           <TableRow>
               <TableCell scope="col">Rep ID</TableCell>
-              {/* <TableCell scope="col">Expense ID</TableCell> */}
               <TableCell scope="col">Expense Type</TableCell>
               <TableCell scope="col">Date</TableCell>
               <TableCell scope="col">Amount</TableCell>
@@ -185,7 +176,6 @@ const AnnualExpenseReportTable = ({ expenses }) => {
               hover
               key={expense.expense_ID}>
                 <TableCell>{expense.rep_ID}</TableCell>
-                {/* <TableCell>{expense.expense_ID}</TableCell> */}
                 <TableCell>{expense.expense_Type}</TableCell>
                 <TableCell>{year+month+day}</TableCell>
                 <TableCell>{expense.amount}</TableCell>

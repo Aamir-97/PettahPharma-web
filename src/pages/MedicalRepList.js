@@ -21,7 +21,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
 import back from '../images/back3.jpg';
@@ -205,7 +205,7 @@ const MedicalRepList = ({ rest,props} ) => {
                 <TableCell align="center"><b>Phone No</b></TableCell>
                 <TableCell align="center"><b>Working Area</b></TableCell>
                 <TableCell align="center"><b>Rating</b></TableCell>
-                <TableCell align="center"><b>Salesmanager ID</b></TableCell>
+                {/* <TableCell align="center"><b>Manager ID</b></TableCell> */}
                 <TableCell colSpan={2} align="center"><b>Action</b></TableCell>
                 </TableRow>
               </TableHead>
@@ -235,11 +235,12 @@ const MedicalRepList = ({ rest,props} ) => {
                     <TableCell align="center">{Row.phone_no}</TableCell>
                     <TableCell align="center">{Row.working_area}</TableCell>
                     <TableCell align="center">{Row.rating}</TableCell>
-                    <TableCell align="center">{Row.manager_ID}</TableCell>
+                    {/* <TableCell align="center">{Row.manager_ID}</TableCell> */}
                        <TableCell align="center">
                         <Link to={`/app/Edit_Medicalrep/${Row.rep_ID}`}  >
                           <Button
                             color="primary"
+                            size="small"
                             variant="contained"
                             startIcon={<EditIcon />}>
                             Edit
@@ -249,6 +250,7 @@ const MedicalRepList = ({ rest,props} ) => {
                         <TableCell align="center">
                         <Button onClick={() => { deleteMedicalrep(Row.rep_ID) }} 
                           color="exit"
+                          size="small"
                           variant="contained"
                           className={classes.button}
                           startIcon={<DeleteIcon />}>
@@ -271,7 +273,7 @@ const MedicalRepList = ({ rest,props} ) => {
           onRowsPerPageChange={handleLimitChange}
           rowsPerPage={limit}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[5, 10, 25, 50]}
         />
       </Card>
     </>

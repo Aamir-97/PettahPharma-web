@@ -1,19 +1,11 @@
 import { Helmet } from 'react-helmet';
-// import { Box, Container } from '@material-ui/core';
-// import AllownsResults from 'src/components/allowns/AllownsResults';
-// import AllownsToolbar from 'src/components/allowns/AllownsToolbar';
-// import Allowns from 'src/__mocks__/Allowns';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from "axios";
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
   Button,
   CardContent,
@@ -28,17 +20,14 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core';
-import getInitials from 'src/utils/getInitials';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import back from '../images/back3.jpg';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { Search as SearchIcon } from 'react-feather';
-  // import { Link } from 'react-router-dom';
-  // import ReceiptIcon from '@material-ui/icons/Receipt';
-  import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const AllownsList = ({ rest, props }) => {
 
@@ -227,6 +216,7 @@ return(
                         {/* <TableCell>Location</TableCell> */}
                         <TableCell><b>Amount</b></TableCell>
                         <TableCell><b>Date</b></TableCell>
+                        <TableCell><b>Status</b></TableCell>
                         <TableCell align="center"><b>Action</b></TableCell>
                       </TableRow>
                     </TableHead>
@@ -261,7 +251,8 @@ return(
                               <Box
                                 sx={{
                                   alignItems: 'center',
-                                  display: 'flex'
+                                  display: 'flex',
+                                  marginLeft:2
                                 }}
                               >
                                 <Typography
@@ -278,7 +269,7 @@ return(
                             <TableCell>{customer.amount} /=</TableCell>
                             <TableCell>{year + month + day}</TableCell>
                             {/* <TableCell>{yearr + monthr + dayr}</TableCell> */}
-                            {/* <TableCell>{customer.date}</TableCell> */}
+                            <TableCell style = {{color:'blue' , fontWeight :'bold' }}>{customer.status}</TableCell>
                             <TableCell align="center">
                               <Link to={`/appp/AllownsInfo/${customer.expense_ID}`}  >
                                 <Button
@@ -303,7 +294,7 @@ return(
                                 variant="contained"
                                 // onClick={addstatus("Accept", customer.leave_ID)}
                                 onClick={() => { addstatus("1", customer.expense_ID) }}
-                                disabled={customer.status == "1"}
+                                disabled={customer.status == "Accept" ||customer.status == "Rejected"}
                                 startIcon={<CheckIcon />}>
                                 Accept
                               </Button>
@@ -312,7 +303,7 @@ return(
                                 color="exit"
                                 variant="contained"
                                 onClick={() => { addstatus("2", customer.expense_ID) }}
-                                disabled={customer.status == "2"}
+                                disabled={customer.status == "Rejected" ||customer.status == "Accept"}
                                 startIcon={<ClearIcon />}>
                                 Reject
                               </Button>
@@ -343,5 +334,5 @@ return(
     </Box>
   </>
 );
-                    };
+};
 export default AllownsList;

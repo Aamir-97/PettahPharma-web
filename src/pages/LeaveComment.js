@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import axios from "axios";
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -247,7 +247,7 @@ export default function LeaveComment() {
                         variant="contained"
                         // onClick={addstatus("Accept", customer.leave_ID)}
                         onClick={()=>{addstatus("1", Dt.leave_ID)}} 
-                        disabled={Dt.status =="1"}
+                        disabled={Dt.status == "1" || Dt.status == "2"}
                         style={mystyle.acceptBtn}>
                         Accept
                       </Button>
@@ -256,7 +256,7 @@ export default function LeaveComment() {
                         color="exit"
                         variant="contained"
                         onClick={()=>{addstatus("2", Dt.leave_ID)}} 
-                        disabled={Dt.status =="2"} 
+                        disabled={Dt.status == "1" || Dt.status == "2"} 
                         style={mystyle.rejectBtn}>
                         Reject 
                       </Button>

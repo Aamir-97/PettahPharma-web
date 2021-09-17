@@ -34,7 +34,6 @@ import AllownsInfo from 'src/pages/AllownsInfo';
 import AllownsComment from 'src/pages/AllownsComment';
 import Reports from 'src/pages/Reports';
 import Kpi from 'src/pages/Kpi';
-import MonthlyVisitReport from 'src/components/reports/AnnualVisitReport';
 
 const routes = [
   {
@@ -50,7 +49,6 @@ const routes = [
       { path: 'Add_Salesmanager', element: <Add_Salesmanager /> },
       { path: 'Add_Medicalrep', element: <Add_Medicalrep /> },
       { path: 'Add_Product', element: <Add_Product /> },
-      { path: 'MonthlyVisitReport', element: <MonthlyVisitReport /> },
       { path: 'Edit_Salesmanager/:manager_ID', element: <Edit_Salesmanager /> },
       { path: 'Edit_Medicalrep/:rep_ID', element: <Edit_Medicalrep /> },
       { path: 'Edit_Product/:product_id', element: <Edit_Product /> },
@@ -80,9 +78,6 @@ const routes = [
       { path: 'AllownsInfo/:expense_ID', element: <AllownsInfo /> },
       { path: 'AllownsComment/:expense_ID', element: <AllownsComment /> },
       { path: 'Kpi', element: <Kpi /> },
-      // { path: 'Add_product', element: <Add_product /> },
-      // { path: 'products', element: <ProductList /> },
-      // { path: 'settings', element: <Settings /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

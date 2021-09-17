@@ -1,20 +1,15 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Avatar,
   Box,
   Card,
-  Checkbox,
   Table,
-  Container,
-  Button,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
   CardContent,
   TextField,
   InputAdornment,
@@ -92,8 +87,6 @@ const AnnualTaskReportTable = ({ tasks }) => {
   }));
 
   const classes = useStyles();
-  const [selectedRowIds, setSelectedRowIds] = useState([])
-
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(0);
 
@@ -135,7 +128,6 @@ const AnnualTaskReportTable = ({ tasks }) => {
                   placeholder="Search"
                   variant="outlined"
                   onChange={(e) => { setSearchTerm(e.target.value); }}
-                  // alignItems="center"
                   className={classes.textfield}
                 />
               </Box>
@@ -152,16 +144,13 @@ const AnnualTaskReportTable = ({ tasks }) => {
         <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-              {/* <TableCell scope="col">Task ID</TableCell> */}
               <TableCell scope="col">Manager ID</TableCell>
               <TableCell scope="col">Rep ID</TableCell>
               <TableCell scope="col">Title</TableCell>
               <TableCell scope="col">Location</TableCell>
-              {/* <TableCell scope="col">Session</TableCell> */}
               <TableCell scope="col">Date</TableCell>
               <TableCell scope="col">Description</TableCell>
               <TableCell scope="col">Task Type</TableCell>
-              {/* <TableCell scope="col">Rep Note</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -189,16 +178,13 @@ const AnnualTaskReportTable = ({ tasks }) => {
               <TableRow  
               hover
               key={task.task_id}>
-                {/* <TableCell>{task.task_id}</TableCell> */}
                 <TableCell>{task.manager_ID}</TableCell>
                 <TableCell>{task.rep_ID}</TableCell>
                 <TableCell>{task.title}</TableCell>
                 <TableCell>{task.location}</TableCell>
-                {/* <TableCell>{task.session}</TableCell> */}
                 <TableCell>{year+month+day}</TableCell>
                 <TableCell>{task.description}</TableCell>
                 <TableCell>{task.type}</TableCell>
-                {/* <TableCell>{task.rep_note}</TableCell> */}
               </TableRow >
                 )
              })

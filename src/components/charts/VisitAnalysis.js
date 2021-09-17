@@ -2,13 +2,11 @@ import React, { useState,useEffect } from "react";
 import { Bar } from 'react-chartjs-2';
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardHeader,
   Divider,
-  useTheme,
-  colors
+  useTheme
 } from '@material-ui/core';
 import axios from 'axios'
 

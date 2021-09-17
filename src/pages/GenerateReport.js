@@ -1,29 +1,14 @@
-import React,{useEffect,useState} from 'react';
-// import clsx from 'clsx';
+import React,{useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-// import { Link } from "react-router-dom";
+// import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-// import Drawer from '@material-ui/core/Drawer';
-// import AppBar from '@material-ui/core/AppBar';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import List from '@material-ui/core/List';
-// import Typography from '@material-ui/core/Typography';
-// import IconButton from '@material-ui/core/IconButton';
-// import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-// import MenuIcon from '@material-ui/icons/Menu';
-// import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
-// import Menu from '@material-ui/core/Menu';
-// import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
-// import Divider from '@material-ui/core/Divider';
 import ReactToPrint from 'react-to-print';
-import DataComponent from './DataComponent';
+import DataComponent from 'src/pages/DataComponent';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -108,52 +93,21 @@ const GenerateReport=({componentRef})=> {
   // const [open, setOpen] = React.useState(true);
   // const {id}=useParams();
   // const [Dt, setDt] = useState([])
-  // const[to_date,setTodate]=useState("");
-  // const[from_date,setFromdate]=useState("");
+  const[to_date,setTodate]=useState("");
+  const[from_date,setFromdate]=useState("");
+  const [visitsummaryList,setvisitsummaryList]=useState([])
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //       const response = await axios.get('http://localhost:3001/viewAdmin', {
-  //           params: {
-  //               id: id,  
-  //           }
-  //       });
-   
-  //       setDt(response.data[0]);
-  //          console.log(response.data[0]);
-   
-  //   };
-  //   fetchData();
-  //  }, [id]);
+  const visitsummary = async () => {
+    const response = await axios.get('http://localhost:3001/viewvisitsummaryReport', {
+        params: {
+           to_date:to_date,  
+           from_date:from_date
+        }
+        
+    });
 
-  //  const [cus,setCus]=useState([])
-
-  
-    // const customer = async () => {
-    //     const response = await axios.get('http://localhost:3001/CusWithDate', {
-    //         params: {
-    //            to_date:to_date,  
-    //            from_date:from_date
-    //         }
-            
-    //     });
-   
-    //     setCus(response.data);
-           
-   
-    // }
-
-  // const [cusorderCount,setCusOrderCount]=useState([])
-  // useEffect(()=>{
-  //   axios.get("http://localhost:3001/CustomizedOrderCount").then((response)=>{
-  //     setCusOrderCount(response.data)
-      
-  //   })
-  // },[])
-
-  
-  // const customizedcount=cusorderCount.map(record=>record.count);
-  // const total=Number(customizedcount);
+    setvisitsummaryList(response.data);
+}
 
   return (
     <div className={classes.root}>

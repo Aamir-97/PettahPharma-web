@@ -17,9 +17,9 @@ import Logo from './Logo';
 const DashboardSaleNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
 
-  function abc (){
-    localStorage.clear();
-  }
+  // function abc (){
+  //   localStorage.clear();
+  // }
 
   return (
     <AppBar

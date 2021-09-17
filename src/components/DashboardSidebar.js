@@ -1,12 +1,9 @@
 import { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
-import { IconButton } from '@material-ui/core';
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   Drawer,
   Hidden,
@@ -49,7 +46,7 @@ const items = [
     icon: LocalPharmacyIcon,
     title: 'Products'
   },
-  {
+  { 
     href: '/app/Reports',
     icon: DescriptionOutlinedIcon,
     title: 'Reports'
@@ -57,7 +54,7 @@ const items = [
   // {
   //   href: '/app/Forum',
   //   icon: ForumIcon,
-  //   title: 'Discussion Forum'
+  //   title: 'Forum'
   // },
   {
     href: '/login',

@@ -199,15 +199,12 @@ export default function Edit_Salesmanager() {
                         </AccordionSummary>
                     </Accordion><br />
                 </div>
-
-                {/* <Link to='/app/ManagerList' style={mystyle.button}> */}
                     <Button
                         color="primary"
                         variant="contained"
                         style={mystyle.submitBtn}
                         onClick={() => { edit_Salesmanager(manager_ID) }}
                     > Update</Button>
-                {/* </Link> */}
                 <Link to='/app/ManagerList'>
                             <Button
                                 type="submit"

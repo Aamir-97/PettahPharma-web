@@ -315,7 +315,7 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
                         return val
                       }
                       else if (
-                        val.rep_ID == searchTerm) {
+                        val.rep_ID === searchTerm) {
                         return val
                       }
                     }).map((rep) => (

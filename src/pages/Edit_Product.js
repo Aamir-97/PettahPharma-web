@@ -60,7 +60,6 @@ const mystyle = {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
-        // marginRight: '0px',
         marginLeft:'10px'
     },
     submitBtn: {
@@ -106,9 +105,6 @@ export default function Edit_Product({navigation}) {
             product_id: product_id 
         }).then(
             (response) => { 
-                // console.log(response)
-                // window.location.reload();
-                // navigation.navigate('/app/ProductList')
                 window.location.replace('/app/ProductList');
             }
         )
@@ -127,7 +123,6 @@ export default function Edit_Product({navigation}) {
             setVolume(response.data[0].volume);
             setPrice(response.data[0].price);
             setDescription(response.data[0].description);
-            // console.log(response.data[0]);
         };
         fetchData();
     }, []);
@@ -223,15 +218,12 @@ export default function Edit_Product({navigation}) {
                         </AccordionDetails>
                     </Accordion><br />
                 </div>
-
-                {/* <Link to='/app/ProductList' style={mystyle.button}> */}
                     <Button
                         color="primary"
                         variant="contained"
                         style={mystyle.submitBtn}
                         onClick={() => { edit_Product(product_id) }}
                     > Update</Button>
-                {/* </Link> */}
                 <Link to='/app/ProductList'>
                             <Button
                                 type="submit"

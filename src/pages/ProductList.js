@@ -21,7 +21,7 @@ import {
   InputAdornment,
   SvgIcon,
 } from '@material-ui/core';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
 import back from '../images/back3.jpg';
@@ -219,7 +219,6 @@ const ProductList = ({ rest,props} ) => {
                     return val
                   }
                 }).map((Row) => {
-                  // const imageDirectory = path.join(__dirname, '../public/')
                   return (
                     <TableRow
                       hover
@@ -236,6 +235,7 @@ const ProductList = ({ rest,props} ) => {
                           <Button
                             color="primary"
                             variant="contained"
+                            size="small"
                             startIcon={<EditIcon />}>
                             Edit
                           </Button>
@@ -245,6 +245,7 @@ const ProductList = ({ rest,props} ) => {
                         <Button onClick={() => { deleteProduct(Row.product_id) }} 
                           color="exit"
                           variant="contained"
+                          size="small"
                           className={classes.button}
                           startIcon={<DeleteIcon />}>
                           Delete

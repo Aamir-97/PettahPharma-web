@@ -22,7 +22,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Search as SearchIcon } from 'react-feather';
 import { makeStyles } from '@material-ui/core/styles';
 import back from '../images/back3.jpg';
@@ -236,6 +236,7 @@ const ManagerList = ({ rest,props} ) => {
                         <Link to={`/app/Edit_Salesmanager/${Row.manager_ID}`}  >
                           <Button
                             color="primary"
+                            size="small"
                             variant="contained"
                             className={classes.button}
                             startIcon={<EditIcon />}>
@@ -247,6 +248,7 @@ const ManagerList = ({ rest,props} ) => {
                         <Button 
                           onClick={() => { deleteManager(Row.manager_ID) }} 
                           color="exit"
+                          size="small"
                           variant="contained"
                           className={classes.button}
                           startIcon={<DeleteIcon />}
@@ -270,7 +272,7 @@ const ManagerList = ({ rest,props} ) => {
             onRowsPerPageChange={handleLimitChange}
             rowsPerPage={limit}
             onRowsPerPageChange={handleChangeRowsPerPage}
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[5, 10, 25, 50]}
       />
       </Card>
     </>

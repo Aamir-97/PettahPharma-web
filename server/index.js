@@ -740,7 +740,9 @@ app.post('/addcomment', (req, res) => {
 });
 
 app.get('/getleave', (req, res) => {
-    db.query('SELECT leaves.status,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,medicalrep.name AS repname FROM medicalrep INNER JOIN leaves ON medicalrep.rep_ID = leaves.rep_ID WHERE medicalrep.manager_ID = ? ORDER BY start_Date DESC', [req.query.manager_ID], (err, result, fields) => {
+    db.query('SELECT  \
+            CASE WHEN leaves.status=0 THEN "Pending" WHEN leaves.status=1 THEN "Accept" ELSE "Rejected" END AS status \
+            ,leaves.leave_ID,leaves.leave_Type,leaves.start_Date,leaves.end_Date,medicalrep.name AS repname FROM medicalrep INNER JOIN leaves ON medicalrep.rep_ID = leaves.rep_ID WHERE medicalrep.manager_ID = ? ORDER BY start_Date DESC', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
             // console.log(result);
@@ -860,7 +862,9 @@ app.post('/addstatus', (req, res) => {
 });
  
 app.get('/getexpense', (req, res) => {
-    db.query('SELECT expenses.expense_ID,expenses.status,expenses.expense_type,expenses.location,expenses.date,expenses.amount,medicalrep.name AS repname FROM medicalrep INNER JOIN expenses ON medicalrep.rep_ID = expenses.rep_ID WHERE medicalrep.manager_ID = ? ORDER BY expenses.date DESC', [req.query.manager_ID], (err, result, fields) => {
+    db.query('SELECT expenses.expense_ID,\
+            CASE WHEN expenses.status=0 THEN "Pending" WHEN expenses.status=1 THEN "Accept" ELSE "Rejected" END AS status \
+            ,expenses.expense_type,expenses.location,expenses.date,expenses.amount,medicalrep.name AS repname FROM medicalrep INNER JOIN expenses ON medicalrep.rep_ID = expenses.rep_ID WHERE medicalrep.manager_ID = ? ORDER BY expenses.date DESC', [req.query.manager_ID], (err, result, fields) => {
         if (!err) {
             res.send(result);
             // console.log(result);
@@ -995,7 +999,7 @@ app.get('/viewvisitsummary', (req, res) => {
 })
 
 app.get('/viewvisitsummaryReport',(req,res) => {
-    db.query("SELECT * FROM visit_summary_report FROM customer WHERE date BETWEEN ? AND ? ",[req.query.from_date,req.query.to_date], (err, result) => {
+    db.query("SELECT * FROM visit_summary_report WHERE date BETWEEN ? AND ? ",[req.query.from_date,req.query.to_date], (err, result) => {
         if(err) {
             console.log(err)
         }else {
@@ -1012,12 +1016,34 @@ app.get('/viewexpensesummary', (req, res) => {
     })
 })
 
+app.get('/viewexpensesummaryReport',(req,res) => {
+    db.query('SELECT * FROM expenses WHERE status="1" AND date BETWEEN ? AND ? ',[req.query.from_date,req.query.to_date], (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+           
+        }
+    });
+ }); 
+
 app.get('/viewtasksummary', (req, res) => {
     db.query('SELECT * FROM task WHERE status="Complete"', [req.query.task_id], (err, result) => {
         res.send(result);
         console.log(result);
     })
 })
+
+app.get('/viewtasksummaryReport',(req,res) => {
+    db.query('SELECT * FROM task WHERE status="Complete" AND date BETWEEN ? AND ? ',[req.query.from_date,req.query.to_date], (err, result) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(result);
+           
+        }
+    });
+ }); 
 
 app.get('/totalRepExpenses', (req, res) => {
     const manager_ID = req.query.manager_ID;

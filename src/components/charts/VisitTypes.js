@@ -7,8 +7,7 @@ import {
   CardHeader,
   Divider,
   Typography,
-  colors,
-  useTheme
+  colors
 } from '@material-ui/core';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import CardMembershipIcon from '@material-ui/icons/CardMembership';
@@ -43,9 +42,9 @@ function VisitTypes() {
   const count3=feedbackVisit.map(record=>record.count);
 
   const total = parseInt(count1) + parseInt(count2) + parseInt(count3) ;
-  const c1 = parseInt(count1) ;
-  const c2 = parseInt(count2) ;
-  const c3 = parseInt(count3) ;
+  // const c1 = parseInt(count1) ;
+  // const c2 = parseInt(count2) ;
+  // const c3 = parseInt(count3) ;
   const count1percentage =  parseInt(count1) / total * 100 ;
   const count2percentage =  parseInt(count2) / total * 100 ;
   const count3percentage =  parseInt(count3) / total * 100 ;

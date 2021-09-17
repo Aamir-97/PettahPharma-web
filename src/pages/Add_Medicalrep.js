@@ -24,7 +24,7 @@ function Add_Medicalrep() {
             password: password,
             manager_ID: manager_ID,
         }).then(() => {
-            console.log("success");
+            // console.log("success");
             window.location.replace("/app/MedicalRepList");
             alert("The new medical rep was added successfully.")
             // document.getElementById("create-course-form").reset();

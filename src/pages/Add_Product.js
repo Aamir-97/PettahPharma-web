@@ -29,8 +29,8 @@ function Add_Product() {
             description: description,
 
         }).then(() => {
-            console.log("success");
-               window.location.replace("/app/ProductList");
+            // console.log("success");
+            window.location.replace("/app/ProductList");
             alert("The new product was added successfully.")
             // document.getElementById("create-course-form").reset();
         });

@@ -22,7 +22,7 @@ function Add_Salesmanager() {
             password: password,
 
         }).then(() => {
-            console.log("success");
+            // console.log("success");
             window.location.replace("/app/ManagerList");
             alert("The new salesmanager was added successfully.")
             // document.getElementById("create-course-form").reset();

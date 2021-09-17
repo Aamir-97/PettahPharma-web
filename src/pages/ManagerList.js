@@ -218,7 +218,7 @@ const ManagerList = ({ rest,props} ) => {
                   return val
                 }
                 else if (
-                  val.manager_ID===searchTerm) {
+                  val.manager_ID==searchTerm) {
                   return val
                 }
                 }).map((Row) => {
@@ -236,6 +236,7 @@ const ManagerList = ({ rest,props} ) => {
                         <Link to={`/app/Edit_Salesmanager/${Row.manager_ID}`}  >
                           <Button
                             color="primary"
+                            size="small"
                             variant="contained"
                             className={classes.button}
                             startIcon={<EditIcon />}>
@@ -247,6 +248,7 @@ const ManagerList = ({ rest,props} ) => {
                         <Button 
                           onClick={() => { deleteManager(Row.manager_ID) }} 
                           color="exit"
+                          size="small"
                           variant="contained"
                           className={classes.button}
                           startIcon={<DeleteIcon />}

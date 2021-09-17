@@ -235,6 +235,7 @@ const ProductList = ({ rest,props} ) => {
                           <Button
                             color="primary"
                             variant="contained"
+                            size="small"
                             startIcon={<EditIcon />}>
                             Edit
                           </Button>
@@ -244,6 +245,7 @@ const ProductList = ({ rest,props} ) => {
                         <Button onClick={() => { deleteProduct(Row.product_id) }} 
                           color="exit"
                           variant="contained"
+                          size="small"
                           className={classes.button}
                           startIcon={<DeleteIcon />}>
                           Delete

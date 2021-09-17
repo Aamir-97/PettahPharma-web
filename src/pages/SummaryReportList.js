@@ -231,7 +231,8 @@ const SummaryReportList = (rest, props) => {
                                 <Box
                                   sx={{
                                     alignItems: 'center',
-                                    display: 'flex'
+                                    display: 'flex',
+                                    marginLeft:2
                                   }}
                                 >
                                   <Typography

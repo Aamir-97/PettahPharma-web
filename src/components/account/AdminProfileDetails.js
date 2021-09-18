@@ -37,7 +37,7 @@ export default function AdminProfileDetails() {
     },
     forminput: {
 
-      width: '360px',
+      width: '300px',
       padding: '10px 10px',
       margin: '2px 0',
       display: 'inline - block',

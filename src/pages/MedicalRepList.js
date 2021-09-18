@@ -79,6 +79,7 @@ const MedicalRepList = ({ rest,props} ) => {
     h1: {
       fontFamily: "Sans-serif",
       color: '#FFF',
+      fontWeight:'bold'
     },
   }));
 

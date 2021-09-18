@@ -38,9 +38,6 @@ function Add_Medicalrep() {
     useEffect(() => {
       const fetchData = async () => {
           const response = await axios.get('http://localhost:3001/getmanager', {
-              params: {
-                  manager_ID: manager_ID,
-              }
           });
           setGetManager(response.data);
       };
@@ -66,7 +63,8 @@ function Add_Medicalrep() {
             display: 'inline - block',
             border: '1px solid #C0C0C0',
             borderRadius: '5px',
-            height: '40px'
+            height: '40px',
+            
         },
         formhead: {
             paddingTop: '50px',
@@ -152,13 +150,24 @@ function Add_Medicalrep() {
                             onChange={(event) => { setPassword(event.target.value); }}
                             required
                         /><br />
-                        <input
+                        {/* <input
                             type="text"
                             style={mystyle.forminput}
                             placeholder="ManagerID"
                             onChange={(event) => { setManager_ID(event.target.value); }}
                             required
-                        /><br />
+                        /><br /> */}
+                        <select
+                                        native
+                                        style={mystyle.forminput}
+                                        required
+                                        onChange={(event) => { setManager_ID(event.target.value); }}
+                                    >
+                                        <option aria-label="None" value="" >Select Manager </option >
+                                        {getManager.map((customer) => (
+                                            <option Value={customer.manager_ID}>{customer.name}-{customer.manager_ID}</option>
+                                        ))}
+                                    </select>
                     </div>
 
                     <div display='flex' align='right'>

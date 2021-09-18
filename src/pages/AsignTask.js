@@ -121,7 +121,7 @@ export default function AsignTask() {
     const [date, setDate] = useState("")
     const [location, setLocation] = useState("")
     let fullday = 'Full-Day';
-    let type = 'task';
+    let type = 'Task';
     const items = [
         {
             href: '/appp/dataplan',

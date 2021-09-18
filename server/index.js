@@ -535,7 +535,7 @@ app.get('/getmanagername', (req, res) => {
 })
 
 app.get('/getmanager', (req, res) => {
-    db.query('SELECT name,manager_ID FROM salesmanager', [req.query.manager_ID], (err, result) => {
+    db.query('SELECT name,manager_ID FROM salesmanager', (err, result) => {
         res.send(result);
         console.log(result);
     })

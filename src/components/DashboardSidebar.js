@@ -52,7 +52,7 @@ const items = [
     title: 'Reports'
   },
   // {
-  //   href: '/app/Forum',
+  //   href: '/app/FileUpload',
   //   icon: ForumIcon,
   //   title: 'Forum'
   // },

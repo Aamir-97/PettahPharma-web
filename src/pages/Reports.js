@@ -80,6 +80,7 @@ const Reports = ({ rest,props,componentRef,componentRef2,componentRef3} ) => {
     h1: {
       fontFamily: "Sans-serif",
       color: '#FFF',
+      fontWeight:'bold'
     },
   }));
 

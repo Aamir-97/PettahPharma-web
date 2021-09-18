@@ -15,6 +15,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Typography,
   CardContent,
   TextField,
   InputAdornment,
@@ -23,6 +24,7 @@ import {
 import { Search as SearchIcon } from 'react-feather';
 import StarIcon from '@material-ui/icons/Star';
 import back from '../images/back3.jpg';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 const SummaryReportResults = ({ SummaryReport, rest, props }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([])
@@ -82,19 +84,19 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
     h1: {
       color: '#FFF',
       fontFamily: "Sans-serif",
+      fontWeight : 'bold'
     },
     h2: {
       fontFamily: "Sans-serif",
-      margin: 20,
+      marginTop: 20,
+      marginLeft: 20,
       fontSize : 24,
       fontWeight : 'bold'
-
     },
-
     h3: {
       fontFamily: "Sans-serif",
-      margin: 20,
-      fontSize : 20,
+      marginLeft: 20,
+      fontSize : 18,
       fontWeight : 'bold',
       color : 'red'
 
@@ -211,7 +213,7 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
               marginLeft: '400px',
             }}
           >
-            <h1 style={{ flex: 3, flexWrap: 'wrap' }} className={classes.h1} >KPI ANALYSIS  </h1>
+            <h1 style={{ flex: 3, flexWrap: 'wrap' }} className={classes.h1} > <AssessmentIcon style={{ fontSize: "40px" }}/> KPI ANALYSIS  </h1>
           </Box>
 
           <Box sx={{ mt: 3, mb: 3 }}>
@@ -246,11 +248,10 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
             <Card {...rest}>
               <PerfectScrollbar>
                 <Box sx={{ minWidth: 1050 }}>
-                  <Box><h2 className={classes.h2}>{rep_ID} - {name} </h2>
-                  <p className={classes.h3}>Kpi Rating - {rating} <StarIcon/> </p>
-
-                  </Box>
-                  
+                  <Typography>
+                  <p style={{fontSize:'24px',color:'#0A6466',fontWeight: 'bold',fontFamily:'sans-serif', marginLeft: 20, marginTop: 20}}>{rep_ID} - {name} </p>
+                  <p style={{fontSize:'18px',color:'#e53935', fontWeight: 'bold',fontFamily: 'Sans-serif', marginLeft: 23}}>KPI Rating - {rating} <StarIcon/></p>
+                  </Typography>    
                   <Table>
                     <TableHead>
 
@@ -259,7 +260,7 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
                         <TableCell align="center">Total VSR</TableCell>
                         <TableCell align="center">Expenses</TableCell>
                         <TableCell align="center">Leaves</TableCell>
-                        <TableCell align="center">Doctor Coverage(%)</TableCell>
+                        <TableCell align="center">Doctor Coverage (%)</TableCell>
                         <TableCell align="center">Task complete (%)</TableCell>
                         <TableCell align="center">Expense per visit</TableCell>
                         <TableCell align="center">No.of met/Working Day</TableCell>
@@ -315,7 +316,7 @@ const SummaryReportResults = ({ SummaryReport, rest, props }) => {
                         return val
                       }
                       else if (
-                        val.rep_ID === searchTerm) {
+                        val.rep_ID == searchTerm) {
                         return val
                       }
                     }).map((rep) => (

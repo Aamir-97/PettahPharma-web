@@ -62,19 +62,19 @@ const tasksummary = async () => {
             mr: 6
           }}>
             <div>
-                  <label style={{marginLeft:'40px',fontSize:'18px'}}>From Date</label>
-                  <input type='date' style={{width:'300px',height:'40px',border:'none',backgroundColor:'white',paddingLeft:'20px',marginTop:'10px',marginLeft:'20px',borderRadius:'10px'}} placeholder='From Date' 
+                  <label style={{marginLeft:'40px',fontSize:'18px',fontWeight:'bold'}}>From Date</label>
+                  <input type='date' style={{width:'300px',height:'40px',border:'5',backgroundColor:'white',paddingLeft:'20px',marginTop:'10px',marginLeft:'20px',borderRadius:'5px'}} placeholder='From Date' 
                    onChange={(event)=> {
                     setFromdate(event.target.value);
                   }} ></input>
                   </div>
                   <div>
-               <label style={{marginLeft:'40px',fontSize:'18px'}}>To Date</label>
-              <input type='date' style={{width:'300px',height:'40px',border:'none',backgroundColor:'white',paddingLeft:'20px',marginTop:'10px',marginLeft:'20px',borderRadius:'10px'}} placeholder='To date' 
+               <label style={{marginLeft:'40px',fontSize:'18px',fontWeight:'bold'}}>To Date</label>
+              <input type='date' style={{width:'300px',height:'40px',border:'5',backgroundColor:'white',paddingLeft:'20px',marginTop:'10px',marginLeft:'20px',borderRadius:'5px'}} placeholder='To date' 
                    onChange={(event)=> {
                     setTodate(event.target.value);
                   }} ></input></div>
-                  <button style={{marginLeft:'30px',fontSize:'15px',width:'200px',height:'35px',backgroundColor:'#0A6466',border:'none',borderRadius:'5px',color:'white',marginTop:'10px'}}
+                  <button style={{marginLeft:'30px',fontSize:'15px',width:'200px',height:'35px',backgroundColor:'#0A6466',border:'none',borderRadius:'5px',color:'white',marginTop:'40px'}}
                   onClick={()=>{tasksummary()}}><b>Generate Summary</b></button>          
             {/* <Button
               variant="contained" 

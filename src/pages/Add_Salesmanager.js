@@ -104,7 +104,7 @@ function Add_Salesmanager() {
                             onChange={(event) => { setManager_ID(event.target.value); }}
                             required
                         /><br />
-                        <input
+                        <input 
                             type="text"
                             style={mystyle.forminput}
                             placeholder="Name"

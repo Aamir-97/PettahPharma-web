@@ -144,7 +144,7 @@ function Add_Medicalrep() {
                             required
                         /><br />
                         <input
-                            type="text"
+                            type="password"
                             style={mystyle.forminput}
                             placeholder="Password"
                             onChange={(event) => { setPassword(event.target.value); }}

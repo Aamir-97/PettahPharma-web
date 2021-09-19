@@ -205,7 +205,7 @@ const MedicalRepList = ({ rest,props} ) => {
                 <TableCell align="center"><b>Email</b></TableCell>
                 <TableCell align="center"><b>Phone No</b></TableCell>
                 <TableCell align="center"><b>Working Area</b></TableCell>
-                <TableCell align="center"><b>Rating</b></TableCell>
+                {/* <TableCell align="center"><b>Rating</b></TableCell> */}
                 {/* <TableCell align="center"><b>Manager ID</b></TableCell> */}
                 <TableCell colSpan={2} align="center"><b>Action</b></TableCell>
                 </TableRow>
@@ -235,7 +235,7 @@ const MedicalRepList = ({ rest,props} ) => {
                     <TableCell align="center">{Row.email}</TableCell>
                     <TableCell align="center">{Row.phone_no}</TableCell>
                     <TableCell align="center">{Row.working_area}</TableCell>
-                    <TableCell align="center">{Row.rating}</TableCell>
+                    {/* <TableCell align="center">{Row.rating}</TableCell> */}
                     {/* <TableCell align="center">{Row.manager_ID}</TableCell> */}
                        <TableCell align="center">
                         <Link to={`/app/Edit_Medicalrep/${Row.rep_ID}`}  >

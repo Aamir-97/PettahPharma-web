@@ -229,7 +229,7 @@ const ProductList = ({ rest,props} ) => {
                     <TableCell align="center"><img style={{height:'100px',width:'100px'}} src= {`/${Row.display_photo}`} /></TableCell>
                       <TableCell align="center">{Row.name}</TableCell>
                       <TableCell align="center">{Row.volume}</TableCell>
-                      <TableCell align="center">{Row.price}</TableCell>
+                      <TableCell align="center">{Row.price}.00</TableCell>
                       <TableCell align="center">{Row.description}</TableCell>
                        <TableCell align="center">
                         <Link to={`/app/Edit_Product/${Row.product_id}`}  >

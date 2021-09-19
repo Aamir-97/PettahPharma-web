@@ -132,7 +132,7 @@ function Add_Salesmanager() {
                             required
                         /><br />
                         <input
-                            type="text"
+                            type="password"
                             style={mystyle.forminput}
                             placeholder="Password"
                             onChange={(event) => { setPassword(event.target.value); }}

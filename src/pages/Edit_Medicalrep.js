@@ -100,6 +100,8 @@ export default function Edit_Medicalrep() {
             { name: name,  email: email, phone_no: phone_no, working_area: working_area, rep_ID: rep_ID }).then(
                 (response) => { 
                     window.location.replace('/app/MedicalRepList');
+                    alert("The medical rep details were updated successfully.")
+
                 }
             )
     };

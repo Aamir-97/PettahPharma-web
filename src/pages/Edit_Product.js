@@ -111,7 +111,6 @@ export default function Edit_Product({navigation}) {
       }
     
     const edit_Product = (product_id) => {
-        console.log(display_photo,name,volume,price,description,product_id)
 
         if (state.file) {
             let formData = new FormData();
@@ -128,8 +127,10 @@ export default function Edit_Product({navigation}) {
             description: description, 
             product_id: product_id 
         }).then(
-            (response) => { 
-                window.location.replace('/app/ProductList');
+() => { 
+            window.location.replace('/app/ProductList');
+            alert("The new product was updated successfully.")
+
             }
         )
      }

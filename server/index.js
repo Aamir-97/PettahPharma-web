@@ -669,7 +669,7 @@ app.post('/upload', function (req, res) {
 
 app.get('/getrep', (req, res) => {
     console.log(req.query.date);
-    db.query('SELECT medicalrep.name, medicalrep.rep_ID  FROM medicalrep WHERE medicalrep.rep_ID NOT IN (SELECT leaves.rep_ID FROM leaves WHERE start_Date= ? ) AND medicalrep.manager_ID= ? AND medicalrep.rep_ID NOT IN (SELECT task.rep_ID FROM task WHERE task.date= ? AND (task.session= ? OR task.session= ? ))', [req.query.date, req.query.manager_ID, req.query.date, req.query.session, req.query.fullday], (err, result) => {
+    db.query('SELECT medicalrep.name, medicalrep.rep_ID  FROM medicalrep WHERE medicalrep.rep_ID NOT IN (SELECT leaves.rep_ID FROM leaves WHERE start_Date= ? AND status=1 ) AND medicalrep.manager_ID= ? AND medicalrep.rep_ID NOT IN (SELECT task.rep_ID FROM task WHERE task.date= ? AND (task.session= ? OR task.session= ? ))', [req.query.date, req.query.manager_ID, req.query.date, req.query.session, req.query.fullday], (err, result) => {
         res.send(result);
         console.log('result');
         console.log(result);

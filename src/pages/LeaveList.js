@@ -250,7 +250,7 @@ const LeaveList = ({ rest, props }) => {
                                   variant="contained"
                                   startIcon={<AddCommentIcon />}>
                                   <Link to={`/appp/LeaveComment/${customer.leave_ID}`} className={classes.link} >
-                                    Add Comment
+                                    Add Reason
                                   </Link>
                                 </Button>
 

@@ -161,7 +161,7 @@ export default function AllownsComment() {
             <div className={classes.formbox}>
                 <div className={classes.root}>
                     <Grid item xs={12}>
-                        <Paper className={classes.paper}><h1>ADD COMMENT</h1>  </Paper><br />
+                        <Paper className={classes.paper}><h1>ADD REASON</h1>  </Paper><br />
                     </Grid>
                     <div className={classes.root}>
                         <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
@@ -220,7 +220,7 @@ export default function AllownsComment() {
                             style={mystyle.submitBtn}
                             onClick={() => { addcomment(expense_ID) }}
                         >
-                            Add Comment
+                            Add Reason
                         </Button>
                     </Link>
                     <Button

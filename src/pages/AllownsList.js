@@ -285,7 +285,7 @@ return(
                                   color="edit"
                                   variant="contained"
                                   startIcon={<AddCommentIcon />}>
-                                  Add Comment
+                                  Add Reason
                                 </Button>
                               </Link>
                               {' '}

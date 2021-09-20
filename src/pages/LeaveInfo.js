@@ -191,7 +191,7 @@ export default function LeaveInfo() {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
-                                <textarea value={Dt.description} rows="10" cols="80" ></textarea>
+                                <textarea value={Dt.description} rows="4" cols="80" ></textarea>
                             </Typography>
                         </AccordionDetails>
                     </Accordion><br />
@@ -202,12 +202,12 @@ export default function LeaveInfo() {
                             aria-controls="panel1bh-content"
                             id="panel1bh-header"
                         >
-                            <Typography className={classes.heading}>Manager Comment</Typography>
+                            <Typography className={classes.heading}>Reason</Typography>
                             <Typography className={classes.secondaryHeading}>click full details</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
-                                <textarea value={Dt.salesmanager_comment} rows="10" cols="80" ></textarea>
+                                <textarea value={Dt.salesmanager_comment} rows="4" cols="80" ></textarea>
                             </Typography>
                         </AccordionDetails>
                     </Accordion><br />
@@ -220,7 +220,7 @@ export default function LeaveInfo() {
                         variant="contained"
                         style={mystyle.submitBtn}
                     >
-                        Add Comment
+                        Add Reason
                     </Button>
                 </Link>
                 

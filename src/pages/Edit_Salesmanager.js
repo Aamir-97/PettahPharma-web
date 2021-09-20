@@ -102,6 +102,7 @@ export default function Edit_Salesmanager() {
             { name: name, email: email, phone_no: phone_no, area: area, manager_ID: manager_ID }).then(
                 (response) => { 
                     window.location.replace('/app/ManagerList');
+                    alert("The salesmanager details were updated successfully.")
                 }
             )
     };

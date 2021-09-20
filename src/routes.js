@@ -35,6 +35,7 @@ import AllownsComment from 'src/pages/AllownsComment';
 import Reports from 'src/pages/Reports';
 import Kpi from 'src/pages/Kpi';
 
+
 const routes = [
   {
     path: 'app',
@@ -53,7 +54,6 @@ const routes = [
       { path: 'Edit_Medicalrep/:rep_ID', element: <Edit_Medicalrep /> },
       { path: 'Edit_Product/:product_id', element: <Edit_Product /> },
       { path: 'Forum', element: <Forum /> },
-      { path: 'GenerateReport', element: <GenerateReport /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

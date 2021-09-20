@@ -248,7 +248,7 @@ export default function AdminSetPassword() {
               <Form.Group as={Row} controlId="formHorizontaloldPassword">
 
                 <TextField
-                  type="password" hidden={true}
+                  type="password" 
                   {...register('oldpassword')}
                   required
                   fullWidth

@@ -88,14 +88,37 @@ const mystyle = {
 export default function Edit_Product({navigation}) {
     const product_id = window.location.pathname.substring(18, 21);
     // const [Row, setRow] = useState([]);
+    const [state,setState]=useState({file:'',display_photo:'',message:'',success:false})
     const [display_photo, setDisplay_photo] = useState("");
     const [name, setName] = useState("");
     const [volume, setVolume] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
+
+    const handleInput = (e) => {
+        let reader = new FileReader();
+        let file = e.target.files[0]
+        reader.onloadend = () => {
+          setState({
+            ...state,
+            file: file,
+            DisplayPhoto: reader.result,
+            message: ""
+          })
+      
+        }
+        reader.readAsDataURL(file);
+      }
     
     const edit_Product = (product_id) => {
-        console.log(display_photo,name,volume,price,description,product_id)
+
+        if (state.file) {
+            let formData = new FormData();
+            formData.append('file', state.file)
+            axios.post('http://localhost:3001/imageUpload', formData, {
+                'content-Type': 'multipart/form-data',
+        })
+
         axios.post("http://localhost:3001/updateproduct", 
         { display_photo: display_photo, 
             name: name,  
@@ -104,10 +127,13 @@ export default function Edit_Product({navigation}) {
             description: description, 
             product_id: product_id 
         }).then(
-            (response) => { 
-                window.location.replace('/app/ProductList');
+() => { 
+            window.location.replace('/app/ProductList');
+            alert("The new product was updated successfully.")
+
             }
         )
+     }
 };
 
     useEffect(() => {
@@ -151,7 +177,8 @@ export default function Edit_Product({navigation}) {
                                 <input
                                     type="file"
                                     defaultValue={display_photo}
-                                    onChange={(event) => { setDisplay_photo(event.target.value); }}
+                                    // onChange={(event) => { setDisplay_photo(event.target.value); }}
+                                    onChange={handleInput}
                                     style={mystyle.forminput}
                                 />
                             </Typography>

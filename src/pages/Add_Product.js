@@ -11,16 +11,46 @@ function Add_Product() {
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
  
+    const handleInput = (e) => {
+        let reader = new FileReader();
+        let file = e.target.files[0]
+        reader.onloadend = () => {
+          setState({
+            ...state,
+            file: file,
+            DisplayPhoto: reader.result,
+            message: ""
+          })
+      
+        }
+        reader.readAsDataURL(file);
+      }
+
     const add_Product = () => {
         if (name && volume && price) {
-        if(state.file){
-      let formData=new FormData();
-      formData.append('file',state.file)
-        
-        axios.post('http://localhost:3001/imageUpload',formData,{
-        'content-Type':'multipart/form-data',
-      })
-    }
+    
+        if (state.file) {
+        let formData = new FormData();
+        formData.append('file', state.file)
+        axios.post('http://localhost:3001/imageUpload', formData, {
+            'content-Type': 'multipart/form-data',
+    })
+    
+     axios.post('http://localhost:3001/createproduct', {
+            display_photo: state.file.name,
+            name: name,
+            volume: volume,
+            price: price,
+            description: description,
+
+        }).then(() => {
+            // console.log("success");
+            window.location.replace("/app/ProductList");
+            alert("The new product was added successfully.")
+            // document.getElementById("create-course-form").reset();
+        });
+
+    } else
         axios.post('http://localhost:3001/createproduct', {
             display_photo: "https://image.shutterstock.com/image-vector/various-meds-pills-capsules-blisters-600w-1409823341.jpg",
             name: name,
@@ -128,20 +158,6 @@ function Add_Product() {
                 height:'666px',
               },
     };
-    
-    const handleInput =(e) =>{
-        let reader =new FileReader();
-        let file=e.target.files[0]
-        reader.onloadend =() =>{
-          setState({
-            ...state,
-            file:file,
-            display_photo:reader.result,
-            message:""
-          })
-        }
-        reader.readAsDataURL(file);
-      }
 
     return (
         <div style={mystyle.backgroud}  >

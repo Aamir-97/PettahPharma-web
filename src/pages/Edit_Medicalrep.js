@@ -195,7 +195,7 @@ export default function Edit_Medicalrep() {
                         </AccordionSummary>
                     </Accordion><br />
 
-                    <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
+                    {/* <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
                         <AccordionSummary>
                             <Typography className={classes.heading}>Rating</Typography>
                             <Typography className={classes.secondaryHeading}>
@@ -208,7 +208,7 @@ export default function Edit_Medicalrep() {
                                 /> 
                             </Typography>
                         </AccordionSummary>
-                    </Accordion><br />
+                    </Accordion><br /> */}
                 </div>
                     <Button
                         color="primary"

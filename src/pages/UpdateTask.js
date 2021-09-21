@@ -310,6 +310,7 @@ export default function UpdateTask() {
                     <Button
                         color="primary"
                         variant="contained"
+                        size="small"
                         style={mystyle.submitBtn}
                         onClick={() => { update(Dt.task_id, manager_ID) }}
                     > Update</Button>
@@ -317,6 +318,7 @@ export default function UpdateTask() {
                     <Button
                         type="submit"
                         id="submitBtn"
+                        size="small"
                         style={mystyle.closeBtn}
                     > Exit</Button>
                 </Link>

@@ -217,6 +217,7 @@ export default function AllownsComment() {
                         <Button
                             color="primary"
                             variant="contained"
+                            size="small"
                             style={mystyle.submitBtn}
                             onClick={() => { addcomment(expense_ID) }}
                         >
@@ -226,6 +227,7 @@ export default function AllownsComment() {
                     <Button
                         color="primary"
                         variant="contained"
+                        size="small"
                         onClick={() => { addstatus("1", Dt.expense_ID) }}
                         disabled={Dt.status == "1" || Dt.status == "2"}
                         style={mystyle.acceptBtn}>
@@ -234,6 +236,7 @@ export default function AllownsComment() {
                     <Button
                         color="primary"
                         variant="contained"
+                        size="small"
                         onClick={() => { addstatus("2", Dt.expense_ID) }}
                         disabled={Dt.status == "2" || Dt.status == "1"}
                         style={mystyle.rejectBtn}>
@@ -243,6 +246,7 @@ export default function AllownsComment() {
                         <Button
                             type="submit"
                             id="submitBtn"
+                            size="small"
                             style={mystyle.closeBtn}
                         > Exit</Button>
                     </Link>

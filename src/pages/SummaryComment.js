@@ -81,6 +81,7 @@ const mystyle = {
         border: 'none',
         borderRadius: '5px',
         color: 'white',
+        size : "small",
         marginLeft: '380px'
     },
 };
@@ -200,6 +201,7 @@ export default function SummaryComment() {
                     <Button
                         color="primary"
                         variant="contained"
+                        size="small"
                         style={mystyle.submitBtn}
                         onClick={() => { addcomment(report_id) }}
                     >
@@ -210,6 +212,7 @@ export default function SummaryComment() {
                     <Button
                         type="submit"
                         id="submitBtn"
+                        size="small"
                         style={mystyle.closeBtn}
                     > Exit</Button>
                 </Link>

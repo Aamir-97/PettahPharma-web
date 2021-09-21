@@ -218,6 +218,7 @@ export default function LeaveInfo() {
                     <Button
                         color="primary"
                         variant="contained"
+                        size="small"
                         style={mystyle.submitBtn}
                     >
                         Add Reason
@@ -228,6 +229,7 @@ export default function LeaveInfo() {
                       <Button
                         color="primary"
                         variant="contained"
+                        size="small"
                         // onClick={addstatus("Accept", customer.leave_ID)}
                         onClick={()=>{addstatus("1", Dt.leave_ID)}} 
                         disabled={Dt.status == "1" || Dt.status == "2"}
@@ -238,6 +240,7 @@ export default function LeaveInfo() {
                       <Button
                         color="exit"
                         variant="contained"
+                        size="small"
                         onClick={()=>{addstatus("2", Dt.leave_ID)}} 
                         disabled={Dt.status == "1" || Dt.status == "2"} 
                         style={mystyle.rejectBtn}>
@@ -247,6 +250,7 @@ export default function LeaveInfo() {
                             <Button
                                 type="submit"
                                 id="submitBtn"
+                                size="small"
                                 style={mystyle.closeBtn}                      
                             > Exit</Button>
                         </Link>

@@ -200,6 +200,7 @@ const TaskInfo = () => {
                             <Button
                                 color="primary"
                                 variant="contained"
+                                size="small"
                                 style={mystyle.submitBtn}
                                 // disabled={true}
                                 disabled={Dt.status == "Complete"}
@@ -213,6 +214,7 @@ const TaskInfo = () => {
                             <Button
                                 type="submit"
                                 id="submitBtn"
+                                size="small"
                                 style={mystyle.closeBtn}
                             >
                                 <Link to='/appp/dataplan'className={classes.link} >

@@ -212,6 +212,7 @@ export default function AllownsInfo() {
                     <Button
                         color="primary"
                         variant="contained"
+                        size="small"
                         style={mystyle.submitBtn}
                     >
                         Add Reason
@@ -222,6 +223,7 @@ export default function AllownsInfo() {
                       <Button
                         color="primary"
                         variant="contained"
+                        size="small"
                         onClick={()=>{addstatus("1",expense_ID)}} 
                         disabled={Dt.status == "1" || Dt.status == "2"}
                         style={mystyle.acceptBtn}>
@@ -231,6 +233,7 @@ export default function AllownsInfo() {
                       <Button
                         color="primary"
                         variant="contained"
+                        size="small"
                         onClick={()=>{addstatus("0",expense_ID)}} 
                         disabled={Dt.status == "1" || Dt.status == "2"} 
                         style={mystyle.rejectBtn}>
@@ -240,6 +243,7 @@ export default function AllownsInfo() {
                             <Button
                                 type="submit"
                                 id="submitBtn"
+                                size="small"
                                 style={mystyle.closeBtn}                      
                             > Exit</Button>
                         </Link>

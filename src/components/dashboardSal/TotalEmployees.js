@@ -44,7 +44,7 @@ return (
             gutterBottom
             variant="h6"
           >
-            TOTAL Medical Rep
+            TOTAL MEDICAL REPS
           </Typography>
           <Typography
             color="textPrimary"

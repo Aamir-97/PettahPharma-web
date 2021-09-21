@@ -88,7 +88,7 @@ const mystyle = {
 
 
 export default function Edit_Salesmanager() {
-    const manager_ID = window.location.pathname.substring(23, 25);
+    const manager_ID = window.location.pathname.substring(23, 50);
 
     // const [Row, setRow] = useState([]);
     const [name, setName] = useState("");

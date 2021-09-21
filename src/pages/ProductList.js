@@ -180,7 +180,7 @@ const ProductList = ({ rest,props} ) => {
                       </InputAdornment>
                     )
                   }}
-                  placeholder="Search"
+                  placeholder="Search by ID or Name"
                   variant="outlined"
                   onChange={(e) => { setSearchTerm(e.target.value); }}
                   className={classes.textfield}

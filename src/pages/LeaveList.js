@@ -238,6 +238,7 @@ const LeaveList = ({ rest, props }) => {
                                   <Button
                                     color="primary"
                                     variant="contained"
+                                    size="small"
                                     startIcon={<VisibilityIcon />}>
                                     View
                                   </Button>
@@ -248,6 +249,7 @@ const LeaveList = ({ rest, props }) => {
                                   color="edit"
                                   // disabled={year + month + day < { today }}
                                   variant="contained"
+                                  size="small"
                                   startIcon={<AddCommentIcon />}>
                                   <Link to={`/appp/LeaveComment/${customer.leave_ID}`} className={classes.link} >
                                     Add Reason
@@ -258,6 +260,7 @@ const LeaveList = ({ rest, props }) => {
                                 <Button
                                   color="primary"
                                   variant="contained"
+                                  size="small"
                                   // onClick={addstatus("Accept", customer.leave_ID)}
                                   onClick={() => { addstatus("1", customer.leave_ID) }}
                                   disabled={customer.status == "Rejected" ||customer.status == "Accept"}
@@ -268,6 +271,7 @@ const LeaveList = ({ rest, props }) => {
                                 <Button
                                   color="exit"
                                   variant="contained"
+                                  size="small"
                                   onClick={() => { addstatus("2", customer.leave_ID) }}
                                   disabled={customer.status == "Rejected" ||customer.status == "Accept"}
                                   startIcon={<ClearIcon />} >

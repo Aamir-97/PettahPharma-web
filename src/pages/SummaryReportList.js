@@ -253,6 +253,7 @@ const SummaryReportList = (rest, props) => {
                                   <Button
                                     color="primary"
                                     variant="contained"
+                                    size="small"
                                     startIcon={<VisibilityIcon />}>
                                     View
                                   </Button>
@@ -262,6 +263,7 @@ const SummaryReportList = (rest, props) => {
                                   <Button
                                     color="edit"
                                     variant="contained"
+                                    size="small"
                                     startIcon={<AddCommentIcon />}>
                                     Add Comment
                                   </Button>

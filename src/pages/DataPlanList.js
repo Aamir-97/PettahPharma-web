@@ -180,7 +180,7 @@ const DataPlanList = ({ rest, props }) => {
                     startIcon={<PersonAddIcon />}
                   >
                     {/* {today} */}
-                    Asign Task
+                    Assign Task
                   </Button>
                 </Link>
 
@@ -277,6 +277,7 @@ const DataPlanList = ({ rest, props }) => {
                                 <Button
                                   color="primary"
                                   variant="contained"
+                                  size="small"
                                   startIcon={<VisibilityIcon />}>
 
                                   View
@@ -288,6 +289,7 @@ const DataPlanList = ({ rest, props }) => {
                               <Button
                                 color="edit"
                                 variant="contained"
+                                size="small"
                                 disabled={customer.status == "Complete" || customer.status == "Reject" || customer.status == "Accept"}
                                 startIcon={<EditIcon />}
                               >
@@ -300,6 +302,7 @@ const DataPlanList = ({ rest, props }) => {
                               <Button onClick={() => { deleteEmployee(customer.task_id) }}
                                 variant="contained"
                                 color="exit"
+                                size="small"
                                 disabled={customer.status == "Complete" || customer.status == "Reject" || customer.status == "Accept"}
                                 // disabled={true}
                                 className={classes.debutton}

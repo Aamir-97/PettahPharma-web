@@ -275,6 +275,7 @@ return(
                                 <Button
                                   color="primary"
                                   variant="contained"
+                                  size="small"
                                   startIcon={<VisibilityIcon />}>
                                   View
                                 </Button>
@@ -284,6 +285,7 @@ return(
                                 <Button
                                   color="edit"
                                   variant="contained"
+                                  size="small"
                                   startIcon={<AddCommentIcon />}>
                                   Add Reason
                                 </Button>
@@ -292,6 +294,7 @@ return(
                               <Button
                                 color="primary"
                                 variant="contained"
+                                size="small"
                                 // onClick={addstatus("Accept", customer.leave_ID)}
                                 onClick={() => { addstatus("1", customer.expense_ID) }}
                                 disabled={customer.status == "Accept" ||customer.status == "Rejected"}
@@ -302,6 +305,7 @@ return(
                               <Button
                                 color="exit"
                                 variant="contained"
+                                size="small"
                                 onClick={() => { addstatus("2", customer.expense_ID) }}
                                 disabled={customer.status == "Rejected" ||customer.status == "Accept"}
                                 startIcon={<ClearIcon />}>

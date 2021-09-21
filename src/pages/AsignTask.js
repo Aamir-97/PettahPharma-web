@@ -185,7 +185,7 @@ export default function AsignTask() {
         <div className={classes.formbox}>
             <div className={classes.root}>
                 <Grid item xs={12}>
-                    <Paper className={classes.paper}><h1>ASIGN TASK</h1>  </Paper><br />
+                    <Paper className={classes.paper}><h1>ASSIGN TASK</h1>  </Paper><br />
                 </Grid>
                 <div className={classes.root}>
                     <form id="create-course-form">

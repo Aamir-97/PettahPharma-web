@@ -90,7 +90,7 @@ const mystyle = {
 export default function UpdateTask() {
     const task_id = window.location.pathname.substring(17, 19);
 
-    const [Dt, setDt] = useState("");
+    const [Dt, setDt] = useState([]);
     const [GetRep, setGetRep] = useState([])
     const [rep_ID, setRepID] = useState("");
     const [title, setTitle] = useState("");
@@ -174,11 +174,15 @@ export default function UpdateTask() {
         setExpanded(isExpanded ? panel : false);
     };
 
-    const dtt = new Date(Dt.date);
-    const year = dtt.getFullYear() + '-';
-    const month = ('0' + (dtt.getMonth() + 1)).slice(-2) + '-';
-    const day = ('0' + dtt.getDate()).slice(-2);
-    const mydate = (year + month + day)
+    useEffect(() => {
+        const dtt = new Date(date);
+        const year = dtt.getFullYear() + '-';
+        const month = ('0' + (dtt.getMonth() + 1)).slice(-2) + '-';
+        const day = ('0' + dtt.getDate()).slice(-2);
+        // const mydate = (year + month + day)
+        setDate(year+month+day)
+}, [date]);
+    
     return (
         <div className={classes.backgroud}>
         <div className={classes.formbox}>
@@ -198,7 +202,7 @@ export default function UpdateTask() {
                                 <input
                                     type="date"
                                     min={today}
-                                    defaultValue={mydate}
+                                    value={date}
                                     onChange={(event) => { setDate(event.target.value); }}
                                     style={mystyle.forminput}
                                     required
@@ -257,7 +261,7 @@ export default function UpdateTask() {
                             <Typography className={classes.secondaryHeading}>
                                 <input
                                     type="text"
-                                    defaultValue={Dt.title}
+                                    defaultValue={title}
                                     required
                                     onChange={(event) => { setTitle(event.target.value); }}
                                     style={mystyle.forminput}

@@ -105,10 +105,8 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_ID`, `name`, `quantity`, `price`, `description`) VALUES
-(1, 'Panadol', 150, 10, 'Used for Fever, Headache'),
-(2, 'Amoxicillin', 100, 25, 'Used as antibiotic'),
-(3, 'Metformin', 150, 20, 'Used for type 2 diabetes');
+'1', 'Promotion', 'Colombo', '2021-08-15', '1', '50', 'Gave some sample to promote', NULL, '', '125', '2', NULL, '0000-00-00'
+
 
 -- --------------------------------------------------------
 

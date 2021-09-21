@@ -90,7 +90,7 @@ function ExpenseAnalysis() {
       {
         backgroundColor: colors.teal[100],
         data:   expense3,
-        label: 'Daily Expenses'
+        label: 'Daily Batta'
       },
       { 
         backgroundColor: colors.teal[200],

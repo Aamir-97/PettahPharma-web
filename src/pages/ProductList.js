@@ -180,7 +180,7 @@ const ProductList = ({ rest,props} ) => {
                       </InputAdornment>
                     )
                   }}
-                  placeholder="Search"
+                  placeholder="Search by ID or Name"
                   variant="outlined"
                   onChange={(e) => { setSearchTerm(e.target.value); }}
                   className={classes.textfield}
@@ -230,7 +230,7 @@ const ProductList = ({ rest,props} ) => {
                       <TableCell align="center">{Row.name}</TableCell>
                       <TableCell align="center">{Row.volume}</TableCell>
                       <TableCell align="center">{Row.price}.00</TableCell>
-                      <TableCell align="center">{Row.description}</TableCell>
+                      <TableCell >{Row.description}</TableCell>
                        <TableCell align="center">
                         <Link to={`/app/Edit_Product/${Row.product_id}`}  >
                           <Button

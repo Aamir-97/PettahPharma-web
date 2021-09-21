@@ -1169,7 +1169,7 @@ app.get('/reprejectTaskCount', (req, res) => {
 
 app.get('/repvisitanalysis', (req, res) => {
     const manager_ID = req.query.manager_ID;
-    db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(report_id) AS count FROM visit_summary_report WHERE manager_ID=? GROUP BY month', [manager_ID], (err, result) => {
+    db.query('SELECT EXTRACT(MONTH FROM date) AS month, COUNT(report_id) AS count FROM visit_summary_report WHERE manager_ID=? GROUP BY month ORDER BY month ASC', [manager_ID], (err, result) => {
         if (err) {
             console.log(err)
         } else {

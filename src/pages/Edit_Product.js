@@ -112,28 +112,48 @@ export default function Edit_Product({navigation}) {
     
     const edit_Product = (product_id) => {
 
+
         if (state.file) {
             let formData = new FormData();
             formData.append('file', state.file)
             axios.post('http://localhost:3001/imageUpload', formData, {
                 'content-Type': 'multipart/form-data',
-        })
+            })
 
-        axios.post("http://localhost:3001/updateproduct", 
-        { display_photo: display_photo, 
-            name: name,  
-            volume: volume, 
-            price: price, 
-            description: description, 
-            product_id: product_id 
-        }).then(
-() => { 
-            window.location.replace('/app/ProductList');
-            alert("The new product was updated successfully.")
+            axios.post("http://localhost:3001/updateproduct",
+                {
+                    display_photo: state.file.name,
+                    name: name,
+                    volume: volume,
+                    price: price,
+                    description: description,
+                    product_id: product_id
+                }).then(
+                    () => {
+                        window.location.replace('/app/ProductList');
+                        alert("The new product was updated successfully.")
+                    }
+                )
 
-            }
-        )
-     }
+        }
+        else
+        {
+            axios.post("http://localhost:3001/updateproduct",
+                {
+                    display_photo: display_photo,
+                    name: name,
+                    volume: volume,
+                    price: price,
+                    description: description,
+                    product_id: product_id
+                }).then(
+                    () => {
+                        window.location.replace('/app/ProductList');
+                        alert("The new product was updated successfully.")
+                    }
+                )
+        }
+    
 };
 
     useEffect(() => {

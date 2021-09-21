@@ -52,7 +52,7 @@ function Add_Product() {
 
     } else
         axios.post('http://localhost:3001/createproduct', {
-            display_photo: "https://image.shutterstock.com/image-vector/various-meds-pills-capsules-blisters-600w-1409823341.jpg",
+            display_photo: "aspirine500.jpg",
             name: name,
             volume: volume,
             price: price,
@@ -60,8 +60,8 @@ function Add_Product() {
 
         }).then(() => {
             // console.log("success");
-            window.location.replace("/app/ProductList");
             alert("The new product was added successfully.")
+            window.location.replace("/app/ProductList");
             // document.getElementById("create-course-form").reset();
         });
 
